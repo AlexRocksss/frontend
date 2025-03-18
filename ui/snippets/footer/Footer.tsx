@@ -1,7 +1,7 @@
 import type { GridProps } from '@chakra-ui/react';
 import { Box, Grid, Flex, Text, Link, VStack, Skeleton, Icon } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import pegoLogo from 'public/assets/pego-network-explorer.svg';
+import footerLogo from 'public/assets/footer-logo.svg';
 import React from 'react';
 
 import type { CustomLinksGroup } from 'types/footerLinks';
@@ -32,11 +32,11 @@ const Footer = () => {
   const BLOCKSCOUT_LINKS = [
     {
       text: 'About',
-      url: 'https://pego.network/',
+      url: 'https://eniac.network/',
     },
     {
       text: 'Github',
-      url: 'https://github.com/pego-labs/pego-chain',
+      url: 'https://github.com/',
     },
   ];
 
@@ -83,7 +83,7 @@ const Footer = () => {
   const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
     return (
       <Box gridArea={ gridArea }>
-        <Icon as={ pegoLogo } mr={ 1 } w="120px" h="20px" display="inline-block" verticalAlign="middle"/>
+        <Icon as={ footerLogo } mr={ 1 } w="120px" h="20px" display="inline-block" verticalAlign="middle"/>
         <Text mt={ 3 } fontSize="xs">
           { config.t()("footer-text-1") }
         </Text>
@@ -112,7 +112,7 @@ const Footer = () => {
   };
 
   const localeMessages: any = {
-    "Pego Network": config.t()('Pego Network'),
+    "Network Name": config.t()('Network Name'),
     "Community": config.t()('Community'),
     "About": config.t()('About'),
     "Github": config.t()('Github'),
@@ -141,7 +141,7 @@ const Footer = () => {
         >
           {
             ([
-              { title: 'Pego Network', links: BLOCKSCOUT_LINKS },
+              { title: 'ENI Network', links: BLOCKSCOUT_LINKS },
               ...(linksData || []),
             ])
               .slice(0, colNum)

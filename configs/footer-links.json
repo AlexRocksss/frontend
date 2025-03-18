@@ -1,19 +1,23 @@
 [
-    {
-      "title": "Community",
-      "links": [
-        {
-          "text": "Twitter",
-          "url": "https://twitter.com/pegonetwork/"
-        },
-        {
-          "text": "Telegram",
-          "url": "https://t.me/pegoofficial"
-        },
-        {
-          "text": "Discord",
-          "url": "https://discord.com/invite/Y92ktaJq"
-        }
-      ]
-    }
-  ]
+  {
+    "title": "Community",
+    "links": [
+      {
+        "text": "X Platform",
+        "url": "https://x.com/ENI__Official"
+      },
+      {
+        "text": "Telegram",
+        "url": "https://t.me/ENI_Channel"
+      },
+      {
+        "text": "Discord",
+        "url": "https://discord.com/channels/1326873798749978624/1326877115785805824"
+      },
+      {
+        "text": "LinkedIn",
+        "url": "https://www.linkedin.com/company/eniaclabs"
+      }
+    ]
+  }
+]
