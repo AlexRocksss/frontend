@@ -141,7 +141,7 @@ const Footer = () => {
         >
           {
             ([
-              { title: 'ENI Network', links: BLOCKSCOUT_LINKS },
+              { title: 'Network Name', links: BLOCKSCOUT_LINKS },
               ...(linksData || []),
             ])
               .slice(0, colNum)
