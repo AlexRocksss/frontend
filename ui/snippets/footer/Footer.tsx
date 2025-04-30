@@ -83,7 +83,7 @@ const Footer = () => {
   const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
     return (
       <Box gridArea={ gridArea }>
-        <Icon as={ footerLogo } mr={ 1 } w="120px" h="20px" display="inline-block" verticalAlign="middle"/>
+        <Icon as={ footerLogo } mr={ 1 } w="50px" h="20px" display="inline-block" verticalAlign="middle"/>
         <Text mt={ 3 } fontSize="xs">
           { config.t()("footer-text-1") }
         </Text>
