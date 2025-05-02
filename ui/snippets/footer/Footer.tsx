@@ -36,7 +36,7 @@ const Footer = () => {
     },
     {
       text: 'Github',
-      url: 'https://github.com/',
+      url: 'https://github.com/eni-chain',
     },
   ];
 
@@ -90,7 +90,7 @@ const Footer = () => {
         <VStack spacing={ 1 } mt={ 6 } alignItems="start">
           { apiVersionUrl && (
             <Text fontSize="xs">
-              Version: 2.0
+              Version: 1.0
             </Text>
           ) }
           { frontendLink && (
