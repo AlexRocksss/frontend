@@ -1,7 +1,8 @@
 import type { GridProps } from '@chakra-ui/react';
-import { Box, Grid, Flex, Text, Link, VStack, Skeleton, Icon } from '@chakra-ui/react';
+import { Box, Grid, Flex, Text, Link, VStack, Skeleton, Icon, useColorMode } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import footerLogo from 'public/assets/footer-logo.svg';
+import footerLogoDark from 'public/assets/footer-logo-dark.svg';
 import React from 'react';
 
 import type { CustomLinksGroup } from 'types/footerLinks';
@@ -81,9 +82,11 @@ const Footer = () => {
   }, []);
 
   const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
+    const { colorMode } = useColorMode();
+    const selectedLogo = colorMode === "dark" ? footerLogoDark : footerLogo;
     return (
       <Box gridArea={ gridArea }>
-        <Icon as={ footerLogo } mr={ 1 } w="50px" h="20px" display="inline-block" verticalAlign="middle"/>
+        <Icon as={ selectedLogo } mr={ 1 } w="50px" h="20px" display="inline-block" verticalAlign="middle"/>
         <Text mt={ 3 } fontSize="xs">
           { config.t()("footer-text-1") }
         </Text>
