@@ -1,7 +1,7 @@
 import type { GridProps } from '@chakra-ui/react';
 import { Box, Grid, Flex, Text, Link, VStack, Skeleton, Icon } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import networkLogo from 'public/assets/network-explorer.svg';
+import networkLogo from 'public/assets/footer-logo.svg';
 import React from 'react';
 
 import type { CustomLinksGroup } from 'types/footerLinks';
@@ -32,7 +32,7 @@ const Footer = () => {
   const BLOCKSCOUT_LINKS = [
     {
       text: 'About',
-      url: 'https://pandorachain.org/#/',
+      url: 'https://im.herachat.net/#/',
     },
     {
       text: 'Github',
@@ -112,7 +112,7 @@ const Footer = () => {
   };
 
   const localeMessages: any = {
-    "Pandora": config.t()('Network'),
+    "Network Name": config.t()('Network'),
     "Community": config.t()('Community'),
     "About": config.t()('About'),
     "Github": config.t()('Github'),
@@ -141,7 +141,7 @@ const Footer = () => {
         >
           {
             ([
-              { title: 'Pandora', links: BLOCKSCOUT_LINKS },
+              { title: 'Network Name', links: BLOCKSCOUT_LINKS },
               ...(linksData || []),
             ])
               .slice(0, colNum)
