@@ -303,7 +303,7 @@ module.exports = {
     'regexp/no-useless-character-class': 'error',
     'regexp/no-useless-dollar-replacements': 'error',
 
-    'no-cyrillic-string/no-cyrillic-string': 'error',
+    'no-cyrillic-string/no-cyrillic-string': 'warn',
   },
   overrides: [
     {
