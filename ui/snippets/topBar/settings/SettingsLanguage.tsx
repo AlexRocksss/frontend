@@ -25,9 +25,12 @@ const SettingsLanguage = () => {
   const firstRow = LOCALES.slice(0, half);
   const secondRow = LOCALES.slice(half);
 
+  const activeLocale = LOCALES.find((locale) => locale.id === activeId);
+
   return (
     <div>
       <Box fontWeight={ 600 }>{ config.t()('Languages') }</Box>
+      <Box color="text_secondary" mt={ 1 } mb={ 2 }>{ activeLocale?.label }</Box>
       <Flex>
         { firstRow.map((locale) => (
           <SettingsSample

@@ -177,7 +177,7 @@
   "footer-text-1": "ENI - ゼロ知識証明（ZKP）技術を核に構築された高性能なエンタープライズ向けWeb3ブロックチェーンであり、モジュール化されたマルチチェーンアーキテクチャを通じて、メインネットワークとAppChainの連携により、企業や開発者に対して高度にスケーラブルなインフラを提供します。",
   "Color theme": "カラーテーマ",
   "Address identicon": "アドレスアイデンティコン",
-  "Languages": "言語",
+  "Languages": "Languages (言語)",
   "Balances": "残高",
   "Tokens transferred": "送信されたトークン",
   "Tokens burnt": "焼却されたトークン",
