@@ -28,6 +28,29 @@ const EntityTags = ({ tags, className, isLoading }: Props) => {
   }
 
   const content = (() => {
+    const styledTags = tags.map(tag => {
+      if (tag.slug === 'scam') {
+        return {
+          ...tag,
+          meta: {
+            ...(tag.meta || {}),
+            textColor: '#c53030',
+            bgColor: '#ffebeb',
+          },
+        };
+      } else {
+        return {
+          ...tag,
+          meta: {
+            ...(tag.meta || {}),
+            textColor: '#333',
+            bgColor: '#f1f1f1',
+          },
+        };
+      }
+    });
+    tags = styledTags;
+
     if (tags.length > visibleNum) {
       return (
         <>

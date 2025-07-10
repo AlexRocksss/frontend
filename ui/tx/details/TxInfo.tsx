@@ -69,9 +69,9 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
   const [ isExpanded, setIsExpanded ] = React.useState(false);
 
   const localeMessages = {
-    "Raw input": config.t()("Raw input"),
-    "Decoded input data": config.t()("Decoded input data")
-  }
+    'Raw input': config.t()('Raw input'),
+    'Decoded input data': config.t()('Decoded input data'),
+  };
 
   const handleCutClick = React.useCallback(() => {
     setIsExpanded((flag) => !flag);
@@ -90,14 +90,30 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
     ...data.from.private_tags || [],
     ...data.from.public_tags || [],
     ...data.from.watchlist_names || [],
-  ].map((tag) => <Tag key={ tag.label }>{ tag.display_name }</Tag>);
+  ].map((tag) => (
+    <Tag style={{
+      backgroundColor: tag.label.toLowerCase() === 'scam' ? '#ffebeb' : '#f1f1f1',
+      color: tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333',
+    }} key={ tag.label }>
+      <IconSvg name="publictags_slim" boxSize={ 3 } mr={ 1 } flexShrink={ 0 } color={ tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333' }/>
+      { tag.display_name }
+    </Tag>
+  ));
 
   const toAddress = data.to ? data.to : data.created_contract;
   const addressToTags = [
     ...toAddress?.private_tags || [],
     ...toAddress?.public_tags || [],
     ...toAddress?.watchlist_names || [],
-  ].map((tag) => <Tag key={ tag.label }>{ tag.display_name }</Tag>);
+  ].map((tag) => (
+    <Tag style={{
+      backgroundColor: tag.label.toLowerCase() === 'scam' ? '#ffebeb' : '#f1f1f1',
+      color: tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333',
+    }} key={ tag.label }>
+      <IconSvg name="publictags_slim" boxSize={ 3 } mr={ 1 } flexShrink={ 0 } color={ tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333' }/>
+      { tag.display_name }
+    </Tag>
+  ));
 
   const executionSuccessBadge = toAddress?.is_contract && data.result === 'success' ? (
     <Tooltip label="Contract execution completed">
@@ -704,7 +720,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
           <DetailsInfoItem.Label
             hint="Binary data included with the transaction. See logs tab for additional info"
           >
-            { localeMessages["Raw input"] }
+            { localeMessages['Raw input'] }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <RawInputData hex={ data.raw_input }/>
@@ -715,7 +731,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
               <DetailsInfoItem.Label
                 hint="Decoded input data"
               >
-                { localeMessages["Decoded input data"] }
+                { localeMessages['Decoded input data'] }
               </DetailsInfoItem.Label>
               <DetailsInfoItem.Value>
                 <LogDecodedInputData data={ data.decoded_input }/>

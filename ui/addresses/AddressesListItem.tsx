@@ -9,6 +9,7 @@ import { ZERO } from 'lib/consts';
 import { currencyUnits } from 'lib/units';
 import Tag from 'ui/shared/chakra/Tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
+import IconSvg from 'ui/shared/IconSvg';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 
 type Props = {
@@ -28,10 +29,10 @@ const AddressesListItem = ({
   const addressBalance = BigNumber(item.coin_balance).div(BigNumber(10 ** config.chain.currency.decimals));
 
   const localeMessages = {
-    "Balance": config.t()("Balance"),
-    "Percentage": config.t()("Percentage"),
-    "Txn count": config.t()("Txn count")
-  }
+    Balance: config.t()('Balance'),
+    Percentage: config.t()('Percentage'),
+    'Txn count': config.t()('Txn count'),
+  };
 
   return (
     <ListItemMobile rowGap={ 3 }>
@@ -48,24 +49,34 @@ const AddressesListItem = ({
         </Skeleton>
       </Flex>
       { item.public_tags !== null && item.public_tags.length > 0 && item.public_tags.map(tag => (
-        <Tag key={ tag.label } isLoading={ isLoading }>{ tag.display_name }</Tag>
+        <Tag
+          style={{
+            backgroundColor: tag.label.toLowerCase() === 'scam' ? '#ffebeb' : '#f1f1f1',
+            color: tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333',
+          }}
+          key={ tag.label } isLoading={ isLoading }>
+          <IconSvg name="publictags_slim" boxSize={ 3 } mr={ 1 } flexShrink={ 0 } color={ tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333' }/>
+          { tag.display_name }
+        </Tag>
       )) }
       <HStack spacing={ 3 } maxW="100%" alignItems="flex-start">
-        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>{ `${ localeMessages["Balance"] } ${ currencyUnits.ether }` }</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>
+          { `${ localeMessages['Balance'] } ${ currencyUnits.ether }` }
+        </Skeleton>
         <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary" minW="0" whiteSpace="pre-wrap">
           <span>{ addressBalance.dp(8).toFormat() }</span>
         </Skeleton>
       </HStack>
       { !totalSupply.eq(ZERO) && (
         <HStack spacing={ 3 }>
-          <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["Percentage"] }</Skeleton>
+          <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages['Percentage'] }</Skeleton>
           <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary">
             <span>{ addressBalance.div(BigNumber(totalSupply)).multipliedBy(100).dp(8).toFormat() + '%' }</span>
           </Skeleton>
         </HStack>
       ) }
       <HStack spacing={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["Txn count"] }</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages['Txn count'] }</Skeleton>
         <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary">
           <span>{ Number(item.tx_count).toLocaleString() }</span>
         </Skeleton>

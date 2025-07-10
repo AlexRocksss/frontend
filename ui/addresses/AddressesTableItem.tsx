@@ -7,6 +7,7 @@ import type { AddressesItem } from 'types/api/addresses';
 import config from 'configs/app';
 import Tag from 'ui/shared/chakra/Tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
+import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {
   item: AddressesItem;
@@ -44,7 +45,15 @@ const AddressesTableItem = ({
       </Td>
       <Td pl={ 10 }>
         { item.public_tags && item.public_tags.length ? item.public_tags.map(tag => (
-          <Tag key={ tag.label } isLoading={ isLoading } isTruncated>{ tag.display_name }</Tag>
+          <Tag style={{
+            margin: '2px 5px 2px 5px',
+            backgroundColor: tag.label.toLowerCase() === 'scam' ? '#ffebeb' : '#f1f1f1',
+            color: tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333',
+          }}
+          key={ tag.label } isLoading={ isLoading } isTruncated>
+            <IconSvg name="publictags_slim" boxSize={ 3 } mr={ 1 } flexShrink={ 0 } color={ tag.label.toLowerCase() === 'scam' ? '#c53030' : '#333' }/>
+            { tag.display_name }
+          </Tag>
         )) : null }
       </Td>
       <Td isNumeric>

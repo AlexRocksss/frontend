@@ -201,9 +201,18 @@ const AddressPageContent = () => {
         subTabs: contractTabs.tabs.map(tab => tab.id),
       } : undefined,
     ].filter(Boolean);
-  }, [ addressQuery.data, contractTabs, addressTabsCountersQuery.data, userOpsAccountQuery.data, isTabsLoading ]);
+  }, [ addressQuery.data, contractTabs, addressTabsCountersQuery.data, userOpsAccountQuery.data, isTabsLoading]);
 
   const tags: Array<EntityTag> = React.useMemo(() => {
+    const publicTags: EntityTag[] = (addressQuery.data?.public_tags || [])
+    .filter(tag => tag.address_hash.toLowerCase() === hash.toLowerCase())
+    .map(tag => ({
+      slug: tag.label.toLowerCase().replace(/\s+/g, '_'),
+      name: tag.display_name,
+      tagType: 'name' as const,
+      ordinal: -20,
+    }));
+
     return [
       !addressQuery.data?.is_contract ? { slug: 'eoa', name: 'EOA', tagType: 'custom' as const, ordinal: -1 } : undefined,
       config.features.validators.isEnabled && addressQuery.data?.has_validated_blocks ?
@@ -217,6 +226,7 @@ const AddressPageContent = () => {
         undefined,
       ...formatUserTags(addressQuery.data),
       ...(addressMetadataQuery.data?.addresses?.[hash.toLowerCase()]?.tags || []),
+      ...publicTags,
     ].filter(Boolean).sort(sortEntityTags);
   }, [ addressMetadataQuery.data, addressQuery.data, hash, isSafeAddress, userOpsAccountQuery.data ]);
 
