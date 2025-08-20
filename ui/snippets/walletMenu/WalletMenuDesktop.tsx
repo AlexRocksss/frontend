@@ -13,6 +13,7 @@ import useMenuButtonColors from '../useMenuButtonColors';
 import WalletIdenticon from './WalletIdenticon';
 import WalletTooltip from './WalletTooltip';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   isHomePage?: boolean;
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const WalletMenuDesktop = ({ isHomePage, className, size = 'md' }: Props) => {
+  const t = useTranslations();
   const { isWalletConnected, address, connect, disconnect, isModalOpening, isModalOpen, openModal } = useWallet({ source: 'Header' });
   const { themedBackground, themedBackgroundOrange, themedBorderColor, themedColor } = useMenuButtonColors();
   const [ isPopoverOpen, setIsPopoverOpen ] = useBoolean(false);
@@ -28,7 +30,7 @@ const WalletMenuDesktop = ({ isHomePage, className, size = 'md' }: Props) => {
   const { isAutoConnectDisabled } = useMarketplaceContext();
 
   const localeMessages = {
-    "Connect wallet": config.t()("Connect wallet")
+    "Connect wallet": t("Connect wallet")
   }
 
   const variant = React.useMemo(() => {

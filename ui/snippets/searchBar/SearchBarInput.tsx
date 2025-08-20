@@ -8,6 +8,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import ClearButton from 'ui/shared/ClearButton';
 import IconSvg from 'ui/shared/IconSvg';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   onChange: (value: string) => void;
@@ -25,6 +26,7 @@ const SearchBarInput = (
   { onChange, onSubmit, isHomepage, isSuggestOpen, onFocus, onBlur, onHide, onClear, value }: Props,
   ref: React.ForwardedRef<HTMLFormElement>,
 ) => {
+  const t = useTranslations();
   const innerRef = React.useRef<HTMLFormElement>(null);
   React.useImperativeHandle(ref, () => innerRef.current as HTMLFormElement, []);
   const [ isSticky, setIsSticky ] = React.useState(false);
@@ -104,7 +106,7 @@ const SearchBarInput = (
               paddingRight: '36px',
             },
           }}
-          placeholder={ isMobile ? config.t()('search-placeholder-mobile') : config.t()('search-placeholder') }
+          placeholder={ isMobile ? t('search-placeholder-mobile') : t('search-placeholder') }
           onChange={ handleChange }
           border={ isHomepage ? 'none' : '2px solid' }
           borderColor={ useColorModeValue('blackAlpha.100', 'whiteAlpha.200') }

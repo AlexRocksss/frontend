@@ -34,10 +34,12 @@ import TokenHolders from 'ui/token/TokenHolders/TokenHolders';
 import TokenTransfer from 'ui/token/TokenTransfer/TokenTransfer';
 import TokenInstanceDetails from 'ui/tokenInstance/TokenInstanceDetails';
 import TokenInstanceMetadata from 'ui/tokenInstance/TokenInstanceMetadata';
+import { useTranslations } from 'next-intl';
 
 export type TokenTabs = 'token_transfers' | 'holders'
 
 const TokenInstanceContent = () => {
+  const t = useTranslations();
   const router = useRouter();
   const isMobile = useIsMobile();
   const appProps = useAppContext();
@@ -117,13 +119,13 @@ const TokenInstanceContent = () => {
   const tabs: Array<RoutedTab> = [
     {
       id: 'token_transfers',
-      title: `${ config.t()('Token transfers') }`,
+      title: `${ t('Token transfers') }`,
       component: <TokenTransfer transfersQuery={ transfersQuery } tokenId={ id } token={ tokenQuery.data } shouldRender={ !isLoading }/>,
     },
     shouldFetchHolders ?
       { id: 'holders', title: 'Holders', component: <TokenHolders holdersQuery={ holdersQuery } token={ tokenQuery.data } shouldRender={ !isLoading }/> } :
       undefined,
-    { id: 'metadata', title: `${ config.t()('Metadata') }`, component: (
+    { id: 'metadata', title: `${ t('Metadata') }`, component: (
       <TokenInstanceMetadata
         data={ tokenInstanceQuery.data?.metadata }
         isPlaceholderData={ isLoading }

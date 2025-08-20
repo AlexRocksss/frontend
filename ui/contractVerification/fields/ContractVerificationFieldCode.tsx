@@ -10,6 +10,7 @@ import InputPlaceholder from 'ui/shared/InputPlaceholder';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   isVyper?: boolean;
@@ -17,6 +18,7 @@ interface Props {
 
 const ContractVerificationFieldCode = ({ isVyper }: Props) => {
   const { formState, control } = useFormContext<FormFields>();
+  const t = useTranslations();
 
   const renderControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'code'>}) => {
     const error = 'code' in formState.errors ? formState.errors.code : undefined;
@@ -29,7 +31,7 @@ const ContractVerificationFieldCode = ({ isVyper }: Props) => {
           isDisabled={ formState.isSubmitting }
           required
         />
-        <InputPlaceholder text={ config.t()("Contract code") }/>
+        <InputPlaceholder text={ t("Contract code") }/>
         { error?.message && <FieldError message={ error?.message }/> }
       </FormControl>
     );
@@ -45,9 +47,9 @@ const ContractVerificationFieldCode = ({ isVyper }: Props) => {
       />
       { isVyper ? null : (
         <>
-          <span>{ config.t()('contract-code-1') }</span>
+          <span>{ t('contract-code-1') }</span>
           <Link href="https://github.com/poanetwork/solidity-flattener" target="_blank">POA solidity flattener</Link>
-          <span>{ config.t()('contract-code-2') }</span>
+          <span>{ t('contract-code-2') }</span>
           <Link href="https://www.npmjs.com/package/truffle-flattener" target="_blank">Truffle flattener</Link>
         </>
       ) }

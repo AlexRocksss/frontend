@@ -20,6 +20,7 @@ import TokenNftMarketplaces from 'ui/token/TokenNftMarketplaces';
 import TokenInstanceCreatorAddress from './details/TokenInstanceCreatorAddress';
 import TokenInstanceMetadataInfo from './details/TokenInstanceMetadataInfo';
 import TokenInstanceTransfersCount from './details/TokenInstanceTransfersCount';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data?: TokenInstance;
@@ -29,13 +30,14 @@ interface Props {
 }
 
 const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
+  const t = useTranslations();
   const { value: isActionButtonExperiment } = useFeatureValue('action_button_exp', false);
   const appActionData = useAppActionData(token?.address, isActionButtonExperiment && !isLoading);
   const isMounted = useIsMounted();
 
   const localeMessages = {
-    "Owner": config.t()("Owner"),
-    "Token": config.t()("Token")
+    "Owner": t("Owner"),
+    "Token": t("Token")
   }
 
   const handleCounterItemClick = React.useCallback(() => {

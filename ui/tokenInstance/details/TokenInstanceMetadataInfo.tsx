@@ -10,6 +10,7 @@ import DetailsInfoItemDivider from 'ui/shared/DetailsInfoItemDivider';
 import LinkExternal from 'ui/shared/links/LinkExternal';
 import TruncatedValue from 'ui/shared/TruncatedValue';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data?: TokenInstance;
@@ -64,6 +65,7 @@ const Item = ({ data, isLoading }: ItemProps) => {
 };
 
 const TokenInstanceMetadataInfo = ({ data, isLoading }: Props) => {
+  const t = useTranslations();
   const metadata = React.useMemo(() => parseMetadata(data?.metadata), [ data ]);
   const hasMetadata = metadata && Boolean((metadata.name || metadata.description || metadata.attributes));
 
@@ -72,9 +74,9 @@ const TokenInstanceMetadataInfo = ({ data, isLoading }: Props) => {
   }
 
   const localeMessages = {
-    "Name": config.t()("Name"),
-    "Description": config.t()("Description"),
-    "Attributes": config.t()("Attributes")
+    "Name": t("Name"),
+    "Description": t("Description"),
+    "Attributes": t("Attributes")
   }
 
   return (

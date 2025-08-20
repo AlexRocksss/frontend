@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useIsMounted from 'lib/hooks/useIsMounted';
 import getQueryParamString from 'lib/router/getQueryParamString';
@@ -78,15 +79,16 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
   }
 
   const data = addressQuery.isError ? error404Data : addressQuery.data;
+  const t = useTranslations();
   const localeMessages = {
-    "Tokens": config.t()('Tokens'),
-    "Net worth": config.t()('Net worth'),
-    "Transactions": config.t()('Transactions'),
-    "Transfers": config.t()('Transfers'),
-    "Gas used": config.t()('Gas used'),
-    "Blocks validated": config.t()('Blocks validated'),
-    "Last balance update": config.t()('Last balance update'),
-    "Creator": config.t()('Creator')
+    "Tokens": t('Tokens'),
+    "Net worth": t('Net worth'),
+    "Transactions": t('Transactions'),
+    "Transfers": t('Transfers'),
+    "Gas used": t('Gas used'),
+    "Blocks validated": t('Blocks validated'),
+    "Last balance update": t('Last balance update'),
+    "Creator": t('Creator')
   };
 
   if (!data || !isMounted) {

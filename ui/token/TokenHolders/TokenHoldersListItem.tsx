@@ -8,6 +8,7 @@ import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
 import Utilization from 'ui/shared/Utilization/Utilization';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   holder: TokenHolder;
@@ -16,12 +17,13 @@ interface Props {
 }
 
 const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
+  const t = useTranslations();
   const quantity = BigNumber(holder.value).div(BigNumber(10 ** Number(token.decimals))).dp(6).toFormat();
 
   const localeMessages = {
-    "Address": config.t()("Address"),
-    "Quantity": config.t()("Quantity"),
-    "Percentage": config.t()("Percentage")
+    "Address": t("Address"),
+    "Quantity": t("Quantity"),
+    "Percentage": t("Percentage")
   }
 
   return (

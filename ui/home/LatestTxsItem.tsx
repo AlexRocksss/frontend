@@ -21,6 +21,7 @@ import TxFeeStability from 'ui/shared/tx/TxFeeStability';
 import TxWatchListTags from 'ui/shared/tx/TxWatchListTags';
 import TxAdditionalInfo from 'ui/txs/TxAdditionalInfo';
 import TxType from 'ui/txs/TxType';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   tx: Transaction;
@@ -28,6 +29,7 @@ type Props = {
 }
 
 const LatestTxsItem = ({ tx, isLoading }: Props) => {
+  const t = useTranslations();
   const dataTo = tx.to ? tx.to : tx.created_contract;
   const timeAgo = useTimeAgoIncrement(tx.timestamp || '0', true);
   const columnNum = config.UI.views.tx.hiddenFields?.value && config.UI.views.tx.hiddenFields?.tx_fee ? 2 : 3;
@@ -89,13 +91,13 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
       <Flex flexDir="column">
         { !config.UI.views.tx.hiddenFields?.value && (
           <Skeleton isLoaded={ !isLoading } my="3px">
-            <Text as="span" whiteSpace="pre">{config.t()('Value')} </Text>
+            <Text as="span" whiteSpace="pre">{t('Value')} </Text>
             <Text as="span" variant="secondary">{ getValueWithUnit(tx.value).dp(5).toFormat() } { currencyUnits.ether }</Text>
           </Skeleton>
         ) }
         { !config.UI.views.tx.hiddenFields?.tx_fee && (
           <Skeleton isLoaded={ !isLoading } display="flex" whiteSpace="pre" my="3px">
-            <Text as="span">{config.t()('Fee')} </Text>
+            <Text as="span">{t('Fee')} </Text>
             { tx.stability_fee ? (
               <TxFeeStability data={ tx.stability_fee } accuracy={ 5 } color="text_secondary" hideUsd/>
             ) : (

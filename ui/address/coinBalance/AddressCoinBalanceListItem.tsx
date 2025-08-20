@@ -11,6 +11,7 @@ import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 type Props = AddressCoinBalanceHistoryItem & {
   page: number;
@@ -21,11 +22,11 @@ const AddressCoinBalanceListItem = (props: Props) => {
   const deltaBn = BigNumber(props.delta).div(WEI);
   const isPositiveDelta = deltaBn.gte(ZERO);
   const timeAgo = useTimeAgoIncrement(props.block_timestamp, props.page === 1);
-
+  const t = useTranslations();
   const localeMessages = {
-    "Block": config.t()("Block"),
-    "Txs": config.t()("Txs"),
-    "Age": config.t()("Age"),
+    "Block": t("Block"),
+    "Txs": t("Txs"),
+    "Age": t("Age"),
   }
 
   return (

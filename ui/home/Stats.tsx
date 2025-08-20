@@ -13,11 +13,13 @@ import GasPrice from 'ui/shared/gas/GasPrice';
 import IconSvg from 'ui/shared/IconSvg';
 
 import StatsItem from './StatsItem';
+import { useTranslations } from 'next-intl';
 
 const hasAvgBlockTime = config.UI.homepage.showAvgBlockTime;
 const rollupFeature = config.features.rollup;
 
 const Stats = () => {
+  const t = useTranslations();
   const [ hasGasTracker, setHasGasTracker ] = React.useState(config.features.gasTracker.isEnabled);
   const { data, isPlaceholderData, isError, dataUpdatedAt } = useApiQuery('stats', {
     queryOptions: {
@@ -27,11 +29,11 @@ const Stats = () => {
   });
 
   const localeMessages = {
-    "Total blocks": config.t()("Total blocks"),
-    "Average block time": config.t()("Average block time"),
-    "Total transactions": config.t()("Total transactions"),
-    "Wallet addresses": config.t()("Wallet addresses"),
-    "Gas tracker": config.t()("Gas tracker")
+    "Total blocks": t("Total blocks"),
+    "Average block time": t("Average block time"),
+    "Total transactions": t("Total transactions"),
+    "Wallet addresses": t("Wallet addresses"),
+    "Gas tracker": t("Gas tracker")
   }
 
   React.useEffect(() => {

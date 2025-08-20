@@ -11,6 +11,7 @@ import Tag from 'ui/shared/chakra/Tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   token: TokenInfo;
@@ -29,6 +30,7 @@ const TokensTableItem = ({
   index,
   isLoading,
 }: Props) => {
+  const t = useTranslations();
 
   const {
     address,
@@ -44,8 +46,8 @@ const TokensTableItem = ({
     undefined;
 
   const localeMessages = {
-    "On-chain market cap": config.t()("On-chain market cap"),
-    "Holders": config.t()("Holders")
+    "On-chain market cap": t("On-chain market cap"),
+    "Holders": t("Holders")
   }
 
   return (

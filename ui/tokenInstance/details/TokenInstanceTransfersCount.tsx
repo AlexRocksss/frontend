@@ -7,6 +7,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import LinkInternal from 'ui/shared/links/LinkInternal';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   hash: string;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const TokenInstanceTransfersCount = ({ hash, id, onClick }: Props) => {
+  const t = useTranslations();
   const transfersCountQuery = useApiQuery('token_instance_transfers_count', {
     pathParams: { hash, id },
     queryOptions: {
@@ -34,7 +36,7 @@ const TokenInstanceTransfersCount = ({ hash, id, onClick }: Props) => {
   }
 
   const localeMessages = {
-    "Transfers": config.t()("Transfers")
+    "Transfers": t("Transfers")
   }
 
   const url = transfersCountQuery.data.transfers_count > 0 ?

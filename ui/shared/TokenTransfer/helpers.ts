@@ -1,15 +1,18 @@
 import type { TokenTransfer } from 'types/api/tokenTransfer';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 export const getTokenTransferTypeText = (type: TokenTransfer['type']) => {
+  const t = useTranslations();
+  
   switch (type) {
     case 'token_minting':
-      return config.t()('Token minting');
+      return t('Token minting');
     case 'token_burning':
-      return config.t()('Token burning');
+      return t('Token burning');
     case 'token_spawning':
-      return config.t()('Token creating');
+      return t('Token creating');
     case 'token_transfer':
-      return config.t()('Token transfer');
+      return t('Token transfer');
   }
 };

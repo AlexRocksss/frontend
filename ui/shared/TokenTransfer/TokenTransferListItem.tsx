@@ -15,6 +15,7 @@ import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import { getTokenTransferTypeText } from 'ui/shared/TokenTransfer/helpers';
 import TxAdditionalInfo from 'ui/txs/TxAdditionalInfo';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 type Props = TokenTransfer & {
   baseAddress?: string;
@@ -36,6 +37,7 @@ const TokenTransferListItem = ({
   enableTimeIncrement,
   isLoading,
 }: Props) => {
+  const t = useTranslations();
   const timeAgo = useTimeAgoIncrement(timestamp, enableTimeIncrement);
   const { usd, valueStr } = 'value' in total && total.value !== null ? getCurrencyValue({
     value: total.value,
@@ -46,7 +48,7 @@ const TokenTransferListItem = ({
   }) : { usd: null, valueStr: null };
   
   const localeMessages = {
-    "Value": config.t()("Value")
+    "Value": t("Value")
   }
 
   return (

@@ -15,6 +15,7 @@ import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import BlockTimestamp from 'ui/blocks/BlockTimestamp';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   block: Block;
@@ -23,6 +24,7 @@ type Props = {
 
 const LatestBlocksItem = ({ block, isLoading }: Props) => {
   const totalReward = getBlockTotalReward(block);
+  const t = useTranslations();
   return (
     <Box
       as={ motion.div }
@@ -56,12 +58,12 @@ const LatestBlocksItem = ({ block, isLoading }: Props) => {
         />
       </Flex>
       <Grid gridGap={ 2 } templateColumns="auto minmax(0, 1fr)" fontSize="sm">
-        <Skeleton isLoaded={ !isLoading }>{config.t()('Txn')}</Skeleton>
+        <Skeleton isLoaded={ !isLoading }>{t('Txn')}</Skeleton>
         <Skeleton isLoaded={ !isLoading } color="text_secondary"><span>{ block.tx_count }</span></Skeleton>
 
         { !config.features.rollup.isEnabled && !config.UI.views.block.hiddenFields?.total_reward && (
           <>
-            <Skeleton isLoaded={ !isLoading }>{config.t()('Reward')}</Skeleton>
+            <Skeleton isLoaded={ !isLoading }>{t('Reward')}</Skeleton>
             <Skeleton isLoaded={ !isLoading } color="text_secondary"><span>{ totalReward.dp(10).toFixed() }</span></Skeleton>
           </>
         ) }

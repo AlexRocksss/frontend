@@ -5,6 +5,7 @@ import type { Transaction } from 'types/api/transaction';
 import type { StatusTagType } from './StatusTag';
 import StatusTag from './StatusTag';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 export interface Props {
   status: Transaction['status'];
@@ -13,6 +14,8 @@ export interface Props {
 }
 
 const TxStatus = ({ status, errorText, isLoading }: Props) => {
+  const t = useTranslations();
+  
   if (status === undefined) {
     return null;
   }
@@ -35,7 +38,7 @@ const TxStatus = ({ status, errorText, isLoading }: Props) => {
       break;
   }
 
-  return <StatusTag type={ type } text={ config.t()(text) } errorText={ errorText } isLoading={ isLoading }/>;
+  return <StatusTag type={ type } text={ t(text) } errorText={ errorText } isLoading={ isLoading }/>;
 };
 
 export default TxStatus;

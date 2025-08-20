@@ -13,6 +13,7 @@ import IconSvg from 'ui/shared/IconSvg';
 import ChartsLoadingErrorAlert from './ChartsLoadingErrorAlert';
 import ChartWidgetContainer from './ChartWidgetContainer';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   filterQuery: string;
@@ -24,6 +25,7 @@ type Props = {
 }
 
 const ChartsWidgetsList = ({ filterQuery, isError, isPlaceholderData, charts, interval, initialFilterQuery }: Props) => {
+  const t = useTranslations();
   const [ isSomeChartLoadingError, setIsSomeChartLoadingError ] = useState(false);
   const isAnyChartDisplayed = charts?.some((section) => section.charts.length > 0);
   const isEmptyChartList = Boolean(filterQuery) && !isAnyChartDisplayed;
@@ -32,12 +34,12 @@ const ChartsWidgetsList = ({ filterQuery, isError, isPlaceholderData, charts, in
   const shouldScrollToSection = Boolean(initialFilterQuery);
 
   const localeMessages: any = {
-    "Accounts": config.t()("Accounts"),
-    "Transactions": config.t()("Transactions"),
-    "Blocks": config.t()("Blocks"),
-    "Tokens": config.t()("Tokens"),
-    "Gas": config.t()("Gas"),
-    "Contracts": config.t()("Contracts")
+    "Accounts": t("Accounts"),
+    "Transactions": t("Transactions"),
+    "Blocks": t("Blocks"),
+    "Tokens": t("Tokens"),
+    "Gas": t("Gas"),
+    "Contracts": t("Contracts")
   }
 
   React.useEffect(() => {

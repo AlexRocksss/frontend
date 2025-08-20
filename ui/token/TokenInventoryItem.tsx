@@ -11,15 +11,17 @@ import LinkInternal from 'ui/shared/links/LinkInternal';
 import NftMedia from 'ui/shared/nft/NftMedia';
 import TruncatedTextTooltip from 'ui/shared/TruncatedTextTooltip';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 type Props = { item: TokenInstance; token: TokenInfo; isLoading: boolean };
 
 const TokenInventoryItem = ({ item, token, isLoading }: Props) => {
+  const t = useTranslations();
 
   const isMobile = useIsMobile();
 
   const localeMessages = {
-    "Owner": config.t()("Owner")
+    "Owner": t("Owner")
   }
 
   const mediaElement = (

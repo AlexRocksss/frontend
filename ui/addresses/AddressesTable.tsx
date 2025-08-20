@@ -10,6 +10,7 @@ import { default as Thead } from 'ui/shared/TheadSticky';
 
 import AddressesTableItem from './AddressesTableItem';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   items: Array<AddressesItem>;
@@ -21,13 +22,14 @@ interface Props {
 
 const AddressesTable = ({ items, totalSupply, pageStartIndex, top, isLoading }: Props) => {
   const hasPercentage = !totalSupply.eq(ZERO);
+  const t = useTranslations();
   const localeMessages = {
-    "Rank": config.t()('Rank'),
-    "Address": config.t()('Address'),
-    "Public tag": config.t()('Public tag'),
-    "Balance": config.t()('Balance'),
-    "Percentage": config.t()("Percentage"),
-    "Txn count": config.t()("Txn count")
+    "Rank": t('Rank'),
+    "Address": t('Address'),
+    "Public tag": t('Public tag'),
+    "Balance": t('Balance'),
+    "Percentage": t("Percentage"),
+    "Txn count": t("Txn count")
   }
   return (
     <Table variant="simple" size="sm">

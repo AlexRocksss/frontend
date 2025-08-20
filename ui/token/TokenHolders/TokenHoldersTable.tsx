@@ -6,6 +6,7 @@ import type { TokenHolder, TokenInfo } from 'types/api/token';
 import { default as Thead } from 'ui/shared/TheadSticky';
 import TokenHoldersTableItem from 'ui/token/TokenHolders/TokenHoldersTableItem';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Array<TokenHolder>;
@@ -15,14 +16,15 @@ interface Props {
 }
 
 const TokenHoldersTable = ({ data, token, top, isLoading }: Props) => {
+  const t = useTranslations();
   return (
     <Table variant="simple" size="sm" layout="auto">
       <Thead top={ top }>
         <Tr>
-          <Th>{ config.t()('Holder') }</Th>
+          <Th>{ t('Holder') }</Th>
           { (token.type === 'ERC-1155' || token.type === 'ERC-404') && <Th>ID#</Th> }
-          <Th isNumeric>{ config.t()('Quantity') }</Th>
-          { token.total_supply && token.type !== 'ERC-404' && <Th isNumeric width="175px">{ config.t()('Percentage') }</Th> }
+          <Th isNumeric>{ t('Quantity') }</Th>
+          { token.total_supply && token.type !== 'ERC-404' && <Th isNumeric width="175px">{ t('Percentage') }</Th> }
         </Tr>
       </Thead>
       <Tbody>

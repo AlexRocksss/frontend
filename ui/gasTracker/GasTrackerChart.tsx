@@ -10,10 +10,12 @@ import DataFetchAlert from 'ui/shared/DataFetchAlert';
 import LinkInternal from 'ui/shared/links/LinkInternal';
 import ChartWidgetContainer from 'ui/stats/ChartWidgetContainer';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 const GAS_PRICE_CHART_ID = 'averageGasPrice';
 
 const GasTrackerChart = () => {
+  const t = useTranslations();
   const [ isChartLoadingError, setChartLoadingError ] = useBoolean(false);
   const { data, isPlaceholderData, isError } = useApiQuery('stats_lines', {
     queryOptions: {
@@ -22,8 +24,8 @@ const GasTrackerChart = () => {
   });
 
   const localeMessages = {
-    "Gas price history": config.t()("Gas price history"),
-    "Charts & stats": config.t()("Charts & stats")
+    "Gas price history": t("Gas price history"),
+    "Charts & stats": t("Charts & stats")
   }
 
   const content = (() => {

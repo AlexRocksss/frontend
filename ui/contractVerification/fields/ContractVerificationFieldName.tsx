@@ -9,6 +9,7 @@ import InputPlaceholder from 'ui/shared/InputPlaceholder';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   hint?: string;
@@ -17,6 +18,7 @@ interface Props {
 
 const ContractVerificationFieldName = ({ hint, isReadOnly }: Props) => {
   const { formState, control } = useFormContext<FormFields>();
+  const t = useTranslations();
 
   const renderControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'name'>}) => {
     const error = 'name' in formState.errors ? formState.errors.name : undefined;
@@ -31,7 +33,7 @@ const ContractVerificationFieldName = ({ hint, isReadOnly }: Props) => {
           isDisabled={ formState.isSubmitting || isReadOnly }
           autoComplete="off"
         />
-        <InputPlaceholder text={ config.t()("Contract name") } error={ error }/>
+        <InputPlaceholder text={ t("Contract name") } error={ error }/>
       </FormControl>
     );
   }, [ formState.errors, formState.isSubmitting, isReadOnly ]);

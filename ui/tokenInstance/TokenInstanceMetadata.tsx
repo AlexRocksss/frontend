@@ -9,6 +9,7 @@ import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
 import MetadataAccordion from './metadata/MetadataAccordion';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 type Format = 'JSON' | 'Table'
 
@@ -18,10 +19,11 @@ interface Props {
 }
 
 const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
+  const t = useTranslations();
   const [ format, setFormat ] = React.useState<Format>('Table');
 
   const localeMessages = {
-    "Metadata": config.t()("Metadata")
+    "Metadata": t("Metadata")
   }
 
   const handleSelectChange = React.useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {

@@ -8,12 +8,14 @@ import CheckboxInput from 'ui/shared/CheckboxInput';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 const ContractVerificationFieldIsYul = () => {
   const { formState, control } = useFormContext<FormFields>();
+  const t = useTranslations();
 
   const renderControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'is_yul'>}) => (
-    <CheckboxInput<FormFields, 'is_yul'> text={ config.t()("Is Yul contract") } field={ field } isDisabled={ formState.isSubmitting }/>
+    <CheckboxInput<FormFields, 'is_yul'> text={ t("Is Yul contract") } field={ field } isDisabled={ formState.isSubmitting }/>
   ), [ formState.isSubmitting ]);
 
   return (

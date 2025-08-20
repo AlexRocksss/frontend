@@ -26,8 +26,10 @@ import VerifiedContractsCounters from 'ui/verifiedContracts/VerifiedContractsCou
 import VerifiedContractsFilter from 'ui/verifiedContracts/VerifiedContractsFilter';
 import VerifiedContractsList from 'ui/verifiedContracts/VerifiedContractsList';
 import VerifiedContractsTable from 'ui/verifiedContracts/VerifiedContractsTable';
+import { useTranslations } from 'next-intl';
 
 const VerifiedContracts = () => {
+  const t = useTranslations();
   const router = useRouter();
   const [ searchTerm, setSearchTerm ] = React.useState(getQueryParamString(router.query.q) || undefined);
   const [ type, setType ] = React.useState(getQueryParamString(router.query.filter) as VerifiedContractsFilters['filter'] || undefined);
@@ -130,7 +132,7 @@ const VerifiedContracts = () => {
   return (
     <Box>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${config.t()('Verified')} ${ config.chain.name } ${config.t()('contracts')}` : 'Verified contracts' }
+        title={ config.meta.seo.enhancedDataEnabled ? `${t('Verified')} ${ config.chain.name } ${t('contracts')}` : 'Verified contracts' }
         withTextAd
       />
       <VerifiedContractsCounters/>

@@ -4,6 +4,7 @@ import type { TransactionType } from 'types/api/transaction';
 
 import Tag from 'ui/shared/chakra/Tag';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 export interface Props {
   types: Array<TransactionType>;
@@ -22,6 +23,7 @@ const TYPES_ORDER: Array<TransactionType> = [
 ];
 
 const TxType = ({ types, isLoading }: Props) => {
+  const t = useTranslations();
   const typeToShow = types.sort((t1, t2) => TYPES_ORDER.indexOf(t1) - TYPES_ORDER.indexOf(t2))[0];
 
   let label;
@@ -68,7 +70,7 @@ const TxType = ({ types, isLoading }: Props) => {
 
   return (
     <Tag colorScheme={ colorScheme } isLoading={ isLoading }>
-      { config.t()(label) }
+      { t(label) }
     </Tag>
   );
 };

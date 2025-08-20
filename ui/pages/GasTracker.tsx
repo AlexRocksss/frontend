@@ -11,8 +11,10 @@ import GasTrackerPrices from 'ui/gasTracker/GasTrackerPrices';
 import GasInfoUpdateTimer from 'ui/shared/gas/GasInfoUpdateTimer';
 import NativeTokenIcon from 'ui/shared/NativeTokenIcon';
 import PageTitle from 'ui/shared/Page/PageTitle';
+import { useTranslations } from 'next-intl';
 
 const GasTracker = () => {
+  const t = useTranslations();
   const { data, isPlaceholderData, isError, error, dataUpdatedAt } = useApiQuery('stats', {
     queryOptions: {
       placeholderData: HOMEPAGE_STATS,
@@ -41,7 +43,7 @@ const GasTracker = () => {
         <GasTrackerNetworkUtilization percentage={ data.network_utilization_percentage } isLoading={ isLoading }/> }
       { data?.gas_price_updated_at && (
         <Skeleton isLoaded={ !isLoading } whiteSpace="pre" display="flex" alignItems="center">
-          <span>{ config.t()('Last updated') } </span>
+          <span>{ t('Last updated') } </span>
           <chakra.span color="text_secondary">{ dayjs(data.gas_price_updated_at).format('DD MMM, HH:mm:ss') }</chakra.span>
           { data.gas_prices_update_in !== 0 && (
             <GasInfoUpdateTimer
@@ -84,7 +86,7 @@ const GasTracker = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${config.t()('gas tracker')}` : `${config.t()('gas tracker')}` }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${t('gas tracker')}` : `${t('gas tracker')}` }
         secondRow={ titleSecondRow }
         withTextAd
       />

@@ -13,6 +13,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 const TAB_LIST_PROPS = {
   marginBottom: 0,
@@ -22,6 +23,7 @@ const TAB_LIST_PROPS = {
 };
 
 const BlocksPageContent = () => {
+  const t = useTranslations();
   const router = useRouter();
   const isMobile = useIsMobile();
   const tab = getQueryParamString(router.query.tab);
@@ -71,14 +73,14 @@ const BlocksPageContent = () => {
   })();
 
   const tabs: Array<RoutedTab> = [
-    { id: 'blocks', title: config.t()('All'), component: <BlocksContent type="block" query={ blocksQuery }/> },
-    { id: 'reorgs', title: config.t()('Forked'), component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
-    { id: 'uncles', title: config.t()('Uncles'), component: <BlocksContent type="uncle" query={ unclesQuery }/> },
+    { id: 'blocks', title: t('All'), component: <BlocksContent type="block" query={ blocksQuery }/> },
+    { id: 'reorgs', title: t('Forked'), component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
+    { id: 'uncles', title: t('Uncles'), component: <BlocksContent type="uncle" query={ unclesQuery }/> },
   ];
 
   return (
     <>
-      <PageTitle title={ config.t()("Blocks") } withTextAd/>
+      <PageTitle title={ t("Blocks") } withTextAd/>
       <RoutedTabs
         tabs={ tabs }
         tabListProps={ isMobile ? undefined : TAB_LIST_PROPS }

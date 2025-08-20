@@ -27,6 +27,7 @@ import IconSvg from 'ui/shared/IconSvg';
 import ChartWidgetGraph from './ChartWidgetGraph';
 import FullscreenChartModal from './FullscreenChartModal';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 export type Props = {
   items?: Array<TimeChartItem>;
@@ -42,50 +43,51 @@ export type Props = {
 const DOWNLOAD_IMAGE_SCALE = 5;
 
 const ChartWidget = ({ items, title, description, isLoading, className, isError, units, emptyText }: Props) => {
+  const t = useTranslations();
   const ref = useRef<HTMLDivElement>(null);
   const [ isFullscreen, setIsFullscreen ] = useState(false);
   const [ isZoomResetInitial, setIsZoomResetInitial ] = React.useState(true);
 
   const localeMessages: any = {
-    "Accounts growth": config.t()('Accounts growth'),
-    "Cumulative accounts number per period": config.t()('Cumulative accounts number per period'),
-    "Active accounts": config.t()('Active accounts'),
-    "Active accounts number per period": config.t()('Active accounts number per period'),
-    "New accounts": config.t()('New accounts'),
-    "New accounts number per day": config.t()('New accounts number per day'),
-    "Average transaction fee": config.t()('Average transaction fee'),
-    "The average amount in ENI spent per transaction": config.t()('The average amount in ENI spent per transaction'),
-    "New transactions": config.t()('New transactions'),
-    "New transactions number": config.t()('New transactions number'),
-    "Transactions fees": config.t()('Transactions fees'),
-    "Amount of tokens paid as fees": config.t()('Amount of tokens paid as fees'),
-    "Transactions growth": config.t()('Transactions growth'),
-    "Cumulative transactions number": config.t()('Cumulative transactions number'),
-    "Transactions success rate": config.t()('Transactions success rate'),
-    "Successful transactions rate per day": config.t()('Successful transactions rate per day'),
-    "Average block rewards": config.t()('Average block rewards'),
-    "Average amount of distributed reward in tokens per day": config.t()('Average amount of distributed reward in tokens per day'),
-    "Average block size": config.t()('Average block size'),
-    "Average size of blocks in bytes": config.t()('Average size of blocks in bytes'),
-    "New blocks": config.t()('New blocks'),
-    "New blocks number": config.t()('New blocks number'),
-    "New ENI transfers": config.t()('New ENI transfers'),
-    "New token transfers number for the period": config.t()('New token transfers number for the period'),
-    "Average gas limit": config.t()('Average gas limit'),
-    "Average gas limit per block for the period": config.t()('Average gas limit per block for the period'),
-    "Average gas price": config.t()('Average gas price'),
-    "Average gas price for the period (Gwei)": config.t()('Average gas price for the period (Gwei)'),
-    "Gas used growth": config.t()('Gas used growth'),
-    "Cumulative gas used for the period": config.t()('Cumulative gas used for the period'),
-    "Contracts growth": config.t()('Contracts growth'),
-    "Cumulative number of contracts for the period": config.t()('Cumulative number of contracts for the period'),
-    "New contracts": config.t()('New contracts'),
-    "New contracts number for the period": config.t()('New contracts number for the period'),
-    "New verified contracts": config.t()('New verified contracts'),
-    "New verified contracts number for the period": config.t()('New verified contracts number for the period'),
-    "Verified contracts growth": config.t()('Verified contracts growth'),
-    "Cumulative number verified contracts for the period": config.t()('Cumulative number verified contracts for the period'),
-    "Balances": config.t()("Balances")
+    "Accounts growth": t('Accounts growth'),
+    "Cumulative accounts number per period": t('Cumulative accounts number per period'),
+    "Active accounts": t('Active accounts'),
+    "Active accounts number per period": t('Active accounts number per period'),
+    "New accounts": t('New accounts'),
+    "New accounts number per day": t('New accounts number per day'),
+    "Average transaction fee": t('Average transaction fee'),
+    "The average amount in ENI spent per transaction": t('The average amount in ENI spent per transaction'),
+    "New transactions": t('New transactions'),
+    "New transactions number": t('New transactions number'),
+    "Transactions fees": t('Transactions fees'),
+    "Amount of tokens paid as fees": t('Amount of tokens paid as fees'),
+    "Transactions growth": t('Transactions growth'),
+    "Cumulative transactions number": t('Cumulative transactions number'),
+    "Transactions success rate": t('Transactions success rate'),
+    "Successful transactions rate per day": t('Successful transactions rate per day'),
+    "Average block rewards": t('Average block rewards'),
+    "Average amount of distributed reward in tokens per day": t('Average amount of distributed reward in tokens per day'),
+    "Average block size": t('Average block size'),
+    "Average size of blocks in bytes": t('Average size of blocks in bytes'),
+    "New blocks": t('New blocks'),
+    "New blocks number": t('New blocks number'),
+    "New ENI transfers": t('New ENI transfers'),
+    "New token transfers number for the period": t('New token transfers number for the period'),
+    "Average gas limit": t('Average gas limit'),
+    "Average gas limit per block for the period": t('Average gas limit per block for the period'),
+    "Average gas price": t('Average gas price'),
+    "Average gas price for the period (Gwei)": t('Average gas price for the period (Gwei)'),
+    "Gas used growth": t('Gas used growth'),
+    "Cumulative gas used for the period": t('Cumulative gas used for the period'),
+    "Contracts growth": t('Contracts growth'),
+    "Cumulative number of contracts for the period": t('Cumulative number of contracts for the period'),
+    "New contracts": t('New contracts'),
+    "New contracts number for the period": t('New contracts number for the period'),
+    "New verified contracts": t('New verified contracts'),
+    "New verified contracts number for the period": t('New verified contracts number for the period'),
+    "Verified contracts growth": t('Verified contracts growth'),
+    "Cumulative number verified contracts for the period": t('Cumulative number verified contracts for the period'),
+    "Balances": t("Balances")
   }  
 
   const pngBackgroundColor = useColorModeValue('white', 'black');

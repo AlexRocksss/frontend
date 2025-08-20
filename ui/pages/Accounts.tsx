@@ -12,10 +12,12 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Pagination from 'ui/shared/pagination/Pagination';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 const PAGE_SIZE = 50;
 
 const Accounts = () => {
+  const t = useTranslations();
   const { isError, isPlaceholderData, data, pagination } = useQueryWithPages({
     resourceName: 'addresses',
     options: {
@@ -74,7 +76,7 @@ const Accounts = () => {
 
   return (
     <>
-      <PageTitle title={ config.t()("Top accounts") } withTextAd/>
+      <PageTitle title={ t("Top accounts") } withTextAd/>
       <DataListDisplay
         isError={ isError }
         items={ data?.items }

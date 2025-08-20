@@ -6,6 +6,7 @@ import config from 'configs/app';
 import { WEI, WEI_IN_GWEI } from 'lib/consts';
 import { currencyUnits } from 'lib/units';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   gasPrice: string | null;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const TxDetailsGasPrice = ({ gasPrice, isLoading }: Props) => {
+  const t = useTranslations();
   if (config.UI.views.tx.hiddenFields?.gas_price || !gasPrice) {
     return null;
   }
@@ -23,7 +25,7 @@ const TxDetailsGasPrice = ({ gasPrice, isLoading }: Props) => {
         hint="Price per unit of gas specified by the sender. Higher gas prices can prioritize transaction inclusion during times of high usage"
         isLoading={ isLoading }
       >
-        { config.t()('Gas price') }
+        { t('Gas price') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isLoading } mr={ 1 }>

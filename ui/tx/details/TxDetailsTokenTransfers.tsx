@@ -11,6 +11,7 @@ import LinkInternal from 'ui/shared/links/LinkInternal';
 
 import TxDetailsTokenTransfer from './TxDetailsTokenTransfer';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Array<TokenTransfer>;
@@ -26,6 +27,7 @@ const TOKEN_TRANSFERS_TYPES = [
 ];
 
 const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
+  const t = useTranslations();
   const viewAllUrl = route({ pathname: '/tx/[hash]', query: { hash: txHash, tab: 'token_transfers' } });
 
   const transferGroups = TOKEN_TRANSFERS_TYPES.map((group) => ({
@@ -45,7 +47,7 @@ const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
             <DetailsInfoItem.Label
               hint={ hint }
             >
-              { config.t()(title) }
+              { t(title) }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value position="relative">
               <Flex

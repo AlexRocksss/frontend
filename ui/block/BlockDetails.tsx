@@ -35,6 +35,7 @@ import ZkSyncL2TxnBatchHashesInfo from 'ui/txnBatches/zkSyncL2/ZkSyncL2TxnBatchH
 
 import BlockDetailsBlobInfo from './details/BlockDetailsBlobInfo';
 import type { BlockQuery } from './useBlockQuery';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   query: BlockQuery;
@@ -46,13 +47,13 @@ const BlockDetails = ({ query }: Props) => {
   const [ isExpanded, setIsExpanded ] = React.useState(false);
   const router = useRouter();
   const heightOrHash = getQueryParamString(router.query.height_or_hash);
-
+  const t = useTranslations();
   const localeMessages = {
-    "Difficulty": config.t()("Difficulty"),
-    "Total difficulty": config.t()("Total difficulty"),
-    "Hash": config.t()("Hash"),
-    "Parent hash": config.t()("Parent hash"),
-    "Nonce": config.t()("Nonce")
+    "Difficulty": t("Difficulty"),
+    "Total difficulty": t("Total difficulty"),
+    "Hash": t("Hash"),
+    "Parent hash": t("Parent hash"),
+    "Nonce": t("Nonce")
   }
 
   const separatorColor = useColorModeValue('gray.200', 'gray.700');
@@ -125,7 +126,7 @@ const BlockDetails = ({ query }: Props) => {
       return 'Sequenced by';
     }
 
-    return config.chain.verificationType === 'validation' ? `${ config.t()('Validated by') }` : 'Mined by';
+    return config.chain.verificationType === 'validation' ? `${ t('Validated by') }` : 'Mined by';
   })();
 
   const txsNum = (() => {
@@ -156,11 +157,11 @@ const BlockDetails = ({ query }: Props) => {
   const blockTypeLabel = (() => {
     switch (data.type) {
       case 'reorg':
-        return `${ config.t()('Reorg') }`;
+        return `${ t('Reorg') }`;
       case 'uncle':
-        return `${ config.t()('Uncle') }`;
+        return `${ t('Uncle') }`;
       default:
-        return `${ config.t()('Block') }`;
+        return `${ t('Block') }`;
     }
   })();
 
@@ -175,7 +176,7 @@ const BlockDetails = ({ query }: Props) => {
         hint="The block height of a particular block is defined as the number of blocks preceding it in the blockchain"
         isLoading={ isPlaceholderData }
       >
-        { blockTypeLabel } {config.t()('height')}
+        { blockTypeLabel } { t('height') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isPlaceholderData }>
@@ -196,7 +197,7 @@ const BlockDetails = ({ query }: Props) => {
         hint="Size of the block in bytes"
         isLoading={ isPlaceholderData }
       >
-        { config.t()('Size') }
+        { t('Size') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isPlaceholderData }>
@@ -208,7 +209,7 @@ const BlockDetails = ({ query }: Props) => {
         hint="Date & time at which block was produced."
         isLoading={ isPlaceholderData }
       >
-        { config.t()('Timestamp') }
+        { t('Timestamp') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <DetailsTimestamp timestamp={ data.timestamp } isLoading={ isPlaceholderData }/>
@@ -218,7 +219,7 @@ const BlockDetails = ({ query }: Props) => {
         hint="The number of transactions in the block"
         isLoading={ isPlaceholderData }
       >
-        { config.t()('Transactions') }
+        { t('Transactions') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isPlaceholderData }>
@@ -332,7 +333,7 @@ const BlockDetails = ({ query }: Props) => {
         hint="The total gas amount used in the block and its percentage of gas filled in the block"
         isLoading={ isPlaceholderData }
       >
-        { config.t()('Gas used') }
+        { t('Gas used') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isPlaceholderData }>
@@ -356,7 +357,7 @@ const BlockDetails = ({ query }: Props) => {
         hint="Total gas limit provided by all transactions in the block"
         isLoading={ isPlaceholderData }
       >
-        { config.t()('Gas limit') }
+        { t('Gas limit') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isPlaceholderData }>
@@ -386,7 +387,7 @@ const BlockDetails = ({ query }: Props) => {
             hint="Minimum fee required per unit of gas. Fee adjusts based on network congestion"
             isLoading={ isPlaceholderData }
           >
-            { config.t()('Base fee per gas') }
+            { t('Base fee per gas') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             { isPlaceholderData ? (
@@ -412,7 +413,7 @@ const BlockDetails = ({ query }: Props) => {
             }
             isLoading={ isPlaceholderData }
           >
-            { config.t()('Burnt fees') }
+            { t('Burnt fees') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <IconSvg name="flame" boxSize={ 5 } color="gray.500" isLoading={ isPlaceholderData }/>
@@ -440,7 +441,7 @@ const BlockDetails = ({ query }: Props) => {
             hint="User-defined tips sent to validator for transaction priority/inclusion"
             isLoading={ isPlaceholderData }
           >
-            { config.t()("Priority fee / Tip") }
+            { t("Priority fee / Tip") }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <Skeleton isLoaded={ !isPlaceholderData }>
@@ -460,7 +461,7 @@ const BlockDetails = ({ query }: Props) => {
               textDecorationStyle="dashed"
               onClick={ handleCutClick }
             >
-              { isExpanded ? `${ config.t()('Hide details') }` : `${ config.t()('View details') }` }
+              { isExpanded ? `${ t('Hide details') }` : `${ t('View details') }` }
             </Link>
           </Skeleton>
         </Element>

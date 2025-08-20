@@ -8,6 +8,7 @@ import { nbsp } from 'lib/html-entities';
 import { HOMEPAGE_STATS } from 'stubs/stats';
 import Pagination from 'ui/shared/pagination/Pagination';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   pagination: PaginationParams;
@@ -19,13 +20,14 @@ const BlocksTabSlot = ({ pagination }: Props) => {
       placeholderData: HOMEPAGE_STATS,
     },
   });
+  const t = useTranslations();
 
   return (
     <Flex alignItems="center" columnGap={ 8 } display={{ base: 'none', lg: 'flex' }}>
       { statsQuery.data?.network_utilization_percentage !== undefined && (
         <Box>
           <Text as="span" fontSize="sm">
-              {config.t()('Network utilization (last 50 blocks)')}:{ nbsp }
+              {t('Network utilization (last 50 blocks)')}:{ nbsp }
           </Text>
           <Skeleton display="inline-block" fontSize="sm" color="blue.400" fontWeight={ 600 } isLoaded={ !statsQuery.isPlaceholderData }>
             <span>{ statsQuery.data.network_utilization_percentage.toFixed(2) }%</span>

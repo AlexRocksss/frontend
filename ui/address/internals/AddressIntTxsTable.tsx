@@ -9,6 +9,7 @@ import { default as Thead } from 'ui/shared/TheadSticky';
 
 import AddressIntTxsTableItem from './AddressIntTxsTableItem';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Array<InternalTransaction>;
@@ -17,17 +18,19 @@ interface Props {
 }
 
 const AddressIntTxsTable = ({ data, currentAddress, isLoading }: Props) => {
+  const t = useTranslations();
+  
   return (
     <AddressHighlightProvider>
       <Table variant="simple" size="sm">
         <Thead top={ 68 }>
           <Tr>
-            <Th width="15%">{ config.t()("Parent txn hash") }</Th>
-            <Th width="15%">{ config.t()("Type") }</Th>
-            <Th width="10%">{ config.t()("Block") }</Th>
-            <Th width="40%">{ config.t()("From/To") }</Th>
+            <Th width="15%">{ t("Parent txn hash") }</Th>
+            <Th width="15%">{ t("Type") }</Th>
+            <Th width="10%">{ t("Block") }</Th>
+            <Th width="40%">{ t("From/To") }</Th>
             <Th width="20%" isNumeric>
-              { config.t()("Value") } { currencyUnits.ether }
+              { t("Value") } { currencyUnits.ether }
             </Th>
           </Tr>
         </Thead>

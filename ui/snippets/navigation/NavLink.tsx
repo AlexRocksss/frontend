@@ -16,6 +16,7 @@ import useColors from './useColors';
 import useNavLinkStyleProps from './useNavLinkStyleProps';
 import { checkRouteHighlight } from './utils';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   item: NavItem;
@@ -27,6 +28,7 @@ type Props = {
 }
 
 const NavLink = ({ item, isCollapsed, px, className, onClick, disableActiveState }: Props) => {
+  const t = useTranslations();
   const isMobile = useIsMobile();
   const colors = useColors();
 
@@ -69,7 +71,7 @@ const NavLink = ({ item, isCollapsed, px, className, onClick, disableActiveState
         <HStack spacing={ 0 } overflow="hidden">
           <NavLinkIcon item={ item }/>
           <Text { ...styleProps.textProps } as="span" ml={ 3 }>
-            <span>{ `${config.t()(item.text)}` }</span>
+            <span>{ `${t(item.text)}` }</span>
             { !isInternalLink && <IconSvg name="arrows/north-east" boxSize={ 4 } color="text_secondary" verticalAlign="middle"/> }
           </Text>
           { isHighlighted && (

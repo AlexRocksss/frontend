@@ -5,6 +5,7 @@ import React from 'react';
 import type { Block } from 'types/api/block';
 
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
 import useTimeAgoIncrement from 'lib/hooks/useTimeAgoIncrement';
 import { currencyUnits } from 'lib/units';
@@ -20,11 +21,11 @@ type Props = Block & {
 const AddressBlocksValidatedListItem = (props: Props) => {
   const timeAgo = useTimeAgoIncrement(props.timestamp, props.page === 1);
   const totalReward = getBlockTotalReward(props);
-
+  const t = useTranslations();
   const localeMessages = {
-    "Txn": config.t()("Txn"),
-    "Gas used": config.t()("Gas used"),
-    "Reward": config.t()("Reward")
+    "Txn": t("Txn"),
+    "Gas used": t("Gas used"),
+    "Reward": t("Reward")
   }
 
   return (

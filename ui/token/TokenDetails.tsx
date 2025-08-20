@@ -23,21 +23,23 @@ import DetailsSponsoredItem from 'ui/shared/DetailsSponsoredItem';
 import TruncatedValue from 'ui/shared/TruncatedValue';
 
 import TokenNftMarketplaces from './TokenNftMarketplaces';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   tokenQuery: UseQueryResult<TokenInfo, ResourceError<unknown>>;
 }
 
 const TokenDetails = ({ tokenQuery }: Props) => {
+  const t = useTranslations();
   const router = useRouter();
   const isMounted = useIsMounted();
   const { value: isActionButtonExperiment } = useFeatureValue('action_button_exp', false);
 
   const localeMessages ={
-    "Max total supply": config.t()("Max total supply"),
-    "Holders": config.t()("Holders"),
-    "Transfers": config.t()("Transfers"),
-    "Decimals": config.t()("Decimals")
+    "Max total supply": t("Max total supply"),
+    "Holders": t("Holders"),
+    "Transfers": t("Transfers"),
+    "Decimals": t("Decimals")
   }
 
   const hash = router.query.hash?.toString();

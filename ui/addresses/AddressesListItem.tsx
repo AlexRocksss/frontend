@@ -11,6 +11,7 @@ import Tag from 'ui/shared/chakra/Tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   item: AddressesItem;
@@ -27,11 +28,11 @@ const AddressesListItem = ({
 }: Props) => {
 
   const addressBalance = BigNumber(item.coin_balance).div(BigNumber(10 ** config.chain.currency.decimals));
-
+  const t = useTranslations();
   const localeMessages = {
-    Balance: config.t()('Balance'),
-    Percentage: config.t()('Percentage'),
-    'Txn count': config.t()('Txn count'),
+    Balance: t('Balance'),
+    Percentage: t('Percentage'),
+    'Txn count': t('Txn count'),
   };
 
   return (

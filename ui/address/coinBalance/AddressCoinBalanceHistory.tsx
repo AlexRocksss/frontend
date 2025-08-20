@@ -15,6 +15,7 @@ import { default as Thead } from 'ui/shared/TheadSticky';
 import AddressCoinBalanceListItem from './AddressCoinBalanceListItem';
 import AddressCoinBalanceTableItem from './AddressCoinBalanceTableItem';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   query: UseQueryResult<AddressCoinBalanceHistoryResponse, ResourceError<unknown>> & {
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const AddressCoinBalanceHistory = ({ query }: Props) => {
+  const t = useTranslations();
 
   const content = query.data?.items ? (
     <>
@@ -30,11 +32,11 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
         <Table variant="simple" size="sm">
           <Thead top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <Tr>
-              <Th width="20%">{ config.t()("Block") }</Th>
-              <Th width="20%">{ config.t()("Txn") }</Th>
-              <Th width="20%">{ config.t()("Age") }</Th>
-              <Th width="20%" isNumeric pr={ 1 }>{ config.t()("Balance") } { currencyUnits.ether }</Th>
-              <Th width="20%" isNumeric>{ config.t()("Delta") }</Th>
+              <Th width="20%">{ t("Block") }</Th>
+              <Th width="20%">{ t("Txn") }</Th>
+              <Th width="20%">{ t("Age") }</Th>
+              <Th width="20%" isNumeric pr={ 1 }>{ t("Balance") } { currencyUnits.ether }</Th>
+              <Th width="20%" isNumeric>{ t("Delta") }</Th>
             </Tr>
           </Thead>
           <Tbody>

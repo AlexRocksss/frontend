@@ -13,6 +13,7 @@ import { SORT_SEQUENCE } from 'ui/verifiedContracts/utils';
 
 import VerifiedContractsTableItem from './VerifiedContractsTableItem';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Array<VerifiedContract>;
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const VerifiedContractsTable = ({ data, sort, setSorting, isLoading }: Props) => {
+  const t = useTranslations();
   const sortIconTransform = sort?.includes('asc' as VerifiedContractsSorting['order']) ? 'rotate(-90deg)' : 'rotate(90deg)';
 
   const onSortToggle = React.useCallback((field: VerifiedContractsSortingField) => () => {
@@ -33,23 +35,23 @@ const VerifiedContractsTable = ({ data, sort, setSorting, isLoading }: Props) =>
     <Table variant="simple" size="sm" minW="915px">
       <Thead top={ ACTION_BAR_HEIGHT_DESKTOP }>
         <Tr>
-          <Th width="50%">{config.t()('Contract')}</Th>
+          <Th width="50%">{t('Contract')}</Th>
           <Th width="130px" isNumeric>
             <Link display="flex" alignItems="center" justifyContent="flex-end" onClick={ isLoading ? undefined : onSortToggle('balance') } columnGap={ 1 }>
               { sort?.includes('balance') && <IconSvg name="arrows/east" boxSize={ 4 } transform={ sortIconTransform }/> }
-                {config.t()('Balance')} { currencyUnits.ether }
+                {t('Balance')} { currencyUnits.ether }
             </Link>
           </Th>
           <Th width="130px" isNumeric>
             <Link display="flex" alignItems="center" justifyContent="flex-end" onClick={ isLoading ? undefined : onSortToggle('txs_count') } columnGap={ 1 }>
               { sort?.includes('txs_count') && <IconSvg name="arrows/east" boxSize={ 4 } transform={ sortIconTransform }/> }
-                {config.t()('Txs')}
+                {t('Txs')}
             </Link>
           </Th>
-          <Th width="50%">{config.t()('Compiler / version')}</Th>
-          <Th width="80px">{config.t()('Settings')}</Th>
-          <Th width="150px">{config.t()('Verified')}</Th>
-          <Th width="130px">{config.t()('License')}</Th>
+          <Th width="50%">{t('Compiler / version')}</Th>
+          <Th width="80px">{t('Settings')}</Th>
+          <Th width="150px">{t('Verified')}</Th>
+          <Th width="130px">{t('License')}</Th>
         </Tr>
       </Thead>
       <Tbody>

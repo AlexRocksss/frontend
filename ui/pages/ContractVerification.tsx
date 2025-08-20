@@ -6,8 +6,10 @@ import ContentLoader from 'ui/shared/ContentLoader';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 const ContractVerification = () => {
+  const t = useTranslations();
   const configQuery = useFormConfigQuery(true);
 
   const content = (() => {
@@ -26,7 +28,7 @@ const ContractVerification = () => {
 
   return (
     <>
-      <PageTitle title={ config.t()('Verify & publish contract') }/>
+      <PageTitle title={ t('Verify & publish contract') }/>
       { content }
     </>
   );

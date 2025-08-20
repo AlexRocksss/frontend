@@ -12,6 +12,7 @@ import { currencyUnits } from 'lib/units';
 import CurrencyValue from 'ui/shared/CurrencyValue';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import NativeTokenIcon from 'ui/shared/NativeTokenIcon';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Pick<Address, 'block_number_balance_updated_at' | 'coin_balance' | 'hash' | 'exchange_rate'>;
@@ -64,6 +65,7 @@ const AddressBalance = ({ data, isLoading }: Props) => {
     event: 'current_coin_balance',
     handler: handleNewCoinBalanceMessage,
   });
+  const t = useTranslations();
 
   return (
     <>
@@ -71,7 +73,7 @@ const AddressBalance = ({ data, isLoading }: Props) => {
         hint={ `${ currencyUnits.ether } balance` }
         isLoading={ isLoading }
       >
-        { config.t()('Balance') }
+        { t('Balance') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value alignSelf="center" flexWrap="nowrap">
         <NativeTokenIcon boxSize={ 6 } mr={ 2 } isLoading={ isLoading }/>

@@ -14,6 +14,7 @@ import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TxStatus from 'ui/shared/statusTag/TxStatus';
 import { TX_INTERNALS_ITEMS } from 'ui/tx/internals/utils';
+import { useTranslations } from 'next-intl';
 
 type Props = InternalTransaction & { currentAddress: string; isLoading?: boolean };
 
@@ -33,10 +34,10 @@ const TxInternalsListItem = ({
 }: Props) => {
   const typeTitle = TX_INTERNALS_ITEMS.find(({ id }) => id === type)?.title;
   const toData = to ? to : createdContract;
-
+  const t = useTranslations();
   const localeMessages = {
-    "Block": config.t()("Block"),
-    "Value": config.t()("Value")
+    "Block": t("Block"),
+    "Value": t("Value")
   }
 
   return (

@@ -11,6 +11,7 @@ import ChainIndicatorChartContainer from './ChainIndicatorChartContainer';
 import ChainIndicatorItem from './ChainIndicatorItem';
 import useFetchChartData from './useFetchChartData';
 import INDICATORS from './utils/indicators';
+import { useTranslations } from 'next-intl';
 
 const indicators = INDICATORS
   .filter(({ id }) => config.UI.homepage.charts.includes(id))
@@ -27,6 +28,7 @@ const indicators = INDICATORS
   });
 
 const ChainIndicators = () => {
+  const t = useTranslations();
   const [ selectedIndicator, selectIndicator ] = React.useState(indicators[0]?.id);
   const indicator = indicators.find(({ id }) => id === selectedIndicator);
 
@@ -98,7 +100,7 @@ const ChainIndicators = () => {
     >
       <Flex flexGrow={ 1 } flexDir="column" order={{ base: 2, lg: 1 }} p={{ base: 6, lg: 0 }}>
         <Flex alignItems="center">
-          <Text fontWeight={ 500 } fontFamily="heading" fontSize="lg">{ config.t()(indicator?.title) }</Text>
+          <Text fontWeight={ 500 } fontFamily="heading" fontSize="lg">{ t(indicator?.title) }</Text>
           { indicator?.hint && <Hint label={ indicator.hint } ml={ 1 }/> }
         </Flex>
         <Flex mb={ 4 } alignItems="end">

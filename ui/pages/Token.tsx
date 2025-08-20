@@ -34,6 +34,7 @@ import TokenInventory from 'ui/token/TokenInventory';
 import TokenPageTitle from 'ui/token/TokenPageTitle';
 import TokenTransfer from 'ui/token/TokenTransfer/TokenTransfer';
 import useTokenQuery from 'ui/token/useTokenQuery';
+import { useTranslations } from 'next-intl';
 
 export type TokenTabs = 'token_transfers' | 'holders' | 'inventory';
 
@@ -44,6 +45,7 @@ const TABS_RIGHT_SLOT_PROPS = {
 };
 
 const TokenPageContent = () => {
+  const t = useTranslations();
   const [ isQueryEnabled, setIsQueryEnabled ] = React.useState(false);
   const [ totalSupplySocket, setTotalSupplySocket ] = React.useState<number>();
   const router = useRouter();
@@ -163,17 +165,17 @@ const TokenPageContent = () => {
   const tabs: Array<RoutedTab> = [
     hasInventoryTab ? {
       id: 'inventory',
-      title: `${ config.t()('Inventory') }`,
+      title: `${ t('Inventory') }`,
       component: <TokenInventory inventoryQuery={ inventoryQuery } tokenQuery={ tokenQuery } ownerFilter={ ownerFilter } shouldRender={ !isLoading }/>,
     } : undefined,
     {
       id: 'token_transfers',
-      title: `${ config.t()('Token transfers') }`,
+      title: `${ t('Token transfers') }`,
       component: <TokenTransfer transfersQuery={ transfersQuery } token={ tokenQuery.data } shouldRender={ !isLoading }/>,
     },
     {
       id: 'holders',
-      title: `${ config.t()('Holders') }`,
+      title: `${ t('Holders') }`,
       component: <TokenHolders token={ tokenQuery.data } holdersQuery={ holdersQuery } shouldRender={ !isLoading }/>,
     },
     addressQuery.data?.is_contract ? {
@@ -182,13 +184,13 @@ const TokenPageContent = () => {
         if (addressQuery.data?.is_verified) {
           return (
             <>
-              <span>{ config.t()("Contract") }</span>
+              <span>{ t("Contract") }</span>
               <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 }/>
             </>
           );
         }
 
-        return config.t()("Contract");
+        return t("Contract");
       },
       component: <AddressContract tabs={ contractTabs.tabs } isLoading={ contractTabs.isLoading } shouldRender={ !isLoading }/>,
       subTabs: contractTabs.tabs.map(tab => tab.id),

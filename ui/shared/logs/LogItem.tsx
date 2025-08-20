@@ -12,6 +12,7 @@ import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import LogDecodedInputData from 'ui/shared/logs/LogDecodedInputData';
 import LogTopic from 'ui/shared/logs/LogTopic';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 type Props = Log & {
   type: 'address' | 'transaction';
@@ -30,6 +31,7 @@ const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash,
   const dataBgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
 
   const hasTxInfo = type === 'address' && txHash;
+  const t = useTranslations();
 
   return (
     <Grid
@@ -52,7 +54,7 @@ const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash,
           </Alert>
         </GridItem>
       ) }
-      { hasTxInfo ? <RowHeader isLoading={ isLoading }>Transaction</RowHeader> : <RowHeader isLoading={ isLoading }>{ config.t()('Address') }</RowHeader> }
+      { hasTxInfo ? <RowHeader isLoading={ isLoading }>Transaction</RowHeader> : <RowHeader isLoading={ isLoading }>{ t('Address') }</RowHeader> }
       <GridItem display="flex" alignItems="center">
         { type === 'address' ? (
           <TxEntity
@@ -83,13 +85,13 @@ const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash,
       </GridItem>
       { decoded && (
         <>
-          <RowHeader isLoading={ isLoading }>{ config.t()('Decode input data') }</RowHeader>
+          <RowHeader isLoading={ isLoading }>{ t('Decode input data') }</RowHeader>
           <GridItem>
             <LogDecodedInputData data={ decoded } isLoading={ isLoading }/>
           </GridItem>
         </>
       ) }
-      <RowHeader isLoading={ isLoading }>{ config.t()('Topics') }</RowHeader>
+      <RowHeader isLoading={ isLoading }>{ t('Topics') }</RowHeader>
       <GridItem>
         { topics.filter(Boolean).map((item, index) => (
           <LogTopic
@@ -100,7 +102,7 @@ const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash,
           />
         )) }
       </GridItem>
-      <RowHeader isLoading={ isLoading }>{ config.t()('Data') }</RowHeader>
+      <RowHeader isLoading={ isLoading }>{ t('Data') }</RowHeader>
       <Skeleton isLoaded={ !isLoading } p={ 4 } fontSize="sm" borderRadius="md" bgColor={ isLoading ? undefined : dataBgColor }>
         { data }
       </Skeleton>

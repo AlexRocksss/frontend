@@ -16,6 +16,7 @@ import NetworkAddToWallet from 'ui/shared/NetworkAddToWallet';
 import FooterLinkItem from './FooterLinkItem';
 import IntTxsIndexingStatus from './IntTxsIndexingStatus';
 import getApiVersionUrl from './utils/getApiVersionUrl';
+import { useTranslations } from 'next-intl';
 
 const MAX_LINKS_COLUMNS = 4;
 
@@ -23,6 +24,7 @@ const FRONT_VERSION_URL = `https://github.com/blockscout/frontend/tree/${ config
 const FRONT_COMMIT_URL = `https://github.com/blockscout/frontend/commit/${ config.UI.footer.frontendCommit }`;
 
 const Footer = () => {
+  const t = useTranslations();
 
   const { data: backendVersionData } = useApiQuery('config_backend_version', {
     queryOptions: {
@@ -88,7 +90,7 @@ const Footer = () => {
       <Box gridArea={ gridArea }>
         <Icon as={ selectedLogo } mr={ 1 } w="50px" h="20px" display="inline-block" verticalAlign="middle"/>
         <Text mt={ 3 } fontSize="xs">
-          { config.t()("footer-text-1") }
+          { t("footer-text-1") }
         </Text>
         <VStack spacing={ 1 } mt={ 6 } alignItems="start">
           { apiVersionUrl && (
@@ -115,13 +117,13 @@ const Footer = () => {
   };
 
   const localeMessages: any = {
-    "Network Name": config.t()('Network Name'),
-    "Community": config.t()('Community'),
-    "About": config.t()('About'),
-    "Github": config.t()('Github'),
-    "Twitter": config.t()('Twitter'),
-    "Telegram": config.t()('Telegram'),
-    "Discord": config.t()('Discord')
+    "Network Name": t('Network Name'),
+    "Community": t('Community'),
+    "About": t('About'),
+    "Github": t('Github'),
+    "Twitter": t('Twitter'),
+    "Telegram": t('Telegram'),
+    "Discord": t('Discord')
   }
 
   if (config.UI.footer.links) {

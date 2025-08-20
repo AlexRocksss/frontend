@@ -6,8 +6,10 @@ import * as cookies from 'lib/cookies';
 import { IDENTICONS } from 'lib/settings/identIcon';
 
 import SettingsSample from './SettingsSample';
+import { useTranslations } from 'next-intl';
 
 const SettingsIdentIcon = () => {
+  const t = useTranslations();
   const [ activeId, setActiveId ] = React.useState<string>();
 
   React.useEffect(() => {
@@ -32,7 +34,7 @@ const SettingsIdentIcon = () => {
 
   return (
     <div>
-      <Box fontWeight={ 600 }>{ config.t()("Address identicon") }</Box>
+      <Box fontWeight={ 600 }>{ t("Address identicon") }</Box>
       <Box color="text_secondary" mt={ 1 } mb={ 2 }>{ activeIdenticon?.label }</Box>
       <Flex>
         { IDENTICONS.map((identicon) => (

@@ -15,6 +15,7 @@ import NavLinkIcon from './NavLinkIcon';
 import useNavLinkStyleProps from './useNavLinkStyleProps';
 import { checkRouteHighlight } from './utils';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 type Props = {
   item: NavGroupItem;
@@ -23,6 +24,7 @@ type Props = {
 }
 
 const NavLinkGroup = ({ item, onClick, isExpanded }: Props) => {
+  const t = useTranslations();
   const styleProps = useNavLinkStyleProps({ isActive: item.isActive, isExpanded });
 
   const isHighlighted = checkRouteHighlight(item.subItems);
@@ -42,7 +44,7 @@ const NavLinkGroup = ({ item, onClick, isExpanded }: Props) => {
               { ...styleProps.textProps }
               ml={ 3 }
             >
-              { `${config.t()(item.text)}` }
+              { `${t(item.text)}` }
             </Text>
             { isHighlighted && (<LightningLabel bgColor={ styleProps.itemProps.bgColor }/>) }
           </HStack>

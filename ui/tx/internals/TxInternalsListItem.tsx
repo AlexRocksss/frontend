@@ -11,16 +11,18 @@ import Tag from 'ui/shared/chakra/Tag';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TxStatus from 'ui/shared/statusTag/TxStatus';
 import { TX_INTERNALS_ITEMS } from 'ui/tx/internals/utils';
+import { useTranslations } from 'next-intl';
 
 type Props = InternalTransaction & { isLoading?: boolean };
 
 const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit: gasLimit, created_contract: createdContract, isLoading }: Props) => {
+  const t = useTranslations();
   const typeTitle = TX_INTERNALS_ITEMS.find(({ id }) => id === type)?.title;
   const toData = to ? to : createdContract;
 
   const localeMessages = {
-    "Value": config.t()("Value"),
-    "Gas limit": config.t()("Gas limit")
+    "Value": t("Value"),
+    "Gas limit": t("Gas limit")
   }
 
   return (

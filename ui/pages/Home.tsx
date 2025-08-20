@@ -11,10 +11,13 @@ import AdBanner from 'ui/shared/ad/AdBanner';
 import ProfileMenuDesktop from 'ui/snippets/profileMenu/ProfileMenuDesktop';
 import SearchBar from 'ui/snippets/searchBar/SearchBar';
 import WalletMenuDesktop from 'ui/snippets/walletMenu/WalletMenuDesktop';
+import { useTranslations } from 'next-intl';
 
 const rollupFeature = config.features.rollup;
 
 const Home = () => {
+  const t = useTranslations();
+  
   return (
     <Box as="main">
       <Box
@@ -36,7 +39,7 @@ const Home = () => {
           >
             {
               config.meta.seo.enhancedDataEnabled ?
-                `${ config.chain.name } ${config.t()('blockchain explorer')}` :
+                `${ config.chain.name } ${t('blockchain explorer')}` :
                 `${ config.chain.name } explorer`
             }
           </Heading>

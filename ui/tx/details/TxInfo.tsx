@@ -56,6 +56,7 @@ import TxRevertReason from 'ui/tx/details/TxRevertReason';
 import TxAllowedPeekers from 'ui/tx/TxAllowedPeekers';
 import TxSocketAlert from 'ui/tx/TxSocketAlert';
 import ZkSyncL2TxnBatchHashesInfo from 'ui/txnBatches/zkSyncL2/ZkSyncL2TxnBatchHashesInfo';
+import { useTranslations } from 'next-intl';
 
 const rollupFeature = config.features.rollup;
 
@@ -66,11 +67,12 @@ interface Props {
 }
 
 const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
+  const t = useTranslations();
   const [ isExpanded, setIsExpanded ] = React.useState(false);
 
   const localeMessages = {
-    'Raw input': config.t()('Raw input'),
-    'Decoded input data': config.t()('Decoded input data'),
+    'Raw input': t('Raw input'),
+    'Decoded input data': t('Decoded input data'),
   };
 
   const handleCutClick = React.useCallback(() => {
@@ -151,7 +153,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Unique character string (TxID) assigned to every verified transaction"
         isLoading={ isLoading }
       >
-        { config.t()('Transaction hash') }
+        { t('Transaction hash') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value flexWrap="nowrap">
         { data.status === null && <Spinner mr={ 2 } size="sm" flexShrink={ 0 }/> }
@@ -175,7 +177,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         {
           rollupFeature.isEnabled && (rollupFeature.type === 'zkEvm' || rollupFeature.type === 'zkSync') ?
             'L2 status and method' :
-            `${ config.t()('Status and method') }`
+            `${ t('Status and method') }`
         }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
@@ -259,7 +261,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Block number containing the transaction"
         isLoading={ isLoading }
       >
-        { config.t()('Block') }
+        { t('Block') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         { data.block === null ?
@@ -322,7 +324,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint="Date & time of transaction inclusion, including length of time for confirmation"
             isLoading={ isLoading }
           >
-            { config.t()('Timestamp') }
+            { t('Timestamp') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <DetailsTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/>
@@ -369,7 +371,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Address (external or contract) sending the transaction"
         isLoading={ isLoading }
       >
-        { config.t()('From') }
+        { t('From') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value columnGap={ 3 }>
         <AddressEntity
@@ -388,7 +390,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Address (external or contract) receiving the transaction"
         isLoading={ isLoading }
       >
-        { data.to?.is_contract ? `${ config.t()('Interacted with contract') }` : `${ config.t()('To') }` }
+        { data.to?.is_contract ? `${ t('Interacted with contract') }` : `${ t('To') }` }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value
         flexWrap={{ base: 'wrap', lg: 'nowrap' }}
@@ -474,7 +476,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint="Value sent in the native token (and USD) if applicable"
             isLoading={ isLoading }
           >
-            { config.t()('Value') }
+            { t('Value') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <CurrencyValue
@@ -494,7 +496,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint={ data.blob_gas_used ? 'Transaction fee without blob fee' : 'Total transaction fee' }
             isLoading={ isLoading }
           >
-            { config.t()('Transaction fee') }
+            { t('Transaction fee') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             { data.stability_fee ? (
@@ -520,7 +522,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Actual gas amount used by the transaction"
         isLoading={ isLoading }
       >
-        { config.t()('Gas usage & limit by txn') }
+        { t('Gas usage & limit by txn') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isLoading }>{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
@@ -647,7 +649,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
               textDecorationStyle="dashed"
               onClick={ handleCutClick }
             >
-              { isExpanded ? `${ config.t()('Hide details') }` : `${ config.t()('View details') }` }
+              { isExpanded ? `${ t('Hide details') }` : `${ t('View details') }` }
             </Link>
           </Skeleton>
         </Element>

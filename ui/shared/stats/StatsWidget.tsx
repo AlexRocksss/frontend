@@ -7,6 +7,7 @@ import type { Route } from 'nextjs-routes';
 import Hint from 'ui/shared/Hint';
 import TruncatedValue from 'ui/shared/TruncatedValue';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   label: string;
@@ -38,6 +39,7 @@ const StatsWidget = ({ label, value, valuePrefix, valuePostfix, isLoading, hint,
   const bgColor = useColorModeValue('blue.50', 'whiteAlpha.100');
   const skeletonBgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
   const hintColor = useColorModeValue('gray.600', 'gray.400');
+  const t = useTranslations();
 
   return (
     <Container href={ !isLoading ? href : undefined }>
@@ -61,7 +63,7 @@ const StatsWidget = ({ label, value, valuePrefix, valuePostfix, isLoading, hint,
             fontSize="xs"
             w="fit-content"
           >
-            <span>{ config.t()(label) }</span>
+            <span>{ t(label) }</span>
           </Skeleton>
           <Skeleton
             isLoaded={ !isLoading }

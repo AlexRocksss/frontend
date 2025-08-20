@@ -13,6 +13,7 @@ import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TruncatedValue from 'ui/shared/TruncatedValue';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 type Props = TokenTransfer & { tokenId?: string; isLoading?: boolean };
 
@@ -27,6 +28,7 @@ const TokenTransferListItem = ({
   tokenId,
   isLoading,
 }: Props) => {
+  const t = useTranslations();
   const timeAgo = useTimeAgoIncrement(timestamp, true);
   const { usd, valueStr } = 'value' in total && total.value !== null ? getCurrencyValue({
     value: total.value,
@@ -65,7 +67,7 @@ const TokenTransferListItem = ({
       { valueStr && (token.type === 'ERC-20' || token.type === 'ERC-1155') && (
         <Grid gap={ 2 } templateColumns={ `1fr auto auto${ usd ? ' auto' : '' }` }>
           <Skeleton isLoaded={ !isLoading } flexShrink={ 0 } fontWeight={ 500 }>
-            { config.t()("Value") }
+            { t("Value") }
           </Skeleton>
           <Skeleton
             isLoaded={ !isLoading }

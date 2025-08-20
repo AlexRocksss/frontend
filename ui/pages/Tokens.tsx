@@ -23,6 +23,7 @@ import TokensList from 'ui/tokens/Tokens';
 import TokensActionBar from 'ui/tokens/TokensActionBar';
 import TokensBridgedChainsFilter from 'ui/tokens/TokensBridgedChainsFilter';
 import { SORT_OPTIONS, getTokenFilterValue, getBridgedChainsFilterValue } from 'ui/tokens/utils';
+import { useTranslations } from 'next-intl';
 
 const TAB_LIST_PROPS = {
   marginBottom: 0,
@@ -41,6 +42,7 @@ const TABS_RIGHT_SLOT_PROPS = {
 const bridgedTokensFeature = config.features.bridgedTokens;
 
 const Tokens = () => {
+  const t = useTranslations();
   const router = useRouter();
   const isMobile = useIsMobile();
 
@@ -179,7 +181,7 @@ const Tokens = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${config.t()('Tokens')}` : `${config.t()('Tokens')}` }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${t('Tokens')}` : `${t('Tokens')}` }
         withTextAd
       />
       { !hasMultipleTabs && !isMobile && actionBar }

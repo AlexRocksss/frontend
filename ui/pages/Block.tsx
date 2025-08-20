@@ -26,6 +26,7 @@ import Pagination from 'ui/shared/pagination/Pagination';
 import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
 import TabsSkeleton from 'ui/shared/Tabs/TabsSkeleton';
 import TxsWithFrontendSorting from 'ui/txs/TxsWithFrontendSorting';
+import { useTranslations } from 'next-intl';
 
 const TAB_LIST_PROPS = {
   marginBottom: 0,
@@ -36,6 +37,7 @@ const TAB_LIST_PROPS = {
 const TABS_HEIGHT = 88;
 
 const BlockPageContent = () => {
+  const t = useTranslations();
   const router = useRouter();
   const isMobile = useIsMobile();
   const appProps = useAppContext();
@@ -43,8 +45,8 @@ const BlockPageContent = () => {
   const tab = getQueryParamString(router.query.tab);
 
   const localeMessages = {
-    "Details": config.t()('Details'),
-    "Transactions": config.t()('Transactions'),
+    "Details": t('Details'),
+    "Transactions": t('Transactions'),
   }
 
   const blockQuery = useBlockQuery({ heightOrHash });
@@ -131,7 +133,7 @@ const BlockPageContent = () => {
         return `Uncle block #${ blockQuery.data?.height }`;
 
       default:
-        return `${ config.t()('Block') } #${ blockQuery.data?.height }`;
+        return `${ t('Block') } #${ blockQuery.data?.height }`;
     }
   })();
   const titleSecondRow = (
@@ -146,7 +148,7 @@ const BlockPageContent = () => {
           fontWeight={ 500 }
         >
           <chakra.span flexShrink={ 0 }>
-            { config.chain.verificationType === 'validation' ? `${ config.t()('Validated by') }` : 'Mined by' }
+            { config.chain.verificationType === 'validation' ? `${ t('Validated by') }` : 'Mined by' }
           </chakra.span>
           <AddressEntity address={ blockQuery.data?.miner }/>
         </Skeleton>

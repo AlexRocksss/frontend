@@ -9,6 +9,7 @@ import NavLink from 'ui/snippets/navigation/NavLink';
 
 import NavLinkGroupMobile from './NavLinkGroupMobile';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 const DRAWER_WIDTH = 330;
 
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
+  const t = useTranslations();
   const { mainNavItems, accountNavItems } = useNavItems();
 
   const [ openedGroupIndex, setOpenedGroupIndex ] = React.useState(-1);
@@ -41,9 +43,9 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
   const iconColor = useColorModeValue('blue.600', 'blue.300');
 
   const localeMessages: any = {
-    "Blockchain": config.t()("Blockchain"),
-    "API": config.t()("API"),
-    "Other": config.t()("Other")
+    "Blockchain": t("Blockchain"),
+    "API": t("API"),
+    "Other": t("Other")
   }
 
   const openedItem = mainNavItems[openedGroupIndex];

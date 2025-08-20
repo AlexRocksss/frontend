@@ -26,6 +26,7 @@ import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
 import ContractSecurityAudits from './ContractSecurityAudits';
 import ContractSourceCode from './ContractSourceCode';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   addressHash?: string;
@@ -62,9 +63,9 @@ const InfoItem = chakra(({ label, content, hint, className, isLoading }: InfoIte
 
 const ContractCode = ({ addressHash, contractQuery, channel }: Props) => {
   const [ isChangedBytecodeSocket, setIsChangedBytecodeSocket ] = React.useState<boolean>();
-
+  const t = useTranslations();
   const localeMessages = {
-    "verify-publish": config.t()('Verify & publish')
+    "verify-publish": t('Verify & publish')
   }
 
   const queryClient = useQueryClient();

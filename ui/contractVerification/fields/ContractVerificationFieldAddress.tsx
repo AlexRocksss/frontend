@@ -10,6 +10,7 @@ import InputPlaceholder from 'ui/shared/InputPlaceholder';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   isReadOnly?: boolean;
@@ -17,10 +18,11 @@ interface Props {
 
 const ContractVerificationFieldAddress = ({ isReadOnly }: Props) => {
   const { formState, control } = useFormContext<FormFields>();
+  const t = useTranslations();
 
   const renderControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'address'>}) => {
     const error = 'address' in formState.errors ? formState.errors.address : undefined;
-
+    
     return (
       <FormControl variant="floating" id={ field.name } isRequired size={{ base: 'md', lg: 'lg' }}>
         <Input
@@ -31,7 +33,7 @@ const ContractVerificationFieldAddress = ({ isReadOnly }: Props) => {
           isDisabled={ formState.isSubmitting || isReadOnly }
           autoComplete="off"
         />
-        <InputPlaceholder text={ config.t()("Smart contract / Address") } error={ error }/>
+        <InputPlaceholder text={ t("Smart contract / Address") } error={ error }/>
       </FormControl>
     );
   }, [ formState.errors, formState.isSubmitting, isReadOnly ]);
@@ -40,7 +42,7 @@ const ContractVerificationFieldAddress = ({ isReadOnly }: Props) => {
     <>
       <ContractVerificationFormRow>
         <chakra.span fontWeight={ 500 } fontSize="lg" fontFamily="heading">
-          { config.t()('Contract address to verify') }
+          { t('Contract address to verify') }
         </chakra.span>
       </ContractVerificationFormRow>
       <ContractVerificationFormRow>

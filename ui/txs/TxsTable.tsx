@@ -13,6 +13,7 @@ import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import TheadSticky from 'ui/shared/TheadSticky';
 
 import TxsTableItem from './TxsTableItem';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   txs: Array<Transaction>;
@@ -41,6 +42,7 @@ const TxsTable = ({
   enableTimeIncrement,
   isLoading,
 }: Props) => {
+  const t = useTranslations();
   const { cutRef, renderedItemsNum } = useLazyRenderedList(txs, !isLoading);
 
   return (
@@ -49,17 +51,17 @@ const TxsTable = ({
         <TheadSticky top={ top }>
           <Tr>
             <Th width="54px"></Th>
-            <Th width="180px">{config.t()('Txn hash')}</Th>
-            <Th width="160px">{config.t()('Type')}</Th>
-            <Th width="20%">{config.t()('Method')}</Th>
-            { showBlockInfo && <Th width="18%">{config.t()('Block')}</Th> }
-            <Th width="224px">{config.t()('From/To')}</Th>
+            <Th width="180px">{t('Txn hash')}</Th>
+            <Th width="160px">{t('Type')}</Th>
+            <Th width="20%">{t('Method')}</Th>
+            { showBlockInfo && <Th width="18%">{t('Block')}</Th> }
+            <Th width="224px">{t('From/To')}</Th>
             { !config.UI.views.tx.hiddenFields?.value && (
               <Th width="20%" isNumeric>
                 <Link onClick={ sort('value') } display="flex" justifyContent="end">
                   { sorting === 'value-asc' && <IconSvg boxSize={ 5 } name="arrows/east" transform="rotate(-90deg)"/> }
                   { sorting === 'value-desc' && <IconSvg boxSize={ 5 } name="arrows/east" transform="rotate(90deg)"/> }
-                  { `${config.t()('Value')} ${ currencyUnits.ether }` }
+                  { `${t('Value')} ${ currencyUnits.ether }` }
                 </Link>
               </Th>
             ) }
@@ -68,7 +70,7 @@ const TxsTable = ({
                 <Link onClick={ sort('fee') } display="flex" justifyContent="end">
                   { sorting === 'fee-asc' && <IconSvg boxSize={ 5 } name="arrows/east" transform="rotate(-90deg)"/> }
                   { sorting === 'fee-desc' && <IconSvg boxSize={ 5 } name="arrows/east" transform="rotate(90deg)"/> }
-                  { `${config.t()('Fee')}${ config.UI.views.tx.hiddenFields?.fee_currency ? '' : ` ${ currencyUnits.ether }` }` }
+                  { `${t('Fee')}${ config.UI.views.tx.hiddenFields?.fee_currency ? '' : ` ${ currencyUnits.ether }` }` }
                 </Link>
               </Th>
             ) }

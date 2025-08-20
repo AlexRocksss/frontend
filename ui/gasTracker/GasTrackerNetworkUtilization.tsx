@@ -3,6 +3,7 @@ import React from 'react';
 
 import { mdash } from 'lib/html-entities';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   percentage: number;
@@ -28,10 +29,11 @@ const GasTrackerNetworkUtilization = ({ percentage, isLoading }: Props) => {
     low: 'green.600',
   };
   const color = colors[load];
+  const t = useTranslations();
 
   return (
     <Skeleton isLoaded={ !isLoading } whiteSpace="pre-wrap">
-      <span>{ config.t()('Network utilization') } </span>
+      <span>{ t('Network utilization') } </span>
       <chakra.span color={ color }>{ percentage.toFixed(2) }% { mdash } { load } load</chakra.span>
     </Skeleton>
   );

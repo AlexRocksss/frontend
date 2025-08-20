@@ -5,8 +5,10 @@ import config from 'configs/app';
 import { LOCALES } from 'lib/settings/locale';
 
 import SettingsSample from './SettingsSample';
+import { useTranslations } from 'next-intl';
 
 const SettingsLanguage = () => {
+  const t = useTranslations();
   const [ activeId, setActiveId ] = React.useState<string>();
   // const router = useRouter();
 
@@ -29,7 +31,7 @@ const SettingsLanguage = () => {
 
   return (
     <div>
-      <Box fontWeight={ 600 }>{ config.t()('Languages') }</Box>
+      <Box fontWeight={ 600 }>{ t('Languages') }</Box>
       <Box color="text_secondary" mt={ 1 } mb={ 2 }>{ activeLocale?.label }</Box>
       <Flex>
         { firstRow.map((locale) => (

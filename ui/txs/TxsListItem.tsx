@@ -23,6 +23,7 @@ import TxAdditionalInfo from 'ui/txs/TxAdditionalInfo';
 import TxType from 'ui/txs/TxType';
 
 import TxTranslationType from './TxTranslationType';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   tx: Transaction;
@@ -33,15 +34,16 @@ type Props = {
 }
 
 const TxsListItem = ({ tx, isLoading, showBlockInfo, currentAddress, enableTimeIncrement }: Props) => {
+  const t = useTranslations();
   const dataTo = tx.to ? tx.to : tx.created_contract;
 
   const timeAgo = useTimeAgoIncrement(tx.timestamp, enableTimeIncrement);
 
   const localeMessages = {
-    "Method": config.t()("Method"),
-    "Block": config.t()("Block"),
-    "Value": config.t()("Value"),
-    "Fee": config.t()("Fee")
+    "Method": t("Method"),
+    "Block": t("Block"),
+    "Value": t("Value"),
+    "Fee": t("Fee")
   }
 
   return (

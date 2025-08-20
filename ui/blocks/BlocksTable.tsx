@@ -12,6 +12,7 @@ import { currencyUnits } from 'lib/units';
 import BlocksTableItem from 'ui/blocks/BlocksTableItem';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import { default as Thead } from 'ui/shared/TheadSticky';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Array<Block>;
@@ -37,22 +38,23 @@ const BlocksTable = ({ data, isLoading, top, page, showSocketInfo, socketInfoNum
     GAS_COL_WEIGHT +
     (!isRollup && !config.UI.views.block.hiddenFields?.total_reward ? REWARD_COL_WEIGHT : 0) +
     (!isRollup && !config.UI.views.block.hiddenFields?.burnt_fees ? FEES_COL_WEIGHT : 0);
-
+  const t = useTranslations();
+  
   return (
     <AddressHighlightProvider>
       <Table variant="simple" minWidth="1040px" size="md" fontWeight={ 500 }>
         <Thead top={ top }>
           <Tr>
-            <Th width="125px">{config.t()('Block')}</Th>
-            <Th width="120px">{config.t()('Size, bytes')}</Th>
+            <Th width="125px">{t('Block')}</Th>
+            <Th width="120px">{t('Size, bytes')}</Th>
             { !config.UI.views.block.hiddenFields?.miner &&
             <Th width={ `${ VALIDATOR_COL_WEIGHT / widthBase * 100 }%` } minW="160px">{ capitalize(getNetworkValidatorTitle()) }</Th> }
-            <Th width="64px" isNumeric>{config.t()('Txn')}</Th>
-            <Th width={ `${ GAS_COL_WEIGHT / widthBase * 100 }%` }>{config.t()('Gas used')}</Th>
+            <Th width="64px" isNumeric>{t('Txn')}</Th>
+            <Th width={ `${ GAS_COL_WEIGHT / widthBase * 100 }%` }>{t('Gas used')}</Th>
             { !isRollup && !config.UI.views.block.hiddenFields?.total_reward &&
-              <Th width={ `${ REWARD_COL_WEIGHT / widthBase * 100 }%` }>{config.t()('Reward')} { currencyUnits.ether }</Th> }
+              <Th width={ `${ REWARD_COL_WEIGHT / widthBase * 100 }%` }>{t('Reward')} { currencyUnits.ether }</Th> }
             { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees &&
-              <Th width={ `${ FEES_COL_WEIGHT / widthBase * 100 }%` }>{config.t()('Burnt fees')} { currencyUnits.ether }</Th> }
+              <Th width={ `${ FEES_COL_WEIGHT / widthBase * 100 }%` }>{t('Burnt fees')} { currencyUnits.ether }</Th> }
           </Tr>
         </Thead>
         <Tbody>

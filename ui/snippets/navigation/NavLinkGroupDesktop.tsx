@@ -21,6 +21,7 @@ import NavLinkIcon from './NavLinkIcon';
 import useNavLinkStyleProps from './useNavLinkStyleProps';
 import { checkRouteHighlight } from './utils';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   item: NavGroupItem;
@@ -28,6 +29,7 @@ type Props = {
 }
 
 const NavLinkGroupDesktop = ({ item, isCollapsed }: Props) => {
+  const t = useTranslations();
   const isExpanded = isCollapsed === false;
 
   const styleProps = useNavLinkStyleProps({ isCollapsed, isExpanded, isActive: item.isActive });
@@ -56,7 +58,7 @@ const NavLinkGroupDesktop = ({ item, isCollapsed }: Props) => {
                 { ...styleProps.textProps }
                 ml={ 3 }
               >
-                { `${config.t()(item.text)}` }
+                { `${t(item.text)}` }
               </Text>
               { isHighlighted && (
                 <LightningLabel bgColor={ styleProps.itemProps.bgColor } isCollapsed={ isCollapsed }/>
@@ -78,7 +80,7 @@ const NavLinkGroupDesktop = ({ item, isCollapsed }: Props) => {
         <PopoverContent width="252px" top={{ lg: isExpanded ? '-16px' : 0, xl: isCollapsed ? 0 : '-16px' }}>
           <PopoverBody p={ 4 }>
             <Text variant="secondary" fontSize="sm" mb={ 1 } display={{ lg: isExpanded ? 'none' : 'block', xl: isCollapsed ? 'block' : 'none' }}>
-              { `${config.t()(item.text)}` }
+              { `${t(item.text)}` }
             </Text>
             <VStack spacing={ 1 } alignItems="start">
               { item.subItems.map((subItem, index) => Array.isArray(subItem) ? (

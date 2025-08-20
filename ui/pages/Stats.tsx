@@ -8,8 +8,10 @@ import ChartsWidgetsList from '../stats/ChartsWidgetsList';
 import NumberWidgetsList from '../stats/NumberWidgetsList';
 import StatsFilters from '../stats/StatsFilters';
 import useStats from '../stats/useStats';
+import { useTranslations } from 'next-intl';
 
 const Stats = () => {
+  const t = useTranslations();
   const {
     isPlaceholderData,
     isError,
@@ -27,7 +29,7 @@ const Stats = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ config.t()('statistic & data') }` : `${ config.chain.name } ${ config.t()('stats') }` }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ t('statistic & data') }` : `${ config.chain.name } ${ t('stats') }` }
       />
 
       <Box mb={{ base: 6, sm: 8 }}>

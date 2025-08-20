@@ -14,6 +14,7 @@ import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import HashStringShorten from 'ui/shared/HashStringShorten';
 import IconSvg from 'ui/shared/IconSvg';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: VerifiedContract;
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
+  const t = useTranslations();
   const balance = data.coin_balance && data.coin_balance !== '0' ?
     BigNumber(data.coin_balance).div(10 ** config.chain.currency.decimals).dp(6).toFormat() :
     '0';
@@ -35,13 +37,13 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
   })();
 
   const localeMessages = {
-    "Balance": config.t()("Balance"),
-    "Txs count": config.t()("Txs count"),
-    "Compiler": config.t()("Compiler"),
-    "Optimization": config.t()("Optimization"),
-    "Constructor args": config.t()("Constructor args"),
-    "Verified": config.t()("Verified"),
-    "License": config.t()("License")
+    "Balance": t("Balance"),
+    "Txs count": t("Txs count"),
+    "Compiler": t("Compiler"),
+    "Optimization": t("Optimization"),
+    "Constructor args": t("Constructor args"),
+    "Verified": t("Verified"),
+    "License": t("License")
   }
 
   return (

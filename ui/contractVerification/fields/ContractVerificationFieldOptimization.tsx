@@ -9,6 +9,7 @@ import CheckboxInput from 'ui/shared/CheckboxInput';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 const ContractVerificationFieldOptimization = () => {
   const [ isEnabled, setIsEnabled ] = React.useState(true);
@@ -19,11 +20,12 @@ const ContractVerificationFieldOptimization = () => {
   const handleCheckboxChange = React.useCallback(() => {
     setIsEnabled(prev => !prev);
   }, []);
+  const t = useTranslations();
 
   const renderCheckboxControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'is_optimization_enabled'>}) => (
     <Flex flexShrink={ 0 }>
       <CheckboxInput<FormFields, 'is_optimization_enabled'>
-        text={ config.t()("Optimization enabled") }
+        text={ t("Optimization enabled") }
         field={ field }
         onChange={ handleCheckboxChange }
         isDisabled={ formState.isSubmitting }

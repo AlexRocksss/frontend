@@ -10,6 +10,7 @@ import { default as Thead } from 'ui/shared/TheadSticky';
 import TxInternalsTableItem from 'ui/tx/internals/TxInternalsTableItem';
 import type { Sort, SortField } from 'ui/tx/internals/utils';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Array<InternalTransaction>;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const TxInternalsTable = ({ data, sort, onSortToggle, top, isLoading }: Props) => {
+  const t = useTranslations();
   const sortIconTransform = sort?.includes('asc') ? 'rotate(-90deg)' : 'rotate(90deg)';
 
   return (
@@ -27,18 +29,18 @@ const TxInternalsTable = ({ data, sort, onSortToggle, top, isLoading }: Props) =
       <Table variant="simple" size="sm">
         <Thead top={ top }>
           <Tr>
-            <Th width="28%">{ config.t()('Type') }</Th>
-            <Th width="40%">{ config.t()('From/To') }</Th>
+            <Th width="28%">{ t('Type') }</Th>
+            <Th width="40%">{ t('From/To') }</Th>
             <Th width="16%" isNumeric>
               <Link display="flex" alignItems="center" justifyContent="flex-end" onClick={ onSortToggle('value') } columnGap={ 1 }>
                 { sort?.includes('value') && <IconSvg name="arrows/east" boxSize={ 4 } transform={ sortIconTransform }/> }
-                {config.t()('Value')} { currencyUnits.ether }
+                {t('Value')} { currencyUnits.ether }
               </Link>
             </Th>
             <Th width="16%" isNumeric>
               <Link display="flex" alignItems="center" justifyContent="flex-end" onClick={ onSortToggle('gas-limit') } columnGap={ 1 }>
                 { sort?.includes('gas-limit') && <IconSvg name="arrows/east" boxSize={ 4 } transform={ sortIconTransform }/> }
-                {config.t()('Gas limit')} { currencyUnits.ether }
+                {t('Gas limit')} { currencyUnits.ether }
               </Link>
             </Th>
           </Tr>

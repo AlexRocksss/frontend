@@ -6,14 +6,16 @@ import { COLOR_THEMES } from 'lib/settings/colorTheme';
 
 import SettingsSample from './SettingsSample';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 const SettingsColorTheme = () => {
+  const t = useTranslations();
   const { setColorMode } = useColorMode();
 
   const [ activeHex, setActiveHex ] = React.useState<string>();
 
   const localeMessages = {
-    "Color theme": config.t()("Color theme")
+    "Color theme": t("Color theme")
   }
 
   const setTheme = React.useCallback((hex: string) => {

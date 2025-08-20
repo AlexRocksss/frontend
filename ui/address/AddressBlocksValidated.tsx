@@ -7,6 +7,7 @@ import type { SocketMessage } from 'lib/socket/types';
 import type { AddressBlocksValidatedResponse } from 'types/api/address';
 
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 import { getResourceKey } from 'lib/api/useApiQuery';
 import useIsMounted from 'lib/hooks/useIsMounted';
 import useSocketChannel from 'lib/socket/useSocketChannel';
@@ -34,13 +35,14 @@ const AddressBlocksValidated = ({ scrollRef, shouldRender = true }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const isMounted = useIsMounted();
+  const t = useTranslations();
 
   const localMessages = {
-    "Block": config.t()('Block'),
-    "Age": config.t()("Age"),
-    "Txn": config.t()("Txn"),
-    "Gas used": config.t()("Gas used"),
-    "Reward": config.t()("Reward")
+    "Block": t('Block'),
+    "Age": t("Age"),
+    "Txn": t("Txn"),
+    "Gas used": t("Gas used"),
+    "Reward": t("Reward")
   }
 
   const addressHash = String(router.query.hash);

@@ -12,10 +12,12 @@ import config from "configs/app";
 const options = CONTRACT_LICENSES.map(({ label, title, type }) => ({ label: `${ title } (${ label })`, value: type }));
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import { useTranslations } from 'next-intl';
 
 const ContractVerificationFieldLicenseType = () => {
   const { formState, control } = useFormContext<FormFields>();
   const isMobile = useIsMobile();
+  const t = useTranslations();
 
   const renderControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'license_type'>}) => {
     const error = 'license_type' in formState.errors ? formState.errors.license_type : undefined;
@@ -25,7 +27,7 @@ const ContractVerificationFieldLicenseType = () => {
         { ...field }
         options={ options }
         size={ isMobile ? 'md' : 'lg' }
-        placeholder={ config.t()("Contract license") }
+        placeholder={ t("Contract license") }
         isDisabled={ formState.isSubmitting }
         error={ error }
       />
@@ -40,7 +42,7 @@ const ContractVerificationFieldLicenseType = () => {
         render={ renderControl }
       />
       <span>
-          { config.t()('contract-verification-best-practice') }
+          { t('contract-verification-best-practice') }
       </span>
     </ContractVerificationFormRow>
   );

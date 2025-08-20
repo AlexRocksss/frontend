@@ -26,6 +26,7 @@ import IconSvg from 'ui/shared/IconSvg';
 
 import { METHOD_LABELS } from '../utils';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   control: Control<FormFields>;
@@ -41,6 +42,7 @@ const ContractVerificationFieldMethod = ({ control, isDisabled, methods }: Props
     value: method,
     label: METHOD_LABELS[method],
   })), [ methods ]);
+  const t = useTranslations();
 
   const renderControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'method'>}) => {
     return (
@@ -48,7 +50,7 @@ const ContractVerificationFieldMethod = ({ control, isDisabled, methods }: Props
         { ...field }
         options={ options }
         size={ isMobile ? 'md' : 'lg' }
-        placeholder={ config.t()('Verification method (compiler type)') }
+        placeholder={ t('Verification method (compiler type)') }
         isDisabled={ isDisabled }
         isRequired
         isAsync={ false }
@@ -101,7 +103,7 @@ const ContractVerificationFieldMethod = ({ control, isDisabled, methods }: Props
     <>
       <Box mt={{ base: 10, lg: 6 }} gridColumn={{ lg: '1 / 3' }}>
         <chakra.span fontWeight={ 500 } fontSize="lg" fontFamily="heading">
-          { config.t()('Currently, Blockscout supports ') }{ methods.length } { config.t()('contract verification methods') }
+          { t('Currently, Blockscout supports ') }{ methods.length } { t('contract verification methods') }
         </chakra.span>
         <Popover trigger="hover" isLazy placement={ isMobile ? 'bottom-end' : 'right-start' } offset={ [ -8, 8 ] }>
           <PopoverTrigger>

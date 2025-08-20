@@ -45,24 +45,26 @@ import IconSvg from 'ui/shared/IconSvg';
 import NetworkExplorers from 'ui/shared/NetworkExplorers';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
+import { useTranslations } from 'next-intl';
 
 const TOKEN_TABS = [ 'tokens_erc20', 'tokens_nfts', 'tokens_nfts_collection', 'tokens_nfts_list' ];
 
 const txInterpretation = config.features.txInterpretation;
 
 const AddressPageContent = () => {
+  const t = useTranslations();
   const router = useRouter();
   const appProps = useAppContext();
 
   const localeMessages = {
-    "Transactions": config.t()("Transactions"),
-    'Token transfers': config.t()('Token transfers'),
-    'Tokens': config.t()('Tokens'),
-    'Internal txns': config.t()('Internal txns'),
-    'Coin balance history': config.t()('Coin balance history'),
-    'Blocks validated': config.t()('Blocks validated'),
-    'Logs': config.t()('Logs'),
-    'Contract': config.t()('Contract')
+    "Transactions": t("Transactions"),
+    'Token transfers': t('Token transfers'),
+    'Tokens': t('Tokens'),
+    'Internal txns': t('Internal txns'),
+    'Coin balance history': t('Coin balance history'),
+    'Blocks validated': t('Blocks validated'),
+    'Logs': t('Logs'),
+    'Contract': t('Contract')
   }
 
   const tabsScrollRef = React.useRef<HTMLDivElement>(null);
@@ -297,7 +299,7 @@ const AddressPageContent = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title={ `${ addressQuery.data?.is_contract ? `${ config.t()('Contract') }` : `${ config.t()('Address') }` }${ config.t()('details') }` }
+        title={ `${ addressQuery.data?.is_contract ? `${ t('Contract') }` : `${ t('Address') }` }${ t('details') }` }
         backLink={ backLink }
         contentAfter={ titleContentAfter }
         secondRow={ titleSecondRow }

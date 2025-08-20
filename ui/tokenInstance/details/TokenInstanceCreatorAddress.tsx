@@ -5,12 +5,14 @@ import { ADDRESS_INFO } from 'stubs/address';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   hash: string;
 }
 
 const TokenInstanceCreatorAddress = ({ hash }: Props) => {
+  const t = useTranslations();
   const addressQuery = useApiQuery('address', {
     pathParams: { hash },
     queryOptions: {
@@ -28,7 +30,7 @@ const TokenInstanceCreatorAddress = ({ hash }: Props) => {
   }
 
   const localeMessages = {
-    "Creator": config.t()("Creator")
+    "Creator": t("Creator")
   }
 
   const creatorAddress = {

@@ -6,6 +6,7 @@ import type { Address } from 'types/api/address';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Pick<Address, 'name' | 'token' | 'is_contract'>;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const AddressNameInfo = ({ data, isLoading }: Props) => {
+  const t = useTranslations();
   if (data.token) {
     return (
       <>
@@ -20,7 +22,7 @@ const AddressNameInfo = ({ data, isLoading }: Props) => {
           hint="Token name and symbol"
           isLoading={ isLoading }
         >
-          { config.t()('Token name') }
+          { t('Token name') }
         </DetailsInfoItem.Label>
         <DetailsInfoItem.Value>
           <TokenEntity
@@ -41,7 +43,7 @@ const AddressNameInfo = ({ data, isLoading }: Props) => {
           hint="The name found in the source code of the Contract"
           isLoading={ isLoading }
         >
-          { config.t()("Contract name") }
+          { t("Contract name") }
         </DetailsInfoItem.Label>
         <DetailsInfoItem.Value>
           <Skeleton isLoaded={ !isLoading }>

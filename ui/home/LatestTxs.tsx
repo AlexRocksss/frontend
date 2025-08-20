@@ -14,8 +14,10 @@ import SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import LatestTxsItem from './LatestTxsItem';
 import LatestTxsItemMobile from './LatestTxsItemMobile';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 const LatestTransactions = () => {
+  const t = useTranslations();
   const isMobile = useIsMobile();
   const txsCount = isMobile ? 2 : 6;
   const { data, isPlaceholderData, isError } = useApiQuery('homepage_txs', {
@@ -56,7 +58,7 @@ const LatestTransactions = () => {
           </Box>
         </AddressHighlightProvider>
         <Flex justifyContent="center">
-          <LinkInternal fontSize="sm" href={ txsUrl }>{config.t()('View all transactions')}</LinkInternal>
+          <LinkInternal fontSize="sm" href={ txsUrl }>{ t('View all transactions') }</LinkInternal>
         </Flex>
       </>
     );

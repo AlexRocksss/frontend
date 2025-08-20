@@ -22,6 +22,7 @@ import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TextSeparator from 'ui/shared/TextSeparator';
 import Utilization from 'ui/shared/Utilization/Utilization';
 import { m } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   data: Block;
@@ -35,13 +36,13 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement }: Props) => {
   const totalReward = getBlockTotalReward(data);
   const burntFees = BigNumber(data.burnt_fees || 0);
   const txFees = BigNumber(data.tx_fees || 0);
-
+  const t = useTranslations();
   const localeMessages = {
-    "Size": config.t()("Size"),
-    "Txn": config.t()("Txn"),
-    "Gas used": config.t()("Gas used"),
-    "Reward": config.t()("Reward"),
-    "Burnt fees": config.t()("Burnt fees")
+    "Size": t("Size"),
+    "Txn": t("Txn"),
+    "Gas used": t("Gas used"),
+    "Reward": t("Reward"),
+    "Burnt fees": t("Burnt fees")
   }
 
   const separatorColor = useColorModeValue('gray.200', 'gray.700');

@@ -1,5 +1,7 @@
+import { useTranslations } from 'next-intl';
 import config from 'configs/app';
 
 export default function getNetworkValidatorTitle() {
-  return config.chain.verificationType === 'validation' ? `${config.t()('validator')}` : `${config.t()('miner')}`;
+  const t = useTranslations();
+  return config.chain.verificationType === 'validation' ? `${t('validator')}` : `${t('miner')}`;
 }

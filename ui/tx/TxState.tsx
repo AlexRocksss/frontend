@@ -13,12 +13,14 @@ import TxPendingAlert from './TxPendingAlert';
 import TxSocketAlert from './TxSocketAlert';
 import type { TxQuery } from './useTxQuery';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 interface Props {
   txQuery: TxQuery;
 }
 
 const TxState = ({ txQuery }: Props) => {
+  const t = useTranslations();
   const { data, isPlaceholderData, isError, pagination } = useQueryWithPages({
     resourceName: 'tx_state_changes',
     pathParams: { hash: txQuery.data?.hash },
@@ -59,7 +61,7 @@ const TxState = ({ txQuery }: Props) => {
     <>
       { !isError && !txQuery.isError && (
         <Text mb={ 6 }>
-          { config.t()("balance-changes-1") }
+          { t("balance-changes-1") }
         </Text>
       ) }
       <DataListDisplay

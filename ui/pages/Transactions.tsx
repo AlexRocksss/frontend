@@ -17,6 +17,7 @@ import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
 import TxsStats from 'ui/txs/TxsStats';
 import TxsWatchlist from 'ui/txs/TxsWatchlist';
 import TxsWithFrontendSorting from 'ui/txs/TxsWithFrontendSorting';
+import { useTranslations } from 'next-intl';
 
 const TAB_LIST_PROPS = {
   marginBottom: 0,
@@ -27,7 +28,8 @@ const TAB_LIST_PROPS = {
 const TABS_HEIGHT = 88;
 
 const Transactions = () => {
-  const verifiedTitle = config.chain.verificationType === 'validation' ? 'Validated' : 'Mined';
+  const t = useTranslations();
+  const verifiedTitle = config.chain.verificationType === 'validation' ? t('Validated') : t('Mined');
   const router = useRouter();
   const isMobile = useIsMobile();
   const tab = getQueryParamString(router.query.tab);
@@ -91,7 +93,7 @@ const Transactions = () => {
   const tabs: Array<RoutedTab> = [
     {
       id: 'validated',
-      title: config.t()(verifiedTitle),
+      title: t(verifiedTitle),
       component:
         <TxsWithFrontendSorting
           query={ txsValidatedQuery }
@@ -102,7 +104,7 @@ const Transactions = () => {
         /> },
     {
       id: 'pending',
-      title: config.t()('Pending'),
+      title: t('Pending'),
       component: (
         <TxsWithFrontendSorting
           query={ txsPendingQuery }
@@ -129,7 +131,7 @@ const Transactions = () => {
     },
     hasAccount ? {
       id: 'watchlist',
-      title: config.t()('Watch list'),
+      title: t('Watch list'),
       component: <TxsWatchlist query={ txsWatchlistQuery }/>,
     } : undefined,
   ].filter(Boolean);
@@ -146,7 +148,7 @@ const Transactions = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ config.t()('transactions') }` : `${ config.t()('Transactions') }` }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ t('transactions') }` : `${ t('Transactions') }` }
         withTextAd
       />
       <TxsStats/>

@@ -8,18 +8,20 @@ import useAddOrSwitchChain from 'lib/web3/useAddOrSwitchChain';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
 import IconSvg from 'ui/shared/IconSvg';
+import { useTranslations } from 'next-intl';
 
 const feature = config.features.web3Wallet;
 
 const NetworkAddToWallet = () => {
+  const t = useTranslations();
   const toast = useToast();
   const { provider, wallet } = useProvider();
   const addOrSwitchChain = useAddOrSwitchChain();
 
   const localeMessages = {
-    "Add": config.t()("Add"),
-    "success-add-wallet": config.t()("success-add-wallet"),
-    "Success": config.t()('Success')
+    "Add": t("Add"),
+    "success-add-wallet": t("success-add-wallet"),
+    "Success": t('Success')
   }
 
   const handleClick = React.useCallback(async() => {

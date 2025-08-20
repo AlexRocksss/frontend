@@ -7,6 +7,7 @@ import type { FormFields } from '../types';
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 import ContractVerificationFieldLibraryItem from './ContractVerificationFieldLibraryItem';
 import config from 'configs/app';
+import { useTranslations } from 'next-intl';
 
 const ContractVerificationFieldLibraries = () => {
   const { formState, control, getValues } = useFormContext<FormFields>();
@@ -41,6 +42,8 @@ const ContractVerificationFieldLibraries = () => {
     remove(index);
   }, [ remove ]);
 
+  const t = useTranslations();
+
   return (
     <>
       <ContractVerificationFormRow>
@@ -50,7 +53,7 @@ const ContractVerificationFieldLibraries = () => {
           mt={ 9 }
           isDisabled={ formState.isSubmitting }
         >
-          { config.t()('Add contract libraries') }
+          { t('Add contract libraries') }
         </Checkbox>
       </ContractVerificationFormRow>
       { fields.map((field, index) => (

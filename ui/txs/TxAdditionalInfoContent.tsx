@@ -15,8 +15,10 @@ import LinkInternal from 'ui/shared/links/LinkInternal';
 import TextSeparator from 'ui/shared/TextSeparator';
 import TxFeeStability from 'ui/shared/tx/TxFeeStability';
 import Utilization from 'ui/shared/Utilization/Utilization';
+import { useTranslations } from 'next-intl';
 
 const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
+  const t = useTranslations();
   const sectionProps = {
     borderBottom: '1px solid',
     borderColor: 'divider',
@@ -30,14 +32,14 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
   };
 
   const localeMessages = {
-    "Additional info": config.t()("Additional info"),
-    "Transaction fee": config.t()("Transaction fee"),
-    "Gas limit & usage by transaction": config.t()("Gas limit & usage by transaction"),
-    "Others": config.t()("Others"),
-    "Txn type": config.t()("Txn type"),
-    "Nonce": config.t()("Nonce"),
-    "Position": config.t()("Position"),
-    "More details": config.t()("More details")
+    "Additional info": t("Additional info"),
+    "Transaction fee": t("Transaction fee"),
+    "Gas limit & usage by transaction": t("Gas limit & usage by transaction"),
+    "Others": t("Others"),
+    "Txn type": t("Txn type"),
+    "Nonce": t("Nonce"),
+    "Position": t("Position"),
+    "More details": t("More details")
   }
 
   return (

@@ -9,6 +9,7 @@ import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import config from "configs/app";
+import { useTranslations } from 'next-intl';
 
 type Props = AddressTokenBalance & { isLoading: boolean};
 
@@ -19,10 +20,11 @@ const ERC20TokensListItem = ({ token, value, isLoading }: Props) => {
     usd: tokenValue,
   } = getCurrencyValue({ value: value, exchangeRate: token.exchange_rate, decimals: token.decimals, accuracy: 8, accuracyUsd: 2 });
 
+  const t = useTranslations();
   const localeMessages = {
-    "Price": config.t()("Price"),
-    "Quantity": config.t()("Quantity"),
-    "Value": config.t()("Value")
+    "Price": t("Price"),
+    "Quantity": t("Quantity"),
+    "Value": t("Value")
   }
 
   return (
