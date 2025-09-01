@@ -2,6 +2,7 @@ import { Skeleton, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { mdash } from 'lib/html-entities';
+import config from 'configs/app';
 
 interface Props {
   percentage: number;
@@ -30,7 +31,7 @@ const GasTrackerNetworkUtilization = ({ percentage, isLoading }: Props) => {
 
   return (
     <Skeleton isLoaded={ !isLoading } whiteSpace="pre-wrap">
-      <span>Network utilization </span>
+      <span>{ config.t()('Network utilization') } </span>
       <chakra.span color={ color }>{ percentage.toFixed(2) }% { mdash } { load } load</chakra.span>
     </Skeleton>
   );

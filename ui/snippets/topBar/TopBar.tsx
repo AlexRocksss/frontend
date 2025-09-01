@@ -5,6 +5,7 @@ import config from 'configs/app';
 
 import DeFiDropdown from './DeFiDropdown';
 import Settings from './settings/Settings';
+import SettingsLanguageTopBar from './settings/SettingsLanguageTopBar';
 import TopBarStats from './TopBarStats';
 
 const feature = config.features.deFiDropdown;
@@ -22,6 +23,7 @@ const TopBar = () => {
     >
       <TopBarStats/>
       <Flex alignItems="center">
+        <SettingsLanguageTopBar/>
         { feature.isEnabled && (
           <>
             <DeFiDropdown/>

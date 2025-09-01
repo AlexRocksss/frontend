@@ -6,6 +6,7 @@ import { route } from 'nextjs-routes';
 import useApiQuery from 'lib/api/useApiQuery';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import LinkInternal from 'ui/shared/links/LinkInternal';
+import config from "configs/app";
 
 interface Props {
   hash: string;
@@ -32,6 +33,10 @@ const TokenInstanceTransfersCount = ({ hash, id, onClick }: Props) => {
     return null;
   }
 
+  const localeMessages = {
+    "Transfers": config.t()("Transfers")
+  }
+
   const url = transfersCountQuery.data.transfers_count > 0 ?
     route({ pathname: '/token/[hash]/instance/[id]', query: { hash, id, tab: 'token_transfers' } }) :
     undefined;
@@ -42,7 +47,7 @@ const TokenInstanceTransfersCount = ({ hash, id, onClick }: Props) => {
         hint="Number of transfer for the token instance"
         isLoading={ transfersCountQuery.isPlaceholderData }
       >
-        Transfers
+        { localeMessages["Transfers"] }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !transfersCountQuery.isPlaceholderData } display="inline-block">

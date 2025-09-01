@@ -11,6 +11,7 @@ import DataListDisplay from 'ui/shared/DataListDisplay';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import Pagination from 'ui/shared/pagination/Pagination';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
+import config from "configs/app";
 
 const PAGE_SIZE = 50;
 
@@ -73,7 +74,7 @@ const Accounts = () => {
 
   return (
     <>
-      <PageTitle title="Top accounts" withTextAd/>
+      <PageTitle title={ config.t()("Top accounts") } withTextAd/>
       <DataListDisplay
         isError={ isError }
         items={ data?.items }

@@ -10,6 +10,7 @@ import { currencyUnits } from 'lib/units';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
+import config from "configs/app";
 
 type Props = AddressCoinBalanceHistoryItem & {
   page: number;
@@ -20,6 +21,12 @@ const AddressCoinBalanceListItem = (props: Props) => {
   const deltaBn = BigNumber(props.delta).div(WEI);
   const isPositiveDelta = deltaBn.gte(ZERO);
   const timeAgo = useTimeAgoIncrement(props.block_timestamp, props.page === 1);
+
+  const localeMessages = {
+    "Block": config.t()("Block"),
+    "Txs": config.t()("Txs"),
+    "Age": config.t()("Age"),
+  }
 
   return (
     <ListItemMobile rowGap={ 2 } isAnimated>
@@ -39,7 +46,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
         </Skeleton>
       </Flex>
       <Flex columnGap={ 2 } w="100%">
-        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Block</Skeleton>
+        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ localeMessages["Block"] }</Skeleton>
         <BlockEntity
           isLoading={ props.isLoading }
           number={ props.block_number }
@@ -49,7 +56,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
       </Flex>
       { props.transaction_hash && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txs</Skeleton>
+          <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ localeMessages["Txs"] }</Skeleton>
           <TxEntity
             hash={ props.transaction_hash }
             isLoading={ props.isLoading }
@@ -60,7 +67,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
         </Flex>
       ) }
       <Flex columnGap={ 2 } w="100%">
-        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Age</Skeleton>
+        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ localeMessages["Age"] }</Skeleton>
         <Skeleton isLoaded={ !props.isLoading } color="text_secondary"><span>{ timeAgo }</span></Skeleton>
       </Flex>
     </ListItemMobile>

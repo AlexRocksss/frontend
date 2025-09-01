@@ -21,6 +21,7 @@ import LinkInternal from 'ui/shared/links/LinkInternal';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TextSeparator from 'ui/shared/TextSeparator';
 import Utilization from 'ui/shared/Utilization/Utilization';
+import { m } from 'framer-motion';
 
 interface Props {
   data: Block;
@@ -34,6 +35,14 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement }: Props) => {
   const totalReward = getBlockTotalReward(data);
   const burntFees = BigNumber(data.burnt_fees || 0);
   const txFees = BigNumber(data.tx_fees || 0);
+
+  const localeMessages = {
+    "Size": config.t()("Size"),
+    "Txn": config.t()("Txn"),
+    "Gas used": config.t()("Gas used"),
+    "Reward": config.t()("Reward"),
+    "Burnt fees": config.t()("Burnt fees")
+  }
 
   const separatorColor = useColorModeValue('gray.200', 'gray.700');
 
@@ -52,7 +61,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement }: Props) => {
         <BlockTimestamp ts={ data.timestamp } isEnabled={ enableTimeIncrement } isLoading={ isLoading }/>
       </Flex>
       <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Size</Text>
+        <Text fontWeight={ 500 }>{ localeMessages["Size"] }</Text>
         <Skeleton isLoaded={ !isLoading } display="inline-block" color="text_secondary">
           <span>{ data.size.toLocaleString() } bytes</span>
         </Skeleton>
@@ -68,7 +77,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement }: Props) => {
         </Flex>
       ) }
       <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Txn</Text>
+        <Text fontWeight={ 500 }>{ localeMessages["Txn"] }</Text>
         { data.tx_count > 0 ? (
           <Skeleton isLoaded={ !isLoading } display="inline-block">
             <LinkInternal href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: String(data.height), tab: 'txs' } }) }>
@@ -80,7 +89,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement }: Props) => {
         }
       </Flex>
       <Box>
-        <Text fontWeight={ 500 }>Gas used</Text>
+        <Text fontWeight={ 500 }>{ localeMessages["Gas used"] }</Text>
         <Flex mt={ 2 }>
           <Skeleton isLoaded={ !isLoading } display="inline-block" color="text_secondary" mr={ 4 }>
             <span>{ BigNumber(data.gas_used || 0).toFormat() }</span>
@@ -96,7 +105,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement }: Props) => {
       </Box>
       { !isRollup && !config.UI.views.block.hiddenFields?.total_reward && (
         <Flex columnGap={ 2 }>
-          <Text fontWeight={ 500 }>Reward { currencyUnits.ether }</Text>
+          <Text fontWeight={ 500 }>{ localeMessages["Reward"] } { currencyUnits.ether }</Text>
           <Skeleton isLoaded={ !isLoading } display="inline-block" color="text_secondary">
             <span>{ totalReward.toFixed() }</span>
           </Skeleton>
@@ -104,7 +113,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement }: Props) => {
       ) }
       { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees && (
         <Box>
-          <Text fontWeight={ 500 }>Burnt fees</Text>
+          <Text fontWeight={ 500 }>{ localeMessages["Burnt fees"] }</Text>
           <Flex columnGap={ 4 } mt={ 2 }>
             <Flex>
               <IconSvg name="flame" boxSize={ 5 } color="gray.500" isLoading={ isLoading }/>

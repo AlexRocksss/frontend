@@ -54,6 +54,17 @@ const AddressPageContent = () => {
   const router = useRouter();
   const appProps = useAppContext();
 
+  const localeMessages = {
+    "Transactions": config.t()("Transactions"),
+    'Token transfers': config.t()('Token transfers'),
+    'Tokens': config.t()('Tokens'),
+    'Internal txns': config.t()('Internal txns'),
+    'Coin balance history': config.t()('Coin balance history'),
+    'Blocks validated': config.t()('Blocks validated'),
+    'Logs': config.t()('Logs'),
+    'Contract': config.t()('Contract')
+  }
+
   const tabsScrollRef = React.useRef<HTMLDivElement>(null);
   const hash = getQueryParamString(router.query.hash);
 
@@ -104,7 +115,7 @@ const AddressPageContent = () => {
     return [
       {
         id: 'txs',
-        title: 'Transactions',
+        title: `${ localeMessages["Transactions"] }`,
         count: addressTabsCountersQuery.data?.transactions_count,
         component: <AddressTxs scrollRef={ tabsScrollRef } shouldRender={ !isTabsLoading }/>,
       },
@@ -133,32 +144,32 @@ const AddressPageContent = () => {
         undefined,
       {
         id: 'token_transfers',
-        title: 'Token transfers',
+        title: `${ localeMessages['Token transfers'] }`,
         count: addressTabsCountersQuery.data?.token_transfers_count,
         component: <AddressTokenTransfers scrollRef={ tabsScrollRef } shouldRender={ !isTabsLoading }/>,
       },
       {
         id: 'tokens',
-        title: 'Tokens',
+        title: `${ localeMessages['Tokens'] }`,
         count: addressTabsCountersQuery.data?.token_balances_count,
         component: <AddressTokens shouldRender={ !isTabsLoading }/>,
         subTabs: TOKEN_TABS,
       },
       {
         id: 'internal_txns',
-        title: 'Internal txns',
+        title: `${ localeMessages['Internal txns'] }`,
         count: addressTabsCountersQuery.data?.internal_txs_count,
         component: <AddressInternalTxs scrollRef={ tabsScrollRef } shouldRender={ !isTabsLoading }/>,
       },
       {
         id: 'coin_balance_history',
-        title: 'Coin balance history',
+        title: `${ localeMessages['Coin balance history'] }`,
         component: <AddressCoinBalance shouldRender={ !isTabsLoading }/>,
       },
       config.chain.verificationType === 'validation' && addressTabsCountersQuery.data?.validations_count ?
         {
           id: 'blocks_validated',
-          title: 'Blocks validated',
+          title: `${ localeMessages['Blocks validated'] }`,
           count: addressTabsCountersQuery.data?.validations_count,
           component: <AddressBlocksValidated scrollRef={ tabsScrollRef } shouldRender={ !isTabsLoading }/>,
         } :
@@ -166,7 +177,7 @@ const AddressPageContent = () => {
       addressTabsCountersQuery.data?.logs_count ?
         {
           id: 'logs',
-          title: 'Logs',
+          title: `${ localeMessages['Logs'] }`,
           count: addressTabsCountersQuery.data?.logs_count,
           component: <AddressLogs scrollRef={ tabsScrollRef } shouldRender={ !isTabsLoading }/>,
         } :
@@ -178,13 +189,13 @@ const AddressPageContent = () => {
           if (addressQuery.data.is_verified) {
             return (
               <>
-                <span>Contract</span>
+                <span>{ localeMessages['Contract'] }</span>
                 <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 }/>
               </>
             );
           }
 
-          return 'Contract';
+          return `${ localeMessages['Contract'] }`;
         },
         component: <AddressContract tabs={ contractTabs.tabs } shouldRender={ !isTabsLoading } isLoading={ contractTabs.isLoading }/>,
         subTabs: contractTabs.tabs.map(tab => tab.id),
@@ -276,7 +287,7 @@ const AddressPageContent = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title={ `${ addressQuery.data?.is_contract ? 'Contract' : 'Address' } details` }
+        title={ `${ addressQuery.data?.is_contract ? `${ config.t()('Contract') }` : `${ config.t()('Address') }` }${ config.t()('details') }` }
         backLink={ backLink }
         contentAfter={ titleContentAfter }
         secondRow={ titleSecondRow }

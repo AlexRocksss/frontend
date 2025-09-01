@@ -7,6 +7,7 @@ import type { TokenHolder, TokenInfo } from 'types/api/token';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
 import Utilization from 'ui/shared/Utilization/Utilization';
+import config from "configs/app";
 
 interface Props {
   holder: TokenHolder;
@@ -17,9 +18,15 @@ interface Props {
 const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
   const quantity = BigNumber(holder.value).div(BigNumber(10 ** Number(token.decimals))).dp(6).toFormat();
 
+  const localeMessages = {
+    "Address": config.t()("Address"),
+    "Quantity": config.t()("Quantity"),
+    "Percentage": config.t()("Percentage")
+  }
+
   return (
     <ListItemMobileGrid.Container>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ localeMessages["Address"] }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <AddressEntity
           address={ holder.address }
@@ -40,7 +47,7 @@ const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Quantity</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ localeMessages["Quantity"] }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton isLoaded={ !isLoading } display="inline-block">
           { quantity }
@@ -49,7 +56,7 @@ const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
 
       { token.total_supply && token.type !== 'ERC-404' && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Percentage</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ localeMessages["Percentage"] }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <Utilization
               value={ BigNumber(holder.value).div(BigNumber(token.total_supply)).dp(4).toNumber() }

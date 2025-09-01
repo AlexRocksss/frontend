@@ -14,6 +14,7 @@ import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import { getTokenTransferTypeText } from 'ui/shared/TokenTransfer/helpers';
 import TxAdditionalInfo from 'ui/txs/TxAdditionalInfo';
+import config from "configs/app";
 
 type Props = TokenTransfer & {
   baseAddress?: string;
@@ -43,6 +44,10 @@ const TokenTransferListItem = ({
     accuracyUsd: 2,
     decimals: total.decimals || '0',
   }) : { usd: null, valueStr: null };
+  
+  const localeMessages = {
+    "Value": config.t()("Value")
+  }
 
   return (
     <ListItemMobile rowGap={ 3 } isAnimated>
@@ -87,7 +92,7 @@ const TokenTransferListItem = ({
       />
       { valueStr && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton isLoaded={ !isLoading } fontWeight={ 500 } flexShrink={ 0 }>Value</Skeleton>
+          <Skeleton isLoaded={ !isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ localeMessages["Value"] }</Skeleton>
           <Skeleton isLoaded={ !isLoading } color="text_secondary">
             <span>{ valueStr }</span>
             { usd && <span> (${ usd })</span> }

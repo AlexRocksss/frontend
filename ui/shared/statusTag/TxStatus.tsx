@@ -4,6 +4,7 @@ import type { Transaction } from 'types/api/transaction';
 
 import type { StatusTagType } from './StatusTag';
 import StatusTag from './StatusTag';
+import config from 'configs/app';
 
 export interface Props {
   status: Transaction['status'];
@@ -34,7 +35,7 @@ const TxStatus = ({ status, errorText, isLoading }: Props) => {
       break;
   }
 
-  return <StatusTag type={ type } text={ text } errorText={ errorText } isLoading={ isLoading }/>;
+  return <StatusTag type={ type } text={ config.t()(text) } errorText={ errorText } isLoading={ isLoading }/>;
 };
 
 export default TxStatus;

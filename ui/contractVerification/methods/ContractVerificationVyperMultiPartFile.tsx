@@ -5,6 +5,7 @@ import ContractVerificationMethod from '../ContractVerificationMethod';
 import ContractVerificationFieldCompiler from '../fields/ContractVerificationFieldCompiler';
 import ContractVerificationFieldEvmVersion from '../fields/ContractVerificationFieldEvmVersion';
 import ContractVerificationFieldSources from '../fields/ContractVerificationFieldSources';
+import config from 'configs/app';
 
 const MAIN_SOURCES_TYPES = [ '.vy' as const ];
 const INTERFACE_TYPES = [ '.vy' as const, '.json' as const ];
@@ -13,24 +14,21 @@ const ContractVerificationVyperMultiPartFile = () => {
 
   const interfacesHint = (
     <>
-      <span>Add any </span>
-      <Link href="https://docs.vyperlang.org/en/stable/interfaces.html" target="_blank">required interfaces</Link>
-      <span> for the main compiled contract.</span>
+      <span>{ config.t()('Add any') }</span>
+      <Link href="https://docs.vyperlang.org/en/stable/interfaces.html" target="_blank">{ config.t()('required interfaces') }</Link>
+      <span>{ config.t()('for the main compiled contract') }</span>
     </>
   );
 
   return (
-    <ContractVerificationMethod title="Contract verification via Vyper (multi-part files)">
+    <ContractVerificationMethod title={ config.t()("Contract verification via Vyper (multi-part files)") }>
       <ContractVerificationFieldCompiler isVyper/>
       <ContractVerificationFieldEvmVersion isVyper/>
       <ContractVerificationFieldSources
         name="sources"
         fileTypes={ MAIN_SOURCES_TYPES }
         title="Upload main *.vy source"
-        hint={ `
-          Primary compiled Vyper contract. 
-          Only add the main contract here whose bytecode has been deployed, all other files can be uploaded to the interfaces box below.
-        ` }
+        hint={ config.t()('vyper-multipart-1') }
         required
       />
       <ContractVerificationFieldSources

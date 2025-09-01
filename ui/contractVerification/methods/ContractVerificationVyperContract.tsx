@@ -8,11 +8,12 @@ import ContractVerificationFieldCompiler from '../fields/ContractVerificationFie
 import ContractVerificationFieldConstructorArgs from '../fields/ContractVerificationFieldConstructorArgs';
 import ContractVerificationFieldEvmVersion from '../fields/ContractVerificationFieldEvmVersion';
 import ContractVerificationFieldName from '../fields/ContractVerificationFieldName';
+import {useTranslations as t} from 'next-intl';
 
 const ContractVerificationVyperContract = ({ config }: { config: SmartContractVerificationConfig }) => {
   return (
-    <ContractVerificationMethod title="Contract verification via Vyper (contract)">
-      <ContractVerificationFieldName hint="The contract name is the name assigned to the verified contract in Blockscout."/>
+    <ContractVerificationMethod title={ t()("Contract verification via Vyper (contract)") }>
+      <ContractVerificationFieldName hint={ t()("The contract name is the name assigned to the verified contract in Blockscout") }/>
       <ContractVerificationFieldCompiler isVyper/>
       { config?.is_rust_verifier_microservice_enabled && <ContractVerificationFieldEvmVersion isVyper/> }
       <ContractVerificationFieldCode isVyper/>

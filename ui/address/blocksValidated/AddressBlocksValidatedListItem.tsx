@@ -21,6 +21,12 @@ const AddressBlocksValidatedListItem = (props: Props) => {
   const timeAgo = useTimeAgoIncrement(props.timestamp, props.page === 1);
   const totalReward = getBlockTotalReward(props);
 
+  const localeMessages = {
+    "Txn": config.t()("Txn"),
+    "Gas used": config.t()("Gas used"),
+    "Reward": config.t()("Reward")
+  }
+
   return (
     <ListItemMobile rowGap={ 2 } isAnimated>
       <Flex justifyContent="space-between" w="100%">
@@ -35,13 +41,13 @@ const AddressBlocksValidatedListItem = (props: Props) => {
         </Skeleton>
       </Flex>
       <Flex columnGap={ 2 } w="100%">
-        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txn</Skeleton>
+        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ localeMessages["Txn"] }</Skeleton>
         <Skeleton isLoaded={ !props.isLoading } display="inline-block" color="Skeleton_secondary">
           <span>{ props.tx_count }</span>
         </Skeleton>
       </Flex>
       <Flex columnGap={ 2 } w="100%">
-        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Gas used</Skeleton>
+        <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ localeMessages["Gas used"] }</Skeleton>
         <Skeleton isLoaded={ !props.isLoading } color="text_secondary">{ BigNumber(props.gas_used || 0).toFormat() }</Skeleton>
         { props.gas_used && props.gas_used !== '0' && (
           <Utilization
@@ -53,7 +59,7 @@ const AddressBlocksValidatedListItem = (props: Props) => {
       </Flex>
       { !config.UI.views.block.hiddenFields?.total_reward && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Reward { currencyUnits.ether }</Skeleton>
+          <Skeleton isLoaded={ !props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ localeMessages["Reward"] } { currencyUnits.ether }</Skeleton>
           <Skeleton isLoaded={ !props.isLoading } color="text_secondary">{ totalReward.toFixed() }</Skeleton>
         </Flex>
       ) }

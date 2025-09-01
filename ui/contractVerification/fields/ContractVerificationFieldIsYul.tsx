@@ -7,12 +7,13 @@ import type { FormFields } from '../types';
 import CheckboxInput from 'ui/shared/CheckboxInput';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import config from 'configs/app';
 
 const ContractVerificationFieldIsYul = () => {
   const { formState, control } = useFormContext<FormFields>();
 
   const renderControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'is_yul'>}) => (
-    <CheckboxInput<FormFields, 'is_yul'> text="Is Yul contract" field={ field } isDisabled={ formState.isSubmitting }/>
+    <CheckboxInput<FormFields, 'is_yul'> text={ config.t()("Is Yul contract") } field={ field } isDisabled={ formState.isSubmitting }/>
   ), [ formState.isSubmitting ]);
 
   return (

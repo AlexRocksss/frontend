@@ -71,7 +71,7 @@ const AddressBalance = ({ data, isLoading }: Props) => {
         hint={ `${ currencyUnits.ether } balance` }
         isLoading={ isLoading }
       >
-        Balance
+        { config.t()('Balance') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value alignSelf="center" flexWrap="nowrap">
         <NativeTokenIcon boxSize={ 6 } mr={ 2 } isLoading={ isLoading }/>

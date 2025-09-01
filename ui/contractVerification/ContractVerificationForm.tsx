@@ -28,6 +28,7 @@ import ContractVerificationVyperContract from './methods/ContractVerificationVyp
 import ContractVerificationVyperMultiPartFile from './methods/ContractVerificationVyperMultiPartFile';
 import ContractVerificationVyperStandardInput from './methods/ContractVerificationVyperStandardInput';
 import { prepareRequestBody, formatSocketErrors, getDefaultValues, METHOD_LABELS } from './utils';
+import {useTranslations as t} from 'next-intl';
 
 interface Props {
   method?: SmartContractVerificationMethod;
@@ -43,6 +44,10 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
   const { control, handleSubmit, watch, formState, setError, reset, getFieldState } = formApi;
   const submitPromiseResolver = React.useRef<(value: unknown) => void>();
   const methodNameRef = React.useRef<string>();
+
+  const localeMessages = {
+    "verify-publish": t()("Verify & publish")
+  }
 
   const apiFetch = useApiFetch();
   const toast = useToast();
@@ -202,7 +207,7 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
             isLoading={ formState.isSubmitting }
             loadingText="Verify & publish"
           >
-            Verify & publish
+            { localeMessages['verify-publish'] }
           </Button>
         ) }
       </chakra.form>

@@ -25,6 +25,7 @@ import FancySelect from 'ui/shared/FancySelect/FancySelect';
 import IconSvg from 'ui/shared/IconSvg';
 
 import { METHOD_LABELS } from '../utils';
+import config from 'configs/app';
 
 interface Props {
   control: Control<FormFields>;
@@ -47,7 +48,7 @@ const ContractVerificationFieldMethod = ({ control, isDisabled, methods }: Props
         { ...field }
         options={ options }
         size={ isMobile ? 'md' : 'lg' }
-        placeholder="Verification method (compiler type)"
+        placeholder={ config.t()('Verification method (compiler type)') }
         isDisabled={ isDisabled }
         isRequired
         isAsync={ false }
@@ -100,7 +101,7 @@ const ContractVerificationFieldMethod = ({ control, isDisabled, methods }: Props
     <>
       <Box mt={{ base: 10, lg: 6 }} gridColumn={{ lg: '1 / 3' }}>
         <chakra.span fontWeight={ 500 } fontSize="lg" fontFamily="heading">
-          Currently, Blockscout supports { methods.length } contract verification methods
+          { config.t()('Currently, Blockscout supports ') }{ methods.length } { config.t()('contract verification methods') }
         </chakra.span>
         <Popover trigger="hover" isLazy placement={ isMobile ? 'bottom-end' : 'right-start' } offset={ [ -8, 8 ] }>
           <PopoverTrigger>
@@ -113,7 +114,7 @@ const ContractVerificationFieldMethod = ({ control, isDisabled, methods }: Props
               <PopoverArrow bgColor={ tooltipBg }/>
               <PopoverBody color="white">
                 <DarkMode>
-                  <span>Currently, Blockscout supports { methods.length } methods:</span>
+                  <span>Currently, supports { methods.length } methods:</span>
                   <OrderedList>
                     { methods.map(renderPopoverListItem) }
                   </OrderedList>

@@ -10,6 +10,7 @@ import IconSvg from 'ui/shared/IconSvg';
 import LinkInternal from 'ui/shared/links/LinkInternal';
 
 import TxDetailsTokenTransfer from './TxDetailsTokenTransfer';
+import config from "configs/app";
 
 interface Props {
   data: Array<TokenTransfer>;
@@ -44,7 +45,7 @@ const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
             <DetailsInfoItem.Label
               hint={ hint }
             >
-              { title }
+              { config.t()(title) }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value position="relative">
               <Flex

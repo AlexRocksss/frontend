@@ -19,6 +19,7 @@ import React, { useRef, useCallback, useState } from 'react';
 
 import type { TimeChartItem } from './types';
 
+import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
 import { apos } from 'lib/html-entities';
 import saveAsCSV from 'lib/saveAsCSV';
@@ -172,7 +173,7 @@ const ChartWidget = ({ items, title, description, isLoading, className, isError,
               fontWeight={ 600 }
               size={{ base: 'xs', lg: 'sm' }}
             >
-              { title }
+              { config.t()(title) }
             </Skeleton>
 
             { description && (
@@ -182,7 +183,7 @@ const ChartWidget = ({ items, title, description, isLoading, className, isError,
                 fontSize="xs"
                 mt={ 1 }
               >
-                <span>{ description }</span>
+                <span>{ config.t()(description) }</span>
               </Skeleton>
             ) }
           </Flex>

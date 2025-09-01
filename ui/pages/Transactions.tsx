@@ -91,7 +91,7 @@ const Transactions = () => {
   const tabs: Array<RoutedTab> = [
     {
       id: 'validated',
-      title: verifiedTitle,
+      title: config.t()(verifiedTitle),
       component:
         <TxsWithFrontendSorting
           query={ txsValidatedQuery }
@@ -102,7 +102,7 @@ const Transactions = () => {
         /> },
     {
       id: 'pending',
-      title: 'Pending',
+      title: config.t()('Pending'),
       component: (
         <TxsWithFrontendSorting
           query={ txsPendingQuery }
@@ -129,7 +129,7 @@ const Transactions = () => {
     },
     hasAccount ? {
       id: 'watchlist',
-      title: 'Watch list',
+      title: config.t()('Watch list'),
       component: <TxsWatchlist query={ txsWatchlistQuery }/>,
     } : undefined,
   ].filter(Boolean);
@@ -146,7 +146,7 @@ const Transactions = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } transactions` : 'Transactions' }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ config.t()('transactions') }` : `${ config.t()('Transactions') }` }
         withTextAd
       />
       <TxsStats/>

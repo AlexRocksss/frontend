@@ -42,6 +42,11 @@ const BlockPageContent = () => {
   const heightOrHash = getQueryParamString(router.query.height_or_hash);
   const tab = getQueryParamString(router.query.tab);
 
+  const localeMessages = {
+    "Details": config.t()('Details'),
+    "Transactions": config.t()('Transactions'),
+  }
+
   const blockQuery = useBlockQuery({ heightOrHash });
   const blockTxsQuery = useBlockTxsQuery({ heightOrHash, blockQuery, tab });
   const blockWithdrawalsQuery = useBlockWithdrawalsQuery({ heightOrHash, blockQuery, tab });
@@ -50,7 +55,7 @@ const BlockPageContent = () => {
   const tabs: Array<RoutedTab> = React.useMemo(() => ([
     {
       id: 'index',
-      title: 'Details',
+      title: `${ localeMessages['Details'] }`,
       component: (
         <>
           { blockQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockQuery.isPlaceholderData } mb={ 6 }/> }
@@ -60,7 +65,7 @@ const BlockPageContent = () => {
     },
     {
       id: 'txs',
-      title: 'Transactions',
+      title: `${ localeMessages["Transactions"] }`,
       component: (
         <>
           { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } mb={ 6 }/> }
@@ -126,7 +131,7 @@ const BlockPageContent = () => {
         return `Uncle block #${ blockQuery.data?.height }`;
 
       default:
-        return `Block #${ blockQuery.data?.height }`;
+        return `${ config.t()('Block') } #${ blockQuery.data?.height }`;
     }
   })();
   const titleSecondRow = (
@@ -141,7 +146,7 @@ const BlockPageContent = () => {
           fontWeight={ 500 }
         >
           <chakra.span flexShrink={ 0 }>
-            { config.chain.verificationType === 'validation' ? 'Validated by' : 'Mined by' }
+            { config.chain.verificationType === 'validation' ? `${ config.t()('Validated by') }` : 'Mined by' }
           </chakra.span>
           <AddressEntity address={ blockQuery.data?.miner }/>
         </Skeleton>

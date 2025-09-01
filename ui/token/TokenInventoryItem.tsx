@@ -10,12 +10,17 @@ import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import LinkInternal from 'ui/shared/links/LinkInternal';
 import NftMedia from 'ui/shared/nft/NftMedia';
 import TruncatedTextTooltip from 'ui/shared/TruncatedTextTooltip';
+import config from "configs/app";
 
 type Props = { item: TokenInstance; token: TokenInfo; isLoading: boolean };
 
 const TokenInventoryItem = ({ item, token, isLoading }: Props) => {
 
   const isMobile = useIsMobile();
+
+  const localeMessages = {
+    "Owner": config.t()("Owner")
+  }
 
   const mediaElement = (
     <NftMedia
@@ -64,7 +69,7 @@ const TokenInventoryItem = ({ item, token, isLoading }: Props) => {
       ) }
       { item.owner && (
         <Flex mb={ 2 } ml={ 1 }>
-          <Text whiteSpace="pre" variant="secondary" mr={ 2 } lineHeight="24px">Owner</Text>
+          <Text whiteSpace="pre" variant="secondary" mr={ 2 } lineHeight="24px">{ localeMessages["Owner"] }</Text>
           <AddressEntity
             address={ item.owner }
             isLoading={ isLoading }

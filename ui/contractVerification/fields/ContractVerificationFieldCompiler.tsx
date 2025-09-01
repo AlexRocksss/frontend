@@ -13,6 +13,7 @@ import FancySelect from 'ui/shared/FancySelect/FancySelect';
 import IconSvg from 'ui/shared/IconSvg';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import {useTranslations as t} from 'next-intl';
 
 const OPTIONS_LIMIT = 50;
 
@@ -55,7 +56,7 @@ const ContractVerificationFieldCompiler = ({ isVyper }: Props) => {
         loadOptions={ loadOptions }
         defaultOptions
         size={ isMobile ? 'md' : 'lg' }
-        placeholder="Compiler (enter version or use the dropdown)"
+        placeholder={ t()("Compiler (enter version or use the dropdown)") }
         placeholderIcon={ <IconSvg name="search"/> }
         isDisabled={ formState.isSubmitting }
         error={ error }
@@ -75,7 +76,7 @@ const ContractVerificationFieldCompiler = ({ isVyper }: Props) => {
             onChange={ handleCheckboxChange }
             isDisabled={ formState.isSubmitting }
           >
-            Include nightly builds
+            { t()('Include nightly builds') }
           </Checkbox>
         ) }
         <Controller
@@ -87,11 +88,11 @@ const ContractVerificationFieldCompiler = ({ isVyper }: Props) => {
       </>
       { isVyper ? null : (
         <chakra.div mt={{ base: 0, lg: 8 }}>
-          <span >The compiler version is specified in </span>
+          <span >{ t()('The compiler version is specified in') }</span>
           <Code color="text_secondary">pragma solidity X.X.X</Code>
-          <span>. Use the compiler version rather than the nightly build. If using the Solidity compiler, run </span>
+          <span>{ t()("compiler-2") }</span>
           <Code color="text_secondary">solc —version</Code>
-          <span> to check.</span>
+          <span>{ t()('to check') }</span>
         </chakra.div>
       ) }
     </ContractVerificationFormRow>

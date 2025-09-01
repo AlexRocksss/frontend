@@ -33,6 +33,13 @@ const TokenDetails = ({ tokenQuery }: Props) => {
   const isMounted = useIsMounted();
   const { value: isActionButtonExperiment } = useFeatureValue('action_button_exp', false);
 
+  const localeMessages ={
+    "Max total supply": config.t()("Max total supply"),
+    "Holders": config.t()("Holders"),
+    "Transfers": config.t()("Transfers"),
+    "Decimals": config.t()("Decimals")
+  }
+
   const hash = router.query.hash?.toString();
 
   const tokenCountersQuery = useApiQuery('token_counters', {
@@ -140,7 +147,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
         hint="The total amount of tokens issued"
         isLoading={ tokenQuery.isPlaceholderData }
       >
-        Max total supply
+        { localeMessages["Max total supply"] }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value
         alignSelf="center"
@@ -158,7 +165,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
         hint="Number of accounts holding the token"
         isLoading={ tokenQuery.isPlaceholderData }
       >
-        Holders
+        { localeMessages["Holders"] }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !tokenCountersQuery.isPlaceholderData }>
@@ -170,7 +177,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
         hint="Number of transfer for the token"
         isLoading={ tokenQuery.isPlaceholderData }
       >
-        Transfers
+        { localeMessages["Transfers"] }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !tokenCountersQuery.isPlaceholderData }>
@@ -184,7 +191,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             hint="Number of digits that come after the decimal place when displaying token value"
             isLoading={ tokenQuery.isPlaceholderData }
           >
-            Decimals
+            { localeMessages["Decimals"] }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <Skeleton isLoaded={ !tokenQuery.isPlaceholderData } minW={ 6 }>

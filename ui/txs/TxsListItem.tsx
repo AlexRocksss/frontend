@@ -37,6 +37,13 @@ const TxsListItem = ({ tx, isLoading, showBlockInfo, currentAddress, enableTimeI
 
   const timeAgo = useTimeAgoIncrement(tx.timestamp, enableTimeIncrement);
 
+  const localeMessages = {
+    "Method": config.t()("Method"),
+    "Block": config.t()("Block"),
+    "Value": config.t()("Value"),
+    "Fee": config.t()("Fee")
+  }
+
   return (
     <ListItemMobile display="block" width="100%" isAnimated key={ tx.hash }>
       <Flex justifyContent="space-between" mt={ 4 }>
@@ -66,7 +73,7 @@ const TxsListItem = ({ tx, isLoading, showBlockInfo, currentAddress, enableTimeI
       </Flex>
       { tx.method && (
         <Flex mt={ 3 }>
-          <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">Method </Skeleton>
+          <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">{ localeMessages["Method"] } </Skeleton>
           <Skeleton
             isLoaded={ !isLoading }
             color="text_secondary"
@@ -80,7 +87,7 @@ const TxsListItem = ({ tx, isLoading, showBlockInfo, currentAddress, enableTimeI
       ) }
       { showBlockInfo && tx.block !== null && (
         <Flex mt={ 2 }>
-          <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">Block </Skeleton>
+          <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">{ localeMessages["Block"] } </Skeleton>
           <BlockEntity
             isLoading={ isLoading }
             number={ tx.block }
@@ -98,7 +105,7 @@ const TxsListItem = ({ tx, isLoading, showBlockInfo, currentAddress, enableTimeI
       />
       { !config.UI.views.tx.hiddenFields?.value && (
         <Flex mt={ 2 } columnGap={ 2 }>
-          <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">Value</Skeleton>
+          <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">{ localeMessages["Value"] }</Skeleton>
           <Skeleton isLoaded={ !isLoading } display="inline-block" variant="text_secondary" whiteSpace="pre">
             { getValueWithUnit(tx.value).toFormat() }
             { space }
@@ -110,7 +117,7 @@ const TxsListItem = ({ tx, isLoading, showBlockInfo, currentAddress, enableTimeI
         <Flex mt={ 2 } mb={ 3 } columnGap={ 2 }>
           { (tx.stability_fee !== undefined || tx.fee.value !== null) && (
             <>
-              <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">Fee</Skeleton>
+              <Skeleton isLoaded={ !isLoading } display="inline-block" whiteSpace="pre">{ localeMessages["Fee"] }</Skeleton>
               { tx.stability_fee ? (
                 <TxFeeStability data={ tx.stability_fee } isLoading={ isLoading } hideUsd/>
               ) : (

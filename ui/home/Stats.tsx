@@ -26,6 +26,14 @@ const Stats = () => {
     },
   });
 
+  const localeMessages = {
+    "Total blocks": config.t()("Total blocks"),
+    "Average block time": config.t()("Average block time"),
+    "Total transactions": config.t()("Total transactions"),
+    "Wallet addresses": config.t()("Wallet addresses"),
+    "Gas tracker": config.t()("Gas tracker")
+  }
+
   React.useEffect(() => {
     if (!isPlaceholderData && !data?.gas_prices?.average) {
       setHasGasTracker(false);
@@ -108,7 +116,7 @@ const Stats = () => {
         { !(rollupFeature.isEnabled && (rollupFeature.type === 'zkEvm' || rollupFeature.type === 'zkSync')) && (
           <StatsItem
             icon="block"
-            title="Total blocks"
+            title={ localeMessages["Total blocks"] }
             value={ Number(data.total_blocks).toLocaleString() }
             url={ route({ pathname: '/blocks' }) }
             isLoading={ isLoading }
@@ -117,14 +125,14 @@ const Stats = () => {
         { hasAvgBlockTime && (
           <StatsItem
             icon="clock-light"
-            title="Average block time"
+            title={ localeMessages["Average block time"] }
             value={ `${ (data.average_block_time / 1000).toFixed(1) }s` }
             isLoading={ isLoading }
           />
         ) }
         <StatsItem
           icon="transactions"
-          title="Total transactions"
+          title={ localeMessages["Total transactions"] }
           value={ Number(data.total_transactions).toLocaleString() }
           url={ route({ pathname: '/txs' }) }
           isLoading={ isLoading }
@@ -140,7 +148,7 @@ const Stats = () => {
         ) }
         <StatsItem
           icon="wallet"
-          title="Wallet addresses"
+          title={ localeMessages["Wallet addresses"] }
           value={ Number(data.total_addresses).toLocaleString() }
           _last={ isOdd ? lastItemTouchStyle : undefined }
           isLoading={ isLoading }
@@ -148,7 +156,7 @@ const Stats = () => {
         { hasGasTracker && data.gas_prices && (
           <StatsItem
             icon="gas"
-            title="Gas tracker"
+            title={ localeMessages["Gas tracker"] }
             value={ data.gas_prices.average ? <GasPrice data={ data.gas_prices.average }/> : 'N/A' }
             _last={ isOdd ? lastItemTouchStyle : undefined }
             tooltip={ gasInfoTooltip }

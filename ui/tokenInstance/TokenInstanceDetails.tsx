@@ -33,6 +33,11 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
   const appActionData = useAppActionData(token?.address, isActionButtonExperiment && !isLoading);
   const isMounted = useIsMounted();
 
+  const localeMessages = {
+    "Owner": config.t()("Owner"),
+    "Token": config.t()("Token")
+  }
+
   const handleCounterItemClick = React.useCallback(() => {
     window.setTimeout(() => {
       // cannot do scroll instantly, have to wait a little
@@ -60,7 +65,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
                 hint="Current owner of this token instance"
                 isLoading={ isLoading }
               >
-                Owner
+                { localeMessages["Owner"] }
               </DetailsInfoItem.Label>
               <DetailsInfoItem.Value>
                 <AddressEntity
@@ -77,7 +82,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
             hint="This token instance unique token ID"
             isLoading={ isLoading }
           >
-            Token ID
+            { localeMessages["Token"] } ID
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <Flex alignItems="center" overflow="hidden">

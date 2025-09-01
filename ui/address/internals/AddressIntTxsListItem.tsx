@@ -34,6 +34,11 @@ const TxInternalsListItem = ({
   const typeTitle = TX_INTERNALS_ITEMS.find(({ id }) => id === type)?.title;
   const toData = to ? to : createdContract;
 
+  const localeMessages = {
+    "Block": config.t()("Block"),
+    "Value": config.t()("Value")
+  }
+
   return (
     <ListItemMobile rowGap={ 3 }>
       <Flex columnGap={ 2 }>
@@ -52,7 +57,7 @@ const TxInternalsListItem = ({
         </Skeleton>
       </Flex>
       <HStack spacing={ 1 }>
-        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>Block</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["Block"] }</Skeleton>
         <BlockEntity
           isLoading={ isLoading }
           number={ block }
@@ -69,7 +74,7 @@ const TxInternalsListItem = ({
         w="100%"
       />
       <HStack spacing={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>Value { currencyUnits.ether }</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["Value"] } { currencyUnits.ether }</Skeleton>
         <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary" minW={ 6 }>
           <span>{ BigNumber(value).div(BigNumber(10 ** config.chain.currency.decimals)).toFormat() }</span>
         </Skeleton>

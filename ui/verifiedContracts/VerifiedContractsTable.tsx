@@ -12,6 +12,7 @@ import { default as Thead } from 'ui/shared/TheadSticky';
 import { SORT_SEQUENCE } from 'ui/verifiedContracts/utils';
 
 import VerifiedContractsTableItem from './VerifiedContractsTableItem';
+import config from 'configs/app';
 
 interface Props {
   data: Array<VerifiedContract>;
@@ -32,23 +33,23 @@ const VerifiedContractsTable = ({ data, sort, setSorting, isLoading }: Props) =>
     <Table variant="simple" size="sm" minW="915px">
       <Thead top={ ACTION_BAR_HEIGHT_DESKTOP }>
         <Tr>
-          <Th width="50%">Contract</Th>
+          <Th width="50%">{config.t()('Contract')}</Th>
           <Th width="130px" isNumeric>
             <Link display="flex" alignItems="center" justifyContent="flex-end" onClick={ isLoading ? undefined : onSortToggle('balance') } columnGap={ 1 }>
               { sort?.includes('balance') && <IconSvg name="arrows/east" boxSize={ 4 } transform={ sortIconTransform }/> }
-                Balance { currencyUnits.ether }
+                {config.t()('Balance')} { currencyUnits.ether }
             </Link>
           </Th>
           <Th width="130px" isNumeric>
             <Link display="flex" alignItems="center" justifyContent="flex-end" onClick={ isLoading ? undefined : onSortToggle('txs_count') } columnGap={ 1 }>
               { sort?.includes('txs_count') && <IconSvg name="arrows/east" boxSize={ 4 } transform={ sortIconTransform }/> }
-                Txs
+                {config.t()('Txs')}
             </Link>
           </Th>
-          <Th width="50%">Compiler / version</Th>
-          <Th width="80px">Settings</Th>
-          <Th width="150px">Verified</Th>
-          <Th width="130px">License</Th>
+          <Th width="50%">{config.t()('Compiler / version')}</Th>
+          <Th width="80px">{config.t()('Settings')}</Th>
+          <Th width="150px">{config.t()('Verified')}</Th>
+          <Th width="130px">{config.t()('License')}</Th>
         </Tr>
       </Thead>
       <Tbody>

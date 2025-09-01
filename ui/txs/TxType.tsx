@@ -3,6 +3,7 @@ import React from 'react';
 import type { TransactionType } from 'types/api/transaction';
 
 import Tag from 'ui/shared/chakra/Tag';
+import config from 'configs/app';
 
 export interface Props {
   types: Array<TransactionType>;
@@ -67,7 +68,7 @@ const TxType = ({ types, isLoading }: Props) => {
 
   return (
     <Tag colorScheme={ colorScheme } isLoading={ isLoading }>
-      { label }
+      { config.t()(label) }
     </Tag>
   );
 };

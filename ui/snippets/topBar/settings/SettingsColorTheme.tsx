@@ -5,11 +5,16 @@ import * as cookies from 'lib/cookies';
 import { COLOR_THEMES } from 'lib/settings/colorTheme';
 
 import SettingsSample from './SettingsSample';
+import config from "configs/app";
 
 const SettingsColorTheme = () => {
   const { setColorMode } = useColorMode();
 
   const [ activeHex, setActiveHex ] = React.useState<string>();
+
+  const localeMessages = {
+    "Color theme": config.t()("Color theme")
+  }
 
   const setTheme = React.useCallback((hex: string) => {
     const nextTheme = COLOR_THEMES.find((theme) => theme.hex === hex);
@@ -64,7 +69,7 @@ const SettingsColorTheme = () => {
 
   return (
     <div>
-      <Box fontWeight={ 600 }>Color theme</Box>
+      <Box fontWeight={ 600 }>{ localeMessages["Color theme"] }</Box>
       <Box color="text_secondary" mt={ 1 } mb={ 2 }>{ activeTheme?.label }</Box>
       <Flex>
         { COLOR_THEMES.map((theme) => (

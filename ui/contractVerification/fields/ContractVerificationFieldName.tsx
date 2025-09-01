@@ -8,6 +8,7 @@ import type { FormFields } from '../types';
 import InputPlaceholder from 'ui/shared/InputPlaceholder';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import config from 'configs/app';
 
 interface Props {
   hint?: string;
@@ -30,7 +31,7 @@ const ContractVerificationFieldName = ({ hint, isReadOnly }: Props) => {
           isDisabled={ formState.isSubmitting || isReadOnly }
           autoComplete="off"
         />
-        <InputPlaceholder text="Contract name" error={ error }/>
+        <InputPlaceholder text={ config.t()("Contract name") } error={ error }/>
       </FormControl>
     );
   }, [ formState.errors, formState.isSubmitting, isReadOnly ]);

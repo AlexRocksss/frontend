@@ -12,6 +12,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import FancySelect from 'ui/shared/FancySelect/FancySelect';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import {useTranslations as t} from 'next-intl';
 
 interface Props {
   isVyper?: boolean;
@@ -35,7 +36,7 @@ const ContractVerificationFieldEvmVersion = ({ isVyper }: Props) => {
         { ...field }
         options={ options }
         size={ isMobile ? 'md' : 'lg' }
-        placeholder="EVM Version"
+        placeholder={ t()("EVM Version") }
         isDisabled={ formState.isSubmitting }
         error={ error }
         isRequired
@@ -52,7 +53,7 @@ const ContractVerificationFieldEvmVersion = ({ isVyper }: Props) => {
         rules={{ required: true }}
       />
       <>
-        <span>The EVM version the contract is written for. If the bytecode does not match the version, we try to verify using the latest EVM version. </span>
+        <span>{ t()('evm-version-info') }</span>
         <Link
           href={ isVyper ?
             'https://docs.vyperlang.org/en/stable/compiling-a-contract.html#target-options' :

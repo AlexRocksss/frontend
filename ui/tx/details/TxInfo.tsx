@@ -68,6 +68,11 @@ interface Props {
 const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
   const [ isExpanded, setIsExpanded ] = React.useState(false);
 
+  const localeMessages = {
+    "Raw input": config.t()("Raw input"),
+    "Decoded input data": config.t()("Decoded input data")
+  }
+
   const handleCutClick = React.useCallback(() => {
     setIsExpanded((flag) => !flag);
     scroller.scrollTo('TxInfo__cutLink', {
@@ -130,7 +135,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Unique character string (TxID) assigned to every verified transaction"
         isLoading={ isLoading }
       >
-        Transaction hash
+        { config.t()('Transaction hash') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value flexWrap="nowrap">
         { data.status === null && <Spinner mr={ 2 } size="sm" flexShrink={ 0 }/> }
@@ -154,7 +159,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         {
           rollupFeature.isEnabled && (rollupFeature.type === 'zkEvm' || rollupFeature.type === 'zkSync') ?
             'L2 status and method' :
-            'Status and method'
+            `${ config.t()('Status and method') }`
         }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
@@ -238,7 +243,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Block number containing the transaction"
         isLoading={ isLoading }
       >
-        Block
+        { config.t()('Block') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         { data.block === null ?
@@ -301,7 +306,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint="Date & time of transaction inclusion, including length of time for confirmation"
             isLoading={ isLoading }
           >
-            Timestamp
+            { config.t()('Timestamp') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <DetailsTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/>
@@ -348,7 +353,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Address (external or contract) sending the transaction"
         isLoading={ isLoading }
       >
-        From
+        { config.t()('From') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value columnGap={ 3 }>
         <AddressEntity
@@ -367,7 +372,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Address (external or contract) receiving the transaction"
         isLoading={ isLoading }
       >
-        { data.to?.is_contract ? 'Interacted with contract' : 'To' }
+        { data.to?.is_contract ? `${ config.t()('Interacted with contract') }` : `${ config.t()('To') }` }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value
         flexWrap={{ base: 'wrap', lg: 'nowrap' }}
@@ -453,7 +458,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint="Value sent in the native token (and USD) if applicable"
             isLoading={ isLoading }
           >
-            Value
+            { config.t()('Value') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <CurrencyValue
@@ -473,7 +478,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint={ data.blob_gas_used ? 'Transaction fee without blob fee' : 'Total transaction fee' }
             isLoading={ isLoading }
           >
-            Transaction fee
+            { config.t()('Transaction fee') }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             { data.stability_fee ? (
@@ -499,7 +504,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         hint="Actual gas amount used by the transaction"
         isLoading={ isLoading }
       >
-        Gas usage & limit by txn
+        { config.t()('Gas usage & limit by txn') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <Skeleton isLoaded={ !isLoading }>{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
@@ -626,7 +631,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
               textDecorationStyle="dashed"
               onClick={ handleCutClick }
             >
-              { isExpanded ? 'Hide details' : 'View details' }
+              { isExpanded ? `${ config.t()('Hide details') }` : `${ config.t()('View details') }` }
             </Link>
           </Skeleton>
         </Element>
@@ -699,7 +704,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
           <DetailsInfoItem.Label
             hint="Binary data included with the transaction. See logs tab for additional info"
           >
-            Raw input
+            { localeMessages["Raw input"] }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <RawInputData hex={ data.raw_input }/>
@@ -710,7 +715,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
               <DetailsInfoItem.Label
                 hint="Decoded input data"
               >
-                Decoded input data
+                { localeMessages["Decoded input data"] }
               </DetailsInfoItem.Label>
               <DetailsInfoItem.Value>
                 <LogDecodedInputData data={ data.decoded_input }/>

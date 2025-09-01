@@ -9,6 +9,7 @@ import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import DetailsInfoItemDivider from 'ui/shared/DetailsInfoItemDivider';
 import LinkExternal from 'ui/shared/links/LinkExternal';
 import TruncatedValue from 'ui/shared/TruncatedValue';
+import config from "configs/app";
 
 interface Props {
   data?: TokenInstance;
@@ -70,6 +71,12 @@ const TokenInstanceMetadataInfo = ({ data, isLoading }: Props) => {
     return null;
   }
 
+  const localeMessages = {
+    "Name": config.t()("Name"),
+    "Description": config.t()("Description"),
+    "Attributes": config.t()("Attributes")
+  }
+
   return (
     <>
       <DetailsInfoItemDivider/>
@@ -79,7 +86,7 @@ const TokenInstanceMetadataInfo = ({ data, isLoading }: Props) => {
             hint="NFT name"
             isLoading={ isLoading }
           >
-            Name
+            { localeMessages["Name"] }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value
             whiteSpace="normal"
@@ -97,7 +104,7 @@ const TokenInstanceMetadataInfo = ({ data, isLoading }: Props) => {
             hint="NFT description"
             isLoading={ isLoading }
           >
-            Description
+            { localeMessages["Description"] }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value
             whiteSpace="normal"
@@ -115,7 +122,7 @@ const TokenInstanceMetadataInfo = ({ data, isLoading }: Props) => {
             hint="NFT attributes"
             isLoading={ isLoading }
           >
-            Attributes
+            { localeMessages["Attributes"] }
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <Grid gap={ 2 } templateColumns="repeat(auto-fill,minmax(160px, 1fr))" w="100%" whiteSpace="normal">

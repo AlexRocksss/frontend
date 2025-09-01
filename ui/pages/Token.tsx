@@ -163,17 +163,17 @@ const TokenPageContent = () => {
   const tabs: Array<RoutedTab> = [
     hasInventoryTab ? {
       id: 'inventory',
-      title: 'Inventory',
+      title: `${ config.t()('Inventory') }`,
       component: <TokenInventory inventoryQuery={ inventoryQuery } tokenQuery={ tokenQuery } ownerFilter={ ownerFilter } shouldRender={ !isLoading }/>,
     } : undefined,
     {
       id: 'token_transfers',
-      title: 'Token transfers',
+      title: `${ config.t()('Token transfers') }`,
       component: <TokenTransfer transfersQuery={ transfersQuery } token={ tokenQuery.data } shouldRender={ !isLoading }/>,
     },
     {
       id: 'holders',
-      title: 'Holders',
+      title: `${ config.t()('Holders') }`,
       component: <TokenHolders token={ tokenQuery.data } holdersQuery={ holdersQuery } shouldRender={ !isLoading }/>,
     },
     addressQuery.data?.is_contract ? {
@@ -182,13 +182,13 @@ const TokenPageContent = () => {
         if (addressQuery.data?.is_verified) {
           return (
             <>
-              <span>Contract</span>
+              <span>{ config.t()("Contract") }</span>
               <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 }/>
             </>
           );
         }
 
-        return 'Contract';
+        return config.t()("Contract");
       },
       component: <AddressContract tabs={ contractTabs.tabs } isLoading={ contractTabs.isLoading } shouldRender={ !isLoading }/>,
       subTabs: contractTabs.tabs.map(tab => tab.id),

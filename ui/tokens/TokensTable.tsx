@@ -10,6 +10,7 @@ import { default as getNextSortValueShared } from 'ui/shared/sort/getNextSortVal
 import { default as Thead } from 'ui/shared/TheadSticky';
 
 import TokensTableItem from './TokensTableItem';
+import config from 'configs/app';
 
 const SORT_SEQUENCE: Record<TokensSortingField, Array<TokensSortingValue | undefined>> = {
   fiat_value: [ 'fiat_value-desc', 'fiat_value-asc', undefined ],
@@ -40,23 +41,23 @@ const TokensTable = ({ items, page, isLoading, sorting, setSorting, top }: Props
     <Table>
       <Thead top={ top ?? ACTION_BAR_HEIGHT_DESKTOP }>
         <Tr>
-          <Th w="50%">Token</Th>
+          <Th w="50%">{ config.t()('Token') }</Th>
           <Th isNumeric w="15%">
             <Link onClick={ sort('fiat_value') } display="flex" justifyContent="end">
               { sorting?.includes('fiat_value') && <IconSvg name="arrows/east-mini" boxSize={ 4 } transform={ sortIconTransform }/> }
-              Price
+              { config.t()('Price') }
             </Link>
           </Th>
           <Th isNumeric w="20%">
             <Link onClick={ sort('circulating_market_cap') } display="flex" justifyContent="end">
               { sorting?.includes('circulating_market_cap') && <IconSvg name="arrows/east-mini" boxSize={ 4 } transform={ sortIconTransform }/> }
-              On-chain market cap
+              { config.t()('On-chain market cap') }
             </Link>
           </Th>
           <Th isNumeric w="15%">
             <Link onClick={ sort('holder_count') } display="flex" justifyContent="end">
               { sorting?.includes('holder_count') && <IconSvg name="arrows/east-mini" boxSize={ 4 } transform={ sortIconTransform }/> }
-              Holders
+              { config.t()('Holders') }
             </Link>
           </Th>
         </Tr>

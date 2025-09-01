@@ -9,6 +9,7 @@ import FieldError from 'ui/shared/forms/FieldError';
 import InputPlaceholder from 'ui/shared/InputPlaceholder';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import config from 'configs/app';
 
 interface Props {
   isVyper?: boolean;
@@ -28,7 +29,7 @@ const ContractVerificationFieldCode = ({ isVyper }: Props) => {
           isDisabled={ formState.isSubmitting }
           required
         />
-        <InputPlaceholder text="Contract code"/>
+        <InputPlaceholder text={ config.t()("Contract code") }/>
         { error?.message && <FieldError message={ error?.message }/> }
       </FormControl>
     );
@@ -44,9 +45,9 @@ const ContractVerificationFieldCode = ({ isVyper }: Props) => {
       />
       { isVyper ? null : (
         <>
-          <span>We recommend using flattened code. This is necessary if your code utilizes a library or inherits dependencies. Use the </span>
+          <span>{ config.t()('contract-code-1') }</span>
           <Link href="https://github.com/poanetwork/solidity-flattener" target="_blank">POA solidity flattener</Link>
-          <span> or the </span>
+          <span>{ config.t()('contract-code-2') }</span>
           <Link href="https://www.npmjs.com/package/truffle-flattener" target="_blank">Truffle flattener</Link>
         </>
       ) }

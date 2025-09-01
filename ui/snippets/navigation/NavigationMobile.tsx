@@ -8,6 +8,7 @@ import IconSvg from 'ui/shared/IconSvg';
 import NavLink from 'ui/snippets/navigation/NavLink';
 
 import NavLinkGroupMobile from './NavLinkGroupMobile';
+import config from "configs/app";
 
 const DRAWER_WIDTH = 330;
 
@@ -38,6 +39,12 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
   const hasAccount = useHasAccount();
 
   const iconColor = useColorModeValue('blue.600', 'blue.300');
+
+  const localeMessages: any = {
+    "Blockchain": config.t()("Blockchain"),
+    "API": config.t()("API"),
+    "Other": config.t()("Other")
+  }
 
   const openedItem = mainNavItems[openedGroupIndex];
 
@@ -99,7 +106,7 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
         >
           <Flex alignItems="center" px={ 3 } py={ 2.5 } w="100%" h="50px" onClick={ onGroupItemClose } mb={ 1 }>
             <IconSvg name="arrows/east-mini" boxSize={ 6 } mr={ 2 } color={ iconColor }/>
-            <Text variant="secondary" fontSize="sm">{ mainNavItems[openedGroupIndex].text }</Text>
+            <Text variant="secondary" fontSize="sm">{ localeMessages[mainNavItems[openedGroupIndex].text] }</Text>
           </Flex>
           <Box
             w="100%"

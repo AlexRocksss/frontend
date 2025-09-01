@@ -8,6 +8,7 @@ import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
 import MetadataAccordion from './metadata/MetadataAccordion';
+import config from "configs/app";
 
 type Format = 'JSON' | 'Table'
 
@@ -18,6 +19,10 @@ interface Props {
 
 const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
   const [ format, setFormat ] = React.useState<Format>('Table');
+
+  const localeMessages = {
+    "Metadata": config.t()("Metadata")
+  }
 
   const handleSelectChange = React.useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     setFormat(event.target.value as Format);
@@ -38,7 +43,7 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
   return (
     <Box>
       <Flex alignItems="center" mb={ 6 }>
-        <chakra.span fontWeight={ 500 }>Metadata</chakra.span>
+        <chakra.span fontWeight={ 500 }>{ localeMessages["Metadata"] }</chakra.span>
         <Select size="xs" borderRadius="base" value={ format } onChange={ handleSelectChange } w="auto" ml={ 5 }>
           <option value="Table">Table</option>
           <option value="JSON">JSON</option>

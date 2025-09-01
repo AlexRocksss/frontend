@@ -5,6 +5,7 @@ import type { Address } from 'types/api/address';
 
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
+import config from 'configs/app';
 
 interface Props {
   data: Pick<Address, 'name' | 'token' | 'is_contract'>;
@@ -19,7 +20,7 @@ const AddressNameInfo = ({ data, isLoading }: Props) => {
           hint="Token name and symbol"
           isLoading={ isLoading }
         >
-          Token name
+          { config.t()('Token name') }
         </DetailsInfoItem.Label>
         <DetailsInfoItem.Value>
           <TokenEntity
@@ -40,7 +41,7 @@ const AddressNameInfo = ({ data, isLoading }: Props) => {
           hint="The name found in the source code of the Contract"
           isLoading={ isLoading }
         >
-          Contract name
+          { config.t()("Contract name") }
         </DetailsInfoItem.Label>
         <DetailsInfoItem.Value>
           <Skeleton isLoaded={ !isLoading }>

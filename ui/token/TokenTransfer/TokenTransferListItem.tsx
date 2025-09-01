@@ -12,6 +12,7 @@ import NftEntity from 'ui/shared/entities/nft/NftEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TruncatedValue from 'ui/shared/TruncatedValue';
+import config from "configs/app";
 
 type Props = TokenTransfer & { tokenId?: string; isLoading?: boolean };
 
@@ -64,7 +65,7 @@ const TokenTransferListItem = ({
       { valueStr && (token.type === 'ERC-20' || token.type === 'ERC-1155') && (
         <Grid gap={ 2 } templateColumns={ `1fr auto auto${ usd ? ' auto' : '' }` }>
           <Skeleton isLoaded={ !isLoading } flexShrink={ 0 } fontWeight={ 500 }>
-            Value
+            { config.t()("Value") }
           </Skeleton>
           <Skeleton
             isLoaded={ !isLoading }

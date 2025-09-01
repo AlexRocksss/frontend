@@ -12,6 +12,7 @@ import TxStateTable from 'ui/tx/state/TxStateTable';
 import TxPendingAlert from './TxPendingAlert';
 import TxSocketAlert from './TxSocketAlert';
 import type { TxQuery } from './useTxQuery';
+import config from "configs/app";
 
 interface Props {
   txQuery: TxQuery;
@@ -58,8 +59,7 @@ const TxState = ({ txQuery }: Props) => {
     <>
       { !isError && !txQuery.isError && (
         <Text mb={ 6 }>
-          A set of information that represents the current state is updated when a transaction takes place on the network.
-          The below is a summary of those changes.
+          { config.t()("balance-changes-1") }
         </Text>
       ) }
       <DataListDisplay

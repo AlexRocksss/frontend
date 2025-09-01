@@ -12,6 +12,7 @@ import IconSvg from 'ui/shared/IconSvg';
 
 import ChartsLoadingErrorAlert from './ChartsLoadingErrorAlert';
 import ChartWidgetContainer from './ChartWidgetContainer';
+import config from 'configs/app';
 
 type Props = {
   filterQuery: string;
@@ -29,6 +30,15 @@ const ChartsWidgetsList = ({ filterQuery, isError, isPlaceholderData, charts, in
   const sectionRef = React.useRef<HTMLUListElement | null>(null);
 
   const shouldScrollToSection = Boolean(initialFilterQuery);
+
+  const localeMessages: any = {
+    "Accounts": config.t()("Accounts"),
+    "Transactions": config.t()("Transactions"),
+    "Blocks": config.t()("Blocks"),
+    "Tokens": config.t()("Tokens"),
+    "Gas": config.t()("Gas"),
+    "Contracts": config.t()("Contracts")
+  }
 
   React.useEffect(() => {
     if (shouldScrollToSection) {
@@ -72,7 +82,7 @@ const ChartsWidgetsList = ({ filterQuery, isError, isPlaceholderData, charts, in
             >
               <Skeleton isLoaded={ !isPlaceholderData } mb={ 4 } display="inline-flex" alignItems="center" columnGap={ 2 } id={ section.id }>
                 <Heading size="md" id={ section.id }>
-                  { section.title }
+                  { localeMessages[section.title] }
                 </Heading>
                 { section.id === 'gas' && homeStatsQuery.data && homeStatsQuery.data.gas_prices && (
                   <GasInfoTooltip data={ homeStatsQuery.data } dataUpdatedAt={ homeStatsQuery.dataUpdatedAt }>

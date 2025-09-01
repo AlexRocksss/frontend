@@ -66,7 +66,7 @@ const TxsStats = () => {
         href={ config.features.stats.isEnabled ? { pathname: '/stats', query: { chartId: 'txnsFee' } } : undefined }
       />
       <StatsWidget
-        label="Avg. transaction fee"
+        label="Avg transaction fee"
         value={ txFeeAvg.usd ? txFeeAvg.usd : txFeeAvg.valueStr }
         valuePrefix={ txFeeAvg.usd ? '$' : undefined }
         valuePostfix={ txFeeAvg.usd ? undefined : thinsp + config.chain.currency.symbol }

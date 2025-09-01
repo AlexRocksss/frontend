@@ -6,6 +6,7 @@ import type { FormFields } from '../types';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 import ContractVerificationFieldLibraryItem from './ContractVerificationFieldLibraryItem';
+import config from 'configs/app';
 
 const ContractVerificationFieldLibraries = () => {
   const { formState, control, getValues } = useFormContext<FormFields>();
@@ -49,7 +50,7 @@ const ContractVerificationFieldLibraries = () => {
           mt={ 9 }
           isDisabled={ formState.isSubmitting }
         >
-          Add contract libraries
+          { config.t()('Add contract libraries') }
         </Checkbox>
       </ContractVerificationFormRow>
       { fields.map((field, index) => (

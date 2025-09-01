@@ -9,6 +9,7 @@ import ContentLoader from 'ui/shared/ContentLoader';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 import LinkInternal from 'ui/shared/links/LinkInternal';
 import ChartWidgetContainer from 'ui/stats/ChartWidgetContainer';
+import config from "configs/app";
 
 const GAS_PRICE_CHART_ID = 'averageGasPrice';
 
@@ -19,6 +20,11 @@ const GasTrackerChart = () => {
       placeholderData: STATS_CHARTS,
     },
   });
+
+  const localeMessages = {
+    "Gas price history": config.t()("Gas price history"),
+    "Charts & stats": config.t()("Charts & stats")
+  }
 
   const content = (() => {
     if (isPlaceholderData) {
@@ -52,8 +58,8 @@ const GasTrackerChart = () => {
   return (
     <Box>
       <Flex justifyContent="space-between" alignItems="center" mb={ 6 }>
-        <chakra.h3 textStyle="h3">Gas price history</chakra.h3>
-        <LinkInternal href={ route({ pathname: '/stats', hash: 'gas' }) }>Charts & stats</LinkInternal>
+        <chakra.h3 textStyle="h3">{ localeMessages['Gas price history'] }</chakra.h3>
+        <LinkInternal href={ route({ pathname: '/stats', hash: 'gas' }) }>{ localeMessages['Charts & stats'] }</LinkInternal>
       </Flex>
       { content }
     </Box>

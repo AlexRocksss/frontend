@@ -14,6 +14,7 @@ import { default as Thead } from 'ui/shared/TheadSticky';
 
 import AddressCoinBalanceListItem from './AddressCoinBalanceListItem';
 import AddressCoinBalanceTableItem from './AddressCoinBalanceTableItem';
+import config from "configs/app";
 
 interface Props {
   query: UseQueryResult<AddressCoinBalanceHistoryResponse, ResourceError<unknown>> & {
@@ -29,11 +30,11 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
         <Table variant="simple" size="sm">
           <Thead top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <Tr>
-              <Th width="20%">Block</Th>
-              <Th width="20%">Txn</Th>
-              <Th width="20%">Age</Th>
-              <Th width="20%" isNumeric pr={ 1 }>Balance { currencyUnits.ether }</Th>
-              <Th width="20%" isNumeric>Delta</Th>
+              <Th width="20%">{ config.t()("Block") }</Th>
+              <Th width="20%">{ config.t()("Txn") }</Th>
+              <Th width="20%">{ config.t()("Age") }</Th>
+              <Th width="20%" isNumeric pr={ 1 }>{ config.t()("Balance") } { currencyUnits.ether }</Th>
+              <Th width="20%" isNumeric>{ config.t()("Delta") }</Th>
             </Tr>
           </Thead>
           <Tbody>

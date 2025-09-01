@@ -6,6 +6,7 @@ import type { Route } from 'nextjs-routes';
 
 import Hint from 'ui/shared/Hint';
 import TruncatedValue from 'ui/shared/TruncatedValue';
+import config from 'configs/app';
 
 type Props = {
   label: string;
@@ -60,7 +61,7 @@ const StatsWidget = ({ label, value, valuePrefix, valuePostfix, isLoading, hint,
             fontSize="xs"
             w="fit-content"
           >
-            <span>{ label }</span>
+            <span>{ config.t()(label) }</span>
           </Skeleton>
           <Skeleton
             isLoaded={ !isLoading }

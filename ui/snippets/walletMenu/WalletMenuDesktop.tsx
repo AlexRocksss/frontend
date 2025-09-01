@@ -12,6 +12,7 @@ import WalletMenuContent from 'ui/snippets/walletMenu/WalletMenuContent';
 import useMenuButtonColors from '../useMenuButtonColors';
 import WalletIdenticon from './WalletIdenticon';
 import WalletTooltip from './WalletTooltip';
+import config from 'configs/app';
 
 type Props = {
   isHomePage?: boolean;
@@ -25,6 +26,10 @@ const WalletMenuDesktop = ({ isHomePage, className, size = 'md' }: Props) => {
   const [ isPopoverOpen, setIsPopoverOpen ] = useBoolean(false);
   const isMobile = useIsMobile();
   const { isAutoConnectDisabled } = useMarketplaceContext();
+
+  const localeMessages = {
+    "Connect wallet": config.t()("Connect wallet")
+  }
 
   const variant = React.useMemo(() => {
     if (isWalletConnected) {
@@ -94,7 +99,7 @@ const WalletMenuDesktop = ({ isHomePage, className, size = 'md' }: Props) => {
                   <WalletIdenticon address={ address } isAutoConnectDisabled={ isAutoConnectDisabled } mr={ 2 }/>
                   <HashStringShorten hash={ address } isTooltipDisabled/>
                 </>
-              ) : 'Connect wallet' }
+              ) : localeMessages["Connect wallet"] }
             </Button>
           </WalletTooltip>
         </PopoverTrigger>

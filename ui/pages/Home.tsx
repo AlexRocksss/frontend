@@ -36,7 +36,7 @@ const Home = () => {
           >
             {
               config.meta.seo.enhancedDataEnabled ?
-                `${ config.chain.name } blockchain explorer` :
+                `${ config.chain.name } ${config.t()('blockchain explorer')}` :
                 `${ config.chain.name } explorer`
             }
           </Heading>

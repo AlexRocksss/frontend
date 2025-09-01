@@ -34,6 +34,16 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
     return license.label;
   })();
 
+  const localeMessages = {
+    "Balance": config.t()("Balance"),
+    "Txs count": config.t()("Txs count"),
+    "Compiler": config.t()("Compiler"),
+    "Optimization": config.t()("Optimization"),
+    "Constructor args": config.t()("Constructor args"),
+    "Verified": config.t()("Verified"),
+    "License": config.t()("License")
+  }
+
   return (
     <ListItemMobile rowGap={ 3 }>
       <Flex w="100%">
@@ -52,38 +62,38 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
         <CopyToClipboard text={ data.address.hash } isLoading={ isLoading }/>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>Balance { currencyUnits.ether }</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>{ localeMessages["Balance"] } { currencyUnits.ether }</Skeleton>
         <Skeleton isLoaded={ !isLoading } color="text_secondary">
           <span>{ balance }</span>
         </Skeleton>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>Txs count</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>{ localeMessages["Txs count"] }</Skeleton>
         <Skeleton isLoaded={ !isLoading } color="text_secondary">
           <span>{ data.tx_count ? data.tx_count.toLocaleString() : '0' }</span>
         </Skeleton>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 } flexShrink="0">Compiler</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 } flexShrink="0">{ localeMessages["Compiler"] }</Skeleton>
         <Skeleton isLoaded={ !isLoading } display="flex" flexWrap="wrap">
           <Box textTransform="capitalize">{ data.language }</Box>
           <Box color="text_secondary" wordBreak="break-all" whiteSpace="pre-wrap"> ({ data.compiler_version })</Box>
         </Skeleton>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>Optimization</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>{ localeMessages["Optimization"] }</Skeleton>
         { data.optimization_enabled ?
           <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
           <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>Constructor args</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>{ localeMessages["Constructor args"] }</Skeleton>
         { data.has_constructor_args ?
           <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
           <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>Verified</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>{ localeMessages["Verified"] }</Skeleton>
         <Flex alignItems="center" columnGap={ 2 }>
           <IconSvg name="status/success" boxSize={ 4 } color="green.500" isLoading={ isLoading }/>
           <Skeleton isLoaded={ !isLoading } color="text_secondary">
@@ -92,7 +102,7 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
         </Flex>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>License</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontWeight={ 500 }>{ localeMessages["License"] }</Skeleton>
         <Skeleton isLoaded={ !isLoading } color="text_secondary">
           <span>{ license }</span>
         </Skeleton>

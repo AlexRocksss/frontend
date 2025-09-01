@@ -5,6 +5,7 @@ import IconSvg from 'ui/shared/IconSvg';
 
 import SettingsColorTheme from './SettingsColorTheme';
 import SettingsIdentIcon from './SettingsIdentIcon';
+import SettingsLanguage from './SettingsLanguage';
 
 const Settings = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -27,6 +28,8 @@ const Settings = () => {
           <SettingsColorTheme/>
           <Box borderColor="divider" borderWidth="1px" my={ 3 }/>
           <SettingsIdentIcon/>
+          <Box borderColor="divider" borderWidth="1px" my={ 3 }/>
+          <SettingsLanguage/>
         </PopoverBody>
       </PopoverContent>
     </Popover>

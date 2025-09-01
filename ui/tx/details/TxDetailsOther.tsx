@@ -5,6 +5,7 @@ import type { Transaction } from 'types/api/transaction';
 
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import TextSeparator from 'ui/shared/TextSeparator';
+import config from 'configs/app';
 
 type Props = Pick<Transaction, 'nonce' | 'type' | 'position'>
 
@@ -14,7 +15,7 @@ const TxDetailsOther = ({ nonce, type, position }: Props) => {
       <DetailsInfoItem.Label
         hint="Other data related to this transaction"
       >
-        Other
+        { config.t()('Other') }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         {

@@ -8,6 +8,7 @@ import type { FormFields } from '../types';
 import CheckboxInput from 'ui/shared/CheckboxInput';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import config from 'configs/app';
 
 const ContractVerificationFieldOptimization = () => {
   const [ isEnabled, setIsEnabled ] = React.useState(true);
@@ -22,7 +23,7 @@ const ContractVerificationFieldOptimization = () => {
   const renderCheckboxControl = React.useCallback(({ field }: {field: ControllerRenderProps<FormFields, 'is_optimization_enabled'>}) => (
     <Flex flexShrink={ 0 }>
       <CheckboxInput<FormFields, 'is_optimization_enabled'>
-        text="Optimization enabled"
+        text={ config.t()("Optimization enabled") }
         field={ field }
         onChange={ handleCheckboxChange }
         isDisabled={ formState.isSubmitting }

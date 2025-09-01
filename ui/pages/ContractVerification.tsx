@@ -5,6 +5,7 @@ import useFormConfigQuery from 'ui/contractVerification/useFormConfigQuery';
 import ContentLoader from 'ui/shared/ContentLoader';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 import PageTitle from 'ui/shared/Page/PageTitle';
+import config from 'configs/app';
 
 const ContractVerification = () => {
   const configQuery = useFormConfigQuery(true);
@@ -25,7 +26,7 @@ const ContractVerification = () => {
 
   return (
     <>
-      <PageTitle title="Verify & publish contract"/>
+      <PageTitle title={ config.t()('Verify & publish contract') }/>
       { content }
     </>
   );

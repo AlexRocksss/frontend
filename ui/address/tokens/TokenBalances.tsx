@@ -50,20 +50,20 @@ const TokenBalances = () => {
   return (
     <Flex columnGap={ 3 } rowGap={ 3 } mt={{ base: '6px', lg: 0 }} flexDirection={{ base: 'column', lg: 'row' }}>
       <TokenBalancesItem
-        name="Net Worth"
+        name={ config.t()("Net Worth") }
         value={ addressData?.exchange_rate ? `${ prefix }$${ totalUsd.toFormat(2) }` : 'N/A' }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
         icon={ <IconSvg name="wallet" boxSize="24px" flexShrink={ 0 } color="text_secondary"/> }
       />
       <TokenBalancesItem
-        name={ `${ currencyUnits.ether } Balance` }
+        name={ `${ currencyUnits.ether } ${ config.t()('Balance') }` }
         value={ `${ nativeValue } ${ currencyUnits.ether }` }
         valueSecondary={ !nativeUsd.eq(ZERO) ? `$${ nativeUsd.toFormat(2) }` : '' }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
         icon={ <NativeTokenIcon boxSize="20px"/> }
       />
       <TokenBalancesItem
-        name="Tokens"
+        name={ config.t()("Tokens") }
         value={ tokensNumText }
         valueSecondary={ `${ prefix }$${ tokensInfo.usd.toFormat(2) }` }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }

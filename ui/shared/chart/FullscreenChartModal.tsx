@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 
 import type { TimeChartItem } from './types';
 
+import config from 'configs/app';
 import IconSvg from 'ui/shared/IconSvg';
 
 import ChartWidgetGraph from './ChartWidgetGraph';
@@ -55,7 +56,7 @@ const FullscreenChartModal = ({
               mb={ 1 }
               size={{ base: 'xs', sm: 'md' }}
             >
-              { title }
+              { config.t()(title) }
             </Heading>
 
             { description && (
@@ -65,7 +66,7 @@ const FullscreenChartModal = ({
                 variant="secondary"
                 fontSize="xs"
               >
-                { description }
+                { config.t()(description) }
               </Text>
             ) }
 

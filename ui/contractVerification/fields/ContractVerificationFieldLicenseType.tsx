@@ -7,6 +7,7 @@ import type { FormFields } from '../types';
 import { CONTRACT_LICENSES } from 'lib/contracts/licenses';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import FancySelect from 'ui/shared/FancySelect/FancySelect';
+import config from "configs/app";
 
 const options = CONTRACT_LICENSES.map(({ label, title, type }) => ({ label: `${ title } (${ label })`, value: type }));
 
@@ -24,7 +25,7 @@ const ContractVerificationFieldLicenseType = () => {
         { ...field }
         options={ options }
         size={ isMobile ? 'md' : 'lg' }
-        placeholder="Contract license"
+        placeholder={ config.t()("Contract license") }
         isDisabled={ formState.isSubmitting }
         error={ error }
       />
@@ -39,8 +40,7 @@ const ContractVerificationFieldLicenseType = () => {
         render={ renderControl }
       />
       <span>
-          For best practices, all contract source code holders, publishers and authors are encouraged to also
-          specify the accompanying license for their verified contract source code provided.
+          { config.t()('contract-verification-best-practice') }
       </span>
     </ContractVerificationFormRow>
   );

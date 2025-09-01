@@ -41,7 +41,7 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
                 rowGap={ 3 }
               >
                 <GridItem px={{ base: 4, lg: 6 }} pt={{ base: 2, lg: 4 }} pb={{ base: 0, lg: 4 }} overflow="hidden">
-                  <Box fontSize="sm" color="text_secondary" fontWeight={ 500 }>Smart contract / Address (0x...)</Box>
+                  <Box fontSize="sm" color="text_secondary" fontWeight={ 500 }>Smartssss contract / Address (0x...)</Box>
                   <Flex flexDir="column" rowGap={ 2 } mt={ 2 }>
                     { item.addresses.map((hash) => (
                       <AddressEntity

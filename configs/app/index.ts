@@ -5,6 +5,7 @@ import * as features from './features';
 import meta from './meta';
 import services from './services';
 import UI from './ui';
+import {useTranslations as t} from 'next-intl';
 
 const config = Object.freeze({
   app,
@@ -14,6 +15,7 @@ const config = Object.freeze({
   features,
   services,
   meta,
+  t
 });
 
 export default config;

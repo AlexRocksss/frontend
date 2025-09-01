@@ -13,6 +13,7 @@ import SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 
 import LatestTxsItem from './LatestTxsItem';
 import LatestTxsItemMobile from './LatestTxsItemMobile';
+import config from 'configs/app';
 
 const LatestTransactions = () => {
   const isMobile = useIsMobile();
@@ -55,7 +56,7 @@ const LatestTransactions = () => {
           </Box>
         </AddressHighlightProvider>
         <Flex justifyContent="center">
-          <LinkInternal fontSize="sm" href={ txsUrl }>View all transactions</LinkInternal>
+          <LinkInternal fontSize="sm" href={ txsUrl }>{config.t()('View all transactions')}</LinkInternal>
         </Flex>
       </>
     );

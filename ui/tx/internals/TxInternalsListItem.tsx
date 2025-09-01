@@ -18,6 +18,11 @@ const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit:
   const typeTitle = TX_INTERNALS_ITEMS.find(({ id }) => id === type)?.title;
   const toData = to ? to : createdContract;
 
+  const localeMessages = {
+    "Value": config.t()("Value"),
+    "Gas limit": config.t()("Gas limit")
+  }
+
   return (
     <ListItemMobile rowGap={ 3 }>
       <Flex columnGap={ 2 }>
@@ -32,13 +37,13 @@ const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit:
         fontWeight="500"
       />
       <HStack spacing={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>Value { currencyUnits.ether }</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["Value"] } { currencyUnits.ether }</Skeleton>
         <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary">
           { BigNumber(value).div(BigNumber(10 ** config.chain.currency.decimals)).toFormat() }
         </Skeleton>
       </HStack>
       <HStack spacing={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>Gas limit</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["Gas limit"] }</Skeleton>
         <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary">{ BigNumber(gasLimit).toFormat() }</Skeleton>
       </HStack>
     </ListItemMobile>

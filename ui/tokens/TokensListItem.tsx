@@ -43,6 +43,11 @@ const TokensTableItem = ({
     bridgedTokensFeature.chains.find(({ id }) => id === originalChainId)?.short_title :
     undefined;
 
+  const localeMessages = {
+    "On-chain market cap": config.t()("On-chain market cap"),
+    "Holders": config.t()("Holders")
+  }
+
   return (
     <ListItemMobile rowGap={ 3 }>
       <Grid
@@ -87,12 +92,12 @@ const TokensTableItem = ({
       ) }
       { marketCap && (
         <HStack spacing={ 3 }>
-          <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>On-chain market cap</Skeleton>
+          <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["On-chain market cap"] }</Skeleton>
           <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary"><span>{ BigNumber(marketCap).toFormat() }</span></Skeleton>
         </HStack>
       ) }
       <HStack spacing={ 3 }>
-        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>Holders</Skeleton>
+        <Skeleton isLoaded={ !isLoading } fontSize="sm" fontWeight={ 500 }>{ localeMessages["Holders"] }</Skeleton>
         <Skeleton isLoaded={ !isLoading } fontSize="sm" color="text_secondary"><span>{ Number(holders).toLocaleString() }</span></Skeleton>
       </HStack>
     </ListItemMobile>

@@ -12,6 +12,7 @@ import BlocksTabSlot from 'ui/blocks/BlocksTabSlot';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
+import config from 'configs/app';
 
 const TAB_LIST_PROPS = {
   marginBottom: 0,
@@ -70,14 +71,14 @@ const BlocksPageContent = () => {
   })();
 
   const tabs: Array<RoutedTab> = [
-    { id: 'blocks', title: 'All', component: <BlocksContent type="block" query={ blocksQuery }/> },
-    { id: 'reorgs', title: 'Forked', component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
-    { id: 'uncles', title: 'Uncles', component: <BlocksContent type="uncle" query={ unclesQuery }/> },
+    { id: 'blocks', title: config.t()('All'), component: <BlocksContent type="block" query={ blocksQuery }/> },
+    { id: 'reorgs', title: config.t()('Forked'), component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
+    { id: 'uncles', title: config.t()('Uncles'), component: <BlocksContent type="uncle" query={ unclesQuery }/> },
   ];
 
   return (
     <>
-      <PageTitle title="Blocks" withTextAd/>
+      <PageTitle title={ config.t()("Blocks") } withTextAd/>
       <RoutedTabs
         tabs={ tabs }
         tabListProps={ isMobile ? undefined : TAB_LIST_PROPS }

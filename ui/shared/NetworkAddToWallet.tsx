@@ -16,6 +16,12 @@ const NetworkAddToWallet = () => {
   const { provider, wallet } = useProvider();
   const addOrSwitchChain = useAddOrSwitchChain();
 
+  const localeMessages = {
+    "Add": config.t()("Add"),
+    "success-add-wallet": config.t()("success-add-wallet"),
+    "Success": config.t()('Success')
+  }
+
   const handleClick = React.useCallback(async() => {
     if (!wallet || !provider) {
       return;
@@ -26,8 +32,8 @@ const NetworkAddToWallet = () => {
 
       toast({
         position: 'top-right',
-        title: 'Success',
-        description: 'Successfully added network to your wallet',
+        title: `${localeMessages['Success']}`,
+        description: `${localeMessages["success-add-wallet"]}`,
         status: 'success',
         variant: 'subtle',
         isClosable: true,
@@ -48,7 +54,7 @@ const NetworkAddToWallet = () => {
         isClosable: true,
       });
     }
-  }, [ addOrSwitchChain, provider, toast, wallet ]);
+  }, [ addOrSwitchChain, provider, toast, wallet, localeMessages ]);
 
   if (!provider || !wallet || !config.chain.rpcUrl || !feature.isEnabled) {
     return null;
@@ -57,7 +63,7 @@ const NetworkAddToWallet = () => {
   return (
     <Button variant="outline" size="sm" onClick={ handleClick }>
       <IconSvg name={ WALLETS_INFO[wallet].icon } boxSize={ 5 } mr={ 2 }/>
-        Add { config.chain.name }
+        {localeMessages["Add"]} { config.chain.name }
     </Button>
   );
 };

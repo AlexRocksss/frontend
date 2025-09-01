@@ -4,6 +4,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { ADDRESS_INFO } from 'stubs/address';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
+import config from "configs/app";
 
 interface Props {
   hash: string;
@@ -26,6 +27,10 @@ const TokenInstanceCreatorAddress = ({ hash }: Props) => {
     return null;
   }
 
+  const localeMessages = {
+    "Creator": config.t()("Creator")
+  }
+
   const creatorAddress = {
     hash: addressQuery.data.creator_address_hash,
     is_contract: false,
@@ -38,7 +43,7 @@ const TokenInstanceCreatorAddress = ({ hash }: Props) => {
         hint="Address that deployed this token contract"
         isLoading={ addressQuery.isPlaceholderData }
       >
-        Creator
+        { localeMessages["Creator"] }
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
         <AddressEntity

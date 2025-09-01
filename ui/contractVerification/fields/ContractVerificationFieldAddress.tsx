@@ -9,6 +9,7 @@ import { ADDRESS_REGEXP, ADDRESS_LENGTH } from 'lib/validations/address';
 import InputPlaceholder from 'ui/shared/InputPlaceholder';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
+import config from 'configs/app';
 
 interface Props {
   isReadOnly?: boolean;
@@ -30,7 +31,7 @@ const ContractVerificationFieldAddress = ({ isReadOnly }: Props) => {
           isDisabled={ formState.isSubmitting || isReadOnly }
           autoComplete="off"
         />
-        <InputPlaceholder text="Smart contract / Address (0x...)" error={ error }/>
+        <InputPlaceholder text={ config.t()("Smart contract / Address") } error={ error }/>
       </FormControl>
     );
   }, [ formState.errors, formState.isSubmitting, isReadOnly ]);
@@ -39,7 +40,7 @@ const ContractVerificationFieldAddress = ({ isReadOnly }: Props) => {
     <>
       <ContractVerificationFormRow>
         <chakra.span fontWeight={ 500 } fontSize="lg" fontFamily="heading">
-          Contract address to verify
+          { config.t()('Contract address to verify') }
         </chakra.span>
       </ContractVerificationFormRow>
       <ContractVerificationFormRow>

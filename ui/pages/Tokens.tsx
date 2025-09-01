@@ -179,7 +179,7 @@ const Tokens = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `Tokens on ${ config.chain.name }` : 'Tokens' }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${config.t()('Tokens')}` : `${config.t()('Tokens')}` }
         withTextAd
       />
       { !hasMultipleTabs && !isMobile && actionBar }

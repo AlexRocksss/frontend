@@ -7,6 +7,7 @@ import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import { default as Thead } from 'ui/shared/TheadSticky';
 import TokenTransferTableItem from 'ui/shared/TokenTransfer/TokenTransferTableItem';
+import config from 'configs/app';
 
 interface Props {
   data: Array<TokenTransfer>;
@@ -38,11 +39,11 @@ const TokenTransferTable = ({
         <Thead top={ top }>
           <Tr>
             { showTxInfo && <Th width="44px"></Th> }
-            <Th width="230px">Token</Th>
-            <Th width="160px">Token ID</Th>
-            { showTxInfo && <Th width="200px">Txn hash</Th> }
-            <Th width="60%">From/To</Th>
-            <Th width="40%" isNumeric>Value</Th>
+            <Th width="230px">{ config.t()('Token') }</Th>
+            <Th width="160px">{ config.t()('Token')} ID</Th>
+            { showTxInfo && <Th width="200px">{ config.t()('Txn hash') }</Th> }
+            <Th width="60%">{ config.t()('From/To') }</Th>
+            <Th width="40%" isNumeric>{ config.t()('Value') }</Th>
           </Tr>
         </Thead>
         <Tbody>

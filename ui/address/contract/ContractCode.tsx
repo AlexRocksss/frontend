@@ -63,6 +63,10 @@ const InfoItem = chakra(({ label, content, hint, className, isLoading }: InfoIte
 const ContractCode = ({ addressHash, contractQuery, channel }: Props) => {
   const [ isChangedBytecodeSocket, setIsChangedBytecodeSocket ] = React.useState<boolean>();
 
+  const localeMessages = {
+    "verify-publish": config.t()('Verify & publish')
+  }
+
   const queryClient = useQueryClient();
   const addressInfo = queryClient.getQueryData<AddressInfo>(getResourceKey('address', { pathParams: { hash: addressHash } }));
 
@@ -116,7 +120,7 @@ const ContractCode = ({ addressHash, contractQuery, channel }: Props) => {
       as="a"
       href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: addressHash || '' } }) }
     >
-        Verify & publish
+        { localeMessages['verify-publish'] }
     </Button>
   );
 

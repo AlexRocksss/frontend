@@ -35,6 +35,14 @@ const AddressBlocksValidated = ({ scrollRef, shouldRender = true }: Props) => {
   const router = useRouter();
   const isMounted = useIsMounted();
 
+  const localMessages = {
+    "Block": config.t()('Block'),
+    "Age": config.t()("Age"),
+    "Txn": config.t()("Txn"),
+    "Gas used": config.t()("Gas used"),
+    "Reward": config.t()("Reward")
+  }
+
   const addressHash = String(router.query.hash);
   const query = useQueryWithPages({
     resourceName: 'address_blocks_validated',
@@ -98,12 +106,12 @@ const AddressBlocksValidated = ({ scrollRef, shouldRender = true }: Props) => {
         <Table variant="simple" size="sm">
           <Thead top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <Tr>
-              <Th width="17%">Block</Th>
-              <Th width="17%">Age</Th>
-              <Th width="16%">Txn</Th>
-              <Th width="25%">Gas used</Th>
+              <Th width="17%">{ localMessages["Block"] }</Th>
+              <Th width="17%">{ localMessages["Age"] }</Th>
+              <Th width="16%">{ localMessages["Txn"] }</Th>
+              <Th width="25%">{ localMessages["Gas used"] }</Th>
               { !config.UI.views.block.hiddenFields?.total_reward &&
-              <Th width="25%" isNumeric>Reward { currencyUnits.ether }</Th> }
+              <Th width="25%" isNumeric>{ localMessages["Reward"] } { currencyUnits.ether }</Th> }
             </Tr>
           </Thead>
           <Tbody>

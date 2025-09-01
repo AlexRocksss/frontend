@@ -11,10 +11,11 @@ import ContractVerificationFieldIsYul from '../fields/ContractVerificationFieldI
 import ContractVerificationFieldLibraries from '../fields/ContractVerificationFieldLibraries';
 import ContractVerificationFieldName from '../fields/ContractVerificationFieldName';
 import ContractVerificationFieldOptimization from '../fields/ContractVerificationFieldOptimization';
+import {useTranslations as t} from 'next-intl';
 
 const ContractVerificationFlattenSourceCode = ({ config }: { config: SmartContractVerificationConfig }) => {
   return (
-    <ContractVerificationMethod title="Contract verification via Solidity (flattened source code)">
+    <ContractVerificationMethod title={ t()("Contract verification via Solidity (flattened source code)") }>
       { !config?.is_rust_verifier_microservice_enabled && <ContractVerificationFieldName/> }
       { config?.is_rust_verifier_microservice_enabled && <ContractVerificationFieldIsYul/> }
       <ContractVerificationFieldCompiler/>

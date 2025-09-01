@@ -78,6 +78,16 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
   }
 
   const data = addressQuery.isError ? error404Data : addressQuery.data;
+  const localeMessages = {
+    "Tokens": config.t()('Tokens'),
+    "Net worth": config.t()('Net worth'),
+    "Transactions": config.t()('Transactions'),
+    "Transfers": config.t()('Transfers'),
+    "Gas used": config.t()('Gas used'),
+    "Blocks validated": config.t()('Blocks validated'),
+    "Last balance update": config.t()('Last balance update'),
+    "Creator": config.t()('Creator')
+  };
 
   if (!data || !isMounted) {
     return null;
@@ -99,7 +109,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
               hint="Transaction and address of creation"
               isLoading={ addressQuery.isPlaceholderData }
             >
-              Creator
+              { localeMessages["Creator"] }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value>
               <AddressEntity
@@ -126,7 +136,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
             <DetailsInfoItem.Label
               hint="All tokens in the account and total value"
             >
-              Tokens
+              { localeMessages['Tokens'] }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value py={ addressQuery.data ? 0 : undefined }>
               { addressQuery.data ? <TokenSelect onClick={ handleCounterItemClick }/> : <Box>0</Box> }
@@ -139,7 +149,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
               hint="Total net worth in USD of all tokens for the address"
               isLoading={ addressQuery.isPlaceholderData }
             >
-              Net worth
+              { localeMessages['Net worth'] }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value alignSelf="center" py={ 0 }>
               <AddressNetWorth addressData={ addressQuery.data } addressHash={ addressHash } isLoading={ addressQuery.isPlaceholderData }/>
@@ -152,7 +162,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
           hint="Number of transactions related to this address"
           isLoading={ addressQuery.isPlaceholderData || countersQuery.isPlaceholderData }
         >
-          Transactions
+          { localeMessages['Transactions'] }
         </DetailsInfoItem.Label>
         <DetailsInfoItem.Value>
           { addressQuery.data ? (
@@ -174,7 +184,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
               hint="Number of transfers to/from this address"
               isLoading={ addressQuery.isPlaceholderData || countersQuery.isPlaceholderData }
             >
-              Transfers
+              { localeMessages['Transfers'] }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value>
               { addressQuery.data ? (
@@ -198,7 +208,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
               hint="Gas used by the address"
               isLoading={ addressQuery.isPlaceholderData || countersQuery.isPlaceholderData }
             >
-              Gas used
+              { localeMessages['Gas used'] }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value>
               { addressQuery.data ? (
@@ -222,7 +232,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
               hint="Number of blocks validated by this validator"
               isLoading={ addressQuery.isPlaceholderData || countersQuery.isPlaceholderData }
             >
-              Blocks validated
+              { localeMessages['Blocks validated'] }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value>
               { addressQuery.data ? (
@@ -246,7 +256,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
               hint="Block number in which the address was updated"
               isLoading={ addressQuery.isPlaceholderData }
             >
-              Last balance update
+              { localeMessages['Last balance update'] }
             </DetailsInfoItem.Label>
             <DetailsInfoItem.Value>
               <BlockEntity

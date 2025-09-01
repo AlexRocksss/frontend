@@ -5,6 +5,7 @@ import React from 'react';
 import type { PaginationParams } from 'ui/shared/pagination/types';
 import type { RoutedTab } from 'ui/shared/Tabs/types';
 
+import config from "configs/app";
 import useApiQuery from 'lib/api/useApiQuery';
 import { useAppContext } from 'lib/contexts/app';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
@@ -116,13 +117,13 @@ const TokenInstanceContent = () => {
   const tabs: Array<RoutedTab> = [
     {
       id: 'token_transfers',
-      title: 'Token transfers',
+      title: `${ config.t()('Token transfers') }`,
       component: <TokenTransfer transfersQuery={ transfersQuery } tokenId={ id } token={ tokenQuery.data } shouldRender={ !isLoading }/>,
     },
     shouldFetchHolders ?
       { id: 'holders', title: 'Holders', component: <TokenHolders holdersQuery={ holdersQuery } token={ tokenQuery.data } shouldRender={ !isLoading }/> } :
       undefined,
-    { id: 'metadata', title: 'Metadata', component: (
+    { id: 'metadata', title: `${ config.t()('Metadata') }`, component: (
       <TokenInstanceMetadata
         data={ tokenInstanceQuery.data?.metadata }
         isPlaceholderData={ isLoading }

@@ -11,7 +11,7 @@ const Page: NextPage = () => {
   return (
     <PageNextJs pathname="/api-docs">
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } API documentation` : 'API documentation' }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ config.t()('API documentation') }` : config.t()('API documentation') }
       />
       <SwaggerUI/>
     </PageNextJs>

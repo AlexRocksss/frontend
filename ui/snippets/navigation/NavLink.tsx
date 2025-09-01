@@ -15,6 +15,7 @@ import NavLinkIcon from './NavLinkIcon';
 import useColors from './useColors';
 import useNavLinkStyleProps from './useNavLinkStyleProps';
 import { checkRouteHighlight } from './utils';
+import config from 'configs/app';
 
 type Props = {
   item: NavItem;
@@ -68,7 +69,7 @@ const NavLink = ({ item, isCollapsed, px, className, onClick, disableActiveState
         <HStack spacing={ 0 } overflow="hidden">
           <NavLinkIcon item={ item }/>
           <Text { ...styleProps.textProps } as="span" ml={ 3 }>
-            <span>{ item.text }</span>
+            <span>{ `${config.t()(item.text)}` }</span>
             { !isInternalLink && <IconSvg name="arrows/north-east" boxSize={ 4 } color="text_secondary" verticalAlign="middle"/> }
           </Text>
           { isHighlighted && (
