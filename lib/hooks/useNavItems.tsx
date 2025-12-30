@@ -54,12 +54,12 @@ export default function useNavItems(): ReturnType {
     } : null;
 
     const verifiedContracts: NavItem | null =
-     {
+     Boolean(false) ? {
        text: 'Verified contracts',
        nextRoute: { pathname: '/verified-contracts' as const },
        icon: 'verified',
-       isActive: pathname === '/verified-contracts',
-     };
+       isActive: false, // pathname === '/verified-contracts',
+     } : null;
     const ensLookup = config.features.nameService.isEnabled ? {
       text: 'Name services lookup',
       nextRoute: { pathname: '/name-domains' as const },
@@ -185,7 +185,7 @@ export default function useNavItems(): ReturnType {
         text: 'GraphQL',
         nextRoute: { pathname: '/graphiql' as const },
         icon: 'graphQL',
-        isActive: pathname === '/graphiql',
+        isActive: false, // pathname === '/graphiql',
       } : null,
       !config.UI.sidebar.hiddenLinks?.rpc_api && {
         text: 'RPC API',
@@ -200,11 +200,23 @@ export default function useNavItems(): ReturnType {
     ].filter(Boolean);
 
     const mainNavItems: ReturnType['mainNavItems'] = [
+      // {
+      //   text: 'Blockchain',
+      //   icon: 'globe-b',
+      //   isActive: blockchainNavItems.flat().some(item => isInternalItem(item) && item.isActive),
+      //   subItems: blockchainNavItems,
+      // },
       {
-        text: 'Blockchain',
-        icon: 'globe-b',
-        isActive: blockchainNavItems.flat().some(item => isInternalItem(item) && item.isActive),
-        subItems: blockchainNavItems,
+        text: 'Blocks',
+        nextRoute: { pathname: '/blocks' as const },
+        icon: 'block',
+        isActive: pathname.startsWith('/blocks'),
+      },
+      {
+        text: 'Transactions',
+        nextRoute: { pathname: '/txs' as const },
+        icon: 'transactions',
+        isActive: pathname.startsWith('/txs'),
       },
       {
         text: 'Tokens',
@@ -230,14 +242,14 @@ export default function useNavItems(): ReturnType {
         isActive: apiNavItems.some(item => isInternalItem(item) && item.isActive),
         subItems: apiNavItems,
       },
-      {
+      Boolean(false) ? {
         text: 'Other',
         icon: 'gear',
         subItems: [
-          {
+          Boolean(false) && {
             text: 'Verify contract',
             nextRoute: { pathname: '/contract-verification' as const },
-            isActive: pathname.startsWith('/contract-verification'),
+            isActive: false, // pathname.startsWith('/contract-verification'),
           },
           config.features.gasTracker.isEnabled && {
             text: 'Gas tracker',
@@ -251,7 +263,7 @@ export default function useNavItems(): ReturnType {
           },
           ...config.UI.sidebar.otherLinks,
         ].filter(Boolean),
-      },
+      } : null,
     ].filter(Boolean);
 
     const accountNavItems: ReturnType['accountNavItems'] = [
