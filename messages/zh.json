@@ -174,7 +174,7 @@
   "Token name": "代幣名稱",
   "Creator": "建立者",
   "Daily transactions": "每日交易",
-  "footer-text-1": "ENI 是高性能的區塊鏈。基於平行計算與三重共識構建。專為複雜且大規模的商業應用設計。採用模組化且可自訂的結構。主網與 AppChain 群集協同運作。為企業與開發者提供完整的 Web3 能力。",
+  "footer-text-1": "ENI 是一個為超大規模採用而設計的模組化、超高效能 L1 區塊鏈。其 ENI Matrix（主網、Hub、AppChain）與超序並行引擎，可實現即時並行結算，並支援隔離且合規的企業級 AppChain。",
   "Color theme": "顏色主題",
   "Address identicon": "地址圖示",
   "Languages": "Languages (語言)",
