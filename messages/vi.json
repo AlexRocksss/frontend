@@ -174,7 +174,7 @@
   "Token name": "Tên token",
   "Creator": "Người tạo",
   "Daily transactions": "Giao dịch hàng ngày",
-  "footer-text-1": "ENI là blockchain hiệu suất cao. Được xây dựng dựa trên tính toán song song và cơ chế đồng thuận ba lớp. Được thiết kế cho các doanh nghiệp quy mô lớn và phức tạp. Sử dụng cấu trúc mô-đun có thể tùy chỉnh. Mainnet hoạt động với các cụm AppChain. Trao cho doanh nghiệp và nhà phát triển toàn quyền sức mạnh Web3.",
+  "footer-text-1": "ENI là blockchain L1 mô-đun với hiệu năng siêu cao, được thiết kế cho khả năng mở rộng quy mô lớn. ENI Matrix (Mainnet, Hub, AppChains) và công cụ xử lý song song cho phép thanh toán song song theo thời gian thực với các AppChain doanh nghiệp tách biệt và tuân thủ.",
   "Color theme": "Chủ đề màu",
   "Address identicon": "Hình nhận dạng địa chỉ",
   "Languages": "Languages (Ngôn ngữ)",
