@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZkEvmL2TxnBatchesItem } from 'types/api/zkEvmL2';
@@ -18,6 +19,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ZkEvmL2TxnBatchesItem; isLoading?: boolean };
 
 const ZkEvmTxnBatchesTableItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'zkEvm') {
     return null;
   }
@@ -39,7 +41,7 @@ const ZkEvmTxnBatchesTableItem = ({ item, isLoading }: Props) => {
       <TableCell verticalAlign="middle">
         <TimeWithTooltip
           timestamp={ item.timestamp }
-          fallbackText="Undefined"
+          fallbackText={ t('txnBatches.undefined') }
           isLoading={ isLoading }
           color="text.secondary"
         />
@@ -64,7 +66,7 @@ const ZkEvmTxnBatchesTableItem = ({ item, isLoading }: Props) => {
             noIcon
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <Text>{ t('txnBatches.pending') }</Text> }
       </TableCell>
       <TableCell pr={ 12 } verticalAlign="middle">
         { item.sequence_transaction_hash ? (
@@ -76,7 +78,7 @@ const ZkEvmTxnBatchesTableItem = ({ item, isLoading }: Props) => {
             noIcon
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <Text>{ t('txnBatches.pending') }</Text> }
       </TableCell>
     </TableRow>
   );

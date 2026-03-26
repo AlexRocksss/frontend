@@ -1,4 +1,5 @@
 import { Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { NFTTokenType } from 'types/api/token';
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const AddressNFTs = ({ tokensQuery, tokenTypes, onTokenTypesChange }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const multichainContext = useMultichainContext();
 
@@ -61,7 +63,7 @@ const AddressNFTs = ({ tokensQuery, tokenTypes, onTokenTypesChange }: Props) => 
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items?.length }
-      emptyText="There are no tokens of selected type."
+      emptyText={ t('address.noTokensSelectedType') }
       actionBar={ actionBar }
       hasActiveFilters={ hasActiveFilters }
       emptyStateProps={{

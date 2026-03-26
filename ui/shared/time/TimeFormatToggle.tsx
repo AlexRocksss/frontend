@@ -1,5 +1,6 @@
 import type { StackProps } from '@chakra-ui/react';
 import { chakra, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
@@ -11,6 +12,7 @@ import IconSvg from 'ui/shared/IconSvg';
 interface Props extends StackProps {}
 
 const TimeFormatToggle = (props: Props) => {
+  const { t } = useTranslation();
   const settings = useSettingsContext();
   const timeFormat = settings?.timeFormat || 'relative';
 
@@ -24,14 +26,14 @@ const TimeFormatToggle = (props: Props) => {
       return null;
     }
 
-    return <chakra.span color="icon.secondary">{ settings?.isLocalTime ? 'Local' : 'UTC' }</chakra.span>;
+    return <chakra.span color="icon.secondary">{ settings?.isLocalTime ? t('detailedInfo.local') : t('detailedInfo.utc') }</chakra.span>;
   })();
 
   return (
     <HStack display="inline-flex" gap={ 1 } ml={ 2 } verticalAlign="bottom" { ...props }>
-      <Tooltip content="Toggle time format">
+      <Tooltip content={ t('detailedInfo.toggleTimeFormat') }>
         <IconButton
-          aria-label="Toggle time format"
+          aria-label={ t('detailedInfo.toggleTimeFormat') }
           variant="icon_secondary"
           onClick={ handleClick }
           boxSize={ 5 }

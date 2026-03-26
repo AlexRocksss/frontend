@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const TokenTransferTable = ({ items, top, isLoading, chainData }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot minW="950px" tableLayout="auto">
@@ -23,14 +25,14 @@ const TokenTransferTable = ({ items, top, isLoading, chainData }: Props) => {
           <TableRow>
             { chainData && <TableColumnHeader width="38px"/> }
             <TableColumnHeader>
-              Txn hash
+              { t('tokenTransfers.txnHash') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader>Method</TableColumnHeader>
-            <TableColumnHeader>Block</TableColumnHeader>
-            <TableColumnHeader>From/To</TableColumnHeader>
-            <TableColumnHeader>Token ID</TableColumnHeader>
-            <TableColumnHeader isNumeric>Amount</TableColumnHeader>
+            <TableColumnHeader>{ t('tokenTransfers.method') }</TableColumnHeader>
+            <TableColumnHeader>{ t('tokenTransfers.block') }</TableColumnHeader>
+            <TableColumnHeader>{ t('tokenTransfers.fromTo') }</TableColumnHeader>
+            <TableColumnHeader>{ t('tokenTransfers.tokenId') }</TableColumnHeader>
+            <TableColumnHeader isNumeric>{ t('tokenTransfers.amount') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

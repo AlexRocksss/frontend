@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 
 import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
@@ -8,6 +9,7 @@ import { Image } from 'toolkit/chakra/image';
 import { Link } from 'toolkit/chakra/link';
 
 export default function RewardsActivityPassCard() {
+  const { t } = useTranslation();
   const { rewardsConfigQuery } = useRewardsContext();
   const backgroundImage = useColorModeValue('/static/merits/cells.svg', '/static/merits/cells_dark.svg');
 
@@ -27,16 +29,16 @@ export default function RewardsActivityPassCard() {
     >
       <Flex flex={ 1 } flexDirection="column" p={ 3 } gap={ 2 }>
         <Heading level="3">
-          Activity pass
+          { t('rewards.activityPassTitle') }
         </Heading>
         <Text textStyle="sm">
-          Grab your{ ' ' }
+          { t('rewards.activityPassDescBefore') }{ ' ' }
           <Link external href={ activityPassUrl } loading={ rewardsConfigQuery.isLoading }>
-            Activity pass
+            { t('rewards.activityPassDescLink') }
           </Link>{ ' ' }
-          then engage with various Blockscout products and features to earn Merits every day!{ ' ' }
+          { t('rewards.activityPassDescAfter') }{ ' ' }
           <Link external href="https://docs.blockscout.com/using-blockscout/merits/activity-pass">
-            Learn more
+            { t('rewards.activityPassLearnMore') }
           </Link>
         </Text>
       </Flex>
@@ -57,7 +59,7 @@ export default function RewardsActivityPassCard() {
       >
         <Image
           src={ backgroundImage }
-          alt="Background"
+          alt={ t('rewards.activityPassBgAlt') }
           width="268px"
           height="184px"
           position="absolute"
@@ -66,7 +68,7 @@ export default function RewardsActivityPassCard() {
         />
         <Image
           src="/static/merits/activity_pass.svg"
-          alt="Activity pass"
+          alt={ t('rewards.activityPassImageAlt') }
           width="79px"
           height="86px"
           zIndex={ 1 }
@@ -83,7 +85,7 @@ export default function RewardsActivityPassCard() {
           flexShrink={ 0 }
           zIndex={ 1 }
         >
-          Grab Activity pass
+          { t('rewards.activityPassGrab') }
         </Link>
       </Flex>
     </Flex>

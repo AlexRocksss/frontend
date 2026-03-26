@@ -1,4 +1,5 @@
 import { Box, Flex, Text, Grid, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SolidityScanReportSeverityDistribution } from 'lib/solidityScan/schema';
@@ -9,14 +10,14 @@ type DistributionItem = {
   color: string;
 };
 
-const DISTRIBUTION_ITEMS: Array<DistributionItem> = [
-  { id: 'critical', name: 'Critical', color: '#891F11' },
-  { id: 'high', name: 'High', color: '#EC672C' },
-  { id: 'medium', name: 'Medium', color: '#FBE74D' },
-  { id: 'low', name: 'Low', color: '#68C88E' },
-  { id: 'informational', name: 'Informational', color: '#A3AEBE' },
-  { id: 'gas', name: 'Gas', color: '#A47585' },
-];
+const DISTRIBUTION_COLORS: Record<string, string> = {
+  critical: '#891F11',
+  high: '#EC672C',
+  medium: '#FBE74D',
+  low: '#68C88E',
+  informational: '#A3AEBE',
+  gas: '#A47585',
+};
 
 interface Props {
   vulnerabilities: SolidityScanReportSeverityDistribution;
@@ -51,6 +52,17 @@ const SolidityScanReportItem = ({ item, vulnerabilities, vulnerabilitiesCount }:
 };
 
 const SolidityscanReportDetails = ({ vulnerabilities, vulnerabilitiesCount }: Props) => {
+  const { t } = useTranslation();
+
+  const DISTRIBUTION_ITEMS: Array<DistributionItem> = [
+    { id: 'critical', name: t('solidityScan.critical'), color: DISTRIBUTION_COLORS.critical },
+    { id: 'high', name: t('solidityScan.high'), color: DISTRIBUTION_COLORS.high },
+    { id: 'medium', name: t('solidityScan.medium'), color: DISTRIBUTION_COLORS.medium },
+    { id: 'low', name: t('solidityScan.low'), color: DISTRIBUTION_COLORS.low },
+    { id: 'informational', name: t('solidityScan.informational'), color: DISTRIBUTION_COLORS.informational },
+    { id: 'gas', name: t('solidityScan.gas'), color: DISTRIBUTION_COLORS.gas },
+  ];
+
   return (
     <Grid templateColumns="20px 1fr 100px" alignItems="center" rowGap={ 2 }>
       { DISTRIBUTION_ITEMS.map(item => (

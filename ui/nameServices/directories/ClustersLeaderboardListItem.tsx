@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ClustersLeaderboardObject } from 'types/api/clusters';
@@ -12,10 +13,12 @@ interface Props {
 }
 
 const ClustersLeaderboardListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <ListItemMobileGrid.Container>
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Rank
+        { t('nameServices.rankLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
@@ -24,14 +27,14 @@ const ClustersLeaderboardListItem = ({ item, isLoading }: Props) => {
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Cluster name
+        { t('nameServices.clusterNameLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 500 }/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Names
+        { t('nameServices.namesLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
@@ -40,7 +43,7 @@ const ClustersLeaderboardListItem = ({ item, isLoading }: Props) => {
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Backing
+        { t('nameServices.backingLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
@@ -49,11 +52,11 @@ const ClustersLeaderboardListItem = ({ item, isLoading }: Props) => {
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Network presence
+        { t('nameServices.networkPresenceLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
-          { item.chainIds.length } { item.chainIds.length === 1 ? 'chain' : 'chains' }
+          { t('nameServices.chainCount', { count: item.chainIds.length }) }
         </Skeleton>
       </ListItemMobileGrid.Value>
     </ListItemMobileGrid.Container>

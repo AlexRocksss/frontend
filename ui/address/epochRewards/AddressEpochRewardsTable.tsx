@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressEpochRewardsItem } from 'types/api/address';
@@ -15,18 +16,19 @@ type Props = {
 };
 
 const AddressEpochRewardsTable = ({ items, isLoading, top }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot minW="1000px" style={{ tableLayout: 'auto' }}>
         <TableHeaderSticky top={ top }>
           <TableRow>
             <TableColumnHeader>
-              Epoch
+              { t('address.epochHeader') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader>Reward type</TableColumnHeader>
-            <TableColumnHeader>Associated address</TableColumnHeader>
-            <TableColumnHeader isNumeric>Value</TableColumnHeader>
+            <TableColumnHeader>{ t('address.rewardTypeHeader') }</TableColumnHeader>
+            <TableColumnHeader>{ t('address.associatedAddressHeader') }</TableColumnHeader>
+            <TableColumnHeader isNumeric>{ t('address.valueHeader') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

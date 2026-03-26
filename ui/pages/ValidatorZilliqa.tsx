@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -12,6 +13,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import ValidatorDetails from 'ui/validators/zilliqa/ValidatorDetails';
 
 const ValidatorZilliqa = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const blsPublicKey = getQueryParamString(router.query.id);
 
@@ -46,7 +48,7 @@ const ValidatorZilliqa = () => {
   return (
     <>
       <TextAd mb={ 6 }/>
-      <PageTitle title="Validator details" secondRow={ titleSecondRow }/>
+      <PageTitle title={ t('pages.validatorDetails') } secondRow={ titleSecondRow }/>
       { query.data && <ValidatorDetails data={ query.data } isLoading={ isLoading }/> }
     </>
   );

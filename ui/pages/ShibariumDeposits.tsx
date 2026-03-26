@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -16,6 +17,7 @@ import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import StickyPaginationWithText from 'ui/shared/StickyPaginationWithText';
 
 const ShibariumDeposits = () => {
+  const { t } = useTranslation();
   const { data, isError, isPlaceholderData, pagination } = useQueryWithPages({
     resourceName: 'general:shibarium_deposits',
     options: {
@@ -78,7 +80,7 @@ const ShibariumDeposits = () => {
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no deposits."
+        emptyText={ t('pages.noDeposits') }
         actionBar={ actionBar }
       >
         { content }

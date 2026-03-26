@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import * as tac from '@blockscout/tac-operation-lifecycle-types';
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const TacOperationStatus = ({ status, isLoading, noTooltip }: Props) => {
+  const { t } = useTranslation();
+
   const text = getTacOperationStatus(status);
 
   if (!text) {
@@ -27,8 +30,7 @@ const TacOperationStatus = ({ status, isLoading, noTooltip }: Props) => {
     case tac.OperationType.ROLLBACK:
       return (
         <Tooltip
-          // eslint-disable-next-line max-len
-          content="The cross‑chain operation was reverted and the original assets and state were returned to the sender after a failure on the destination chain"
+          content={ t('tac.rollbackTooltip') }
           disabled={ noTooltip }
         >
           <StatusTag type="error" text={ text } loading={ isLoading }/>

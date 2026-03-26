@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -29,6 +30,7 @@ type Props = {
 };
 
 const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMounted = useIsMounted();
 
@@ -117,7 +119,7 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
     <DataListDisplay
       isError={ isError }
       itemsNum={ filteredData?.length }
-      emptyText="There are no transactions."
+      emptyText={ t('address.noTransactions') }
       actionBar={ actionBar }
       hasActiveFilters={ Boolean(filterValue) }
       emptyStateProps={{

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,6 +27,7 @@ const feature = config.features.nameServices;
 const availableProtocols = feature.isEnabled && feature.ens.isEnabled ? feature.ens.protocols : [];
 
 const NameDomains = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const q = getQueryParamString(router.query.name) || getQueryParamString(router.query.address);
@@ -248,10 +250,10 @@ const NameDomains = () => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items.length }
-      emptyText="There are no name domains."
+      emptyText={ t('nameServices.noNameDomains') }
       hasActiveFilters={ hasActiveFilters }
       emptyStateProps={{
-        term: 'name domain',
+        term: t('nameServices.nameDomainTerm'),
       }}
       actionBar={ actionBar }
     >

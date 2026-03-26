@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -48,6 +49,7 @@ const AddressMudRecordsTable = ({
   scrollRef,
   hash,
 }: Props) => {
+  const { t } = useTranslation();
   const totalColsCut = data.schema.key_names.length + data.schema.value_names.length;
   const isMobile = useIsMobile();
   const [ colsCutCount, setColsCutCount ] = React.useState<number>(isMobile ? MIN_CUT_COUNT : 0);
@@ -187,7 +189,7 @@ const AddressMudRecordsTable = ({
               </TableColumnHeader>
             )) }
             { hasCut && !isOpened && cutButton }
-            <TableColumnHeader { ...tdStyles } w={ `${ colW }px` }>Modified</TableColumnHeader>
+            <TableColumnHeader { ...tdStyles } w={ `${ colW }px` }>{ t('address.mudModified') }</TableColumnHeader>
             { hasCut && isOpened && cutButton }
           </TableRow>
         </TableHeaderSticky>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ValidatorStability } from 'types/api/validators';
@@ -13,11 +14,12 @@ interface Props {
 }
 
 const ValidatorsListItem = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.addressLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <AddressEntity
           isLoading={ isLoading }
@@ -26,12 +28,12 @@ const ValidatorsListItem = ({ data, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.statusLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <ValidatorStatus state={ data.state } isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Blocks</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.blocksLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
           { data.blocks_validated_count.toLocaleString() }

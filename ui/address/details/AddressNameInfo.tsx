@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -12,14 +13,15 @@ interface Props {
 }
 
 const AddressNameInfo = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (data.token) {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint="Token name and symbol"
+          hint={ t('address.tokenNameHint') }
           isLoading={ isLoading }
         >
-          Token name
+          { t('address.tokenNameLabel') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <TokenEntity
@@ -37,10 +39,10 @@ const AddressNameInfo = ({ data, isLoading }: Props) => {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint="The name found in the source code of the Contract"
+          hint={ t('address.contractNameHint') }
           isLoading={ isLoading }
         >
-          Contract name
+          { t('address.contractNameLabel') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <Skeleton loading={ isLoading }>
@@ -55,10 +57,10 @@ const AddressNameInfo = ({ data, isLoading }: Props) => {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint="The name of the validator"
+          hint={ t('address.validatorNameHint') }
           isLoading={ isLoading }
         >
-          Validator name
+          { t('address.validatorNameLabel') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <Skeleton loading={ isLoading }>

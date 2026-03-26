@@ -1,4 +1,5 @@
 import { chakra, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -28,6 +29,7 @@ interface Props {
 }
 
 const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Props) => {
+  const { t } = useTranslation();
 
   const firstTransfer = data.transfers.length > 0 ? data.transfers[0] : null;
   const txHashWithTransfers = (() => {
@@ -184,7 +186,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
               href={ route({ pathname: '/cross-chain-tx/[id]', query: { id: data.message_id, tab: 'transfers' } }) }
               textStyle="xs"
             >
-              View all
+              { t('crossChain.viewAll') }
             </Link>
           ) }
         </VStack>

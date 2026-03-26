@@ -1,4 +1,5 @@
 import { Flex, Text, Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenVerifiedInfo } from 'types/api/token';
@@ -43,6 +44,7 @@ export function hasContent(data: TokenVerifiedInfo): boolean {
 }
 
 const Content = ({ data }: Props) => {
+  const { t } = useTranslation();
   const docs = data.docs ? <DocsLink href={ data.docs }/> : null;
   const support = data.support ? <SupportLink url={ data.support }/> : null;
   const description = data.projectDescription ? <Text fontSize="sm" mt={ 3 }>{ data.projectDescription }</Text> : null;
@@ -59,7 +61,7 @@ const Content = ({ data }: Props) => {
     <Flex fontSize="sm" flexDir="column" rowGap={ 5 }>
       { (description || docs || support) && (
         <div>
-          <Text color="text.secondary" fontSize="xs">Description and support info</Text>
+          <Text color="text.secondary" fontSize="xs">{ t('token.descriptionAndSupport') }</Text>
           { description }
           { (docs || support) && (
             <Flex alignItems="center" flexWrap="wrap" columnGap={ 6 } mt={ 3 }>
@@ -71,7 +73,7 @@ const Content = ({ data }: Props) => {
       ) }
       { socialLinks.length > 0 && (
         <div>
-          <Text color="text.secondary" fontSize="xs">Links</Text>
+          <Text color="text.secondary" fontSize="xs">{ t('token.links') }</Text>
           <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} columnGap={ 4 } rowGap={ 3 } mt={ 3 }>
             { socialLinks.map((link) => <ServiceLink key={ link.field } { ...link }/>) }
           </Grid>
@@ -79,7 +81,7 @@ const Content = ({ data }: Props) => {
       ) }
       { priceTickersLinks.length > 0 && (
         <div>
-          <Text color="text.secondary" fontSize="xs">Crypto markets</Text>
+          <Text color="text.secondary" fontSize="xs">{ t('token.cryptoMarkets') }</Text>
           <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} columnGap={ 4 } rowGap={ 3 } mt={ 3 }>
             { priceTickersLinks.map((link) => <ServiceLink key={ link.field } { ...link }/>) }
           </Grid>

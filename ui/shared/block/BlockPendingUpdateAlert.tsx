@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -9,13 +10,15 @@ interface Props extends AlertProps {
 }
 
 const BlockPendingUpdateAlert = ({ view = 'block', ...props }: Props) => {
+  const { t } = useTranslation();
+
   if (!config.UI.views.block.pendingUpdateAlertEnabled) {
     return null;
   }
 
   const content = view === 'block' ?
-    'Block is being re-synced. Details may be incomplete until the update is finished.' :
-    'This transaction is part of a block that is being re-synced. Details may be incomplete until the update is finished.';
+    t('alert.blockReSyncing') :
+    t('alert.txBlockReSyncing');
 
   return (
     <Alert status="info" showIcon { ...props }>

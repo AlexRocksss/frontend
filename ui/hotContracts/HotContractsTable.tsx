@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { HotContract, HotContractsSortingField, HotContractsSortingValue } from 'types/api/contracts';
@@ -19,6 +20,7 @@ interface Props {
 };
 
 const HotContractsTable = ({ items, isLoading, sort, setSorting, exchangeRate }: Props) => {
+  const { t } = useTranslation();
 
   const onSortToggle = React.useCallback((field: HotContractsSortingField) => {
     const value = getNextSortValue<HotContractsSortingField, HotContractsSortingValue>(SORT_SEQUENCE, field)(sort);
@@ -29,7 +31,7 @@ const HotContractsTable = ({ items, isLoading, sort, setSorting, exchangeRate }:
     <TableRoot minWidth="900px">
       <TableHeaderSticky top={ ACTION_BAR_HEIGHT_DESKTOP }>
         <TableRow>
-          <TableColumnHeader width="25%">Contract</TableColumnHeader>
+          <TableColumnHeader width="25%">{ t('hotContracts.contractHeader') }</TableColumnHeader>
           <TableColumnHeaderSortable
             width="25%"
             isNumeric
@@ -38,7 +40,7 @@ const HotContractsTable = ({ items, isLoading, sort, setSorting, exchangeRate }:
             onSortToggle={ onSortToggle }
             disabled={ isLoading }
           >
-            Txn count
+            { t('hotContracts.txnCountHeader') }
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable
             width="25%"
@@ -48,9 +50,9 @@ const HotContractsTable = ({ items, isLoading, sort, setSorting, exchangeRate }:
             onSortToggle={ onSortToggle }
             disabled={ isLoading }
           >
-            Gas used
+            { t('hotContracts.gasUsedHeader') }
           </TableColumnHeaderSortable>
-          <TableColumnHeader width="25%" isNumeric>Balance { currencyUnits.ether }</TableColumnHeader>
+          <TableColumnHeader width="25%" isNumeric>{ t('hotContracts.balanceHeader', { ether: currencyUnits.ether }) }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

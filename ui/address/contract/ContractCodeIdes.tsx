@@ -1,4 +1,5 @@
 import { Flex, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const ContractCodeIde = ({ className, hash, isLoading }: Props) => {
+  const { t } = useTranslation();
   const { open, onOpenChange } = useDisclosure();
 
   const ideLinks = React.useMemo(() => {
@@ -51,19 +53,19 @@ const ContractCodeIde = ({ className, hash, isLoading }: Props) => {
           className={ className }
           size="sm"
           variant="dropdown"
-          aria-label="Open source code in IDE"
+          aria-label={ t('address.openSourceCodeInIdeAriaLabel') }
           fontWeight={ 500 }
           gap={ 0 }
           h="32px"
           flexShrink={ 0 }
         >
-          <span>Open in</span>
+          <span>{ t('address.openIn') }</span>
           <IconSvg name="arrows/east-mini" transform={ open ? 'rotate(90deg)' : 'rotate(-90deg)' } transitionDuration="faster" boxSize={ 5 }/>
         </Button>
       </PopoverTrigger>
       <PopoverContent w="240px">
         <PopoverBody >
-          <chakra.span color="text.secondary" fontSize="xs">Redactors</chakra.span>
+          <chakra.span color="text.secondary" fontSize="xs">{ t('address.redactors') }</chakra.span>
           <Flex
             flexDir="column"
             alignItems="flex-start"

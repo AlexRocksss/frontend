@@ -1,5 +1,6 @@
 import type { JsxStyleProps } from '@chakra-ui/react';
 import { chakra, Grid, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -29,6 +30,7 @@ interface Props extends JsxStyleProps {
 }
 
 const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAddress, ...rest }: Props) => {
+  const { t } = useTranslation();
   const timestamp = data.send_timestamp || data.receive_timestamp;
   const firstTransfer = data.transfers.length > 0 ? data.transfers[0] : null;
   const txHashWithTransfers = (() => {
@@ -68,7 +70,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
       ) }
       <Grid templateColumns="120px minmax(0, 1fr)" columnGap={ 2 } rowGap={ rowGap }>
         <Skeleton loading={ isLoading }>
-          Source tx
+          { t('crossChain.sourceTx') }
         </Skeleton>
         { data.source_transaction_hash ? (
           <TxEntityInterchain
@@ -78,7 +80,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) : dashElement }
         <Skeleton loading={ isLoading }>
-          Destination tx
+          { t('crossChain.destinationTx') }
         </Skeleton>
         { data.destination_transaction_hash ? (
           <TxEntityInterchain
@@ -88,7 +90,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) : dashElement }
         <Skeleton loading={ isLoading }>
-          Msg sender
+          { t('crossChain.msgSender') }
         </Skeleton>
         { data.sender ? (
           <AddressEntityInterchain
@@ -100,7 +102,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) : dashElement }
         <Skeleton loading={ isLoading }>
-          Transf
+          { t('crossChain.transf') }
         </Skeleton>
         { txHashWithTransfers ? (
           <Link
@@ -113,7 +115,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           <Skeleton loading={ isLoading } color="text.secondary">{ data.transfers.length }</Skeleton>
         ) }
         <Skeleton loading={ isLoading }>
-          Sender
+          { t('crossChain.sender') }
         </Skeleton>
         { firstTransfer?.sender ? (
           <AddressEntityInterchain
@@ -125,7 +127,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) : dashElement }
         <Skeleton loading={ isLoading }>
-          Source token
+          { t('crossChain.sourceToken') }
         </Skeleton>
         { firstTransfer?.source_token ? (
           <TokenValueInterchain
@@ -136,7 +138,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) : dashElement }
         <Skeleton loading={ isLoading }>
-          Recipient
+          { t('crossChain.recipient') }
         </Skeleton>
         { firstTransfer?.recipient ? (
           <AddressEntityInterchain
@@ -148,7 +150,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) : dashElement }
         <Skeleton loading={ isLoading }>
-          Target token
+          { t('crossChain.targetToken') }
         </Skeleton>
         { firstTransfer?.destination_token ? (
           <TokenValueInterchain
@@ -159,7 +161,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) : dashElement }
         <Skeleton loading={ isLoading }>
-          Protocol
+          { t('crossChain.protocol') }
         </Skeleton>
         { data.bridge ? (
           <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading }/>

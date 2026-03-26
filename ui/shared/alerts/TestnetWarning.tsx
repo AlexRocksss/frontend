@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -10,12 +11,14 @@ interface Props {
 }
 
 const TestnetWarning = ({ isLoading, className }: Props) => {
+  const { t } = useTranslation();
+
   if (!config.chain.isTestnet) {
     return null;
   }
 
   return (
-    <Alert status="warning" loading={ isLoading } className={ className }>This is a testnet transaction only</Alert>
+    <Alert status="warning" loading={ isLoading } className={ className }>{ t('alert.testnetTransaction') }</Alert>
   );
 };
 

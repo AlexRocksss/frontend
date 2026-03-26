@@ -1,4 +1,5 @@
 import { Box, Fieldset, Flex, HStack, Text, chakra, createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as bens from '@blockscout/bens-types';
@@ -9,6 +10,7 @@ import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import { Button } from 'toolkit/chakra/button';
 import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
 import { Image } from 'toolkit/chakra/image';
+import type { SelectOption } from 'toolkit/chakra/select';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ActionBar from 'ui/shared/ActionBar';
 import PopoverFilter from 'ui/shared/filters/PopoverFilter';
@@ -17,9 +19,6 @@ import Pagination from 'ui/shared/pagination/Pagination';
 import Sort from 'ui/shared/sort/Sort';
 
 import type { Sort as TSort } from './utils';
-import { SORT_OPTIONS } from './utils';
-
-const sortCollection = createListCollection({ items: SORT_OPTIONS });
 
 interface Props {
   pagination: PaginationParams;
@@ -50,7 +49,17 @@ const NameDomainsActionBar = ({
   protocolsFilterValue,
   onProtocolsFilterChange,
 }: Props) => {
+  const { t } = useTranslation();
   const isInitialLoading = useIsInitialLoading(isLoading);
+
+  const sortCollection = React.useMemo(() => {
+    const items: Array<SelectOption<TSort>> = [
+      { label: t('nameServices.sortDefault'), value: 'default' },
+      { label: t('nameServices.sortRegisteredDesc'), value: 'registration_date-DESC' },
+      { label: t('nameServices.sortRegisteredAsc'), value: 'registration_date-ASC' },
+    ];
+    return createListCollection({ items });
+  }, [ t ]);
 
   const searchInput = (
     <FilterInput
@@ -58,7 +67,7 @@ const NameDomainsActionBar = ({
       minW={{ base: 'auto', lg: '250px' }}
       size="sm"
       onChange={ onSearchChange }
-      placeholder="Search by name or address"
+      placeholder={ t('nameServices.searchPlaceholder') }
       initialValue={ searchTerm }
       loading={ isInitialLoading }
     />
@@ -86,14 +95,14 @@ const NameDomainsActionBar = ({
         { protocolsData && protocolsData.length > 1 && (
           <>
             <Flex justifyContent="space-between" textStyle="sm" mb={ 3 }>
-              <Text fontWeight={ 600 } color="text.secondary">Protocol</Text>
+              <Text fontWeight={ 600 } color="text.secondary">{ t('nameServices.protocolLabel') }</Text>
               <Button
                 variant="link"
                 onClick={ handleProtocolReset }
                 disabled={ protocolsFilterValue.length === 0 }
                 textStyle="sm"
               >
-                Reset
+                { t('nameServices.reset') }
               </Button>
             </Flex>
             <CheckboxGroup defaultValue={ protocolsFilterValue } onValueChange={ onProtocolsFilterChange } value={ protocolsFilterValue } name="token_type">
@@ -123,21 +132,21 @@ const NameDomainsActionBar = ({
         <Fieldset.Root>
           <CheckboxGroup defaultValue={ filterValue } onValueChange={ handleFilterValueChange } value={ filterValue } name="token_type">
             <Fieldset.Content gap={ 0 }>
-              <Text color="text.secondary" fontWeight={ 600 } mb={ 3 } textStyle="sm">Address</Text>
+              <Text color="text.secondary" fontWeight={ 600 } mb={ 3 } textStyle="sm">{ t('nameServices.addressLabel') }</Text>
               <Checkbox value="owned_by" disabled={ !isAddressSearch }>
-                Owned by
+                { t('nameServices.ownedBy') }
               </Checkbox>
               <Checkbox
                 value="resolved_to"
                 mt={ 3 }
                 disabled={ !isAddressSearch }
               >
-                Resolved to address
+                { t('nameServices.resolvedToAddress') }
               </Checkbox>
               { filterGroupDivider }
-              <Text color="text.secondary" fontWeight={ 600 } mb={ 3 } textStyle="sm">Status</Text>
+              <Text color="text.secondary" fontWeight={ 600 } mb={ 3 } textStyle="sm">{ t('nameServices.statusLabel') }</Text>
               <Checkbox value="with_inactive">
-                Include expired
+                { t('nameServices.includeExpired') }
               </Checkbox>
             </Fieldset.Content>
           </CheckboxGroup>

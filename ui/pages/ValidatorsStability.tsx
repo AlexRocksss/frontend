@@ -1,4 +1,5 @@
 import { Box, createListCollection, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -35,6 +36,7 @@ const sortCollection = createListCollection({
 });
 
 const ValidatorsStability = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   // const [ searchTerm, setSearchTerm ] = React.useState(getQueryParamString(router.query.address_hash) || undefined);
   const [ statusFilter, setStatusFilter ] =
@@ -146,12 +148,12 @@ const ValidatorsStability = () => {
 
   return (
     <Box>
-      <PageTitle title="Validators" withTextAd/>
+      <PageTitle title={ t('pages.validators') } withTextAd/>
       <ValidatorsCounters/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no validators."
+        emptyText={ t('pages.noValidators') }
         hasActiveFilters={ Boolean(
           // searchTerm ||
           statusFilter,

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxStateChange } from 'types/api/txStateChanges';
@@ -13,13 +14,14 @@ interface Props {
 }
 
 const TxStateListItem = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
-  const { before, after, change, tag, tokenId } = getStateElements(data, isLoading);
+  const { before, after, change, tag, tokenId } = getStateElements(data, isLoading, t);
 
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.address') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value py="3px" display="flex" flexWrap="nowrap" columnGap={ 3 }>
         <AddressEntity
           address={ data.address }
@@ -31,28 +33,28 @@ const TxStateListItem = ({ data, isLoading }: Props) => {
 
       { before && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Before</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.before') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>{ before }</ListItemMobileGrid.Value>
         </>
       ) }
 
       { after && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>After</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.after') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>{ after }</ListItemMobileGrid.Value>
         </>
       ) }
 
       { change && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Change</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.change') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>{ change }</ListItemMobileGrid.Value>
         </>
       ) }
 
       { tokenId && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Token ID</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.tokenId') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value py="0">{ tokenId }</ListItemMobileGrid.Value>
         </>
       ) }

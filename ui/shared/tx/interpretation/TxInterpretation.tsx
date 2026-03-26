@@ -1,6 +1,7 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { Box, chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressParam } from 'types/api/addressParams';
@@ -188,6 +189,7 @@ const TxInterpretationElementByType = (
 };
 
 const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chainData, isNoves, ...rest }: Props) => {
+  const { t } = useTranslation();
   const novesLogoUrl = useColorModeValue('/static/noves-logo.svg', '/static/noves-logo-dark.svg');
   if (!summary) {
     return null;
@@ -251,7 +253,7 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
         );
       }) }
       { isNoves && (
-        <Tooltip content="Human readable transaction provided by Noves.fi">
+        <Tooltip content={ t('tx.novesTip') }>
           <Badge ml={ 2 } verticalAlign="unset" transform="translateY(-2px)">
             by
             <Image src={ novesLogoUrl } alt="Noves logo" h="12px" ml={ 1.5 } display="inline"/>

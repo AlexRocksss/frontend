@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const InfoButton = ({ children, isLoading }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const triggerButton = (
@@ -19,14 +21,14 @@ const InfoButton = ({ children, isLoading }: Props) => {
       size="sm"
       variant="dropdown"
       gap={ 0 }
-      aria-label="Show info"
+      aria-label={ t('infoButton.ariaLabel') }
       fontWeight={ 500 }
       pl={ 1 }
       pr={ isMobile ? 1 : 2 }
       loadingSkeleton={ isLoading }
     >
       <IconSvg name="info" boxSize={ 6 } mr={ isMobile ? 0 : 1 }/>
-      { !isMobile && <span>Info</span> }
+      { !isMobile && <span>{ t('infoButton.label') }</span> }
     </Button>
   );
 

@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const TransactionsCrossChainTable = ({ data, isLoading, top, stickyHeader, currentAddress }: Props) => {
+  const { t } = useTranslation();
   const TableHeaderComponent = stickyHeader ? TableHeaderSticky : TableHeader;
 
   return (
@@ -27,21 +29,21 @@ const TransactionsCrossChainTable = ({ data, isLoading, top, stickyHeader, curre
           <TableRow>
             <TableColumnHeader w="42px"/>
             { currentAddress && <TableColumnHeader w="44px"/> }
-            <TableColumnHeader>Message</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.message') }</TableColumnHeader>
             <TableColumnHeader>
               <Flex alignItems="center" flexWrap="nowrap">
-                Timestamp
+                { t('crossChain.timestamp') }
                 <TimeFormatToggle/>
               </Flex>
             </TableColumnHeader>
-            <TableColumnHeader>Msg sender</TableColumnHeader>
-            <TableColumnHeader>Source tx</TableColumnHeader>
-            <TableColumnHeader>Dest tx</TableColumnHeader>
-            <TableColumnHeader>Transf</TableColumnHeader>
-            <TableColumnHeader>Sender</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.msgSender') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.sourceTx') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.destTx') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.transf') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.sender') }</TableColumnHeader>
             <TableColumnHeader/>
-            <TableColumnHeader>Recipient</TableColumnHeader>
-            <TableColumnHeader>Protocol</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.recipient') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.protocol') }</TableColumnHeader>
           </TableRow>
         </TableHeaderComponent>
         <TableBody>

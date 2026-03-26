@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -18,6 +19,7 @@ type Props = {
   isQueryEnabled?: boolean;
 };
 const AddressWithdrawals = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMounted = useIsMounted();
 
@@ -72,7 +74,7 @@ const AddressWithdrawals = ({ shouldRender = true, isQueryEnabled = true }: Prop
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items?.length }
-      emptyText="There are no withdrawals for this address."
+      emptyText={ t('address.noWithdrawals') }
       actionBar={ actionBar }
     >
       { content }

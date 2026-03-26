@@ -1,4 +1,5 @@
 import { Box, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -41,6 +42,7 @@ interface Props {
 }
 
 const MultichainAddressPortfolio = ({ addressData, isLoading }: Props) => {
+  const { t } = useTranslation();
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
   const isMobile = useIsMobile();
@@ -107,12 +109,12 @@ const MultichainAddressPortfolio = ({ addressData, isLoading }: Props) => {
   const tabs: Array<TabItemRegular> = [
     {
       id: 'portfolio_tokens',
-      title: 'Tokens',
+      title: t('multichain.tokensTab'),
       component: <MultichainAddressPortfolioTokens addressData={ addressData } isLoading={ isLoading } onChainChange={ handleChainChange }/>,
     },
     {
       id: 'portfolio_nfts',
-      title: 'NFT',
+      title: t('multichain.nftTab'),
       component: nftDisplayType === 'list' ? (
         <MultichainProvider chainId={ nftsQuery.chainValue?.[0] }>
           <AddressNFTs tokensQuery={ nftsQuery } tokenTypes={ nftTokenTypes } onTokenTypesChange={ onTokenTypesChange }/>

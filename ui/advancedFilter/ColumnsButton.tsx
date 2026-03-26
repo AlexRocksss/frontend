@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -14,6 +15,22 @@ interface Props {
 }
 
 const ColumnsButton = ({ columns, onChange }: Props) => {
+  const { t } = useTranslation();
+  const colLabel = (id: ColumnsIds): string => {
+    const map: Partial<Record<ColumnsIds, string>> = {
+      tx_hash: t('advancedFilter.colTxHash'),
+      type: t('advancedFilter.colType'),
+      method: t('advancedFilter.colMethod'),
+      age: t('advancedFilter.colAge'),
+      from: t('advancedFilter.colFrom'),
+      or_and: t('advancedFilter.colAndOr'),
+      to: t('advancedFilter.colTo'),
+      amount: t('advancedFilter.colAmount'),
+      asset: t('advancedFilter.colAsset'),
+      fee: t('advancedFilter.colFee'),
+    };
+    return map[id] || id;
+  };
   const handleValueChange = React.useCallback((value: Array<string>) => {
     const newCols = value.reduce((acc, key) => {
       acc[key as ColumnsIds] = true;
@@ -31,7 +48,7 @@ const ColumnsButton = ({ columns, onChange }: Props) => {
           px={{ base: 1, lg: 3 }}
         >
           <IconSvg name="columns" boxSize={ 5 } color="inherit"/>
-          <chakra.span hideBelow="lg">Columns</chakra.span>
+          <chakra.span hideBelow="lg">{ t('advancedFilter.columnsButton') }</chakra.span>
         </Button>
       </PopoverTrigger>
       <PopoverContent>
@@ -49,7 +66,7 @@ const ColumnsButton = ({ columns, onChange }: Props) => {
                 value={ col.id }
                 size="md"
               >
-                { col.id === 'or_and' ? 'And/Or' : col.name }
+                { colLabel(col.id) }
               </Checkbox>
             )) }
           </CheckboxGroup>

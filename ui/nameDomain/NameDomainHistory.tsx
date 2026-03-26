@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const NameDomainHistory = ({ domain }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const domainName = getQueryParamString(router.query.name);
   const protocolId = getQueryParamString(router.query.protocol_id) || availableProtocols[0];
@@ -76,7 +78,7 @@ const NameDomainHistory = ({ domain }: Props) => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items.length }
-      emptyText="There are no events for this domain."
+      emptyText={ t('nameDomain.noEvents') }
     >
       { content }
     </DataListDisplay>

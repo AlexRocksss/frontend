@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CeloEpochRewardsType } from 'types/api/epochs';
@@ -11,32 +12,32 @@ type Props = {
   isLoading?: boolean;
 };
 
-const TYPE_TAGS: Record<CeloEpochRewardsType, { text: string; label: string; color: BadgeProps['colorPalette'] }> = {
-  group: {
-    text: 'Validator group rewards',
-    // eslint-disable-next-line max-len
-    label: 'Reward given to a validator group. The address being viewed is the group\'s address; the associated address is the validator\'s address on whose behalf the reward was paid.',
-    color: 'teal',
-  },
-  validator: {
-    text: 'Validator rewards',
-    label: 'Reward given to a validator. The address being viewed is the validator\'s address; the associated address is the validator group\'s address.',
-    color: 'purple',
-  },
-  delegated_payment: {
-    text: 'Delegated payments',
-    // eslint-disable-next-line max-len
-    label: 'Reward portion delegated by a validator to another address. The address being viewed is the beneficiary receiving the reward; the associated address is the validator who set the delegation.',
-    color: 'blue',
-  },
-  voter: {
-    text: 'Voting rewards',
-    label: 'Reward given to a voter. The address being viewed is the voter\'s address; the associated address is the group address.',
-    color: 'yellow',
-  },
-};
-
 const EpochRewardTypeTag = ({ type, isLoading }: Props) => {
+  const { t } = useTranslation();
+
+  const TYPE_TAGS: Record<CeloEpochRewardsType, { text: string; label: string; color: BadgeProps['colorPalette'] }> = {
+    group: {
+      text: t('epochReward.validatorGroup'),
+      label: t('epochReward.validatorGroupTooltip'),
+      color: 'teal',
+    },
+    validator: {
+      text: t('epochReward.validator'),
+      label: t('epochReward.validatorTooltip'),
+      color: 'purple',
+    },
+    delegated_payment: {
+      text: t('epochReward.delegatedPayment'),
+      label: t('epochReward.delegatedPaymentTooltip'),
+      color: 'blue',
+    },
+    voter: {
+      text: t('epochReward.voter'),
+      label: t('epochReward.voterTooltip'),
+      color: 'yellow',
+    },
+  };
+
   const { text, label, color } = TYPE_TAGS[type];
 
   return (

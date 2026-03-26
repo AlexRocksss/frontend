@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TabItemRegular } from 'toolkit/components/AdaptiveTabs/types';
@@ -19,11 +20,12 @@ const LOCAL_TAB_ID = 'txs_local';
 const LOCAL_SUB_TABS = [ getTabId('validated', LOCAL_TAB_ID), getTabId('pending', LOCAL_TAB_ID), getTabId('blob_txs', LOCAL_TAB_ID) ];
 
 const Transactions = () => {
+  const { t } = useTranslation();
   const tabs: Array<TabItemRegular> = React.useMemo(() => {
     return [
       {
         id: LOCAL_TAB_ID,
-        title: 'Txns',
+        title: t('crossChain.txnsTab'),
         component: (
           <>
             <TxsStats mb={ 0 }/>
@@ -40,15 +42,15 @@ const Transactions = () => {
       },
       {
         id: 'txs_cross_chain',
-        title: 'Cross-chain txns',
+        title: t('crossChain.crossChainTxnsTab'),
         component: <TransactionsCrossChain/>,
       },
     ];
-  }, [ ]);
+  }, [ t ]);
 
   return (
     <>
-      <PageTitle withTextAd title="Transactions"/>
+      <PageTitle withTextAd title={ t('crossChain.transactionsTitle') }/>
       <RoutedTabs tabs={ tabs }/>
     </>
   );

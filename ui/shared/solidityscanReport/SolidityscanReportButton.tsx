@@ -1,4 +1,5 @@
 import { Spinner, Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
@@ -17,19 +18,20 @@ interface Props extends ButtonProps {
 }
 
 const SolidityscanReportButton = ({ score, isLoading, tooltipDisabled, ...rest }: Props) => {
+  const { t } = useTranslation();
   const { scoreColor } = useScoreLevelAndColor(score);
   const colorLoading = { _light: 'gray.300', _dark: 'gray.600' };
   const onFocusCapture = usePreventFocusAfterModalClosing();
 
   return (
-    <Tooltip content="Security score" disabled={ tooltipDisabled } disableOnMobile closeOnClick>
+    <Tooltip content={ t('solidityScan.securityScore') } disabled={ tooltipDisabled } disableOnMobile closeOnClick>
       <Box>
         <PopoverTrigger>
           <Button
             color={ isLoading ? colorLoading : scoreColor }
             size="sm"
             variant="dropdown"
-            aria-label="SolidityScan score"
+            aria-label={ t('solidityScan.securityScore') }
             fontWeight={ 500 }
             px="6px"
             flexShrink={ 0 }

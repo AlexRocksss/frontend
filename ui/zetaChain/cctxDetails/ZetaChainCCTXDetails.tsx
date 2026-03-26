@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, VStack, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CrossChainTx } from '@blockscout/zetachain-cctx-types';
@@ -41,6 +42,7 @@ const getTransactionsBeforeAndAfter = (data: CrossChainTx) => {
 };
 
 const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   const statsQuery = useApiQuery('general:stats', {
     queryOptions: {
       placeholderData: HOMEPAGE_STATS,
@@ -58,10 +60,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       { data.inbound_params?.sender && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Address that initiated the cross-chain transaction"
+            hint={ t('zetaChain.senderHint') }
             isLoading={ isLoading }
           >
-            Sender
+            { t('zetaChain.sender') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <AddressEntityZetaChain
@@ -73,10 +75,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
         </>
       ) }
       <DetailedInfo.ItemLabel
-        hint="Destination address for the transferred assets"
+        hint={ t('zetaChain.receiverHint') }
         isLoading={ isLoading }
       >
-        Receiver
+        { t('zetaChain.receiver') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressEntityZetaChain
@@ -89,10 +91,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       { data.inbound_params?.coin_type && data.inbound_params?.amount && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Type and amount of tokens being transferred across chains"
+            hint={ t('zetaChain.assetTransferredHint') }
             isLoading={ isLoading }
           >
-            Asset transferred
+            { t('zetaChain.assetTransferred') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <ZetaChainCCTXValue
@@ -106,10 +108,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
         </>
       ) }
       <DetailedInfo.ItemLabel
-        hint="Fee charged by ZetaChain for processing the transaction"
+        hint={ t('zetaChain.crossChainFeeHint') }
         isLoading={ isLoading }
       >
-        Cross-chain fee
+        { t('zetaChain.crossChainFee') }
       </DetailedInfo.ItemLabel>
       <DetailedInfoNativeCoinValue
         amount={ data.zeta_fees }
@@ -121,10 +123,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       { data.relayed_message && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Optional message data sent with the transaction"
+            hint={ t('zetaChain.messageHint') }
             isLoading={ isLoading }
           >
-            Message
+            { t('zetaChain.message') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <RawDataSnippet
@@ -138,10 +140,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
         </>
       ) }
       <DetailedInfo.ItemLabel
-        hint="Unique identifier for this cross-chain transaction"
+        hint={ t('zetaChain.cctxHashHint') }
         isLoading={ isLoading }
       >
-        CCTX hash
+        { t('zetaChain.cctxHash') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isLoading } display="flex" flexWrap="nowrap" alignItems="center" overflow="hidden">
@@ -149,10 +151,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
         </Skeleton>
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemLabel
-        hint="Current state and status of the cross-chain transaction"
+        hint={ t('zetaChain.statusAndStateHint') }
         isLoading={ isLoading }
       >
-        Status and state
+        { t('zetaChain.statusAndState') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
         <Flex alignItems="center" gap={ 2 }>
@@ -168,10 +170,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       { data.cctx_status?.status_message && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Detailed status message"
+            hint={ t('zetaChain.statusMessageHint') }
             isLoading={ isLoading }
           >
-            Status message
+            { t('zetaChain.statusMessage') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <RawDataSnippet data={ data.cctx_status.status_message } minW="100%" showCopy={ false }/>
@@ -181,10 +183,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       { Boolean(Number(data.cctx_status?.created_timestamp)) && (
         <>
           <DetailedInfo.ItemLabel
-            hint="When the transaction was first created"
+            hint={ t('zetaChain.createdHint') }
             isLoading={ isLoading }
           >
-            Created
+            { t('zetaChain.created') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <DetailedInfoTimestamp timestamp={ Number(data.cctx_status?.created_timestamp) * SECOND } isLoading={ isLoading }/>
@@ -194,10 +196,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       { Boolean(Number(data.cctx_status?.last_update_timestamp)) && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Most recent update to transaction status"
+            hint={ t('zetaChain.lastUpdatedHint') }
             isLoading={ isLoading }
           >
-            Last updated
+            { t('zetaChain.lastUpdated') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <DetailedInfoTimestamp timestamp={ Number(data.cctx_status?.last_update_timestamp) * SECOND } isLoading={ isLoading }/>
@@ -205,10 +207,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
         </>
       ) }
       <DetailedInfo.ItemLabel
-        hint="Complete journey from source to destination chain(s)"
+        hint={ t('zetaChain.lifecycleHint') }
         isLoading={ isLoading }
       >
-        Lifecycle
+        { t('zetaChain.lifecycle') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue position="relative" mb={ 7 } pl={ 0 } mt={{ base: 2, lg: 1 }}>
         <Box position="absolute" top="4px" left="9px" width="2px" height="100%" bg="border.divider"/>
@@ -271,10 +273,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       { data.revert_options && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Configuration for handling transaction failures"
+            hint={ t('zetaChain.revertOptionsHint') }
             isLoading={ isLoading }
           >
-            Revert options
+            { t('zetaChain.revertOptions') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue gap={ 2 } flexWrap="wrap">
             <Grid
@@ -287,16 +289,16 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
               borderRadius="md"
               fontSize="sm"
             >
-              <Text fontWeight="medium" color="text.secondary">Abort address</Text>
+              <Text fontWeight="medium" color="text.secondary">{ t('zetaChain.abortAddress') }</Text>
               <AddressEntityZetaChain
                 address={{ hash: data.revert_options.abort_address }}
                 chainId={ data.outbound_params[0].receiver_chain_id?.toString() }
                 isLoading={ isLoading }
                 w="100%"
               />
-              <Text fontWeight="medium" color="text.secondary">Call</Text>
+              <Text fontWeight="medium" color="text.secondary">{ t('zetaChain.call') }</Text>
               <Skeleton loading={ isLoading }>{ data.revert_options.call_on_revert.toString() }</Skeleton>
-              <Text fontWeight="medium" color="text.secondary">Revert address</Text>
+              <Text fontWeight="medium" color="text.secondary">{ t('zetaChain.revertAddress') }</Text>
               <AddressEntityZetaChain
                 address={{ hash: data.revert_options.revert_address }}
                 chainId={ data.outbound_params[1]?.receiver_chain_id?.toString() }
@@ -305,7 +307,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
               />
               { data.revert_options.revert_message && (
                 <>
-                  <Text fontWeight="medium" color="text.secondary">Message</Text>
+                  <Text fontWeight="medium" color="text.secondary">{ t('zetaChain.message') }</Text>
                   <Skeleton loading={ isLoading } display="flex" justifyContent="space-between">
                     <Text
                       wordBreak="break-all"
@@ -319,7 +321,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
                   </Skeleton>
                 </>
               ) }
-              <Text fontWeight="medium" color="text.secondary">Gas limit</Text>
+              <Text fontWeight="medium" color="text.secondary">{ t('zetaChain.gasLimit') }</Text>
               <Skeleton loading={ isLoading }>{ Number(data.revert_options.revert_gas_limit).toLocaleString() }</Skeleton>
             </Grid>
           </DetailedInfo.ItemValue>

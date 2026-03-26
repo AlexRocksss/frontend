@@ -1,5 +1,6 @@
 import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -32,6 +33,7 @@ interface Props {
 }
 
 const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { data, isPlaceholderData, isError, error } = query;
@@ -67,9 +69,9 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
     >
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Batch number indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }` }
+        hint={ t('txnBatches.batchNumberHint', { current: layerLabels.current, parent: layerLabels.parent }) }
       >
-        Txn batch number
+        { t('txnBatches.batchNumberLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -78,8 +80,8 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
         <PrevNext
           ml={ 6 }
           onClick={ handlePrevNextClick }
-          prevLabel="View previous txn batch"
-          nextLabel="View next txn batch"
+          prevLabel={ t('txnBatches.prevBatchLabel') }
+          nextLabel={ t('txnBatches.nextBatchLabel') }
           isPrevDisabled={ data.number === 0 }
           isLoading={ isPlaceholderData }
         />
@@ -87,22 +89,22 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Date and time at which batch is submitted to ${ layerLabels.parent }` }
+        hint={ t('txnBatches.timestampHint', { parent: layerLabels.parent }) }
       >
-        Timestamp
+        { t('txnBatches.timestampLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.commitment_transaction.timestamp ?
           <DetailedInfoTimestamp timestamp={ data.commitment_transaction.timestamp } isLoading={ isPlaceholderData }/> :
-          'Undefined'
+          t('txnBatches.undefined')
         }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Number of transactions in this batch"
+        hint={ t('txnBatches.transactionsHint') }
       >
-        Transactions
+        { t('txnBatches.transactionsLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Link loading={ isPlaceholderData } href={ route({ pathname: '/batches/[number]', query: { number: data.number.toString(), tab: 'txs' } }) }>
@@ -112,9 +114,9 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Number of ${ layerLabels.current } blocks in this batch` }
+        hint={ t('txnBatches.blocksHint', { current: layerLabels.current }) }
       >
-        Blocks
+        { t('txnBatches.blocksLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Link loading={ isPlaceholderData } href={ route({ pathname: '/batches/[number]', query: { number: data.number.toString(), tab: 'blocks' } }) }>
@@ -124,9 +126,9 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Hash of ${ layerLabels.parent } transaction in which transactions was committed` }
+        hint={ t('txnBatches.parentTxHashHint', { parent: layerLabels.parent }) }
       >
-        { layerLabels.parent } transaction hash
+        { t('txnBatches.parentTxHashLabel', { parent: layerLabels.parent }) }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <TxEntityL1
@@ -139,9 +141,9 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Height of ${ layerLabels.parent } block which includes ${ layerLabels.parent } transactions` }
+        hint={ t('txnBatches.parentBlockHint', { parent: layerLabels.parent }) }
       >
-        { layerLabels.parent } block
+        { t('txnBatches.parentBlockLabel', { parent: layerLabels.parent }) }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <BlockEntityL1
@@ -154,9 +156,9 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
         <>
           <DetailedInfo.ItemLabel
             isLoading={ isPlaceholderData }
-            hint="Where the batch data is stored"
+            hint={ t('txnBatches.batchDataContainerHint') }
           >
-            Batch data container
+            { t('txnBatches.batchDataContainerLabel') }
           </DetailedInfo.ItemLabel><DetailedInfo.ItemValue>
             <ArbitrumL2TxnBatchDA dataContainer={ data.data_availability.batch_data_container } isLoading={ isPlaceholderData }/>
           </DetailedInfo.ItemValue>
@@ -165,9 +167,9 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="The hash of the state before the batch"
+        hint={ t('txnBatches.beforeAccHint') }
       >
-        Before acc
+        { t('txnBatches.beforeAccLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="nowrap" >
         <Skeleton loading={ isPlaceholderData } overflow="hidden">
@@ -178,9 +180,9 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="The hash of the state after the batch"
+        hint={ t('txnBatches.afterAccHint') }
       >
-        After acc
+        { t('txnBatches.afterAccLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="nowrap">
         <Skeleton loading={ isPlaceholderData } overflow="hidden">
@@ -194,7 +196,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
           loading={ isPlaceholderData }
           mt={ 6 }
           gridColumn={{ base: undefined, lg: '1 / 3' }}
-          text={ [ 'Show data availability info', 'Hide data availability info' ] }
+          text={ [ t('txnBatches.showDataAvailability'), t('txnBatches.hideDataAvailability') ] }
         >
           <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
 

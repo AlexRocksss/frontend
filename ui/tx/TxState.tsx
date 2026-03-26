@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { TX_STATE_CHANGES } from 'stubs/txStateChanges';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const TxState = ({ txQuery }: Props) => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError, pagination } = useQueryWithPages({
     resourceName: 'general:tx_state_changes',
     pathParams: { hash: txQuery.data?.hash },
@@ -58,14 +60,13 @@ const TxState = ({ txQuery }: Props) => {
     <>
       { !isError && !txQuery.isError && (
         <Text mb={ 6 }>
-          A set of information that represents the current state is updated when a transaction takes place on the network.
-          The below is a summary of those changes.
+          { t('tx.stateChangesDescription') }
         </Text>
       ) }
       <DataListDisplay
         isError={ isError || txQuery.isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no state changes for this transaction."
+        emptyText={ t('tx.noStateChanges') }
         actionBar={ actionBar }
       >
         { content }

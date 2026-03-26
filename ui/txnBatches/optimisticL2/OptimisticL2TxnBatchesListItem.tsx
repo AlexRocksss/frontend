@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { OptimisticL2TxnBatchesItem } from 'types/api/optimisticL2';
@@ -18,6 +19,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: OptimisticL2TxnBatchesItem; isLoading?: boolean };
 
 const OptimisticL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'optimistic') {
     return null;
   }
@@ -25,7 +27,7 @@ const OptimisticL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
   return (
     <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Batch ID</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('txnBatches.batchIdLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BatchEntityL2 number={ item.number } isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
@@ -33,7 +35,7 @@ const OptimisticL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
       { item.batch_data_container && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>
-            Storage
+            { t('txnBatches.storageHeader') }
           </ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <OptimisticL2TxnBatchDA container={ item.batch_data_container } isLoading={ isLoading }/>
@@ -41,7 +43,7 @@ const OptimisticL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('txnBatches.ageHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.l1_timestamp }
@@ -50,14 +52,14 @@ const OptimisticL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } txn count</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('txnBatches.parentTxnCountHeader', { parent: layerLabels.parent }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } minW="40px">
           { item.l1_transaction_hashes.length }
         </Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } blocks</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('txnBatches.currentBlocksHeader', { current: layerLabels.current }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'blocks' } }) }
@@ -68,7 +70,7 @@ const OptimisticL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
         </Link>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Txn</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('txnBatches.txnHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }

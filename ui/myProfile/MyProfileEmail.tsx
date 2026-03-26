@@ -1,5 +1,6 @@
 import { chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -34,6 +35,7 @@ interface Props {
 }
 
 const MyProfileEmail = ({ profileQuery }: Props) => {
+  const { t } = useTranslation();
   const authModal = useDisclosure();
   const apiFetch = useApiFetch();
   const recaptcha = useReCaptcha();
@@ -80,13 +82,13 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
 
   return (
     <section>
-      <Heading level="2" mb={ 3 }>Notifications</Heading>
+      <Heading level="2" mb={ 3 }>{ t('myProfile.notifications') }</Heading>
       <FormProvider { ...formApi }>
         <chakra.form
           noValidate
           onSubmit={ formApi.handleSubmit(onFormSubmit) }
         >
-          <FormFieldText<FormFields> name="name" placeholder="Name" readOnly mb={ 3 }/>
+          <FormFieldText<FormFields> name="name" placeholder={ t('myProfile.namePlaceholder') } readOnly mb={ 3 }/>
           <MyProfileFieldsEmail
             isReadOnly={ !config.services.reCaptchaV2.siteKey || Boolean(profileQuery.data?.email) }
             defaultValue={ profileQuery.data?.email || undefined }
@@ -100,9 +102,9 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
               type="submit"
               disabled={ formApi.formState.isSubmitting || !hasDirtyFields || recaptcha.isInitError }
               loading={ formApi.formState.isSubmitting }
-              loadingText="Save changes"
+              loadingText={ t('myProfile.saveChanges') }
             >
-              Save changes
+              { t('myProfile.saveChanges') }
             </Button>
           ) }
         </chakra.form>

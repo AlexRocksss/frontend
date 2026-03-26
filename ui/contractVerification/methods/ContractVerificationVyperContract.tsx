@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractVerificationConfig } from 'types/client/contract';
@@ -10,9 +11,10 @@ import ContractVerificationFieldEvmVersion from '../fields/ContractVerificationF
 import ContractVerificationFieldName from '../fields/ContractVerificationFieldName';
 
 const ContractVerificationVyperContract = ({ config }: { config: SmartContractVerificationConfig }) => {
+  const { t } = useTranslation();
   return (
-    <ContractVerificationMethod title="Contract verification via Vyper (contract)">
-      <ContractVerificationFieldName hint="The contract name is the name assigned to the verified contract in Blockscout."/>
+    <ContractVerificationMethod title={ t('contractVerification.methodVyperContractTitle') }>
+      <ContractVerificationFieldName hint={ t('contractVerification.methodVyperContractNameHint') }/>
       <ContractVerificationFieldCompiler config={ config } isVyper/>
       { config?.is_rust_verifier_microservice_enabled && <ContractVerificationFieldEvmVersion isVyper config={ config }/> }
       <ContractVerificationFieldCode isVyper/>

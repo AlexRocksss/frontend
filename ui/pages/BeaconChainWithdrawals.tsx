@@ -1,5 +1,6 @@
 import { Box, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -20,6 +21,7 @@ import BeaconChainWithdrawalsTable from 'ui/withdrawals/beaconChain/BeaconChainW
 const feature = config.features.beaconChain;
 
 const BeaconChainWithdrawals = () => {
+  const { t } = useTranslation();
   const { data, isError, isPlaceholderData, pagination } = useQueryWithPages({
     resourceName: 'general:withdrawals',
     options: {
@@ -90,7 +92,7 @@ const BeaconChainWithdrawals = () => {
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no withdrawals."
+        emptyText={ t('pages.noWithdrawals') }
         actionBar={ actionBar }
       >
         { content }

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfoApplication, VerifiedAddress } from 'types/api/account';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   const handleAddClick = React.useCallback(() => {
     if (isLoading) {
@@ -44,11 +46,11 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
     }
 
     if (!item.metadata.tokenName) {
-      return <span>Not a token</span>;
+      return <span>{ t('verifiedAddresses.notAToken') }</span>;
     }
 
     if (!application) {
-      return <Link onClick={ handleAddClick }>Add details</Link>;
+      return <Link onClick={ handleAddClick }>{ t('verifiedAddresses.addDetails') }</Link>;
     }
 
     const token = {
@@ -84,7 +86,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
       </TableCell>
       <TableCell pl="0">
         { item.metadata.tokenName && application && !isLoading ? (
-          <Tooltip content="Edit" disabled={ isLoading } disableOnMobile>
+          <Tooltip content={ t('verifiedAddresses.editTooltip') } disabled={ isLoading } disableOnMobile>
             <IconButton
               aria-label="edit"
               variant="link"

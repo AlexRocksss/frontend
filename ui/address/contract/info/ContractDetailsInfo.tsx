@@ -1,4 +1,5 @@
 import { Flex, Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
 
   const contractNameWithCertifiedIcon = data ? (
@@ -89,7 +91,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.name && (
         <ContractDetailsInfoItem
-          label="Contract name"
+          label={ t('address.contractNameLabel') }
           isLoading={ isLoading }
         >
           { contractNameWithCertifiedIcon }
@@ -97,7 +99,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.compiler_version && (
         <ContractDetailsInfoItem
-          label="Compiler version"
+          label={ t('address.contractInfoCompilerVersion') }
           isLoading={ isLoading }
         >
           { data.compiler_version }
@@ -105,7 +107,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.zk_compiler_version && (
         <ContractDetailsInfoItem
-          label="ZK compiler version"
+          label={ t('address.contractInfoZkCompilerVersion') }
           isLoading={ isLoading }
         >
           { data.zk_compiler_version }
@@ -113,7 +115,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.evm_version && (
         <ContractDetailsInfoItem
-          label="EVM version"
+          label={ t('address.contractInfoEvmVersion') }
           textTransform="capitalize"
           isLoading={ isLoading }
         >
@@ -122,8 +124,8 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { licenseLink && (
         <ContractDetailsInfoItem
-          label="License"
-          hint="License type is entered manually during verification. The initial source code may contain a different license type than the one displayed."
+          label={ t('address.contractInfoLicense') }
+          hint={ t('address.contractInfoLicenseHint') }
           isLoading={ isLoading }
         >
           { licenseLink }
@@ -131,7 +133,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { typeof data.optimization_enabled === 'boolean' && !isStylusContract && (
         <ContractDetailsInfoItem
-          label="Optimization enabled"
+          label={ t('address.contractInfoOptimizationEnabled') }
           isLoading={ isLoading }
         >
           { data.optimization_enabled ? 'true' : 'false' }
@@ -139,7 +141,8 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.optimization_runs !== null && !isStylusContract && (
         <ContractDetailsInfoItem
-          label={ rollupFeature.isEnabled && rollupFeature.type === 'zkSync' ? 'Optimization mode' : 'Optimization runs' }
+          label={ rollupFeature.isEnabled && rollupFeature.type === 'zkSync' ?
+            t('address.contractInfoOptimizationMode') : t('address.contractInfoOptimizationRuns') }
           isLoading={ isLoading }
         >
           { String(data.optimization_runs) }
@@ -147,7 +150,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.package_name && (
         <ContractDetailsInfoItem
-          label="Package name"
+          label={ t('address.contractInfoPackageName') }
           isLoading={ isLoading }
         >
           { data.package_name }
@@ -155,7 +158,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.verified_at && (
         <ContractDetailsInfoItem
-          label="Verified at"
+          label={ t('address.contractInfoVerifiedAt') }
           wordBreak="break-word"
           isLoading={ isLoading }
         >
@@ -164,7 +167,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { data.file_path && !isStylusContract && (
         <ContractDetailsInfoItem
-          label="Contract file path"
+          label={ t('address.contractInfoFilePath') }
           wordBreak="break-word"
           isLoading={ isLoading }
         >
@@ -173,7 +176,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { sourceCodeLink && (
         <ContractDetailsInfoItem
-          label="Source code"
+          label={ t('address.contractInfoSourceCode') }
           isLoading={ isLoading }
         >
           { sourceCodeLink }
@@ -181,7 +184,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       ) }
       { config.UI.hasContractAuditReports && (
         <ContractDetailsInfoItem
-          label="Security audit"
+          label={ t('address.contractInfoSecurityAudit') }
           isLoading={ isLoading }
         >
           <ContractSecurityAudits addressHash={ addressData.hash }/>

@@ -1,4 +1,5 @@
 import { Flex, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -15,6 +16,7 @@ import { TX_INTERNALS_ITEMS } from 'ui/tx/internals/utils';
 type Props = InternalTransaction & { isLoading?: boolean };
 
 const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit: gasLimit, created_contract: createdContract, isLoading }: Props) => {
+  const { t } = useTranslation();
   const typeTitle = TX_INTERNALS_ITEMS.find(({ id }) => id === type)?.title;
   const toData = to ? to : createdContract;
 
@@ -32,7 +34,7 @@ const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit:
         fontWeight="500"
       />
       <HStack gap={ 3 } textStyle="sm" >
-        <Skeleton loading={ isLoading } fontWeight={ 500 }><span>Value { currencyUnits.ether }</span></Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('tx.valueEther', { ether: currencyUnits.ether }) }</Skeleton>
         <NativeCoinValue
           amount={ value }
           noSymbol
@@ -41,7 +43,7 @@ const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit:
         />
       </HStack>
       <HStack gap={ 3 } textStyle="sm" >
-        <Skeleton loading={ isLoading } fontWeight={ 500 }><span>Gas limit</span></Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('tx.gasLimit') }</Skeleton>
         <NativeCoinValue
           amount={ gasLimit }
           units="wei"

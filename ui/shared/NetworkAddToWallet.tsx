@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const NetworkAddToWallet = ({ source, onAddSuccess }: Props) => {
+  const { t } = useTranslation();
   const { data: { wallet } = {} } = useProvider();
 
   const handleClick = useAddChainClick({ source, onSuccess: onAddSuccess });
@@ -38,7 +40,7 @@ const NetworkAddToWallet = ({ source, onAddSuccess }: Props) => {
       }}
     >
       <IconSvg name={ walletInfo.icon } boxSize={ 3 }/>
-      Add { config.chain.name }
+      { t('network.addChain', { chainName: config.chain.name }) }
     </Button>
   );
 };

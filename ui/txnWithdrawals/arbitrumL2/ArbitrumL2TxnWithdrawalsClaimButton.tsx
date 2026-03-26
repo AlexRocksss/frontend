@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useSendTransaction, useSwitchChain } from 'wagmi';
 
@@ -29,6 +30,7 @@ interface Props {
 }
 
 const ArbitrumL2TxnWithdrawalsClaimButton = ({ messageId, txHash, completionTxHash, isLoading: isDataLoading }: Props) => {
+  const { t } = useTranslation();
   const [ isPending, setIsPending ] = React.useState(false);
   const [ claimTxHash, setClaimTxHash ] = React.useState<string | undefined>(completionTxHash);
   const apiFetch = useApiFetch();
@@ -128,9 +130,9 @@ const ArbitrumL2TxnWithdrawalsClaimButton = ({ messageId, txHash, completionTxHa
         variant="outline"
         onClick={ handleClaimClick }
         loading={ isLoading }
-        loadingText="Claim"
+        loadingText={ t('txnWithdrawals.claimButton') }
       >
-        Claim
+        { t('txnWithdrawals.claimButton') }
       </Button>
     </Skeleton>
   );

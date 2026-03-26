@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -56,7 +57,7 @@ interface Props {
 }
 
 const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onSuccess }: Props) => {
-
+  const { t } = useTranslation();
   const [ txHash, setTxHash ] = React.useState<`0x${ string }` | undefined>(undefined);
 
   const { connect: connectWeb3Wallet, isConnected: isWeb3WalletConnected, isOpen: isWeb3WalletOpen } = useWeb3Wallet({ source: 'Smart contracts' });
@@ -165,7 +166,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
     >
       <DialogContent>
         <DialogHeader>
-          Claim your withdrawal
+          { t('withdrawals.claimYourWithdrawal') }
         </DialogHeader>
         <DialogBody>
           <FormProvider { ...formApi }>
@@ -173,11 +174,11 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
               noValidate
               onSubmit={ formApi.handleSubmit(onFormSubmit) }
             >
-              <p>Confirm the proof submitter address is correct to claim</p>
+              <p>{ t('withdrawals.confirmProofSubmitter') }</p>
               <FormFieldAddress<FormFields>
                 name="address"
                 required
-                placeholder="Address (0x...)"
+                placeholder={ t('withdrawals.addressPlaceholder') }
                 bgColor="dialog.bg"
                 mt={ 6 }
               />
@@ -187,9 +188,9 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                   type="submit"
                   disabled={ formApi.formState.isSubmitting || isTxPending }
                   loading={ formApi.formState.isSubmitting || isTxPending }
-                  loadingText="Claim"
+                  loadingText={ t('withdrawals.claimButton') }
                 >
-                  Claim
+                  { t('withdrawals.claimButton') }
                 </Button>
               ) : (
                 <Button
@@ -197,9 +198,9 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                   onClick={ connectWeb3Wallet }
                   disabled={ isWeb3WalletOpen }
                   loading={ isWeb3WalletOpen }
-                  loadingText="Connect wallet"
+                  loadingText={ t('withdrawals.connectWallet') }
                 >
-                  Connect wallet
+                  { t('withdrawals.connectWallet') }
                 </Button>
               ) }
             </chakra.form>

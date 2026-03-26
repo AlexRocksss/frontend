@@ -1,4 +1,6 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
+import React from 'react';
 
 import type { EssentialDappsConfig } from 'types/client/marketplace';
 
@@ -9,36 +11,38 @@ import EssentialDappCard from './EssentialDappCard';
 const feature = config.features.marketplace;
 const essentialDappsConfig = feature.isEnabled ? feature.essentialDapps : undefined;
 
-const essentialDapps = [
-  {
-    id: 'swap',
-    title: 'Swap',
-    description: 'Swap, trade and bridge tokens between chains',
-    buttonText: 'Swap tokens',
-    imageUrl: '/static/marketplace/swap.png',
-    darkImageUrl: '/static/marketplace/swap-dark.png',
-  },
-  {
-    id: 'revoke',
-    title: 'Revoke',
-    description: 'View and remove token approvals',
-    buttonText: 'Get started',
-    imageUrl: '/static/marketplace/revoke.png',
-    darkImageUrl: '/static/marketplace/revoke-dark.png',
-  },
-  {
-    id: 'multisend',
-    title: 'Multisend',
-    description: 'Send tokens to multiple addresses at once',
-    buttonText: 'Send tokens',
-    imageUrl: '/static/marketplace/multisend.png',
-    darkImageUrl: '/static/marketplace/multisend-dark.png',
-  },
-].filter((dapp) =>
-  feature.isEnabled && Boolean(essentialDappsConfig?.[dapp.id as keyof EssentialDappsConfig]),
-);
-
 const EssentialDappsList = () => {
+  const { t } = useTranslation();
+
+  const essentialDapps = React.useMemo(() => [
+    {
+      id: 'swap',
+      title: t('marketplace.swapTitle'),
+      description: t('marketplace.swapDescription'),
+      buttonText: t('marketplace.swapButton'),
+      imageUrl: '/static/marketplace/swap.png',
+      darkImageUrl: '/static/marketplace/swap-dark.png',
+    },
+    {
+      id: 'revoke',
+      title: t('marketplace.revokeTitle'),
+      description: t('marketplace.revokeDescription'),
+      buttonText: t('marketplace.revokeGetStarted'),
+      imageUrl: '/static/marketplace/revoke.png',
+      darkImageUrl: '/static/marketplace/revoke-dark.png',
+    },
+    {
+      id: 'multisend',
+      title: t('marketplace.multisendTitle'),
+      description: t('marketplace.multisendDescription'),
+      buttonText: t('marketplace.multisendButton'),
+      imageUrl: '/static/marketplace/multisend.png',
+      darkImageUrl: '/static/marketplace/multisend-dark.png',
+    },
+  ].filter((dapp) =>
+    feature.isEnabled && Boolean(essentialDappsConfig?.[dapp.id as keyof EssentialDappsConfig]),
+  ), [ t ]);
+
   return (
     <Flex
       gap={{ base: 2, md: 3 }}

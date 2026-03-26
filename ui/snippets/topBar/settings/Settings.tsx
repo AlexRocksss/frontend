@@ -1,4 +1,5 @@
 import { Flex, Separator, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { IconButton } from 'toolkit/chakra/icon-button';
@@ -10,11 +11,13 @@ import IconSvg from 'ui/shared/IconSvg';
 import SettingsAddressFormat from './SettingsAddressFormat';
 import SettingsColorTheme from './SettingsColorTheme';
 import SettingsIdentIcon from './SettingsIdentIcon';
+import SettingsLanguage from './SettingsLanguage';
 import SettingsLocalTime from './SettingsLocalTime';
 import SettingsPoorReputationTokens from './SettingsPoorReputationTokens';
 import SettingsScamTokens from './SettingsScamTokens';
 
 const Settings = () => {
+  const { t } = useTranslation();
   const popover = useDisclosure();
   const tooltip = useDisclosure();
 
@@ -37,7 +40,7 @@ const Settings = () => {
       // should be false to enable auto-switch to default color theme
       lazyMount={ false }
     >
-      <Tooltip content="Website settings" disableOnMobile open={ tooltip.open } onOpenChange={ handleTooltipOpenChange }>
+      <Tooltip content={ t('settings.websiteSettings') } disableOnMobile open={ tooltip.open } onOpenChange={ handleTooltipOpenChange }>
         <Flex alignItems="center">
           <PopoverTrigger>
             <IconButton
@@ -63,6 +66,8 @@ const Settings = () => {
             <SettingsPoorReputationTokens/>
             <SettingsLocalTime/>
           </VStack>
+          <Separator my={ 3 }/>
+          <SettingsLanguage/>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

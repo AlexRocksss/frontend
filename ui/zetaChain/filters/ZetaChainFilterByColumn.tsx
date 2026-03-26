@@ -31,7 +31,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
       const value = { age: (filters.age || '') as AdvancedFilterAge | '', from: filters.start_timestamp || '', to: filters.end_timestamp || '' };
       return (
         <TableColumnFilterWrapper
-          columnName="Age"
+          columnName={ columnName }
           isLoading={ isLoading }
           selected={ Boolean(value.age || value.from || value.to) }
           w="382px"
@@ -44,7 +44,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
       const value = filters.status_reduced ? castArray(filters.status_reduced) : [];
       return (
         <TableColumnFilterWrapper
-          columnName="Status"
+          columnName={ columnName }
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) }
           w="200px"
@@ -58,7 +58,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
       const chainValue = filters.source_chain_id ? castArray(filters.source_chain_id) : [];
       return (
         <TableColumnFilterWrapper
-          columnName="Sender"
+          columnName={ columnName }
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) || Boolean(chainValue && chainValue.length) }
           w="480px"
@@ -72,7 +72,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
       const chainValue = filters.target_chain_id ? castArray(filters.target_chain_id) : [];
       return (
         <TableColumnFilterWrapper
-          columnName="Receiver"
+          columnName={ columnName }
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) || Boolean(chainValue && chainValue.length) }
           w="480px"
@@ -104,7 +104,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
 
       return (
         <TableColumnFilterWrapper
-          columnName="Asset"
+          columnName={ columnName }
           isLoading={ isLoading }
           selected={ Boolean(value) }
           w="350px"

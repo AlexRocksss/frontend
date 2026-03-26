@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxStateChange } from 'types/api/txStateChanges';
@@ -13,17 +14,18 @@ interface Props {
 }
 
 const TxStateTable = ({ data, isLoading, top }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot minWidth="1000px" w="100%">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader width="140px">Type</TableColumnHeader>
-            <TableColumnHeader width="160px">Address</TableColumnHeader>
-            <TableColumnHeader width="33%" isNumeric>Before</TableColumnHeader>
-            <TableColumnHeader width="33%" isNumeric>After</TableColumnHeader>
-            <TableColumnHeader width="33%" isNumeric>Change</TableColumnHeader>
-            <TableColumnHeader width="150px" minW="80px" maxW="150px">Token ID</TableColumnHeader>
+            <TableColumnHeader width="140px">{ t('tx.type') }</TableColumnHeader>
+            <TableColumnHeader width="160px">{ t('tx.address') }</TableColumnHeader>
+            <TableColumnHeader width="33%" isNumeric>{ t('tx.before') }</TableColumnHeader>
+            <TableColumnHeader width="33%" isNumeric>{ t('tx.after') }</TableColumnHeader>
+            <TableColumnHeader width="33%" isNumeric>{ t('tx.change') }</TableColumnHeader>
+            <TableColumnHeader width="150px" minW="80px" maxW="150px">{ t('tx.tokenId') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

@@ -1,4 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -19,6 +20,7 @@ import LatestTxsItemMobile from './LatestTxsItemMobile';
 const zetachainFeature = config.features.zetachain;
 
 const LatestTxs = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const txsCount = isMobile ? 2 : 5;
   const { data, isPlaceholderData, isError } = useApiQuery('general:homepage_txs', {
@@ -59,13 +61,13 @@ const LatestTxs = () => {
           </Box>
         </AddressHighlightProvider>
         <Flex justifyContent="center">
-          <Link textStyle="sm" loading={ isPlaceholderData } href={ txsUrl }>View all transactions</Link>
+          <Link textStyle="sm" loading={ isPlaceholderData } href={ txsUrl }>{ t('home.viewAllTransactions') }</Link>
         </Flex>
       </>
     );
   }
 
-  return <Text>No latest transactions found.</Text>;
+  return <Text>{ t('home.noLatestTransactions') }</Text>;
 };
 
 export default LatestTxs;

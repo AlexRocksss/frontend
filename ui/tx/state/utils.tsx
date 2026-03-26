@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import type { TFunction } from 'i18next';
 import React from 'react';
 
 import type { TxStateChange } from 'types/api/txStateChanges';
@@ -17,11 +18,11 @@ import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 
 import TxStateTokenIdList from './TxStateTokenIdList';
 
-export function getStateElements(data: TxStateChange, isLoading?: boolean) {
+export function getStateElements(data: TxStateChange, isLoading?: boolean, t?: TFunction) {
   const tag = (() => {
     if (data.is_miner) {
       return (
-        <Tooltip content="A block producer who successfully included the block into the blockchain">
+        <Tooltip content={ t ? t('tx.blockProducerTooltip') : 'A block producer who successfully included the block into the blockchain' }>
           <Badge textTransform="capitalize" colorPalette="yellow" loading={ isLoading }>
             { getNetworkValidatorTitle() }
           </Badge>
@@ -41,7 +42,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
       if (changeDirection) {
         const text = changeDirection === 'from' ? 'Mint' : 'Burn';
         return (
-          <Tooltip content="Address used in tokens mintings and burnings">
+          <Tooltip content={ t ? t('tx.mintBurnAddressTooltip') : 'Address used in tokens mintings and burnings' }>
             <Badge textTransform="capitalize" colorPalette="yellow" loading={ isLoading }>{ text } address</Badge>
           </Tooltip>
         );

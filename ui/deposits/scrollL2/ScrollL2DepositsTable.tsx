@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ScrollL2MessageItem } from 'types/api/scrollL2';
@@ -17,20 +18,21 @@ type Props = {
 };
 
 const ScrollL2DepositsTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot tableLayout="auto" minW="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader>{ layerLabels.parent } block</TableColumnHeader>
-            <TableColumnHeader>Index</TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.parent } txn hash</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentBlock', { parent: layerLabels.parent }) }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.indexLabel') }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentTxnHash', { parent: layerLabels.parent }) }</TableColumnHeader>
             <TableColumnHeader>
-              Timestamp
+              { t('deposits.timestampHeader') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.current } txn hash</TableColumnHeader>
-            <TableColumnHeader isNumeric>Value { config.chain.currency.symbol }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.currentTxnHash', { current: layerLabels.current }) }</TableColumnHeader>
+            <TableColumnHeader isNumeric>{ t('deposits.valueWithSymbol', { symbol: config.chain.currency.symbol }) }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

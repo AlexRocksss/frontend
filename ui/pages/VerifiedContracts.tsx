@@ -1,4 +1,5 @@
 import { Box, createListCollection, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -21,6 +22,7 @@ const sortCollection = createListCollection({
 });
 
 const VerifiedContracts = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const { query, type, searchTerm, debouncedSearchTerm, sort, onSearchTermChange, onTypeChange, onSortChange } = useVerifiedContractsQuery();
@@ -39,7 +41,7 @@ const VerifiedContracts = () => {
       w={{ base: '100%', lg: '350px' }}
       size="sm"
       onChange={ onSearchTermChange }
-      placeholder="Search by contract name or address"
+      placeholder={ t('pages.searchByContractNameOrAddress') }
       initialValue={ searchTerm }
     />
   );
@@ -94,7 +96,7 @@ const VerifiedContracts = () => {
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no verified contracts."
+        emptyText={ t('pages.noVerifiedContracts') }
         hasActiveFilters={ Boolean(debouncedSearchTerm || type) }
         emptyStateProps={{
           term: 'contract',

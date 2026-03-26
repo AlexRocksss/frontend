@@ -1,4 +1,5 @@
 import { Grid, Text, Flex, Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InteropTransactionInfo } from 'types/api/transaction';
@@ -22,6 +23,7 @@ type Props = {
 };
 
 const TxDetailsInterop = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   const hasInterop = rollupFeature.isEnabled && rollupFeature.interopEnabled;
 
   if (!hasInterop || !data) {
@@ -40,13 +42,13 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
       rowGap={ 4 }
       borderRadius="md"
     >
-      <Text color="text.secondary">Message id</Text>
+      <Text color="text.secondary">{ t('tx.messageId') }</Text>
       <Text>{ data.nonce }</Text>
-      <Text color="text.secondary">Interop status</Text>
+      <Text color="text.secondary">{ t('tx.interopStatus') }</Text>
       <Box>
         <InteropMessageStatus status={ data.status }/>
       </Box>
-      <Text color="text.secondary">Sender</Text>
+      <Text color="text.secondary">{ t('tx.interopSender') }</Text>
       { data.init_chain !== undefined ? (
         <AddressEntityInterop
           chain={ data.init_chain }
@@ -57,7 +59,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
       ) : (
         <AddressEntity address={{ hash: data.sender_address_hash }} isLoading={ isLoading } truncation="constant"/>
       ) }
-      <Text color="text.secondary">Target</Text>
+      <Text color="text.secondary">{ t('tx.interopItemTarget') }</Text>
       { data.relay_chain !== undefined ? (
         <AddressEntityInterop
           chain={ data.relay_chain }
@@ -68,7 +70,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
       ) : (
         <AddressEntity address={{ hash: data.target_address_hash }} isLoading={ isLoading } truncation="constant"/>
       ) }
-      <Text color="text.secondary">Payload</Text>
+      <Text color="text.secondary">{ t('tx.payload') }</Text>
       <Flex overflow="hidden">
         <Text
           wordBreak="break-all"
@@ -87,10 +89,10 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint={ `The originating transaction that initiated the cross-${ layerLabels.current } message on the source chain` }
+          hint={ t('tx.hintInteropSourceTx', { layer: layerLabels.current }) }
           isLoading={ isLoading }
         >
-          Interop source tx
+          { t('tx.interopSourceTx') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
           <InteropMessageSourceTx { ...data } isLoading={ isLoading }/>
@@ -106,10 +108,10 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint={ `The transaction that relays the cross-${ layerLabels.current } message to its destination chain` }
+          hint={ t('tx.hintInteropRelayTx', { layer: layerLabels.current }) }
           isLoading={ isLoading }
         >
-          Interop relay tx
+          { t('tx.interopRelayTx') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
           <InteropMessageDestinationTx { ...data } isLoading={ isLoading }/>

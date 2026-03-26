@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { MethodType } from './types';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const ContractMethodsContainer = ({ isLoading, isError, isEmpty, type, children }: Props) => {
+  const { t } = useTranslation();
 
   if (isLoading) {
     return <ContentLoader w="fit-content"/>;
@@ -24,8 +26,7 @@ const ContractMethodsContainer = ({ isLoading, isError, isEmpty, type, children 
   }
 
   if (isEmpty) {
-    const typeText = type === 'all' ? '' : type;
-    return <span>No public { typeText } functions were found for this contract.</span>;
+    return <span>{ type === 'all' ? t('address.noPublicFunctions') : t('address.noPublicFunctionsType', { type }) }</span>;
   }
 
   return children;

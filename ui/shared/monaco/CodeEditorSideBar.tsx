@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { throttle } from 'es-toolkit';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { File, Monaco } from './types';
@@ -25,6 +26,7 @@ interface Props {
 export const CONTAINER_WIDTH = 250;
 
 const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, mainFile }: Props) => {
+  const { t } = useTranslation();
 
   const [ isStuck, setIsStuck ] = React.useState(false);
   const [ isDrawerOpen, setIsDrawerOpen ] = React.useState(false);
@@ -134,8 +136,8 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
             boxShadow={ isStuck ? 'md' : 'none' }
             borderTopRightRadius="md"
           >
-            <TabsTrigger value="explorer" { ...tabProps } title={ `File explorer (${ shift + cmd }E)` }>Explorer</TabsTrigger>
-            <TabsTrigger value="search" { ...tabProps } title={ `Search in files (${ shift + cmd }F)` }>Search</TabsTrigger>
+            <TabsTrigger value="explorer" { ...tabProps } title={ `File explorer (${ shift + cmd }E)` }>{ t('codeEditor.explorerTab') }</TabsTrigger>
+            <TabsTrigger value="search" { ...tabProps } title={ `Search in files (${ shift + cmd }F)` }>{ t('codeEditor.searchTab') }</TabsTrigger>
             { actionBarRenderer?.() }
           </TabsList>
           <TabsContent value="explorer" p={ 0 }>

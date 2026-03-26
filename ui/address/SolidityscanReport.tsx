@@ -1,4 +1,5 @@
 import { Box, Text, Icon } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 // This icon doesn't work properly when it is in the sprite
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const SolidityscanReport = ({ hash }: Props) => {
+  const { t } = useTranslation();
   const popover = useDisclosure();
   const { data, isPlaceholderData, isError } = useFetchReport({ hash });
 
@@ -45,18 +47,18 @@ const SolidityscanReport = ({ hash }: Props) => {
       <PopoverContent w={{ base: '100vw', lg: '328px' }}>
         <PopoverBody textStyle="sm">
           <Box mb={ 5 } lineHeight="25px">
-            Contract analyzed for 240+ vulnerability patterns by
+            { t('address.solidityscanAnalyzed') }
             <Icon as={ solidityScanIcon } mr={ 1 } ml="6px" w="23px" h="20px" display="inline-block" verticalAlign="middle"/>
             <Text fontWeight={ 600 } display="inline-block">SolidityScan</Text>
           </Box>
           <SolidityscanReportScore score={ score } mb={ 5 }/>
           { vulnerabilities && vulnerabilitiesCount > 0 && (
             <Box mb={ 5 }>
-              <Text py="7px" color="text.secondary" textStyle="xs" fontWeight={ 500 }>Vulnerabilities distribution</Text>
+              <Text py="7px" color="text.secondary" textStyle="xs" fontWeight={ 500 }>{ t('address.solidityscanVulnerabilities') }</Text>
               <SolidityscanReportDetails vulnerabilities={ vulnerabilities } vulnerabilitiesCount={ vulnerabilitiesCount }/>
             </Box>
           ) }
-          <Link href={ data.scan_report.scanner_reference_url } external>View full report</Link>
+          <Link href={ data.scan_report.scanner_reference_url } external>{ t('address.solidityscanViewReport') }</Link>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

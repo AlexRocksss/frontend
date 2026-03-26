@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -9,8 +10,9 @@ interface Props extends Omit<IconSvgProps, 'name'> {
 }
 
 const FallbackRpcIcon = (props: Props) => {
+  const { t } = useTranslation();
   return (
-    <Tooltip content="Our indexer is experiencing problems, you see the data directly from RPC">
+    <Tooltip content={ t('shared.fallbackRpcTooltip') }>
       <IconSvg name="RPC" color="orange.400" boxSize={ 5 } { ...props }/>
     </Tooltip>
   );

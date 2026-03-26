@@ -1,5 +1,6 @@
 import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZkEvmL2WithdrawalsItem } from 'types/api/zkEvmL2';
@@ -19,6 +20,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ZkEvmL2WithdrawalsItem; isLoading?: boolean };
 
 const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'zkEvm') {
     return null;
   }
@@ -26,7 +28,7 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Block</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.blockLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BlockEntity
           number={ item.block_number }
@@ -36,14 +38,14 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.indexLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">
           { item.index }
         </Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.currentTxnHash', { current: layerLabels.current }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TxEntity
           isLoading={ isLoading }
@@ -53,7 +55,7 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.ageLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.timestamp }
@@ -62,7 +64,7 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.parentTxnHash', { parent: layerLabels.parent }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         { item.l1_transaction_hash ? (
           <TxEntityL1
@@ -74,12 +76,12 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
           />
         ) : (
           <chakra.span>
-            Pending Claim
+            { t('withdrawals.pendingClaim') }
           </chakra.span>
         ) }
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Value</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.valueLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <SimpleValue
           value={ BigNumber(item.value) }
@@ -87,7 +89,7 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Token</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.tokenLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">
           { item.symbol }

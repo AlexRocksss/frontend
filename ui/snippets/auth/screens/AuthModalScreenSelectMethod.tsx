@@ -1,4 +1,5 @@
 import { VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Screen } from '../types';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const AuthModalScreenSelectMethod = ({ onSelectMethod }: Props) => {
+  const { t } = useTranslation();
 
   const handleEmailClick = React.useCallback(() => {
     mixpanel.logEvent(mixpanel.EventTypes.LOGIN, {
@@ -30,8 +32,8 @@ const AuthModalScreenSelectMethod = ({ onSelectMethod }: Props) => {
 
   return (
     <VStack gap={ 3 } mt={ 4 } align="stretch">
-      <Button variant="outline" onClick={ handleConnectWalletClick }>Continue with Web3 wallet</Button>
-      <Button variant="outline" onClick={ handleEmailClick }>Continue with email</Button>
+      <Button variant="outline" onClick={ handleConnectWalletClick }>{ t('auth.continueWithWeb3Wallet') }</Button>
+      <Button variant="outline" onClick={ handleEmailClick }>{ t('auth.continueWithEmailBtn') }</Button>
     </VStack>
   );
 };

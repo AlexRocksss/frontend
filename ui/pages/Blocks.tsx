@@ -1,4 +1,5 @@
 import { upperFirst } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,6 +27,7 @@ const TAB_LIST_PROPS = {
 };
 
 const BlocksPageContent = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMobile = useIsMobile();
   const tab = getQueryParamString(router.query.tab);
@@ -89,7 +91,7 @@ const BlocksPageContent = () => {
 
   return (
     <>
-      <PageTitle title="Blocks" withTextAd/>
+      <PageTitle title={ t('pages.blocks') } withTextAd/>
       <RoutedTabs
         tabs={ tabs }
         listProps={ isMobile ? undefined : TAB_LIST_PROPS }

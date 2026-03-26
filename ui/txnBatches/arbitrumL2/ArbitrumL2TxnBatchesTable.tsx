@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ArbitrumL2TxnBatchesItem } from 'types/api/arbitrumL2';
@@ -15,20 +16,21 @@ type Props = {
 };
 
 const ArbitrumL2TxnBatchesTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot tableLayout="auto" minW="1000px">
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader>Batch #</TableColumnHeader>
-          <TableColumnHeader>{ layerLabels.parent } status</TableColumnHeader>
-          <TableColumnHeader>{ layerLabels.parent } block</TableColumnHeader>
-          <TableColumnHeader>Block count</TableColumnHeader>
-          <TableColumnHeader>{ layerLabels.parent } transaction</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.batchNoHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.parentStatusHeader', { parent: layerLabels.parent }) }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.parentBlockHeader', { parent: layerLabels.parent }) }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.blockCountHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.parentTxnHeader', { parent: layerLabels.parent }) }</TableColumnHeader>
           <TableColumnHeader>
-            Timestamp
+            { t('txnBatches.timestampLabel') }
             <TimeFormatToggle/>
           </TableColumnHeader>
-          <TableColumnHeader>Txn count</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.txnCountHeader') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

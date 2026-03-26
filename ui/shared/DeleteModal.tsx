@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -24,6 +25,7 @@ const DeleteModal: React.FC<Props> = ({
   mutationFn,
   onSuccess,
 }) => {
+  const { t } = useTranslation();
   const [ isAlertVisible, setAlertVisible ] = useState(false);
 
   const onModalOpenChange = useCallback(({ open }: { open: boolean }) => {
@@ -62,7 +64,7 @@ const DeleteModal: React.FC<Props> = ({
             onClick={ onDeleteClick }
             loading={ isPending }
           >
-            Delete
+            { t('action.delete') }
           </Button>
         </DialogFooter>
       </DialogContent>

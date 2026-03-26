@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractVerificationConfig } from 'types/client/contract';
@@ -12,8 +13,9 @@ import ContractVerificationFieldSources from '../fields/ContractVerificationFiel
 const FILE_TYPES = [ '.sol' as const, '.yul' as const ];
 
 const ContractVerificationMultiPartFile = ({ config }: { config: SmartContractVerificationConfig }) => {
+  const { t } = useTranslation();
   return (
-    <ContractVerificationMethod title="Contract verification via Solidity (multi-part files)">
+    <ContractVerificationMethod title={ t('contractVerification.methodMultiPartTitle') }>
       <ContractVerificationFieldCompiler config={ config }/>
       <ContractVerificationFieldEvmVersion config={ config }/>
       <ContractVerificationFieldOptimization/>
@@ -22,8 +24,8 @@ const ContractVerificationMultiPartFile = ({ config }: { config: SmartContractVe
         multiple
         fullFilePath
         required
-        title="Sources *.sol or *.yul files"
-        hint="Upload all Solidity or Yul contract source files."
+        title={ t('contractVerification.methodMultiPartSourcesTitle') }
+        hint={ t('contractVerification.methodMultiPartSourcesHint') }
       />
       <ContractVerificationFieldLibraries/>
     </ContractVerificationMethod>

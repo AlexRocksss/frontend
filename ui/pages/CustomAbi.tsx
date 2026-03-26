@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { CustomAbi } from 'types/api/account';
@@ -18,6 +19,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import useRedirectForInvalidAuthToken from 'ui/snippets/auth/useRedirectForInvalidAuthToken';
 
 const CustomAbiPage: React.FC = () => {
+  const { t } = useTranslation();
   const customAbiModalProps = useDisclosure();
   const deleteModalProps = useDisclosure();
   useRedirectForInvalidAuthToken();
@@ -105,7 +107,7 @@ const CustomAbiPage: React.FC = () => {
 
   return (
     <>
-      <PageTitle title="Custom ABI"/>
+      <PageTitle title={ t('pages.customAbi') }/>
       { content }
     </>
   );

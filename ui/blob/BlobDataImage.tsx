@@ -1,4 +1,5 @@
 import { Center } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Image } from 'toolkit/chakra/image';
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const BlobDataImage = ({ src }: Props) => {
+  const { t } = useTranslation();
   return (
     <Center
       bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
@@ -22,7 +24,7 @@ const BlobDataImage = ({ src }: Props) => {
         maxW="100%"
         maxH="100%"
         objectPosition="center"
-        alt="Blob image representation"
+        alt={ t('blob.imageAlt') }
       />
     </Center>
   );

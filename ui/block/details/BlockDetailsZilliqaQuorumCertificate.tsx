@@ -1,4 +1,5 @@
 import { Separator, Grid, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZilliqaNestedQuorumCertificate, ZilliqaQuorumCertificate } from 'types/api/block';
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
+  const { t } = useTranslation();
   const hint = (isNested?: boolean) => (
     <>
       The iteration of the consensus round in which the block was proposed:<br/><br/>
@@ -40,7 +42,7 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
       <DetailedInfo.ItemLabel
         hint={ hint() }
       >
-        { data.nested_quorum_certificates ? 'Aggregate quorum certificate' : 'Quorum certificate' }
+        { data.nested_quorum_certificates ? t('zilliqaQc.aggregateQc') : t('zilliqaQc.quorumCertificate') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
         <Grid
@@ -49,16 +51,16 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
           columnGap={ 5 }
           mt={{ base: 2, lg: 1.5 }}
         >
-          <GridItem fontWeight={ 600 }>View</GridItem>
+          <GridItem fontWeight={ 600 }>{ t('zilliqaQc.view') }</GridItem>
           <GridItem>{ data.view }</GridItem>
           <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <GridItem fontWeight={ 600 }>Signature</GridItem>
+          <GridItem fontWeight={ 600 }>{ t('zilliqaQc.signature') }</GridItem>
           <GridItem whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
             { data.signature }
             <CopyToClipboard text={ data.signature }/>
           </GridItem>
           <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <GridItem fontWeight={ 600 }>Signers</GridItem>
+          <GridItem fontWeight={ 600 }>{ t('zilliqaQc.signers') }</GridItem>
           <GridItem whiteSpace="pre-wrap">{ formatSigners(data.signers) }</GridItem>
         </Grid>
         { data.nested_quorum_certificates && data.nested_quorum_certificates.length > 0 && (
@@ -78,7 +80,7 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
                   textStyle="sm"
                   fontWeight={ 600 }
                 >
-                  <span>Nested quorum certificates</span>
+                  <span>{ t('zilliqaQc.nestedQc') }</span>
                   <Hint label={ hint(true) }/>
                 </AccordionItemTrigger>
                 <AccordionItemContent display="flex" flexDirection="column" rowGap={ 2 } p={ 0 }>
@@ -93,16 +95,16 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
                       borderRadius="md"
                       _first={{ borderTopRightRadius: 0, borderTopLeftRadius: 0 }}
                     >
-                      <GridItem>View</GridItem>
+                      <GridItem>{ t('zilliqaQc.view') }</GridItem>
                       <GridItem>{ item.view }</GridItem>
-                      <GridItem>Signature</GridItem>
+                      <GridItem>{ t('zilliqaQc.signature') }</GridItem>
                       <GridItem whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
                         { item.signature }
                         <CopyToClipboard text={ item.signature }/>
                       </GridItem>
-                      <GridItem>Signers</GridItem>
+                      <GridItem>{ t('zilliqaQc.signers') }</GridItem>
                       <GridItem whiteSpace="pre-wrap">{ formatSigners(item.signers) }</GridItem>
-                      <GridItem whiteSpace="pre-wrap">Proposed by validator</GridItem>
+                      <GridItem whiteSpace="pre-wrap">{ t('zilliqaQc.proposedByValidator') }</GridItem>
                       <GridItem >{ item.proposed_by_validator_index }</GridItem>
                     </Grid>
                   )) }

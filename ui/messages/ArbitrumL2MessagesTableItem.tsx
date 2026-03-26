@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ArbitrumL2MessagesItem } from 'types/api/arbitrumL2';
@@ -23,6 +24,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ArbitrumL2MessagesItem; isLoading?: boolean; direction: MessagesDirection };
 
 const ArbitrumL2MessagesTableItem = ({ item, direction, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'arbitrum') {
     return null;
   }
@@ -82,7 +84,7 @@ const ArbitrumL2MessagesTableItem = ({ item, direction, isLoading }: Props) => {
       </TableCell>
       <TableCell verticalAlign="middle">
         { item.status === 'confirmed' && direction === 'from-rollup' ?
-          <Link href={ route({ pathname: '/txn-withdrawals', query: { q: item.origination_transaction_hash } }) }>Ready for relay</Link> :
+          <Link href={ route({ pathname: '/txn-withdrawals', query: { q: item.origination_transaction_hash } }) }>{ t('messages.readyForRelay') }</Link> :
           <ArbitrumL2MessageStatus status={ item.status } isLoading={ isLoading }/> }
       </TableCell>
       <TableCell verticalAlign="middle">

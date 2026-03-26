@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
@@ -14,22 +15,23 @@ interface Props {
 }
 
 const InteropMessagesTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot tableLayout="auto">
       <TableHeaderSticky top={ top }>
         <TableRow>
           <TableColumnHeader/>
-          <TableColumnHeader>Message</TableColumnHeader>
+          <TableColumnHeader>{ t('interopMessages.messageCol') }</TableColumnHeader>
           <TableColumnHeader>
-            Timestamp
+            { t('interopMessages.timestamp') }
             <TimeFormatToggle/>
           </TableColumnHeader>
-          <TableColumnHeader>Status</TableColumnHeader>
-          <TableColumnHeader>Source tx</TableColumnHeader>
-          <TableColumnHeader>Destination tx</TableColumnHeader>
-          <TableColumnHeader>Sender</TableColumnHeader>
-          <TableColumnHeader>In/Out</TableColumnHeader>
-          <TableColumnHeader>Target</TableColumnHeader>
+          <TableColumnHeader>{ t('interopMessages.status') }</TableColumnHeader>
+          <TableColumnHeader>{ t('interopMessages.sourceTx') }</TableColumnHeader>
+          <TableColumnHeader>{ t('interopMessages.destinationTx') }</TableColumnHeader>
+          <TableColumnHeader>{ t('interopMessages.sender') }</TableColumnHeader>
+          <TableColumnHeader>{ t('interopMessages.inOut') }</TableColumnHeader>
+          <TableColumnHeader>{ t('interopMessages.target') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

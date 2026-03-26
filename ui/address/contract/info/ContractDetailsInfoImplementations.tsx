@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressImplementation } from 'types/api/addressParams';
@@ -14,9 +15,12 @@ interface Props {
 }
 
 const ContractDetailsInfoImplementations = ({ implementations, proxyType }: Props) => {
+  const { t } = useTranslation();
+  const implLabel = implementations.length > 1 ? t('address.contractInfoImplementations') : t('address.contractInfoImplementation');
+  const label = proxyType === 'eip7702' ? t('address.contractInfoDelegatedTo') : implLabel;
   return (
     <ContractDetailsInfoItem
-      label={ `${ proxyType === 'eip7702' ? 'Delegated to' : `Implementation${ implementations.length > 1 ? 's' : '' }` }` }
+      label={ label }
       contentProps={{ gridColumn: { lg: '2 / span 3' }, position: 'relative' }}
     >
       <ContainerWithScrollY gradientHeight={ 48 } maxH="200px" w="100%">

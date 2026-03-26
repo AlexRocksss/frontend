@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressTokenBalance } from 'types/api/address';
@@ -22,6 +23,7 @@ type Props = {
 };
 
 const ERC20Tokens = ({ items, isLoading, pagination, isError, top }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const hasAdditionalTokenTypes = config.chain.additionalTokenTypes.length > 0;
@@ -57,7 +59,7 @@ const ERC20Tokens = ({ items, isLoading, pagination, isError, top }: Props) => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ items?.length }
-      emptyText="There are no tokens of selected type."
+      emptyText={ t('address.noTokensSelectedType') }
       actionBar={ actionBar }
     >
       { content }

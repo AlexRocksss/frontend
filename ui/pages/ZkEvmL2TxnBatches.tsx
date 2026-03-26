@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -14,6 +15,7 @@ import ZkEvmTxnBatchesListItem from 'ui/txnBatches/zkEvmL2/ZkEvmTxnBatchesListIt
 import ZkEvmTxnBatchesTable from 'ui/txnBatches/zkEvmL2/ZkEvmTxnBatchesTable';
 
 const ZkEvmL2TxnBatches = () => {
+  const { t } = useTranslation();
   const { data, isError, isPlaceholderData, pagination } = useQueryWithPages({
     resourceName: 'general:zkevm_l2_txn_batches',
     options: {
@@ -72,11 +74,11 @@ const ZkEvmL2TxnBatches = () => {
 
   return (
     <>
-      <PageTitle title="Txn batches" withTextAd/>
+      <PageTitle title={ t('pages.txnBatches') } withTextAd/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no txn batches."
+        emptyText={ t('pages.noTxnBatches') }
         actionBar={ actionBar }
       >
         { content }

@@ -1,4 +1,5 @@
 import { chakra, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -19,13 +20,14 @@ interface Props {
 }
 
 const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <HStack columnGap={ 3 } rowGap={ 0 } flexWrap="wrap">
       <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading }/>
       <DetailedInfoItemBreakdown.Container loading={ isLoading }>
         <DetailedInfoItemBreakdown.Row
-          label="Timestamp"
+          label={ t('tx.timestamp') }
         >
           <DetailedInfoTimestamp
             timestamp={ data.receive_timestamp || data.send_timestamp }
@@ -34,14 +36,14 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
           />
         </DetailedInfoItemBreakdown.Row>
         <DetailedInfoItemBreakdown.Row
-          label="Status"
+          label={ t('tx.status') }
           alignSelf="center"
         >
           <CrossChainTxsStatusTag status={ data.status } loading={ isLoading } mode="full"/>
         </DetailedInfoItemBreakdown.Row>
         { data.source_chain && data.source_chain?.id !== config.chain.id && (
           <DetailedInfoItemBreakdown.Row
-            label="Source chain"
+            label={ t('tx.sourceChain') }
           >
             <ChainLabel
               data={ data.source_chain }
@@ -52,7 +54,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
         ) }
         { data.source_transaction_hash && data.source_chain && data.source_chain?.id !== config.chain.id && (
           <DetailedInfoItemBreakdown.Row
-            label="Source tx"
+            label={ t('tx.sourceTx') }
           >
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -64,7 +66,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
         ) }
         { data.destination_chain && data.destination_chain?.id !== config.chain.id && (
           <DetailedInfoItemBreakdown.Row
-            label="Destination chain"
+            label={ t('tx.destinationChain') }
           >
             <ChainLabel
               data={ data.destination_chain }
@@ -75,7 +77,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
         ) }
         { data.destination_transaction_hash && data.destination_chain && data.destination_chain?.id !== config.chain.id && (
           <DetailedInfoItemBreakdown.Row
-            label="Destination tx"
+            label={ t('tx.destinationTx') }
           >
             <TxEntityInterchain
               chain={ data.destination_chain }
@@ -87,7 +89,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
         ) }
         { data.sender && (
           <DetailedInfoItemBreakdown.Row
-            label="Sender"
+            label={ t('tx.sender') }
           >
             <AddressEntityInterchain
               chain={ data.source_chain }
@@ -99,7 +101,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
         ) }
         { data.recipient && (
           <DetailedInfoItemBreakdown.Row
-            label="Target"
+            label={ t('tx.target') }
           >
             <AddressEntityInterchain
               chain={ data.destination_chain }

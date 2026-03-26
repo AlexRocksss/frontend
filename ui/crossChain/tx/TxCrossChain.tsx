@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -16,6 +17,7 @@ import TxCrossChainDetails from './TxCrossChainDetails';
 import TxCrossChainTransfers from './TxCrossChainTransfers';
 
 const TxCrossChain = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const messageId = getQueryParamString(router.query.id);
 
@@ -31,12 +33,12 @@ const TxCrossChain = () => {
   const tabs: Array<TabItemRegular> = [
     {
       id: 'index',
-      title: 'Details',
+      title: t('crossChain.detailsTab'),
       component: <TxCrossChainDetails data={ query.data } isLoading={ query.isPlaceholderData }/>,
     },
     {
       id: 'transfers',
-      title: 'Token transfers',
+      title: t('crossChain.tokenTransfersTab'),
       component: <TxCrossChainTransfers data={ query.data?.transfers } isLoading={ query.isPlaceholderData } isError={ query.isError }/>,
     },
   ];
@@ -58,7 +60,7 @@ const TxCrossChain = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title="Cross-chain tx details"
+        title={ t('crossChain.crossChainTxDetailsTitle') }
         secondRow={ titleSecondRow }
       />
       <RoutedTabs tabs={ tabs } isLoading={ query.isPlaceholderData }/>

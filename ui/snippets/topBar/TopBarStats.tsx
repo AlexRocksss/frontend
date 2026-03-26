@@ -1,4 +1,5 @@
 import { Flex, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -15,6 +16,7 @@ import TextSeparator from 'ui/shared/TextSeparator';
 import GetGasButton from './GetGasButton';
 
 const TopBarStats = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const { data, isPlaceholderData, isError, refetch, dataUpdatedAt } = useApiQuery('general:stats', {
@@ -87,7 +89,7 @@ const TopBarStats = () => {
         { hasGasInfo && (
           <>
             <Skeleton loading={ isPlaceholderData } whiteSpace="pre-wrap">
-              <chakra.span color="text.secondary">Gas </chakra.span>
+              <chakra.span color="text.secondary">{ t('topBar.gas') } </chakra.span>
               <GasInfoTooltip data={ data } dataUpdatedAt={ dataUpdatedAt } placement={ !data?.coin_price ? 'bottom-start' : undefined }>
                 <Link>
                   <GasPrice data={ data.gas_prices?.average ?? null }/>

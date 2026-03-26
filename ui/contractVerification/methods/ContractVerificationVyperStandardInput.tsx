@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractVerificationConfig } from 'types/client/contract';
@@ -9,13 +10,14 @@ import ContractVerificationFieldSources from '../fields/ContractVerificationFiel
 const FILE_TYPES = [ '.json' as const ];
 
 const ContractVerificationVyperStandardInput = ({ config }: { config: SmartContractVerificationConfig }) => {
+  const { t } = useTranslation();
   return (
-    <ContractVerificationMethod title="Contract verification via Vyper (standard JSON input) ">
+    <ContractVerificationMethod title={ t('contractVerification.methodVyperStandardTitle') }>
       <ContractVerificationFieldCompiler config={ config } isVyper/>
       <ContractVerificationFieldSources
         fileTypes={ FILE_TYPES }
-        title="Standard Input JSON"
-        hint="Upload the standard input JSON file created during contract compilation."
+        title={ t('contractVerification.methodStandardSourcesTitle') }
+        hint={ t('contractVerification.methodStandardSourcesHint') }
         required
       />
     </ContractVerificationMethod>

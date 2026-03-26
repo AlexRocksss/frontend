@@ -1,4 +1,5 @@
 import { createListCollection, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokensSortingValue } from 'types/api/tokens';
@@ -10,9 +11,15 @@ import Pagination from 'ui/shared/pagination/Pagination';
 import Sort from 'ui/shared/sort/Sort';
 import { SORT_OPTIONS } from 'ui/tokens/utils';
 
-const sortCollection = createListCollection({
-  items: SORT_OPTIONS,
-});
+const SORT_KEY_MAP: Record<string, string> = {
+  'default': 'sortDefault',
+  'fiat_value-asc': 'sortPriceAsc',
+  'fiat_value-desc': 'sortPriceDesc',
+  'holders_count-asc': 'sortHoldersAsc',
+  'holders_count-desc': 'sortHoldersDesc',
+  'circulating_market_cap-asc': 'sortMarketCapAsc',
+  'circulating_market_cap-desc': 'sortMarketCapDesc',
+};
 
 interface Props {
   pagination: PaginationParams;
@@ -33,6 +40,13 @@ const TokensActionBar = ({
   filter,
   inTabsSlot,
 }: Props) => {
+  const { t } = useTranslation();
+  const sortCollection = createListCollection({
+    items: SORT_OPTIONS.map((o) => ({
+      ...o,
+      label: t(`tokens.${ SORT_KEY_MAP[o.value] || o.value }` as 'tokens.sortDefault'),
+    })),
+  });
 
   const handleSortChange = React.useCallback(({ value }: { value: Array<string> }) => {
     onSortChange(value[0] as TokensSortingValue);
@@ -43,7 +57,7 @@ const TokensActionBar = ({
       w={{ base: '100%', lg: '360px' }}
       size="sm"
       onChange={ onSearchChange }
-      placeholder="Token name or symbol"
+      placeholder={ t('tokens.searchPlaceholder') }
       initialValue={ searchTerm }
     />
   );

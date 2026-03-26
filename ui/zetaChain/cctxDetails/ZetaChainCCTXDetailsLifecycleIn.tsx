@@ -1,4 +1,5 @@
 import { Flex, Grid, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CrossChainTx } from '@blockscout/zetachain-cctx-types';
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
+  const { t } = useTranslation();
   const { data: chainsConfig } = useZetaChainConfig();
   const inboundParams = tx.inbound_params;
   if (!inboundParams) {
@@ -43,7 +45,7 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
       />
       <Skeleton loading={ isLoading }>
         <Flex color={ color } maxH="20px" mb={ 2.5 } alignItems="center">
-          { `Sender tx from ${ chainFrom?.name || 'unknown chain' }` }
+          { t('zetaChain.senderTxFrom', { chain: chainFrom?.name || t('zetaChain.unknownChain') }) }
         </Flex>
         <Grid
           templateColumns="100px 1fr"
@@ -57,12 +59,12 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
         >
           { isCCTX ? (
             <>
-              <Text color="text.secondary" fontWeight="medium">CCTX</Text>
+              <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.cctx') }</Text>
               <TxEntityZetaChainCC hash={ inboundParams.observed_hash } isLoading={ isLoading } noIcon/>
             </>
           ) : (
             <>
-              <Text color="text.secondary" fontWeight="medium">Transaction</Text>
+              <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.transaction') }</Text>
               { chainFromId !== config.chain.id ? (
                 <TxEntityZetaChainExternal chainId={ chainFromId } hash={ inboundParams.observed_hash } noIcon/>
               ) : (
@@ -70,14 +72,14 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
               ) }
             </>
           ) }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.status') }</Text>
           <StatusTag
             type={ inboundParams.status === InboundStatus.INBOUND_SUCCESS ? 'ok' : 'error' }
-            text={ inboundParams.status === InboundStatus.INBOUND_SUCCESS ? 'Success' : 'Failed' }
+            text={ inboundParams.status === InboundStatus.INBOUND_SUCCESS ? t('zetaChain.success') : t('zetaChain.failed') }
           />
           { inboundParams.sender && (
             <>
-              <Text color="text.secondary" fontWeight="medium">Sender</Text>
+              <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.sender') }</Text>
               <AddressEntityZetaChain
                 address={{ hash: inboundParams.sender }}
                 chainId={ inboundParams.sender_chain_id.toString() }
@@ -88,7 +90,7 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
           ) }
           { inboundParams.amount && (
             <>
-              <Text color="text.secondary" fontWeight="medium">Transferred</Text>
+              <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.transferred') }</Text>
               <ZetaChainCCTXValue
                 coinType={ inboundParams.coin_type }
                 tokenSymbol={ tx.token_symbol }

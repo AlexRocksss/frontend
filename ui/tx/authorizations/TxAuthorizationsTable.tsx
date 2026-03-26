@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxAuthorization } from 'types/api/transaction';
@@ -13,16 +14,17 @@ interface Props {
 }
 
 const TxAuthorizationsTable = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot>
         <TableHeaderSticky>
           <TableRow>
-            <TableColumnHeader width="50%">Authority</TableColumnHeader>
-            <TableColumnHeader width="50%">Delegated address</TableColumnHeader>
-            <TableColumnHeader width="120px">Chain</TableColumnHeader>
-            <TableColumnHeader width="120px">Nonce</TableColumnHeader>
-            <TableColumnHeader width="200px">Status</TableColumnHeader>
+            <TableColumnHeader width="50%">{ t('tx.authority') }</TableColumnHeader>
+            <TableColumnHeader width="50%">{ t('tx.delegatedAddress') }</TableColumnHeader>
+            <TableColumnHeader width="120px">{ t('tx.chain') }</TableColumnHeader>
+            <TableColumnHeader width="120px">{ t('tx.noncePrefixed') }</TableColumnHeader>
+            <TableColumnHeader width="200px">{ t('tx.status') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { UserOpsItem } from 'types/api/userOps';
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const UserOpsTable = ({ items, isLoading, top, showTx, showSender }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const chainData = multichainContext?.chain;
   const chainConfig = (multichainContext?.chain.app_config || config);
@@ -29,17 +31,17 @@ const UserOpsTable = ({ items, isLoading, top, showTx, showSender }: Props) => {
         <TableHeaderSticky top={ top }>
           <TableRow>
             { chainData && <TableColumnHeader width="38px"></TableColumnHeader> }
-            <TableColumnHeader w="60%">User op hash</TableColumnHeader>
+            <TableColumnHeader w="60%">{ t('userOps.userOpHash') }</TableColumnHeader>
             <TableColumnHeader w="180px">
-              Timestamp
+              { t('userOps.timestamp') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader w="140px">Status</TableColumnHeader>
-            { showSender && <TableColumnHeader w="160px">Sender</TableColumnHeader> }
-            { showTx && <TableColumnHeader w="160px">Tx hash</TableColumnHeader> }
-            <TableColumnHeader w="40%">Block</TableColumnHeader>
+            <TableColumnHeader w="140px">{ t('userOps.status') }</TableColumnHeader>
+            { showSender && <TableColumnHeader w="160px">{ t('userOps.sender') }</TableColumnHeader> }
+            { showTx && <TableColumnHeader w="160px">{ t('userOps.txHash') }</TableColumnHeader> }
+            <TableColumnHeader w="40%">{ t('userOps.block') }</TableColumnHeader>
             { !chainConfig.UI.views.tx.hiddenFields?.tx_fee &&
-          <TableColumnHeader w="120px" isNumeric>{ `Fee ${ chainConfig.chain.currency.symbol }` }</TableColumnHeader> }
+          <TableColumnHeader w="120px" isNumeric>{ t('userOps.fee', { symbol: chainConfig.chain.currency.symbol }) }</TableColumnHeader> }
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

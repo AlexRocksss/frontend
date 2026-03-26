@@ -1,4 +1,5 @@
 import { Box, createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,6 +8,7 @@ import type { ChainMetricsSorting, ChainMetricsSortingField, ChainMetricsSorting
 import multichainConfig from 'configs/multichain';
 import useApiQuery from 'lib/api/useApiQuery';
 import { CHAIN_METRICS } from 'stubs/multichain';
+import type { SelectOption } from 'toolkit/chakra/select';
 import ActionBar from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 import PageTitle from 'ui/shared/Page/PageTitle';
@@ -18,15 +20,27 @@ import MultichainEcosystemsListItem from './MultichainEcosystemsListItem';
 import MultichainEcosystemsTable from './MultichainEcosystemsTable';
 import { SORT_OPTIONS } from './utils';
 
-const sortCollection = createListCollection({
-  items: SORT_OPTIONS,
-});
-
 const MultichainEcosystems = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [ sort, setSort ] =
   React.useState<ChainMetricsSortingValue>(getSortValueFromQuery<ChainMetricsSortingValue>(router.query, SORT_OPTIONS) ?? 'default');
+
+  const sortCollection = React.useMemo(() => {
+    const items: Array<SelectOption<ChainMetricsSortingValue>> = [
+      { label: t('multichain.sortDefault'), value: 'default' },
+      { label: t('multichain.sortActiveAccountsDesc'), value: 'active_accounts-desc' },
+      { label: t('multichain.sortActiveAccountsAsc'), value: 'active_accounts-asc' },
+      { label: t('multichain.sortDailyTxsDesc'), value: 'daily_transactions-desc' },
+      { label: t('multichain.sortDailyTxsAsc'), value: 'daily_transactions-asc' },
+      { label: t('multichain.sortNewAddressesDesc'), value: 'new_addresses-desc' },
+      { label: t('multichain.sortNewAddressesAsc'), value: 'new_addresses-asc' },
+      { label: t('multichain.sortTpsDesc'), value: 'tps-desc' },
+      { label: t('multichain.sortTpsAsc'), value: 'tps-asc' },
+    ];
+    return createListCollection({ items });
+  }, [ t ]);
 
   const { data, isError, isPlaceholderData } = useApiQuery('multichainAggregator:chain_metrics', {
     queryParams: getSortParamsFromValue<ChainMetricsSortingValue, ChainMetricsSortingField, ChainMetricsSorting['order']>(sort),
@@ -76,13 +90,13 @@ const MultichainEcosystems = () => {
   return (
     <>
       <PageTitle
-        title="Ecosystems"
+        title={ t('multichain.ecosystems') }
         withTextAd
       />
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no chains in the cluster."
+        emptyText={ t('multichain.noChains') }
       >
         { content }
       </DataListDisplay>

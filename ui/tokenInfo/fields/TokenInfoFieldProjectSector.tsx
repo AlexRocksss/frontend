@@ -1,4 +1,5 @@
 import { createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Fields } from '../types';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const TokenInfoFieldProjectSector = ({ readOnly, config }: Props) => {
+  const { t } = useTranslation();
 
   const collection = React.useMemo(() => {
     const items = config.map((option) => ({ label: option, value: option }));
@@ -21,7 +23,7 @@ const TokenInfoFieldProjectSector = ({ readOnly, config }: Props) => {
   return (
     <FormFieldSelect<Fields, 'project_sector'>
       name="project_sector"
-      placeholder="Project industry"
+      placeholder={ t('tokenInfo.projectIndustry') }
       collection={ collection }
       readOnly={ readOnly }
     />

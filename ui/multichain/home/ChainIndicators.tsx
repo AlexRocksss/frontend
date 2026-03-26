@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { HomeStats } from 'types/api/stats';
@@ -17,6 +18,7 @@ import useChartDataQuery from './useChartDataQuery';
 import useFetchParentChainApi from './useFetchParentChainApi';
 
 const ChainIndicators = () => {
+  const { t } = useTranslation();
   const statsQuery = useApiQuery('multichainStats:pages_main', {
     queryOptions: {
       refetchOnMount: false,
@@ -35,7 +37,7 @@ const ChainIndicators = () => {
   const indicators: Array<TChainIndicator> = React.useMemo(() => ([
     statsQuery.data && {
       id: 'daily_txs' as const,
-      title: statsQuery.data.new_txns_multichain_window?.info?.title || 'Daily transactions',
+      title: statsQuery.data.new_txns_multichain_window?.info?.title || t('multichain.dailyTransactions'),
       value: (() => {
         if (statsQuery.data.yesterday_txns_multichain?.value) {
           return Number(statsQuery.data.yesterday_txns_multichain.value).toLocaleString(undefined, { maximumFractionDigits: 2, notation: 'compact' });
@@ -58,12 +60,12 @@ const ChainIndicators = () => {
         if (statsQuery.data.new_txns_multichain_window?.info) {
           return statsQuery.data.new_txns_multichain_window.info.description;
         }
-        return `Number of transactions yesterday (0:00 - 23:59 UTC). The chart displays daily transactions for the past 30 days.`;
+        return t('multichain.dailyTxsHint');
       })(),
     },
     parentChainStatsQuery.data && {
       id: 'coin_price' as const,
-      title: 'ETH price',
+      title: t('multichain.ethPrice'),
       value: (() => {
         if (parentChainStatsQuery.data.coin_price) {
           return '$' + Number(parentChainStatsQuery.data.coin_price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 });
@@ -72,11 +74,11 @@ const ChainIndicators = () => {
       })(),
       valueDiff: parentChainStatsQuery.data.coin_price_change_percentage ?? undefined,
       icon: <NativeTokenIcon boxSize={ 6 }/>,
-      hint: 'ETH token daily price in USD.',
+      hint: t('multichain.ethPriceHint'),
     },
     parentChainStatsQuery.data && {
       id: 'market_cap' as const,
-      title: 'Market cap',
+      title: t('multichain.marketCap'),
       value: (() => {
         if (parentChainStatsQuery.data.market_cap) {
           return '$' + Number(parentChainStatsQuery.data.market_cap).toLocaleString(undefined, { maximumFractionDigits: 2, notation: 'compact' });
@@ -84,14 +86,13 @@ const ChainIndicators = () => {
         return '$N/A';
       })(),
       icon: <IconSvg name="globe" boxSize={ 6 } bgColor="#6A5DCC" borderRadius="base" color="white"/>,
-      // eslint-disable-next-line max-len
-      hint: 'The total market value of a cryptocurrency\'s circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.',
+      hint: t('multichain.marketCapHint'),
     },
   ]
     .filter(Boolean)
     .filter(isIndicatorEnabled)
     .sort(sortIndicators)
-  ), [ parentChainStatsQuery.data, statsQuery.data ]);
+  ), [ parentChainStatsQuery.data, statsQuery.data, t ]);
 
   const [ selectedIndicatorId, selectIndicatorId ] = React.useState(indicators[0]?.id);
   const selectedIndicator = indicators.find(({ id }) => id === selectedIndicatorId);

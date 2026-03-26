@@ -1,4 +1,5 @@
 import { Grid, GridItem, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -38,6 +39,7 @@ interface Props {
 }
 
 const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => {
+  const { t } = useTranslation();
 
   const containerRef = React.useRef<HTMLFormElement>(null);
   const openEventSent = React.useRef<boolean>(false);
@@ -124,17 +126,17 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
         <TokenInfoFormStatusText application={ application }/>
         <Grid mt={ 8 } gridTemplateColumns={{ base: '1fr', lg: '1fr 1fr' }} columnGap={ 5 } rowGap={ 5 }>
 
-          <FormFieldText<Fields> name="token_name" required placeholder="Token name" { ...fieldProps } readOnly/>
-          <FormFieldAddress<Fields> name="address" required placeholder="Token contract address" { ...fieldProps } readOnly/>
-          <FormFieldText<Fields> name="requester_name" required placeholder="Requester name" { ...fieldProps }/>
-          <FormFieldEmail<Fields> name="requester_email" required placeholder="Requester email" { ...fieldProps }/>
+          <FormFieldText<Fields> name="token_name" required placeholder={ t('tokenInfo.tokenName') } { ...fieldProps } readOnly/>
+          <FormFieldAddress<Fields> name="address" required placeholder={ t('tokenInfo.contractAddress') } { ...fieldProps } readOnly/>
+          <FormFieldText<Fields> name="requester_name" required placeholder={ t('tokenInfo.requesterName') } { ...fieldProps }/>
+          <FormFieldEmail<Fields> name="requester_email" required placeholder={ t('tokenInfo.requesterEmail') } { ...fieldProps }/>
 
-          <TokenInfoFormSectionHeader>Project info</TokenInfoFormSectionHeader>
-          <FormFieldText<Fields> name="project_name" placeholder="Project name" { ...fieldProps } rules={ nonWhitespaceFieldRules }/>
+          <TokenInfoFormSectionHeader>{ t('tokenInfo.projectInfo') }</TokenInfoFormSectionHeader>
+          <FormFieldText<Fields> name="project_name" placeholder={ t('tokenInfo.projectName') } { ...fieldProps } rules={ nonWhitespaceFieldRules }/>
           <TokenInfoFieldProjectSector { ...fieldProps } config={ configQuery.data.projectSectors }/>
-          <FormFieldEmail<Fields> name="project_email" required placeholder="Official project email address" { ...fieldProps }/>
-          <FormFieldUrl<Fields> name="project_website" required placeholder="Official project website" { ...fieldProps }/>
-          <FormFieldUrl<Fields> name="docs" placeholder="Docs" { ...fieldProps }/>
+          <FormFieldEmail<Fields> name="project_email" required placeholder={ t('tokenInfo.projectEmail') } { ...fieldProps }/>
+          <FormFieldUrl<Fields> name="project_website" required placeholder={ t('tokenInfo.projectWebsite') } { ...fieldProps }/>
+          <FormFieldUrl<Fields> name="docs" placeholder={ t('tokenInfo.docs') } { ...fieldProps }/>
           <TokenInfoFieldSupport { ...fieldProps }/>
           <GridItem colSpan={{ base: 1, lg: 2 }}>
             <TokenInfoFieldIconUrl { ...fieldProps }/>
@@ -143,19 +145,18 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
             <FormFieldText<Fields>
               name="project_description"
               required
-              placeholder="Project description"
+              placeholder={ t('tokenInfo.projectDescription') }
               maxH="160px"
               rules={{ maxLength: 300, ...nonWhitespaceFieldRules }}
               asComponent="Textarea"
               { ...fieldProps }
             />
             <Text color="text.secondary" fontSize="sm" mt={ 1 }>
-              Introduce or summarize the project’s operation/goals in a maximum of 300 characters.
-              The description should be written in a neutral point of view and must exclude unsubstantiated claims unless proven otherwise.
+              { t('tokenInfo.projectDescriptionNote') }
             </Text>
           </GridItem>
 
-          <TokenInfoFormSectionHeader>Links</TokenInfoFormSectionHeader>
+          <TokenInfoFormSectionHeader>{ t('tokenInfo.links') }</TokenInfoFormSectionHeader>
           <TokenInfoFieldSocialLink { ...fieldProps } name="github"/>
           <TokenInfoFieldSocialLink { ...fieldProps } name="twitter"/>
           <TokenInfoFieldSocialLink { ...fieldProps } name="telegram"/>
@@ -167,17 +168,17 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
           <TokenInfoFieldSocialLink { ...fieldProps } name="slack"/>
           <TokenInfoFieldSocialLink { ...fieldProps } name="reddit"/>
 
-          <TokenInfoFormSectionHeader>Price data</TokenInfoFormSectionHeader>
-          <FormFieldUrl<Fields> name="ticker_coin_market_cap" placeholder="CoinMarketCap URL" { ...fieldProps }/>
-          <FormFieldUrl<Fields> name="ticker_coin_gecko" placeholder="CoinGecko URL" { ...fieldProps }/>
+          <TokenInfoFormSectionHeader>{ t('tokenInfo.priceData') }</TokenInfoFormSectionHeader>
+          <FormFieldUrl<Fields> name="ticker_coin_market_cap" placeholder={ t('tokenInfo.coinMarketCapUrl') } { ...fieldProps }/>
+          <FormFieldUrl<Fields> name="ticker_coin_gecko" placeholder={ t('tokenInfo.coinGeckoUrl') } { ...fieldProps }/>
           <GridItem colSpan={{ base: 1, lg: 2 }}>
-            <FormFieldUrl<Fields> name="ticker_defi_llama" placeholder="DefiLlama URL" { ...fieldProps }/>
+            <FormFieldUrl<Fields> name="ticker_defi_llama" placeholder={ t('tokenInfo.defiLlamaUrl') } { ...fieldProps }/>
           </GridItem>
 
           <GridItem colSpan={{ base: 1, lg: 2 }}>
             <FormFieldText<Fields>
               name="comment"
-              placeholder="Comment"
+              placeholder={ t('tokenInfo.comment') }
               maxH="160px"
               rules={{ maxLength: 300 }}
               asComponent="Textarea"
@@ -189,10 +190,10 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
           type="submit"
           mt={ 8 }
           loading={ formState.isSubmitting }
-          loadingText="Send request"
+          loadingText={ t('tokenInfo.sendRequest') }
           disabled={ application?.status === 'IN_PROCESS' }
         >
-          Send request
+          { t('tokenInfo.sendRequest') }
         </Button>
       </form>
     </FormProvider>

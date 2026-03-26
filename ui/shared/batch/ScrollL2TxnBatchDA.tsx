@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ScrollL2TxnBatch } from 'types/api/scrollL2';
@@ -11,13 +12,14 @@ export interface Props {
 }
 
 const ScrollL2TxnBatchDA = ({ container, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   const text = (() => {
     switch (container) {
       case 'in_blob4844':
-        return 'EIP-4844 blob';
+        return t('batch.eip4844Blob');
       case 'in_calldata':
-        return 'Calldata';
+        return t('batch.calldata');
     }
   })();
 

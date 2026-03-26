@@ -1,4 +1,5 @@
 import { Flex, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -34,6 +35,7 @@ const InternalTxsListItem = ({
   showBlockInfo = true,
   chainData,
 }: Props) => {
+  const { t } = useTranslation();
   const typeTitle = TX_INTERNALS_ITEMS.find(({ id }) => id === type)?.title;
   const toData = to ? to : createdContract;
 
@@ -61,7 +63,7 @@ const InternalTxsListItem = ({
       </Flex>
       { showBlockInfo && (
         <HStack gap={ 1 }>
-          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Block</Skeleton>
+          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('internalTxs.block') }</Skeleton>
           <BlockEntity
             isLoading={ isLoading }
             number={ blockNumber }
@@ -78,7 +80,7 @@ const InternalTxsListItem = ({
         w="100%"
       />
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value { currencyUnits.ether }</Skeleton>
+        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('internalTxs.value', { ether: currencyUnits.ether }) }</Skeleton>
         <NativeCoinValue
           amount={ value }
           noSymbol

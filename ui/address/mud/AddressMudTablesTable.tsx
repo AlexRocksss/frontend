@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressMudTables } from 'types/api/address';
@@ -15,14 +16,15 @@ type Props = {
 
 //sorry for the naming
 const AddressMudTablesTable = ({ items, isLoading, top, hash }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot style={{ tableLayout: 'auto' }}>
       <TableHeaderSticky top={ top }>
         <TableRow>
           <TableColumnHeader width="24px"></TableColumnHeader>
-          <TableColumnHeader>Full name</TableColumnHeader>
-          <TableColumnHeader>Table ID</TableColumnHeader>
-          <TableColumnHeader>Type</TableColumnHeader>
+          <TableColumnHeader>{ t('address.fullNameHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('address.tableIdHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('address.typeHeader') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

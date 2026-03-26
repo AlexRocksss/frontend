@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const TokenNftMarketplaces = ({ hash, id, isLoading, appActionData, source }: Props) => {
+  const { t } = useTranslation();
   if (!hash || config.UI.views.nft.marketplaces.length === 0) {
     return null;
   }
@@ -52,7 +54,7 @@ const TokenNftMarketplaces = ({ hash, id, isLoading, appActionData, source }: Pr
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Marketplaces trading this NFT"
+        hint={ t('token.hintMarketplaces') }
         isLoading={ isLoading }
       >
         Marketplaces
@@ -64,11 +66,11 @@ const TokenNftMarketplaces = ({ hash, id, isLoading, appActionData, source }: Pr
           <HStack gap={ 3 }>
             { items.map((item) => {
               return (
-                <Tooltip content={ `View on ${ item.name }` } key={ item.name }>
+                <Tooltip content={ t('token.viewOnMarketplace', { name: item.name }) } key={ item.name }>
                   <Link href={ item.href } external noIcon>
                     <Image
                       src={ item.logo_url }
-                      alt={ `${ item.name } marketplace logo` }
+                      alt={ t('token.marketplaceLogo', { name: item.name }) }
                       boxSize={ 5 }
                       borderRadius="full"
                     />

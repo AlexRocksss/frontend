@@ -1,4 +1,5 @@
 import { createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { HotContractsInterval } from 'types/api/contracts';
@@ -9,13 +10,6 @@ import { Select } from 'toolkit/chakra/select';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';
 
 import { INTERVAL_ITEMS } from './utils';
-
-const intervalCollection = createListCollection<SelectOption<string>>({
-  items: INTERVAL_ITEMS.map((item) => ({
-    value: item.id,
-    label: item.labelFull,
-  })),
-});
 
 const intervalItems = INTERVAL_ITEMS.map((item) => ({
   id: item.id,
@@ -29,8 +23,15 @@ interface Props {
 };
 
 const HotContractsIntervalSelect = ({ interval, onIntervalChange, isLoading }: Props) => {
-
+  const { t } = useTranslation();
   const isInitialLoading = useIsInitialLoading(isLoading);
+
+  const intervalCollection = React.useMemo(() => createListCollection<SelectOption<string>>({
+    items: INTERVAL_ITEMS.map((item) => ({
+      value: item.id,
+      label: t(`hotContracts.interval${ item.id }`),
+    })),
+  }), [ t ]);
 
   const handleItemSelect = React.useCallback(({ value }: { value: Array<string> }) => {
     onIntervalChange(value[0] as HotContractsInterval);
@@ -49,7 +50,7 @@ const HotContractsIntervalSelect = ({ interval, onIntervalChange, isLoading }: P
       />
       <Select
         collection={ intervalCollection }
-        placeholder="Select interval"
+        placeholder={ t('hotContracts.selectInterval') }
         value={ [ interval ] }
         onValueChange={ handleItemSelect }
         hideFrom="lg"

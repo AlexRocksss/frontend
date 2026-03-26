@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -33,6 +34,7 @@ interface Props {
 }
 
 const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const [ showSocketAlert, setShowSocketAlert ] = React.useState(false);
   const [ newItemsCount, setNewItemsCount ] = React.useState(0);
 
@@ -107,15 +109,15 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
         <TableRoot tableLayout="auto">
           <TableHeaderSticky top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <TableRow>
-              <TableColumnHeader>Block</TableColumnHeader>
+              <TableColumnHeader>{ t('address.blockHeader') }</TableColumnHeader>
               <TableColumnHeader>
-                Timestamp
+                { t('address.timestampHeader') }
                 <TimeFormatToggle/>
               </TableColumnHeader>
-              <TableColumnHeader>Txn</TableColumnHeader>
-              <TableColumnHeader>Gas used</TableColumnHeader>
+              <TableColumnHeader>{ t('address.txnHeader') }</TableColumnHeader>
+              <TableColumnHeader>{ t('address.gasUsedHeader') }</TableColumnHeader>
               { !config.UI.views.block.hiddenFields?.total_reward && !config.features.rollup.isEnabled &&
-                <TableColumnHeader isNumeric>Reward { currencyUnits.ether }</TableColumnHeader> }
+                <TableColumnHeader isNumeric>{ t('address.rewardHeader', { ether: currencyUnits.ether }) }</TableColumnHeader> }
             </TableRow>
           </TableHeaderSticky>
           <TableBody>
@@ -167,7 +169,7 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
     <DataListDisplay
       isError={ query.isError }
       itemsNum={ query.data?.items.length }
-      emptyText="There are no validated blocks for this address."
+      emptyText={ t('address.noValidatedBlocks') }
       actionBar={ actionBar }
     >
       { content }

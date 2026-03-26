@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const AddressFromToIcon = ({ isLoading, type, className }: Props) => {
+  const { t } = useTranslation();
   const styles = {
     'in': {
       color: { _light: 'green.500', _dark: 'green.200' },
@@ -32,9 +34,9 @@ const AddressFromToIcon = ({ isLoading, type, className }: Props) => {
     },
   };
   const labels = {
-    'in': 'Incoming txn',
-    out: 'Outgoing txn',
-    self: 'Txn to the same address',
+    'in': t('addressDirection.incoming'),
+    out: t('addressDirection.outgoing'),
+    self: t('addressDirection.self'),
   };
 
   const icon = (

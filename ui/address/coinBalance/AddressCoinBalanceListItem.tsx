@@ -1,5 +1,6 @@
 import { Stat, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressCoinBalanceHistoryItem } from 'types/api/address';
@@ -22,6 +23,7 @@ type Props = AddressCoinBalanceHistoryItem & {
 };
 
 const AddressCoinBalanceListItem = (props: Props) => {
+  const { t } = useTranslation();
   const deltaBn = BigNumber(props.delta).div(WEI);
   const isPositiveDelta = deltaBn.gte(ZERO);
 
@@ -46,7 +48,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
         </Skeleton>
       </Flex>
       <Flex columnGap={ 2 } w="100%">
-        <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Block</Skeleton>
+        <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ t('address.blockHeader') }</Skeleton>
         <BlockEntity
           isLoading={ props.isLoading }
           number={ props.block_number }
@@ -57,7 +59,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
       </Flex>
       { props.transaction_hash && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txs</Skeleton>
+          <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ t('address.txsLabel') }</Skeleton>
           <TxEntity
             hash={ props.transaction_hash }
             isLoading={ props.isLoading }
@@ -68,7 +70,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
         </Flex>
       ) }
       <Flex columnGap={ 2 } w="100%">
-        <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Age</Skeleton>
+        <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ t('address.ageLabel') }</Skeleton>
         <TimeWithTooltip
           timestamp={ props.block_timestamp }
           enableIncrement={ props.page === 1 }

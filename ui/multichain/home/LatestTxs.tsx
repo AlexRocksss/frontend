@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -11,6 +12,7 @@ import ChainSelect from 'ui/multichain/components/ChainSelect';
 import LatestTxsLocal from './LatestTxsLocal';
 
 const LatestTxs = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const tab = getQueryParamString(router.query.tab);
   const chainSelect = useRoutedChainSelect();
@@ -20,12 +22,12 @@ const LatestTxs = () => {
   const tabs = [
     {
       id: 'cross_chain_txs',
-      title: 'Cross-chain txns',
+      title: t('multichain.crossChainTxnsTab'),
       component: <EmptyState type="coming_soon" my={ 6 }/>,
     },
     {
       id: 'txs_local',
-      title: 'Local txns',
+      title: t('multichain.localTxnsTab'),
       component: chainSelect.value ? (
         <MultichainProvider chainId={ chainSelect.value[0] }>
           <LatestTxsLocal/>

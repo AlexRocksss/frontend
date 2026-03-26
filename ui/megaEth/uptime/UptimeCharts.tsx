@@ -1,5 +1,6 @@
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import * as d3 from 'd3';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AxesConfigFn } from 'toolkit/components/charts/types';
@@ -78,6 +79,7 @@ interface Props {
 }
 
 const UptimeCharts = ({ historyData }: Props) => {
+  const { t } = useTranslation();
   const [ interval, setInterval ] = React.useState<IntervalId>('3h');
   const chartsConfig = useChartsConfig();
 
@@ -225,7 +227,7 @@ const UptimeCharts = ({ historyData }: Props) => {
         justifyContent="space-between"
         mb={ 6 }
       >
-        <Heading level="2">Real-time statistics</Heading>
+        <Heading level="2">{ t('megaEth.realTimeStats') }</Heading>
         <TagGroupSelect<IntervalId> items={ INTERVALS } onChange={ handleIntervalChange } value={ interval } tagSize="lg"/>
       </Flex>
       <Grid
@@ -234,7 +236,7 @@ const UptimeCharts = ({ historyData }: Props) => {
       >
         <GridItem colSpan={{ base: 1, lg: 2 }} minH={{ base: '220px', lg: '320px' }}>
           <ChartWidget
-            title="TPS"
+            title={ t('megaEth.tps') }
             charts={ tpsCharts }
             isLoading={ false }
             isError={ false }
@@ -243,7 +245,7 @@ const UptimeCharts = ({ historyData }: Props) => {
         </GridItem>
         <GridItem minH={{ base: '220px', lg: '320px' }}>
           <ChartWidget
-            title="MGas/s"
+            title={ t('megaEth.mGasS') }
             charts={ gasCharts }
             isLoading={ false }
             isError={ false }
@@ -252,7 +254,7 @@ const UptimeCharts = ({ historyData }: Props) => {
         </GridItem>
         <GridItem minH={{ base: '220px', lg: '320px' }}>
           <ChartWidget
-            title="Block time (ms)"
+            title={ t('megaEth.blockTimeMs') }
             charts={ blockIntervalCharts }
             isLoading={ false }
             isError={ false }

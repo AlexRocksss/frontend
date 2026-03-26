@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import * as DetailedInfo from './DetailedInfo';
@@ -11,17 +12,18 @@ type Props = {
 };
 
 const DetailedInfoActionsWrapper = ({ children, isLoading, type }: Props) => {
+  const { t } = useTranslation();
   const [ hasScroll, setHasScroll ] = React.useState(false);
 
   return (
     <>
       <DetailedInfo.ItemLabel
         id={ TX_ACTIONS_BLOCK_ID }
-        hint={ `Highlighted events of the ${ type === 'tx' ? 'transaction' : 'user operation' }` }
+        hint={ type === 'tx' ? t('detailedInfo.txHighlight') : t('detailedInfo.userOpHighlight') }
         isLoading={ isLoading }
         hasScroll={ hasScroll }
       >
-        <span>{ `${ type === 'tx' ? 'Transaction' : 'User operation' } action` }</span>
+        <span>{ type === 'tx' ? t('detailedInfo.txAction') : t('detailedInfo.userOpAction') }</span>
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValueWithScroll
         gradientHeight={ 48 }

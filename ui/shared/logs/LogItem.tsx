@@ -1,4 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Log } from 'types/api/log';
@@ -10,7 +11,6 @@ import { route } from 'nextjs-routes';
 import { Alert } from 'toolkit/chakra/alert';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
-import { space } from 'toolkit/utils/htmlEntities';
 import DetailedInfoTimestamp from 'ui/shared/DetailedInfo/DetailedInfoTimestamp';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -47,6 +47,7 @@ const LogItem = ({
   defaultDataType,
   chainData,
 }: Props) => {
+  const { t } = useTranslation();
 
   const hasTxInfo = type === 'address' && txHash;
 
@@ -66,12 +67,14 @@ const LogItem = ({
       { !decoded && !address.is_verified && type === 'transaction' && (
         <GridItem colSpan={{ base: 1, lg: 2 }}>
           <Alert status="warning" display="inline-table" whiteSpace="normal">
-            To see accurate decoded input data, the contract must be verified.{ space }
-            <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: address.hash } }) }>Verify the contract here</Link>
+            { t('alert.verifyContractPrompt') }
+            <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: address.hash } }) }>{ t('alert.verifyContractLink') }</Link>
           </Alert>
         </GridItem>
       ) }
-      { hasTxInfo ? <RowHeader isLoading={ isLoading }>Transaction</RowHeader> : <RowHeader isLoading={ isLoading }>Address</RowHeader> }
+      { hasTxInfo ?
+        <RowHeader isLoading={ isLoading }>{ t('log.transaction') }</RowHeader> :
+        <RowHeader isLoading={ isLoading }>{ t('log.address') }</RowHeader> }
       <GridItem display="flex" alignItems="center">
         { type === 'address' && txHash ? (
           <TxEntity
@@ -107,7 +110,7 @@ const LogItem = ({
       </GridItem>
       { hasTxInfo && blockTimestamp ? (
         <>
-          <RowHeader isLoading={ isLoading }>Timestamp</RowHeader>
+          <RowHeader isLoading={ isLoading }>{ t('log.timestamp') }</RowHeader>
           <GridItem>
             <DetailedInfoTimestamp timestamp={ blockTimestamp } isLoading={ isLoading }/>
           </GridItem>
@@ -115,13 +118,13 @@ const LogItem = ({
       ) : null }
       { decoded && (
         <>
-          <RowHeader isLoading={ isLoading }>Decode input data</RowHeader>
+          <RowHeader isLoading={ isLoading }>{ t('log.decodeInputData') }</RowHeader>
           <GridItem>
             <LogDecodedInputData data={ decoded } isLoading={ isLoading }/>
           </GridItem>
         </>
       ) }
-      <RowHeader isLoading={ isLoading }>Topics</RowHeader>
+      <RowHeader isLoading={ isLoading }>{ t('log.topics') }</RowHeader>
       <GridItem>
         { topics.filter(Boolean).map((item, index) => (
           <LogTopic
@@ -132,7 +135,7 @@ const LogItem = ({
           />
         )) }
       </GridItem>
-      <RowHeader isLoading={ isLoading }>Data</RowHeader>
+      <RowHeader isLoading={ isLoading }>{ t('log.data') }</RowHeader>
       { defaultDataType ? (
         <RawInputData hex={ data } isLoading={ isLoading } defaultDataType={ defaultDataType } minHeight="53px"/>
       ) : (

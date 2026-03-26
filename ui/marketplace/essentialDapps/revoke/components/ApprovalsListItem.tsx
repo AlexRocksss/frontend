@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -31,6 +32,7 @@ export default function ApprovalsListItem({
   isAddressMatch,
   hideApproval,
 }: Props) {
+  const { t } = useTranslation();
   const revoke = useRevoke();
   const [ isPending, setIsPending ] = useState(false);
 
@@ -58,7 +60,7 @@ export default function ApprovalsListItem({
         paddingBottom: 0,
       }}
     >
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Token</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('marketplace.revokeTokenHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value display="flex" flexDir="column" gap={ 2 } color="inherit">
         <TokenEntity
           token={{
@@ -84,7 +86,7 @@ export default function ApprovalsListItem({
           link={{ noIcon: true, external: true }}
         />
       </ListItemMobileGrid.Value>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Approved spender</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('marketplace.revokeApprovedSpenderHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <AddressEntity
           address={{ hash: approval.spender }}
@@ -95,7 +97,7 @@ export default function ApprovalsListItem({
           link={{ noIcon: true, external: true }}
         />
       </ListItemMobileGrid.Value>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Approved amount</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('marketplace.revokeApprovedAmountHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value color="inherit">
         <Skeleton loading={ isLoading }>
           <NumberEntity
@@ -106,7 +108,7 @@ export default function ApprovalsListItem({
           />
         </Skeleton>
       </ListItemMobileGrid.Value>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Value at risk</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('marketplace.revokeValueAtRiskHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value color="inherit">
         <Skeleton loading={ isLoading }>
           { approval.valueAtRiskUsd ? (
@@ -117,7 +119,7 @@ export default function ApprovalsListItem({
           ) : '-' }
         </Skeleton>
       </ListItemMobileGrid.Value>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Last updated</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('marketplace.revokeLastUpdatedHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value color="inherit">
         <Skeleton loading={ isLoading } display="flex" flexDir="column" rowGap={ 2 }>
           <Time timestamp={ approval.timestamp }/>
@@ -132,7 +134,7 @@ export default function ApprovalsListItem({
           onClick={ handleRevoke }
           gridColumn="span 2"
         >
-          Revoke
+          { t('marketplace.revokeAction') }
         </Button>
       ) }
     </ListItemMobileGrid.Container>

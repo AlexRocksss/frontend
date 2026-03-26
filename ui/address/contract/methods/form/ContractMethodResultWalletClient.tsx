@@ -1,4 +1,5 @@
 import { chakra, Spinner, Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { UseWaitForTransactionReceiptReturnType } from 'wagmi';
 import { useWaitForTransactionReceipt } from 'wagmi';
@@ -31,6 +32,7 @@ export interface PropsDumb {
 }
 
 export const ContractMethodResultWalletClientDumb = ({ data, onSettle, txInfo }: PropsDumb) => {
+  const { t } = useTranslation();
   const txHash = data && 'hash' in data ? data.hash : undefined;
 
   React.useEffect(() => {
@@ -46,7 +48,7 @@ export const ContractMethodResultWalletClientDumb = ({ data, onSettle, txInfo }:
   const isErrorResult = 'message' in data;
 
   const txLink = txHash ? (
-    <Link href={ route({ pathname: '/tx/[hash]', query: { hash: txHash } }) }>View transaction details</Link>
+    <Link href={ route({ pathname: '/tx/[hash]', query: { hash: txHash } }) }>{ t('address.viewTransactionDetails') }</Link>
   ) : null;
 
   const content = (() => {
@@ -62,7 +64,7 @@ export const ContractMethodResultWalletClientDumb = ({ data, onSettle, txInfo }:
       case 'success': {
         return (
           <>
-            <span>Transaction has been confirmed. </span>
+            <span>{ t('address.transactionConfirmed') }</span>
             { txLink }
           </>
         );
@@ -73,7 +75,7 @@ export const ContractMethodResultWalletClientDumb = ({ data, onSettle, txInfo }:
           <>
             <Spinner size="sm" mr={ 3 }/>
             <chakra.span verticalAlign="text-bottom">
-              { 'Waiting for transaction\'s confirmation. ' }
+              { t('address.waitingForConfirmation') }
               { txLink }
             </chakra.span>
           </>

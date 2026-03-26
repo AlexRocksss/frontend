@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import { groupBy, mapValues } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
@@ -34,6 +35,7 @@ interface Props {
 }
 
 const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChange }: Props) => {
+  const { t } = useTranslation();
   const config = multichainConfig();
   const router = useRouter();
 
@@ -140,16 +142,16 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
       const hasOneToken = allTokensQuery.data?.items?.length === 1;
       if (hasOneToken) {
         return [
-          { symbol: allTokensQuery.data?.items?.[0]?.token.symbol ?? 'Unknown', share: 1 },
+          { symbol: allTokensQuery.data?.items?.[0]?.token.symbol ?? t('multichain.unnamedToken'), share: 1 },
         ];
       }
       return [
-        { symbol: 'Others', share: 1 },
+        { symbol: t('multichain.othersSegment'), share: 1 },
       ];
     }
 
     const usdBalances = allTokensQuery.data?.items?.map((item) => ({
-      symbol: item.token.symbol ?? 'Unknown',
+      symbol: item.token.symbol ?? t('multichain.unnamedToken'),
       usd: calculateUsdValue(item).usd,
     }));
     const groups = groupBy(usdBalances ?? [], (item) => item.symbol);
@@ -171,18 +173,18 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
     return [
       ...topTokens,
       othersShare > 0 ? {
-        symbol: 'Others',
+        symbol: t('multichain.othersSegment'),
         share: othersShare,
       } : undefined,
     ].filter(Boolean);
-  }, [ allTokensQuery.data?.items, portfolioQuery.data?.portfolio?.total_value ]);
+  }, [ allTokensQuery.data?.items, portfolioQuery.data?.portfolio?.total_value, t ]);
 
   const searchInput = (
     <FilterInput
       w={{ base: '100%', lg: '350px' }}
       size="sm"
       onChange={ handleSearchTermChange }
-      placeholder="Filter by token name or symbol"
+      placeholder={ t('multichain.portfolioFilterPlaceholder') }
       initialValue={ searchTerm }
     />
   );

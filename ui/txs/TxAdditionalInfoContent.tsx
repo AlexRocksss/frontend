@@ -1,5 +1,6 @@
 import { Box, Text, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -18,6 +19,7 @@ import Utilization from 'ui/shared/Utilization/Utilization';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 
 const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
 
   const sectionProps = {
@@ -38,7 +40,7 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
       { tx.blob_versioned_hashes && tx.blob_versioned_hashes.length > 0 && (
         <Box { ...sectionProps } mb={ 4 }>
           <Flex alignItems="center" justifyContent="space-between">
-            <Text { ...sectionTitleProps }>Blobs: { tx.blob_versioned_hashes.length }</Text>
+            <Text { ...sectionTitleProps }>{ t('tx.blobsCount', { count: tx.blob_versioned_hashes.length }) }</Text>
             { tx.blob_versioned_hashes.length > 3 && (
               <Link
                 href={ route({ pathname: '/tx/[hash]', query: { hash: tx.hash, tab: 'blobs' } }) }
@@ -59,7 +61,7 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
         </Box>
       ) }
       <Box { ...sectionProps } mb={ 4 }>
-        <Text { ...sectionTitleProps }>Value</Text>
+        <Text { ...sectionTitleProps }>{ t('tx.value') }</Text>
         <NativeCoinValue
           amount={ tx.value }
           exchangeRate={ tx.exchange_rate }
@@ -69,13 +71,13 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
       </Box>
       { !config.UI.views.tx.hiddenFields?.tx_fee && (tx.stability_fee !== undefined || tx.fee.value !== null) && (
         <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Transaction fee</Text>
+          <Text { ...sectionTitleProps }>{ t('tx.transactionFee') }</Text>
           <TxFee tx={ tx } rowGap={ 0 } noTooltip/>
         </Box>
       ) }
       { tx.gas_used !== null && (
         <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Gas limit & usage by transaction</Text>
+          <Text { ...sectionTitleProps }>{ t('tx.gasLimitAndUsage') }</Text>
           <Flex>
             <Text>{ BigNumber(tx.gas_used).toFormat() }</Text>
             <TextSeparator/>
@@ -87,10 +89,10 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
       { !config.UI.views.tx.hiddenFields?.gas_fees &&
         (tx.base_fee_per_gas !== null || tx.max_fee_per_gas !== null || tx.max_priority_fee_per_gas !== null) && (
         <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Gas fees ({ currencyUnits.gwei })</Text>
+          <Text { ...sectionTitleProps }>{ t('tx.gasFees', { gwei: currencyUnits.gwei }) }</Text>
           { tx.base_fee_per_gas !== null && (
             <Box>
-              <Text as="span" fontWeight="500">Base: </Text>
+              <Text as="span" fontWeight="500">{ t('tx.base') }</Text>
               <NativeCoinValue
                 amount={ tx.base_fee_per_gas }
                 units="gwei"
@@ -102,7 +104,7 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
           ) }
           { tx.max_fee_per_gas !== null && (
             <Box mt={ 1 }>
-              <Text as="span" fontWeight="500">Max: </Text>
+              <Text as="span" fontWeight="500">{ t('tx.max') }</Text>
               <NativeCoinValue
                 amount={ tx.max_fee_per_gas }
                 units="gwei"
@@ -114,7 +116,7 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
           ) }
           { tx.max_priority_fee_per_gas !== null && (
             <Box mt={ 1 }>
-              <Text as="span" fontWeight="500">Max priority: </Text>
+              <Text as="span" fontWeight="500">{ t('tx.maxPriority') }</Text>
               <NativeCoinValue
                 amount={ tx.max_priority_fee_per_gas }
                 units="gwei"
@@ -128,23 +130,23 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
       ) }
       { !(tx.blob_versioned_hashes && tx.blob_versioned_hashes.length > 0) && (
         <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Others</Text>
+          <Text { ...sectionTitleProps }>{ t('tx.others') }</Text>
           <Box>
-            <Text as="span" fontWeight="500">Txn type: </Text>
+            <Text as="span" fontWeight="500">{ t('tx.txnType') }</Text>
             <Text fontWeight="600" as="span">{ tx.type }</Text>
             { tx.type === 2 && <Text fontWeight="400" as="span" ml={ 1 } color="text.secondary">(EIP-1559)</Text> }
           </Box>
           <Box mt={ 1 }>
-            <Text as="span" fontWeight="500">Nonce: </Text>
+            <Text as="span" fontWeight="500">{ t('tx.noncePrefixed') }</Text>
             <Text fontWeight="600" as="span">{ tx.nonce }</Text>
           </Box>
           <Box mt={ 1 }>
-            <Text as="span" fontWeight="500">Position: </Text>
+            <Text as="span" fontWeight="500">{ t('tx.positionPrefixed') }</Text>
             <Text fontWeight="600" as="span">{ tx.position }</Text>
           </Box>
         </Box>
       ) }
-      <Link href={ route({ pathname: '/tx/[hash]', query: { hash: tx.hash } }, multichainContext) }>More details</Link>
+      <Link href={ route({ pathname: '/tx/[hash]', query: { hash: tx.hash } }, multichainContext) }>{ t('tx.moreDetails') }</Link>
     </>
   );
 };

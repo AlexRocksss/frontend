@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressWithdrawalsItem } from 'types/api/address';
@@ -29,6 +30,7 @@ type Props = {
 });
 
 const BeaconChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) => {
+  const { t } = useTranslation();
   const { cutRef, renderedItemsNum } = useLazyRenderedList(items, !isLoading);
 
   if (!feature.isEnabled) {
@@ -40,12 +42,12 @@ const BeaconChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) => 
       <TableRoot style={{ tableLayout: 'auto' }} minW="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader>Index</TableColumnHeader>
-            <TableColumnHeader>Validator index</TableColumnHeader>
-            { view !== 'block' && <TableColumnHeader>Block</TableColumnHeader> }
-            { view !== 'address' && <TableColumnHeader>To</TableColumnHeader> }
-            { view !== 'block' && <TableColumnHeader>Timestamp<TimeFormatToggle/></TableColumnHeader> }
-            <TableColumnHeader>{ `Value ${ feature.currency.symbol }` }</TableColumnHeader>
+            <TableColumnHeader>{ t('withdrawals.indexLabel') }</TableColumnHeader>
+            <TableColumnHeader>{ t('withdrawals.validatorIndexLabel') }</TableColumnHeader>
+            { view !== 'block' && <TableColumnHeader>{ t('withdrawals.blockLabel') }</TableColumnHeader> }
+            { view !== 'address' && <TableColumnHeader>{ t('withdrawals.toLabel') }</TableColumnHeader> }
+            { view !== 'block' && <TableColumnHeader>{ t('withdrawals.timestampHeader') }<TimeFormatToggle/></TableColumnHeader> }
+            <TableColumnHeader>{ t('withdrawals.valueWithSymbol', { symbol: feature.currency.symbol }) }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

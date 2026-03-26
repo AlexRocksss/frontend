@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const TxTokenTransferLocal = ({ txQuery, tokenTransferQuery, tokenTransferFilter, numActiveFilters }: Props) => {
+  const { t } = useTranslation();
 
   let items: Array<TokenTransfer> = [];
 
@@ -45,7 +47,7 @@ const TxTokenTransferLocal = ({ txQuery, tokenTransferQuery, tokenTransferFilter
     <DataListDisplay
       isError={ txQuery.isError || tokenTransferQuery.isError }
       itemsNum={ items.length }
-      emptyText="There are no token transfers."
+      emptyText={ t('tokenTransfers.noTransfers') }
       hasActiveFilters={ Boolean(numActiveFilters) }
       emptyStateProps={{
         term: 'token transfer',

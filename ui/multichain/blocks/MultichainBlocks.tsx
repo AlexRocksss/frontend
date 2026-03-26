@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -33,6 +34,7 @@ const TAB_LIST_PROPS = {
 };
 
 const MultichainBlocks = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const tab = getQueryParamString(router.query.tab);
   const isMobile = useIsMobile();
@@ -77,9 +79,12 @@ const MultichainBlocks = () => {
   });
 
   const tabs: Array<TabItemRegular> = [
-    { id: 'blocks', title: 'All', component: <MultichainBlocksContent type="block" query={ blocksQuery } chainId={ blocksQuery.chainValue?.[0] }/> },
-    { id: 'reorgs', title: 'Forked', component: <MultichainBlocksContent type="reorg" query={ reorgsQuery } chainId={ reorgsQuery.chainValue?.[0] }/> },
-    { id: 'uncles', title: 'Uncles', component: <MultichainBlocksContent type="uncle" query={ unclesQuery } chainId={ unclesQuery.chainValue?.[0] }/> },
+    { id: 'blocks', title: t('multichain.allTab'),
+      component: <MultichainBlocksContent type="block" query={ blocksQuery } chainId={ blocksQuery.chainValue?.[0] }/> },
+    { id: 'reorgs', title: t('multichain.forkedTab'),
+      component: <MultichainBlocksContent type="reorg" query={ reorgsQuery } chainId={ reorgsQuery.chainValue?.[0] }/> },
+    { id: 'uncles', title: t('multichain.unclesTab'),
+      component: <MultichainBlocksContent type="uncle" query={ unclesQuery } chainId={ unclesQuery.chainValue?.[0] }/> },
   ];
 
   const currentQuery = (() => {
@@ -103,7 +108,7 @@ const MultichainBlocks = () => {
     <HStack gap={ 8 } hideBelow="lg">
       <Link href={ route({ pathname: '/block/countdown' }, { chain: currentChainInfo }) }>
         <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
-        <span>Block countdown</span>
+        <span>{ t('multichain.blockCountdown') }</span>
       </Link>
       <Pagination { ...currentQuery.pagination }/>
     </HStack>
@@ -113,7 +118,7 @@ const MultichainBlocks = () => {
     <>
       <PageTitle
         withTextAd
-        title="Blocks"
+        title={ t('multichain.blocks') }
       />
       <RoutedTabs
         tabs={ tabs }

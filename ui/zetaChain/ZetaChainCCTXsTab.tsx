@@ -1,4 +1,5 @@
 import { capitalize, omit } from 'es-toolkit/compat';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -37,6 +38,7 @@ const hasNextPageFn = (nextPageParams: Record<string, unknown>) => {
 };
 
 const ZetaChainCCTXsTab = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const tab = getQueryParamString(router.query.tab);
   const isMobile = useIsMobile();
@@ -141,7 +143,7 @@ const ZetaChainCCTXsTab = () => {
         /> },
     {
       id: 'cctx_pending',
-      title: 'Pending',
+      title: t('zetaChain.pendingTab'),
       component: (
         <ZetaChainCCTxs
           pagination={ cctxsPendingQuery.pagination }

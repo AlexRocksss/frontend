@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -34,6 +35,7 @@ const TAB_LIST_PROPS = {
 };
 
 const MultichainTokenTransfers = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const router = useRouter();
   const tab = getQueryParamString(router.query.tab);
@@ -60,12 +62,12 @@ const MultichainTokenTransfers = () => {
     return [
       {
         id: 'index',
-        title: 'Cross-chain',
+        title: t('multichain.crossChainTab'),
         component: <EmptyState type="coming_soon"/>,
       },
       {
         id: 'local',
-        title: 'Local',
+        title: t('multichain.localTab'),
         component: (
           <MultichainProvider chainId={ chainId }>
             <MultichainTokenTransfersLocal
@@ -77,7 +79,7 @@ const MultichainTokenTransfers = () => {
         ),
       },
     ];
-  }, [ queryLocal.query, queryLocal.typeFilter, queryLocal.onTokenTypesChange, chainId ]);
+  }, [ queryLocal.query, queryLocal.typeFilter, queryLocal.onTokenTypesChange, chainId, t ]);
 
   const filter = isLocalTab && (
     <PopoverFilter contentProps={{ w: '200px' }} appliedFiltersNum={ queryLocal.typeFilter.length }>
@@ -106,7 +108,7 @@ const MultichainTokenTransfers = () => {
     <>
       <PageTitle
         withTextAd
-        title="Token transfers"
+        title={ t('multichain.tokenTransfers') }
       />
       <RoutedTabs
         tabs={ tabs }

@@ -1,4 +1,5 @@
 import { chakra, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { getFeaturePayload } from 'configs/app/features/types';
@@ -19,23 +20,23 @@ interface Props extends ButtonProps {
   canRate: boolean;
 };
 
-const getTooltipText = (canRate: boolean) => {
-  if (!canRate) {
-    return <>Please log in to Blockscout to rate this { (getFeaturePayload(config.features.marketplace)?.titles.entity_name ?? '').toLowerCase() }.</>;
-  }
-  return <>Ratings come from verified users.<br/>Click here to rate!</>;
-};
-
 const TriggerButton = (
   { rating, count, fullView, canRate, onClick, ...rest }: Props,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) => {
+  const { t } = useTranslation();
   const onFocusCapture = usePreventFocusAfterModalClosing();
   const isMobile = useIsMobile();
 
+  const tooltipText = canRate ? (
+    <>{ t('marketplace.ratingsFromVerified') }<br/>{ t('marketplace.clickHereToRate') }</>
+  ) : (
+    <>{ t('marketplace.loginToRate', { entityName: (getFeaturePayload(config.features.marketplace)?.titles.entity_name ?? '').toLowerCase() }) }</>
+  );
+
   return (
     <Tooltip
-      content={ getTooltipText(canRate) }
+      content={ tooltipText }
       closeOnClick={ Boolean(canRate) || isMobile }
       disableOnMobile={ canRate }
     >
@@ -68,7 +69,7 @@ const TriggerButton = (
                 <Text color="text.secondary" ml={ 1 }>({ count })</Text>
               </chakra.span>
             ) : (
-              'Rate it!'
+              t('marketplace.rateIt')
             ) }
           </Button>
         </PopoverTrigger>

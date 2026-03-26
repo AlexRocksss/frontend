@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -29,6 +30,7 @@ type Inputs = {
 };
 
 const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAlertVisible }) => {
+  const { t } = useTranslation();
   const [ pending, setPending ] = useState(false);
 
   const formApi = useForm<Inputs>({
@@ -89,7 +91,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
       <form noValidate onSubmit={ formApi.handleSubmit(onSubmit) }>
         <FormFieldText<Inputs>
           name="transaction"
-          placeholder="Transaction hash (0x...)"
+          placeholder={ t('privateTags.transactionHashPlaceholder') }
           required
           rules={{
             maxLength: TRANSACTION_HASH_LENGTH,
@@ -100,7 +102,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
         />
         <FormFieldText<Inputs>
           name="tag"
-          placeholder="Private tag (max 35 characters)"
+          placeholder={ t('privateTags.privateTagPlaceholder') }
           required
           rules={{
             maxLength: TAG_MAX_LENGTH,
@@ -114,7 +116,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
             disabled={ !formApi.formState.isDirty }
             loading={ pending }
           >
-            { data ? 'Save changes' : 'Add tag' }
+            { data ? t('privateTags.saveChanges') : t('privateTags.addTag') }
           </Button>
         </Box>
       </form>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -14,6 +15,8 @@ export interface Props extends BadgeProps {
 }
 
 const TxStatus = ({ status, errorText, isLoading, ...rest }: Props) => {
+  const { t } = useTranslation();
+
   if (status === undefined) {
     return null;
   }
@@ -23,15 +26,15 @@ const TxStatus = ({ status, errorText, isLoading, ...rest }: Props) => {
 
   switch (status) {
     case 'ok':
-      text = 'Success';
+      text = t('status.success');
       type = 'ok';
       break;
     case 'error':
-      text = 'Failed';
+      text = t('status.failed');
       type = 'error';
       break;
     case null:
-      text = 'Pending';
+      text = t('status.pending');
       type = 'pending';
       break;
   }

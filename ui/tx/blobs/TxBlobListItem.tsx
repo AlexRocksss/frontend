@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxBlob } from 'types/api/blobs';
@@ -13,21 +14,22 @@ interface Props {
 }
 
 const TxBlobListItem = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   const size = data.blob_data ? data.blob_data.replace('0x', '').length / 2 : '-';
 
   return (
     <ListItemMobileGrid.Container>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Blob hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.blobHash') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BlobEntity hash={ data.hash } isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Data type</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.dataType') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         { data.blob_data ? <BlobDataType isLoading={ isLoading } data={ data.blob_data }/> : '-' }
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Size, bytes</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('tx.sizeBytes') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
           { size.toLocaleString() }

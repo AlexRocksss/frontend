@@ -3,6 +3,7 @@ import { Box, Flex, useToken, Center } from '@chakra-ui/react';
 import type { EditorProps } from '@monaco-editor/react';
 import MonacoEditor from '@monaco-editor/react';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { File, Monaco } from './types';
@@ -49,6 +50,7 @@ interface Props {
 }
 
 const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractName }: Props) => {
+  const { t } = useTranslation();
   const [ instance, setInstance ] = React.useState<Monaco | undefined>();
   const [ editor, setEditor ] = React.useState<monaco.editor.IStandaloneCodeEditor | undefined>();
   const [ index, setIndex ] = React.useState(0);
@@ -262,8 +264,8 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
   }), [ editorWidth, themeColors, borderRadius ]);
 
   const renderErrorScreen = React.useCallback(() => {
-    return <Center bgColor={ themeColors['editor.background'] } w="100%" h="100%" borderRadius="md">Oops! Something went wrong!</Center>;
-  }, [ themeColors ]);
+    return <Center bgColor={ themeColors['editor.background'] } w="100%" h="100%" borderRadius="md">{ t('codeEditor.error') }</Center>;
+  }, [ themeColors, t ]);
 
   if (data.length === 1) {
     const css = {

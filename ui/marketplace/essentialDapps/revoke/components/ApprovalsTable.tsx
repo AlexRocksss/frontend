@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -23,21 +24,23 @@ export default function ApprovalsTable({
   isAddressMatch,
   hideApproval,
 }: Props) {
+  const { t } = useTranslation();
+
   return (
     <TableRoot>
       <TableHeaderSticky top={ 136 }>
         <TableRow>
-          <TableColumnHeader w="30%">Token</TableColumnHeader>
-          <TableColumnHeader w="15%">Approved spender</TableColumnHeader>
+          <TableColumnHeader w="30%">{ t('marketplace.revokeTokenHeader') }</TableColumnHeader>
+          <TableColumnHeader w="15%">{ t('marketplace.revokeApprovedSpenderHeader') }</TableColumnHeader>
           <TableColumnHeader w="20%" isNumeric>
-            Approved amount
+            { t('marketplace.revokeApprovedAmountHeader') }
           </TableColumnHeader>
           <TableColumnHeader w="17%" isNumeric>
-            Value at risk
+            { t('marketplace.revokeValueAtRiskHeader') }
           </TableColumnHeader>
           <TableColumnHeader w={ isAddressMatch ? '30px' : '50px' }/>
           <TableColumnHeader w="18%">
-            Last updated
+            { t('marketplace.revokeLastUpdatedHeader') }
             <TimeFormatToggle/>
           </TableColumnHeader>
           { isAddressMatch && <TableColumnHeader w="95px" isNumeric/> }

@@ -1,4 +1,5 @@
 import { createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import hexToUtf8 from 'lib/hexToUtf8';
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const RawInputData = ({ hex, rightSlot: rightSlotProp, defaultDataType = 'Hex', isLoading, minHeight }: Props) => {
+  const { t } = useTranslation();
   const [ selectedDataType, setSelectedDataType ] = React.useState<DataType>(defaultDataType);
 
   const handleValueChange = React.useCallback(({ value }: { value: Array<string> }) => {
@@ -36,7 +38,7 @@ const RawInputData = ({ hex, rightSlot: rightSlotProp, defaultDataType = 'Hex', 
     <>
       <Select
         collection={ collection }
-        placeholder="Select type"
+        placeholder={ t('shared.selectType') }
         defaultValue={ [ defaultDataType ] }
         onValueChange={ handleValueChange }
         w="100px"

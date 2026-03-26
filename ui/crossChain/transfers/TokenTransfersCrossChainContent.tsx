@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainTransfer } from '@blockscout/interchain-indexer-types';
@@ -20,6 +21,7 @@ interface Props extends Omit<DataListDisplayProps, 'children'> {
 }
 
 const TokenTransfersCrossChainContent = ({ items, isLoading, pagination, currentAddress, tableTop, ...rest }: Props) => {
+  const { t } = useTranslation();
 
   const content = items ? (
     <>
@@ -50,7 +52,7 @@ const TokenTransfersCrossChainContent = ({ items, isLoading, pagination, current
   return (
     <DataListDisplay
       itemsNum={ items?.length }
-      emptyText="There are no cross-chain token transfers."
+      emptyText={ t('crossChain.noTokenTransfers') }
       emptyStateProps={{
         term: 'token transfer',
       }}

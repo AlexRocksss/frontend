@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { CustomAbi } from 'types/api/account';
@@ -14,8 +15,9 @@ type Props = {
 };
 
 const CustomAbiModal: React.FC<Props> = ({ open, onOpenChange, data, onSuccess }) => {
-  const title = data && 'id' in data ? 'Edit custom ABI' : 'New custom ABI';
-  const text = !(data && 'id' in data) ? 'Double check the ABI matches the contract to prevent errors or incorrect results.' : '';
+  const { t } = useTranslation();
+  const title = data && 'id' in data ? t('customAbi.editTitle') : t('customAbi.newTitle');
+  const text = !(data && 'id' in data) ? t('customAbi.newText') : '';
 
   const [ isAlertVisible, setAlertVisible ] = useState(false);
 

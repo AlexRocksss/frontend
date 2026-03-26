@@ -1,4 +1,5 @@
 import { Flex, GridItem, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { OptimisticL2BlobTypeCelestia } from 'types/api/optimisticL2';
@@ -18,12 +19,13 @@ interface Props {
 }
 
 const OptimisticL2TxnBatchBlobCelestia = ({ blobs, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <VStack rowGap={ 2 } w="100%">
       { blobs.map((blob) => {
         return (
           <OptimisticL2TxnBatchBlobWrapper key={ blob.commitment } isLoading={ isLoading } gridTemplateColumns="auto 1fr auto">
-            <GridItem fontWeight={ 600 }>Commitment</GridItem>
+            <GridItem fontWeight={ 600 }>{ t('txnBatches.commitmentLabel') }</GridItem>
             <GridItem overflow="hidden">
               <Flex minW="0" w="calc(100% - 20px)">
                 <HashStringShortenDynamic hash={ blob.commitment }/>
@@ -31,15 +33,15 @@ const OptimisticL2TxnBatchBlobCelestia = ({ blobs, isLoading }: Props) => {
               </Flex>
             </GridItem>
             <CeleniumLink commitment={ blob.commitment } namespace={ blob.namespace } height={ blob.height } fallback={ <GridItem/> }/>
-            <GridItem fontWeight={ 600 }>Height</GridItem>
+            <GridItem fontWeight={ 600 }>{ t('txnBatches.heightLabel') }</GridItem>
             <GridItem colSpan={ 2 }>
               { blob.height }
             </GridItem>
-            <GridItem fontWeight={ 600 }>Timestamp</GridItem>
+            <GridItem fontWeight={ 600 }>{ t('txnBatches.timestampLabel') }</GridItem>
             <GridItem overflow="hidden" colSpan={ 2 }>
               <DetailedInfoTimestamp timestamp={ blob.l1_timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }}/>
             </GridItem>
-            <GridItem fontWeight={ 600 }>{ layerLabels.parent } txn hash</GridItem>
+            <GridItem fontWeight={ 600 }>{ t('txnBatches.parentTxHashLabel', { parent: layerLabels.parent }) }</GridItem>
             <GridItem overflow="hidden" colSpan={ 2 }>
               <TxEntityL1 hash={ blob.l1_transaction_hash } noIcon/>
             </GridItem>

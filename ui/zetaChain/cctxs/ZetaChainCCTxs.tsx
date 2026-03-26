@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { CctxStatusReduced, type CctxListItem, type ListCctxsResponse } from '@blockscout/zetachain-cctx-types';
@@ -45,6 +46,7 @@ const ZetaChainCCTxs = ({
   showStatusFilter = true,
   type,
 }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
   const [ showSocketErrorAlert, setShowSocketErrorAlert ] = React.useState(false);
@@ -182,7 +184,7 @@ const ZetaChainCCTxs = ({
     <DataListDisplay
       isError={ isError }
       itemsNum={ items?.length }
-      emptyText="There are no cross chain transactions."
+      emptyText={ t('zetaChain.noCCTxs') }
       hasActiveFilters={ hasFilters }
       emptyStateProps={{
         term: 'cross chain transaction',

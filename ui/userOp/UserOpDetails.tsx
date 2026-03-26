@@ -1,6 +1,7 @@
 import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { UserOp } from 'types/api/userOps';
@@ -34,6 +35,7 @@ interface Props {
 }
 
 const UserOpDetails = ({ query }: Props) => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError, error } = query;
 
   if (isError) {
@@ -53,10 +55,10 @@ const UserOpDetails = ({ query }: Props) => {
       templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 220px) minmax(0, 1fr)' }}
     >
       <DetailedInfo.ItemLabel
-        hint="Unique character string assigned to every User operation"
+        hint={ t('userOp.userOperationHashHint') }
         isLoading={ isPlaceholderData }
       >
-        User operation hash
+        { t('userOp.userOperationHash') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData } overflow="hidden">
@@ -65,10 +67,10 @@ const UserOpDetails = ({ query }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="The address of the smart contract account"
+        hint={ t('userOp.senderHint') }
         isLoading={ isPlaceholderData }
       >
-        Sender
+        { t('userOp.sender') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressStringOrParam address={ data.sender } isLoading={ isPlaceholderData }/>
@@ -77,10 +79,10 @@ const UserOpDetails = ({ query }: Props) => {
       { data.execute_target && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Target smart contract called by the User operation"
+            hint={ t('userOp.targetHint') }
             isLoading={ isPlaceholderData }
           >
-            Target
+            { t('userOp.target') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <AddressEntity address={ data.execute_target } isLoading={ isPlaceholderData }/>
@@ -89,10 +91,10 @@ const UserOpDetails = ({ query }: Props) => {
       ) }
 
       <DetailedInfo.ItemLabel
-        hint="Current User operation state"
+        hint={ t('userOp.statusHint') }
         isLoading={ isPlaceholderData }
       >
-        Status
+        { t('userOp.status') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <UserOpStatus status={ data.status } isLoading={ isPlaceholderData }/>
@@ -101,10 +103,10 @@ const UserOpDetails = ({ query }: Props) => {
       { data.revert_reason && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The revert reason of the User operation"
+            hint={ t('userOp.revertReasonHint') }
             isLoading={ isPlaceholderData }
           >
-            Revert reason
+            { t('userOp.revertReason') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
             wordBreak="break-all"
@@ -120,10 +122,10 @@ const UserOpDetails = ({ query }: Props) => {
       { data.timestamp && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Date and time of User operation"
+            hint={ t('userOp.timestampHint') }
             isLoading={ isPlaceholderData }
           >
-            Timestamp
+            { t('userOp.timestamp') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isPlaceholderData }/>
@@ -134,10 +136,10 @@ const UserOpDetails = ({ query }: Props) => {
       { !config.UI.views.tx.hiddenFields?.tx_fee && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Total User operation fee"
+            hint={ t('userOp.feeHint') }
             isLoading={ isPlaceholderData }
           >
-            Fee
+            { t('userOp.fee') }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ data.fee }
@@ -147,10 +149,10 @@ const UserOpDetails = ({ query }: Props) => {
       ) }
 
       <DetailedInfo.ItemLabel
-        hint="Gas limit for the User operation"
+        hint={ t('userOp.gasLimitHint') }
         isLoading={ isPlaceholderData }
       >
-        Gas limit
+        { t('userOp.gasLimit') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -159,10 +161,10 @@ const UserOpDetails = ({ query }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Actual gas amount used by the User operation"
+        hint={ t('userOp.gasUsedHint') }
         isLoading={ isPlaceholderData }
       >
-        Gas used
+        { t('userOp.gasUsed') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -177,30 +179,30 @@ const UserOpDetails = ({ query }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Hash of the transaction this User operation belongs to"
+        hint={ t('userOp.transactionHashHint') }
         isLoading={ isPlaceholderData }
       >
-        Transaction hash
+        { t('userOp.transactionHash') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <TxEntity hash={ data.transaction_hash } isLoading={ isPlaceholderData }/>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Block number containing this User operation"
+        hint={ t('userOp.blockHint') }
         isLoading={ isPlaceholderData }
       >
-        Block
+        { t('userOp.block') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <BlockEntity number={ Number(data.block_number) } isLoading={ isPlaceholderData }/>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Contract that executes bundles of User operations"
+        hint={ t('userOp.entryPointHint') }
         isLoading={ isPlaceholderData }
       >
-        Entry point
+        { t('userOp.entryPoint') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressStringOrParam address={ data.entry_point } isLoading={ isPlaceholderData }/>
@@ -213,27 +215,27 @@ const UserOpDetails = ({ query }: Props) => {
         <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
 
         <DetailedInfo.ItemLabel
-          hint="Gas limit for execution phase"
+          hint={ t('userOp.callGasLimitHint') }
         >
-          Call gas limit
+          { t('userOp.callGasLimit') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           { BigNumber(data.call_gas_limit).toFormat() }
         </DetailedInfo.ItemValue>
 
         <DetailedInfo.ItemLabel
-          hint="Gas limit for verification phase"
+          hint={ t('userOp.verificationGasLimitHint') }
         >
-          Verification gas limit
+          { t('userOp.verificationGasLimit') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           { BigNumber(data.verification_gas_limit).toFormat() }
         </DetailedInfo.ItemValue>
 
         <DetailedInfo.ItemLabel
-          hint="Gas to compensate the bundler"
+          hint={ t('userOp.preVerificationGasHint') }
         >
-          Pre-verification gas
+          { t('userOp.preVerificationGas') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           { BigNumber(data.pre_verification_gas).toFormat() }
@@ -242,18 +244,18 @@ const UserOpDetails = ({ query }: Props) => {
         { !config.UI.views.tx.hiddenFields?.gas_fees && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Maximum fee per gas "
+              hint={ t('userOp.maxFeePerGasHint') }
             >
-              Max fee per gas
+              { t('userOp.maxFeePerGas') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue multiRow>
               <GasPriceValue amount={ data.max_fee_per_gas }/>
             </DetailedInfo.ItemValue>
 
             <DetailedInfo.ItemLabel
-              hint="Maximum priority fee per gas"
+              hint={ t('userOp.maxPriorityFeePerGasHint') }
             >
-              Max priority fee per gas
+              { t('userOp.maxPriorityFeePerGas') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue multiRow>
               <GasPriceValue amount={ data.max_priority_fee_per_gas }/>
@@ -266,9 +268,9 @@ const UserOpDetails = ({ query }: Props) => {
         { data.aggregator && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Helper contract to validate an aggregated signature"
+              hint={ t('userOp.aggregatorHint') }
             >
-              Aggregator
+              { t('userOp.aggregator') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
               <AddressStringOrParam address={ data.aggregator }/>
@@ -279,9 +281,9 @@ const UserOpDetails = ({ query }: Props) => {
         { data.aggregator_signature && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Aggregator signature"
+              hint={ t('userOp.aggregatorSignatureHint') }
             >
-              Aggregator signature
+              { t('userOp.aggregatorSignature') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
               { data.aggregator_signature }
@@ -290,9 +292,9 @@ const UserOpDetails = ({ query }: Props) => {
         ) }
 
         <DetailedInfo.ItemLabel
-          hint="A node (block builder) that handles User operations"
+          hint={ t('userOp.bundlerHint') }
         >
-          Bundler
+          { t('userOp.bundler') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <AddressStringOrParam address={ data.bundler }/>
@@ -301,9 +303,9 @@ const UserOpDetails = ({ query }: Props) => {
         { data.factory && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Smart contract that deploys new smart contract wallets for users"
+              hint={ t('userOp.factoryHint') }
             >
-              Factory
+              { t('userOp.factory') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
               <AddressStringOrParam address={ data.factory }/>
@@ -314,9 +316,9 @@ const UserOpDetails = ({ query }: Props) => {
         { data.paymaster && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Contract to sponsor the gas fees for User operations"
+              hint={ t('userOp.paymasterHint') }
             >
-              Paymaster
+              { t('userOp.paymaster') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
               <AddressStringOrParam address={ data.paymaster }/>
@@ -325,9 +327,9 @@ const UserOpDetails = ({ query }: Props) => {
         ) }
 
         <DetailedInfo.ItemLabel
-          hint="Type of the gas fees sponsor"
+          hint={ t('userOp.sponsorTypeHint') }
         >
-          Sponsor type
+          { t('userOp.sponsorType') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <UserOpSponsorType sponsorType={ data.sponsor_type }/>
@@ -336,9 +338,9 @@ const UserOpDetails = ({ query }: Props) => {
         <DetailedInfo.ItemDivider/>
 
         <DetailedInfo.ItemLabel
-          hint="Used to validate a User operation along with the nonce during verification"
+          hint={ t('userOp.signatureHint') }
         >
-          Signature
+          { t('userOp.signature') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
           wordBreak="break-all"
@@ -348,9 +350,9 @@ const UserOpDetails = ({ query }: Props) => {
         </DetailedInfo.ItemValue>
 
         <DetailedInfo.ItemLabel
-          hint="Anti-replay protection; also used as the salt for first-time account creation"
+          hint={ t('userOp.nonceHint') }
         >
-          Nonce
+          { t('userOp.nonce') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
           wordBreak="break-all"

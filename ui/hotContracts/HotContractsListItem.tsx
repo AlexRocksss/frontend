@@ -1,5 +1,6 @@
 import { HStack } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { HotContract } from 'types/api/contracts';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
+  const { t } = useTranslation();
   const protocolTags = data?.contract_address?.metadata?.tags?.filter(tag => tag.tagType === 'protocol');
 
   return (
@@ -37,19 +39,19 @@ const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
         />
       ) }
       <HStack>
-        <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">Txn count</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">{ t('hotContracts.txnCountLabel') }</Skeleton>
         <Skeleton loading={ isLoading }>
           <span>{ Number(data.transactions_count).toLocaleString() }</span>
         </Skeleton>
       </HStack>
       <HStack>
-        <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">Gas used</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">{ t('hotContracts.gasUsedLabel') }</Skeleton>
         <Skeleton loading={ isLoading }>
           <span>{ BigNumber(data.total_gas_used || 0).toFormat() }</span>
         </Skeleton>
       </HStack>
       <HStack alignItems="flex-start">
-        <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">Balance</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">{ t('hotContracts.balanceLabel') }</Skeleton>
         <NativeCoinValue
           amount={ data.balance }
           loading={ isLoading }

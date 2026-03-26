@@ -1,4 +1,5 @@
 import { createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { VerifiedContractsFilter as TVerifiedContractsFilter } from 'types/api/contracts';
@@ -15,15 +16,16 @@ interface Props {
 }
 
 const VerifiedContractsFilter = ({ onChange, defaultValue, hasActiveFilter }: Props) => {
+  const { t } = useTranslation();
 
   const { data, isPending } = useApiQuery('general:config_contract_languages');
 
   const options = React.useMemo(() => {
     return [
-      { value: 'all', label: 'All' },
+      { value: 'all', label: t('verifiedContracts.filterAll') },
       ...(data?.languages || []).map((language) => ({ value: language, label: formatLanguageName(language) })),
     ];
-  }, [ data?.languages ]);
+  }, [ data?.languages, t ]);
 
   const collection = React.useMemo(() => {
     return createListCollection<SelectOption>({ items: options });

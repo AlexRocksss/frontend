@@ -1,5 +1,6 @@
 import { chakra } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { HomeStats } from 'types/api/stats';
@@ -16,6 +17,7 @@ interface Props {
 };
 
 const NativeTokenIcon = ({ isLoading, className }: Props) => {
+  const { t } = useTranslation();
   const parentChainApiFetch = useFetchParentChainApi();
   const parentChainStatsQuery = useQuery({
     queryKey: [ 'parent_chain', 'stats' ],
@@ -32,7 +34,7 @@ const NativeTokenIcon = ({ isLoading, className }: Props) => {
       className={ className }
       borderRadius="base"
       src={ parentChainStatsQuery.data?.coin_image || undefined }
-      alt="Native token logo"
+      alt={ t('multichain.nativeTokenAlt') }
       fallback={ <TokenLogoPlaceholder/> }
     />
   );

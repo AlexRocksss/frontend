@@ -1,4 +1,5 @@
 import { Flex, Box, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { useAppContext } from 'lib/contexts/app';
@@ -17,6 +18,7 @@ import NavLinkGroup from './NavLinkGroup';
 import NavLinkRewards from './NavLinkRewards';
 
 const NavigationDesktop = () => {
+  const { t } = useTranslation();
   const appProps = useAppContext();
   const cookiesString = appProps.cookies;
 
@@ -126,7 +128,7 @@ const NavigationDesktop = () => {
         left={{ lg: isExpanded ? '216px' : '80px', xl: isCollapsed ? '80px' : '216px' }}
         cursor="pointer"
         onClick={ handleTogglerClick }
-        aria-label="Expand/Collapse menu"
+        aria-label={ t('navigation.expandCollapseMenu') }
         display="none"
         _groupHover={{ display: 'block' }}
         transitionProperty="transform, left"

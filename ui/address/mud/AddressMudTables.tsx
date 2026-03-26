@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = getQueryParamString(router.query.hash);
@@ -49,7 +51,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
       minW={{ base: 'auto', lg: '250px' }}
       size="sm"
       onChange={ setSearchTerm }
-      placeholder="Search by name, namespace or table ID..."
+      placeholder={ t('address.searchTablesPlaceholder') }
       initialValue={ searchTerm }
       loading={ isInitialLoading }
     />
@@ -89,7 +91,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items?.length }
-      emptyText="There are no tables for this address."
+      emptyText={ t('address.noTables') }
       hasActiveFilters={ Boolean(debouncedSearchTerm) }
       emptyStateProps={{
         term: 'table',

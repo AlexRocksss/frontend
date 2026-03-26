@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TabItemRegular } from 'toolkit/components/AdaptiveTabs/types';
@@ -9,6 +10,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import TokenTransfersLocal from 'ui/tokenTransfers/TokenTransfersLocal';
 
 const TokenTransfers = () => {
+  const { t } = useTranslation();
 
   const tabs: Array<TabItemRegular> = [
     {
@@ -26,7 +28,7 @@ const TokenTransfers = () => {
   return (
     <>
       <PageTitle
-        title="Token transfers"
+        title={ t('pages.tokenTransfers') }
         withTextAd
       />
       <RoutedTabs tabs={ tabs }/>

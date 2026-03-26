@@ -1,4 +1,5 @@
 import { Box, HStack, Stat } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
@@ -24,6 +25,7 @@ interface Props {
 }
 
 const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) => {
+  const { t } = useTranslation();
 
   const { data: { wallet } = {} } = useProvider();
   const walletIcon = wallet ? WALLETS_INFO[wallet].icon : undefined;
@@ -58,7 +60,7 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
               loading={ isLoading }
               maxW="calc(100% - 28px)"
             >
-              <TruncatedText text={ chainInfo?.name ?? 'Unknown chain' } loading={ isLoading }/>
+              <TruncatedText text={ chainInfo?.name ?? t('multichain.unknownChain') } loading={ isLoading }/>
             </Link>
           </HStack>
           <HStack gap={ 0 } flexShrink={ 0 }>
@@ -124,7 +126,7 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
             <span>{ Number(data.tps ?? 0).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>
           </Skeleton>
           { walletIcon ? (
-            <Tooltip content="Add to wallet">
+            <Tooltip content={ t('multichain.addToWallet') }>
               <IconButton
                 onClick={ handleAddToWalletClick }
                 size="md"

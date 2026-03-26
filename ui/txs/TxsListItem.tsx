@@ -2,6 +2,7 @@ import {
   HStack,
   Flex,
 } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { NovesDescribeTxsResponse } from 'types/api/noves';
@@ -48,6 +49,7 @@ const TxsListItem = ({
   translationIsLoading,
   translationData,
 }: Props) => {
+  const { t } = useTranslation();
   const dataTo = tx.to ? tx.to : tx.created_contract;
 
   const protocolTag = tx.to?.hash !== currentAddress && tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
@@ -92,7 +94,7 @@ const TxsListItem = ({
       </Flex>
       { tx.method && (
         <Flex mt={ 3 }>
-          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Method </Skeleton>
+          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">{ t('txs.method') } </Skeleton>
           <Skeleton
             loading={ isLoading }
             color="text.secondary"
@@ -106,7 +108,7 @@ const TxsListItem = ({
       ) }
       { showBlockInfo && tx.block_number !== null && (
         <Flex mt={ 2 }>
-          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Block </Skeleton>
+          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">{ t('txs.block') } </Skeleton>
           <BlockEntity
             isLoading={ isLoading }
             number={ tx.block_number }
@@ -124,7 +126,7 @@ const TxsListItem = ({
       />
       { !config.UI.views.tx.hiddenFields?.value && (
         <Flex mt={ 2 } columnGap={ 2 }>
-          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Value</Skeleton>
+          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">{ t('txs.value') }</Skeleton>
           <NativeCoinValue
             amount={ tx.value }
             exchangeRate={ tx.exchange_rate }
@@ -138,7 +140,7 @@ const TxsListItem = ({
         <Flex mt={ 2 } mb={ 3 } columnGap={ 2 }>
           { (tx.stability_fee !== undefined || tx.fee.value !== null) && (
             <>
-              <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Fee</Skeleton>
+              <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">{ t('txs.feeLabel') }</Skeleton>
               <TxFee tx={ tx } loading={ isLoading } color="text.secondary"/>
             </>
           ) }

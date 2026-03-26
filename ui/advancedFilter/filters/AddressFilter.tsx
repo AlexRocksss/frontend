@@ -1,5 +1,6 @@
 import { createListCollection, Flex, VStack } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
@@ -21,13 +22,6 @@ const FILTER_PARAM_FROM_EXCLUDE = 'from_address_hashes_to_exclude';
 
 export type AddressFilterMode = 'include' | 'exclude';
 
-const collection = createListCollection({
-  items: [
-    { label: 'Include', value: 'include' },
-    { label: 'Exclude', value: 'exclude' },
-  ],
-});
-
 type Value = Array<{ address: string; mode: AddressFilterMode }>;
 
 type Props = {
@@ -48,6 +42,9 @@ type InputProps = {
   onClear: () => void;
   onAddFieldClick: () => void;
   isInvalid: boolean;
+  collection: ReturnType<typeof createListCollection<{ label: string; value: string }>>;
+  errorText: string;
+  addressPlaceholder: string;
 };
 
 type AddressFilter = {
@@ -59,12 +56,16 @@ function addressFilterToKey(filter: AddressFilter) {
   return `${ filter.address.toLowerCase() }-${ filter.mode }`;
 }
 
-const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onClear, isLast, onAddFieldClick, isInvalid }: InputProps) => {
+const AddressFilterInput = ({
+  address, mode, onModeChange, onChange, onBlur, onClear,
+  isLast, onAddFieldClick, isInvalid, collection, errorText, addressPlaceholder,
+}: InputProps) => {
+  const { t } = useTranslation();
   return (
     <Flex alignItems="flex-start" w="100%">
       <Select
         collection={ collection }
-        placeholder="Select mode"
+        placeholder={ t('advancedFilter.selectMode') }
         defaultValue={ [ mode || 'include' ] }
         onValueChange={ onModeChange }
         portalled={ false }
@@ -75,12 +76,12 @@ const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onC
       <Field
         flexGrow={ 1 }
         invalid={ isInvalid }
-        errorText="Invalid address format"
+        errorText={ errorText }
       >
         <InputGroup
           endElement={ <ClearButton onClick={ onClear } mx={ 2 } disabled={ !address }/> }
         >
-          <Input value={ address } onChange={ onChange } onBlur={ onBlur } placeholder="Smart contract / Address (0x...)*" size="sm" autoComplete="off"/>
+          <Input value={ address } onChange={ onChange } onBlur={ onBlur } placeholder={ addressPlaceholder } size="sm" autoComplete="off"/>
         </InputGroup>
       </Field>
       { isLast && (
@@ -96,6 +97,15 @@ const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onC
 const emptyItem = { address: '', mode: 'include' as AddressFilterMode };
 
 const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
+  const { t } = useTranslation();
+  const collection = createListCollection({
+    items: [
+      { label: t('advancedFilter.includeMode'), value: 'include' },
+      { label: t('advancedFilter.excludeMode'), value: 'exclude' },
+    ],
+  });
+  const errorText = t('advancedFilter.invalidAddressFormat');
+  const addressPlaceholder = t('advancedFilter.addressPlaceholder');
   const [ currentValue, setCurrentValue ] =
     React.useState<Array<AddressFilter>>([ ...value, emptyItem ]);
   const [ touched, setTouched ] = React.useState<Array<boolean>>(value.map(() => true).concat(false));
@@ -163,7 +173,7 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
 
   return (
     <TableColumnFilter
-      title={ type === 'from' ? 'From address' : 'To address' }
+      title={ type === 'from' ? t('advancedFilter.filterFromAddress') : t('advancedFilter.filterToAddress') }
       isFilled={ Boolean(currentValue[0].address) }
       isTouched={ isTouched && !hasErrors }
       onFilter={ onFilter }
@@ -183,6 +193,9 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
             onClear={ handleAddressClear(index) }
             onAddFieldClick={ onAddFieldClick }
             isInvalid={ Boolean(touched[index]) && Boolean(item.address) && !ADDRESS_REGEXP.test(item.address) }
+            collection={ collection }
+            errorText={ errorText }
+            addressPlaceholder={ addressPlaceholder }
           />
         )) }
       </VStack>

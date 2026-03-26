@@ -8,6 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as tac from '@blockscout/tac-operation-lifecycle-types';
@@ -90,6 +91,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
   const [ isExpanded, setIsExpanded ] = React.useState(false);
 
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
 
   const externalTxsQuery = useApiQuery('general:tx_external_transactions', {
     pathParams: {
@@ -127,14 +129,14 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
   ].map((tag) => <Badge key={ tag.label }>{ tag.display_name }</Badge>);
 
   const executionSuccessBadge = toAddress?.is_contract && data.result === 'success' ? (
-    <Tooltip content="Contract execution completed">
+    <Tooltip content={ t('tx.executionSuccess') }>
       <chakra.span display="inline-flex" ml={ 2 } mr={ 1 }>
         <IconSvg name="status/success" boxSize={ 4 } color={{ _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' }} cursor="pointer"/>
       </chakra.span>
     </Tooltip>
   ) : null;
   const executionFailedBadge = toAddress?.is_contract && Boolean(data.status) && data.result !== 'success' ? (
-    <Tooltip content="Error occurred during contract execution">
+    <Tooltip content={ t('tx.executionFailure') }>
       <chakra.span display="inline-flex" ml={ 2 } mr={ 1 }>
         <IconSvg name="status/error" boxSize={ 4 } color="text.error" cursor="pointer"/>
       </chakra.span>
@@ -169,10 +171,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { config.features.crossChainTxs.isEnabled && <TxDetailsCrossChainMessages hash={ data.hash } isLoading={ isLoading }/> }
 
       <DetailedInfo.ItemLabel
-        hint="Unique character string (TxID) assigned to every verified transaction"
+        hint={ t('tx.hintTransactionHash') }
         isLoading={ isLoading }
       >
-        Transaction hash
+        { t('tx.transactionHash') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow={ config.features.externalTxs.isEnabled && externalTxsQuery.data && externalTxsQuery.data.length > 0 }>
         <Flex flexWrap="nowrap" alignItems="center" overflow="hidden">
@@ -197,14 +199,14 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Current transaction state: Success, Failed (Error), or Pending (In Process)"
+        hint={ t('tx.hintStatusAndMethod') }
         isLoading={ isLoading }
       >
         {
           rollupFeature.isEnabled &&
           (rollupFeature.type === 'zkEvm' || rollupFeature.type === 'zkSync' || rollupFeature.type === 'arbitrum' || rollupFeature.type === 'scroll') ?
-            `${ layerLabels.current } status and method` :
-            'Status and method'
+            t('tx.layerStatusAndMethod', { layer: layerLabels.current }) :
+            t('tx.statusAndMethod')
         }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
@@ -217,7 +219,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         { data.arbitrum?.contains_message && (
           <Skeleton loading={ isLoading } onClick={ showAssociatedL1Tx }>
             <Link truncate ml={ 3 }>
-              { data.arbitrum?.contains_message === 'incoming' ? 'Incoming message' : 'Outgoing message' }
+              { data.arbitrum?.contains_message === 'incoming' ? t('tx.incomingMessage') : t('tx.outgoingMessage') }
             </Link>
           </Skeleton>
         ) }
@@ -227,16 +229,16 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       !config.UI.views.tx.hiddenFields?.L1_status && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Detailed status progress of the transaction"
+            hint={ t('tx.hintWithdrawalStatus') }
           >
-            Withdrawal status
+            { t('tx.withdrawalStatus') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Flex flexDir="column" rowGap={ 2 }>
               { data.op_withdrawals.map((withdrawal) => (
                 <Box key={ withdrawal.nonce }>
                   <Box mb={ 2 } py={{ base: '5px', lg: 1 }}>
-                    <span>Nonce: </span>
+                    <span>{ t('tx.noncePrefixed') }</span>
                     <chakra.span fontWeight={ 600 }>{ withdrawal.nonce }</chakra.span>
                   </Box>
                   <TxDetailsWithdrawalStatusOptimistic data={ withdrawal } txHash={ data.hash } from={ data.from }/>
@@ -250,10 +252,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.zkevm_status && !config.UI.views.tx.hiddenFields?.L1_status && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `Status of the transaction confirmation path to ${ layerLabels.parent }` }
+            hint={ t('tx.hintConfirmationStatus', { parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            Confirmation status
+            { t('tx.confirmationStatus') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <VerificationSteps
@@ -268,10 +270,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.arbitrum?.status && !config.UI.views.tx.hiddenFields?.L1_status && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `Status of the transaction confirmation path to ${ layerLabels.parent }` }
+            hint={ t('tx.hintConfirmationStatus', { parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } status
+            { t('tx.parentStatus', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <VerificationSteps
@@ -287,9 +289,9 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.revert_reason && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The revert reason of the transaction"
+            hint={ t('tx.hintRevertReason') }
           >
-            Revert reason
+            { t('tx.revertReason') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue flexWrap="wrap" mt={{ base: '5px', lg: '4px' }}>
             <TxRevertReason { ...data.revert_reason }/>
@@ -300,10 +302,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.zksync && !config.UI.views.tx.hiddenFields?.L1_status && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Status is the short interpretation of the batch lifecycle"
+            hint={ t('tx.hintZkSyncStatus') }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } status
+            { t('tx.parentStatus', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <VerificationSteps
@@ -316,14 +318,14 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       ) }
 
       <DetailedInfo.ItemLabel
-        hint="Block number containing the transaction"
+        hint={ t('tx.hintBlock') }
         isLoading={ isLoading }
       >
-        Block
+        { t('tx.block') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow={ Boolean(data.scroll?.l2_block_status) }>
         { data.block_number === null ?
-          <Text>Pending</Text> : (
+          <Text>{ t('tx.pending') }</Text> : (
             <BlockEntity
               isLoading={ isLoading }
               number={ data.block_number }
@@ -334,7 +336,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           <>
             <TextSeparator/>
             <Skeleton loading={ isLoading } color="text.secondary">
-              <span>{ data.confirmations } Block confirmations</span>
+              <span>{ data.confirmations } { t('tx.blockConfirmations') }</span>
             </Skeleton>
           </>
         ) }
@@ -349,10 +351,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.zkevm_batch_number && !config.UI.views.tx.hiddenFields?.batch && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Batch index for this transaction"
+            hint={ t('tx.hintTxnBatch') }
             isLoading={ isLoading }
           >
-            Txn batch
+            { t('tx.txnBatch') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <BatchEntityL2
@@ -366,10 +368,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.zksync && !config.UI.views.tx.hiddenFields?.batch && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Batch number"
+            hint={ t('tx.hintBatch') }
             isLoading={ isLoading }
           >
-            Batch
+            { t('tx.batch') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             { data.zksync.batch_number ? (
@@ -385,15 +387,15 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.arbitrum && !config.UI.views.tx.hiddenFields?.batch && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Index of the batch containing this transaction"
+            hint={ t('tx.hintArbitrumBatch') }
             isLoading={ isLoading }
           >
-            Batch
+            { t('tx.batch') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             { data.arbitrum.batch_number ?
               <BatchEntityL2 isLoading={ isLoading } number={ data.arbitrum.batch_number }/> :
-              <Skeleton loading={ isLoading }>Pending</Skeleton> }
+              <Skeleton loading={ isLoading }>{ t('tx.pending') }</Skeleton> }
           </DetailedInfo.ItemValue>
         </>
       ) }
@@ -401,10 +403,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.timestamp && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Date & time of transaction inclusion, including length of time for confirmation"
+            hint={ t('tx.hintTimestamp') }
             isLoading={ isLoading }
           >
-            Timestamp
+            { t('tx.timestamp') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue multiRow>
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/>
@@ -423,10 +425,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.execution_node && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Node that carried out the confidential computation"
+            hint={ t('tx.hintKettle') }
             isLoading={ isLoading }
           >
-            Kettle
+            { t('tx.kettle') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <AddressEntity
@@ -448,10 +450,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { !noTxActions && <TxDetailsActions hash={ data.hash } actions={ data.actions } isTxDataLoading={ isLoading }/> }
 
       <DetailedInfo.ItemLabel
-        hint="Address (external or contract) sending the transaction"
+        hint={ t('tx.hintFrom') }
         isLoading={ isLoading }
       >
-        From
+        { t('tx.from') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue columnGap={ 3 }>
         <AddressEntity
@@ -467,10 +469,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Address (external or contract) receiving the transaction"
+        hint={ t('tx.hintTo') }
         isLoading={ isLoading }
       >
-        { data.to?.is_contract ? 'Interacted with contract' : 'To' }
+        { data.to?.is_contract ? t('tx.interactedWith') : t('tx.to') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
         flexWrap={{ base: 'wrap', lg: 'nowrap' }}
@@ -489,13 +491,13 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
               </Flex>
             ) : (
               <Flex width="100%" whiteSpace="pre" alignItems="center" flexShrink={ 0 }>
-                <span>[Contract </span>
+                <span>{ t('tx.contractCreatedPrefix') }</span>
                 <AddressEntity
                   address={ toAddress }
                   isLoading={ isLoading }
                   noIcon
                 />
-                <span>created]</span>
+                <span>{ t('tx.contractCreatedSuffix') }</span>
                 { executionSuccessBadge }
                 { executionFailedBadge }
               </Flex>
@@ -507,7 +509,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             ) }
           </>
         ) : (
-          <span>[ Contract creation ]</span>
+          <span>{ t('tx.contractCreation') }</span>
         ) }
       </DetailedInfo.ItemValue>
 
@@ -519,9 +521,9 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         <>
           <DetailedInfo.ItemLabel
             isLoading={ isLoading }
-            hint="The target address where this cross-chain transaction is executed"
+            hint={ t('tx.hintInteropTarget') }
           >
-            Interop target
+            { t('tx.interopTarget') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <VStack gap={ 2 } w="100%" overflow="hidden" alignItems="flex-start">
@@ -553,10 +555,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           { data.arbitrum?.commitment_transaction.hash && (
             <>
               <DetailedInfo.ItemLabel
-                hint={ `${ layerLabels.parent } transaction containing this batch commitment` }
+                hint={ t('tx.hintCommitmentTx', { parent: layerLabels.parent }) }
                 isLoading={ isLoading }
               >
-                Commitment tx
+                { t('tx.commitmentTx') }
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.commitment_transaction.hash } isLoading={ isLoading }/>
@@ -567,10 +569,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           { data.arbitrum?.confirmation_transaction.hash && (
             <>
               <DetailedInfo.ItemLabel
-                hint={ `${ layerLabels.parent } transaction containing confirmation of this batch` }
+                hint={ t('tx.hintConfirmationTx', { parent: layerLabels.parent }) }
                 isLoading={ isLoading }
               >
-                Confirmation tx
+                { t('tx.confirmationTx') }
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.confirmation_transaction.hash } isLoading={ isLoading }/>
@@ -620,10 +622,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { !config.UI.views.tx.hiddenFields?.value && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Value sent in the native token (and USD) if applicable"
+            hint={ t('tx.hintValue') }
             isLoading={ isLoading }
           >
-            Value
+            { t('tx.value') }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ data.value }
@@ -640,9 +642,9 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { rollupFeature.isEnabled && rollupFeature.type === 'optimistic' && data.operator_fee && (
         <>
           <DetailedInfo.ItemLabel
-            hint="A fee set by the chain operator to cover extra costs of additional services"
+            hint={ t('tx.hintOperatorFee') }
           >
-            Operator fee
+            { t('tx.operatorFee') }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ data.operator_fee }
@@ -657,10 +659,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { rollupFeature.isEnabled && rollupFeature.type === 'arbitrum' && data.arbitrum && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `Fee paid to the poster for ${ layerLabels.parent } resources` }
+            hint={ t('tx.hintPosterFee', { parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            Poster fee
+            { t('tx.posterFee') }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ data.arbitrum.poster_fee }
@@ -671,10 +673,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           />
 
           <DetailedInfo.ItemLabel
-            hint={ `Fee paid to the network for ${ layerLabels.current } resources` }
+            hint={ t('tx.hintNetworkFee', { current: layerLabels.current }) }
             isLoading={ isLoading }
           >
-            Network fee
+            { t('tx.networkFee') }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ data.arbitrum.network_fee }
@@ -695,10 +697,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { rollupFeature.isEnabled && rollupFeature.type === 'arbitrum' && data.arbitrum && data.gas_used && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `${ layerLabels.current } gas set aside for ${ layerLabels.parent } data charges` }
+            hint={ t('tx.hintGasUsedForParent', { current: layerLabels.current, parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            Gas used for { layerLabels.parent }
+            { t('tx.gasUsedForParent', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Skeleton loading={ isLoading }>{ BigNumber(data.arbitrum.gas_used_for_l1 || 0).toFormat() }</Skeleton>
@@ -711,10 +713,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           </DetailedInfo.ItemValue>
 
           <DetailedInfo.ItemLabel
-            hint={ `${ layerLabels.current } gas spent on ${ layerLabels.current } resources` }
+            hint={ t('tx.hintGasUsedForCurrent', { current: layerLabels.current }) }
             isLoading={ isLoading }
           >
-            Gas used for { layerLabels.current }
+            { t('tx.gasUsedForCurrent', { current: layerLabels.current }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Skeleton loading={ isLoading }>{ BigNumber(data.arbitrum.gas_used_for_l2 || 0).toFormat() }</Skeleton>
@@ -731,10 +733,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       { data.scroll?.l1_gas_used !== undefined && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `Total gas used on ${ layerLabels.parent }` }
+            hint={ t('tx.hintL1GasUsed', { parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } Gas used
+            { t('tx.l1GasUsed', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Skeleton loading={ isLoading }>{ BigNumber(data.scroll?.l1_gas_used || 0).toFormat() }</Skeleton>
@@ -746,14 +748,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             (data.base_fee_per_gas || data.max_fee_per_gas || data.max_priority_fee_per_gas) && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `
-            Base Fee refers to the network Base Fee at the time of the block, 
-            while Max Fee & Max Priority Fee refer to the max amount a user is willing to pay 
-            for their tx & to give to the ${ getNetworkValidatorTitle() } respectively
-          ` }
+            hint={ t('tx.hintGasFees', { validatorTitle: getNetworkValidatorTitle() }) }
             isLoading={ isLoading }
           >
-            { `Gas fees (${ currencyUnits.gwei })` }
+            { t('tx.gasFees', { gwei: currencyUnits.gwei }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue multiRow>
             { data.base_fee_per_gas && (
@@ -763,7 +761,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 unitsTooltip="wei"
                 noSymbol
                 loading={ isLoading }
-                startElement="Base: "
+                startElement={ t('tx.base') }
                 endElement={ (data.max_fee_per_gas || data.max_priority_fee_per_gas) && <TextSeparator/> }
               />
             ) }
@@ -774,7 +772,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 unitsTooltip="wei"
                 noSymbol
                 loading={ isLoading }
-                startElement="Max: "
+                startElement={ t('tx.max') }
                 endElement={ data.max_priority_fee_per_gas && <TextSeparator/> }
               />
             ) }
@@ -785,7 +783,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 unitsTooltip="wei"
                 noSymbol
                 loading={ isLoading }
-                startElement="Max priority: "
+                startElement={ t('tx.maxPriority') }
               />
             ) }
           </DetailedInfo.ItemValue>
@@ -799,10 +797,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           { data.l1_gas_used && (
             <>
               <DetailedInfo.ItemLabel
-                hint={ `${ layerLabels.parent } gas used by transaction` }
+                hint={ t('tx.hintL1GasUsedByTxn', { parent: layerLabels.parent }) }
                 isLoading={ isLoading }
               >
-                { layerLabels.parent } gas used by txn
+                { t('tx.l1GasUsedByTxn', { parent: layerLabels.parent }) }
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <Text>{ BigNumber(data.l1_gas_used).toFormat() }</Text>
@@ -813,10 +811,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           { data.l1_gas_price && (
             <>
               <DetailedInfo.ItemLabel
-                hint={ `${ layerLabels.parent } gas price` }
+                hint={ t('tx.l1GasPrice', { parent: layerLabels.parent }) }
                 isLoading={ isLoading }
               >
-                { layerLabels.parent } gas price
+                { t('tx.l1GasPrice', { parent: layerLabels.parent }) }
               </DetailedInfo.ItemLabel>
               <GasPriceValue
                 amount={ data.l1_gas_price }
@@ -829,11 +827,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           { data.l1_fee && (
             <>
               <DetailedInfo.ItemLabel
-                // eslint-disable-next-line max-len
-                hint={ `${ layerLabels.parent } Data Fee which is used to cover the ${ layerLabels.parent } "security" cost from the batch submission mechanism. In combination with ${ layerLabels.current } execution fee, ${ layerLabels.parent } fee makes the total amount of fees that a transaction pays.` }
+                hint={ t('tx.hintL1Fee', { parent: layerLabels.parent, current: layerLabels.current }) }
                 isLoading={ isLoading }
               >
-                { layerLabels.parent } fee
+                { t('tx.l1Fee', { parent: layerLabels.parent }) }
               </DetailedInfo.ItemLabel>
               <DetailedInfoNativeCoinValue
                 amount={ data.l1_fee }
@@ -850,10 +847,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           { data.l1_fee_scalar && (
             <>
               <DetailedInfo.ItemLabel
-                hint={ `A Dynamic overhead (fee scalar) premium, which serves as a buffer in case ${ layerLabels.parent } prices rapidly increase.` }
+                hint={ t('tx.hintL1FeeScalar', { parent: layerLabels.parent }) }
                 isLoading={ isLoading }
               >
-                { layerLabels.parent } fee scalar
+                { t('tx.l1FeeScalar', { parent: layerLabels.parent }) }
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <Text>{ data.l1_fee_scalar }</Text>
@@ -876,9 +873,9 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             { data.blob_gas_used && data.blob_gas_price && (
               <>
                 <DetailedInfo.ItemLabel
-                  hint="Blob fee for this transaction"
+                  hint={ t('tx.hintBlobFee') }
                 >
-                  Blob fee
+                  { t('tx.blobFee') }
                 </DetailedInfo.ItemLabel>
                 <DetailedInfoNativeCoinValue
                   amount={ BigNumber(data.blob_gas_used).multipliedBy(data.blob_gas_price).toString() }
@@ -894,9 +891,9 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             { data.blob_gas_used && (
               <>
                 <DetailedInfo.ItemLabel
-                  hint="Amount of gas used by the blobs in this transaction"
+                  hint={ t('tx.hintBlobGasUsage') }
                 >
-                  Blob gas usage
+                  { t('tx.blobGasUsage') }
                 </DetailedInfo.ItemLabel>
                 <DetailedInfo.ItemValue>
                   { BigNumber(data.blob_gas_used).toFormat() }
@@ -907,9 +904,9 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             { (data.max_fee_per_blob_gas || data.blob_gas_price) && (
               <>
                 <DetailedInfo.ItemLabel
-                  hint={ `Amount of ${ currencyUnits.ether } used for blobs in this transaction` }
+                  hint={ t('tx.hintBlobGasFees', { ether: currencyUnits.ether }) }
                 >
-                  { `Blob gas fees (${ currencyUnits.gwei })` }
+                  { t('tx.blobGasFees', { gwei: currencyUnits.gwei }) }
                 </DetailedInfo.ItemLabel>
                 <DetailedInfo.ItemValue>
                   { data.blob_gas_price && (
@@ -930,7 +927,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                       unitsTooltip="wei"
                       noSymbol
                       loading={ isLoading }
-                      startElement="Max: "
+                      startElement={ t('tx.max') }
                       fontWeight="600"
                     />
                   ) }
@@ -944,10 +941,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         <TxDetailsOther nonce={ data.nonce } type={ data.type } position={ data.position } queueIndex={ data.scroll?.queue_index }/>
 
         <DetailedInfo.ItemLabel
-          hint="Binary data included with the transaction. See logs tab for additional info"
+          hint={ t('tx.hintRawInput') }
           mb={{ base: 1, lg: 0 }}
         >
-          Raw input
+          { t('tx.rawInput') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <RawInputData hex={ data.raw_input } defaultDataType={ data.zilliqa?.is_scilla ? 'UTF-8' : 'Hex' }/>
@@ -956,9 +953,9 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         { data.decoded_input && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Decoded input data"
+              hint={ t('tx.hintDecodedInputData') }
             >
-              Decoded input data
+              { t('tx.decodedInputData') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue flexWrap="wrap" mt={{ base: '5px', lg: '4px' }}>
               <LogDecodedInputData data={ data.decoded_input }/>

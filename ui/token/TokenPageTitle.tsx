@@ -1,5 +1,6 @@
 import { Flex, useToken } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -37,6 +38,7 @@ interface Props {
 }
 
 const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const addressHash = !tokenQuery.isPlaceholderData ? (tokenQuery.data?.address_hash || '') : '';
 
@@ -63,7 +65,7 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: P
       config.features.bridgedTokens.isEnabled && tokenQuery.data?.is_bridged ?
         {
           slug: 'bridged',
-          name: 'Bridged',
+          name: t('token.bridgedTag'),
           tagType: 'custom' as const,
           ordinal: PREDEFINED_TAG_PRIORITY,
           meta: { bgColor: bridgedTokenTagBgColor, textColor: bridgedTokenTagTextColor },
@@ -84,13 +86,14 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: P
     verifiedInfoQuery.data?.projectSector,
     hash,
     multichainContext?.chain?.app_config,
+    t,
   ]);
 
   const contentAfter = (
     <>
       { tokenQuery.data && <TokenEntity.Reputation value={ tokenQuery.data.reputation } ml={ 0 }/> }
       { verifiedInfoQuery.data?.tokenAddress && (
-        <Tooltip content={ `Information on this token has been verified by ${ config.chain.name }` }>
+        <Tooltip content={ t('token.verifiedBy', { chainName: config.chain.name }) }>
           <IconSvg name="certified" color="green.500" boxSize={ 6 } cursor="pointer"/>
         </Tooltip>
       ) }
@@ -128,7 +131,7 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: P
   return (
     <>
       <PageTitle
-        title={ `${ tokenQuery.data?.name || 'Unnamed token' }${ tokenSymbolText }` }
+        title={ `${ tokenQuery.data?.name || t('token.unnamedToken') }${ tokenSymbolText }` }
         isLoading={ tokenQuery.isPlaceholderData }
         beforeTitle={ tokenQuery.data ? (
           <TokenEntity.Icon

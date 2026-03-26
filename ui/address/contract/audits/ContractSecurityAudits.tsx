@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractSecurityAuditSubmission } from 'types/api/contract';
@@ -18,6 +19,7 @@ type Props = {
 };
 
 const ContractSecurityAudits = ({ addressHash }: Props) => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData } = useApiQuery('general:contract_security_audits', {
     pathParams: { hash: addressHash },
     queryOptions: {
@@ -27,7 +29,7 @@ const ContractSecurityAudits = ({ addressHash }: Props) => {
     },
   });
 
-  const formTitle = 'Submit audit';
+  const formTitle = t('address.submitAudit');
 
   const modalProps = useDisclosure();
 
@@ -54,7 +56,7 @@ const ContractSecurityAudits = ({ addressHash }: Props) => {
           </ContainerWithScrollY>
         </Box>
       ) }
-      <Button variant="outline" size="sm" onClick={ modalProps.onOpen }>Submit audit</Button>
+      <Button variant="outline" size="sm" onClick={ modalProps.onOpen }>{ t('address.submitAudit') }</Button>
       <FormModal<SmartContractSecurityAuditSubmission>
         open={ modalProps.open }
         onOpenChange={ modalProps.onOpenChange }

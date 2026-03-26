@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -35,6 +36,7 @@ interface Props {
 }
 
 const AuthModal = ({ initialScreen, onClose, mixpanelConfig, closeOnError }: Props) => {
+  const { t } = useTranslation();
   const [ steps, setSteps ] = React.useState<Array<Screen>>([ initialScreen ]);
   const [ isSuccess, setIsSuccess ] = React.useState(false);
   const [ rewardsApiToken, setRewardsApiToken ] = React.useState<string | undefined>(undefined);
@@ -111,16 +113,16 @@ const AuthModal = ({ initialScreen, onClose, mixpanelConfig, closeOnError }: Pro
   const header = (() => {
     switch (currentStep.type) {
       case 'select_method':
-        return 'Select a way to login';
+        return t('auth.selectMethodTitle');
       case 'connect_wallet':
-        return currentStep.isAuth ? 'Add wallet' : 'Continue with wallet';
+        return currentStep.isAuth ? t('auth.addWallet') : t('auth.continueWithWallet');
       case 'email':
-        return currentStep.isAuth ? 'Add email' : 'Continue with email';
+        return currentStep.isAuth ? t('auth.addEmail') : t('auth.continueWithEmail');
       case 'otp_code':
-        return 'Confirmation code';
+        return t('auth.confirmationCode');
       case 'success_email':
       case 'success_wallet':
-        return 'Congrats!';
+        return t('auth.congrats');
     }
   })();
 

@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FlashblockItem } from 'types/client/flashblocks';
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const FlashblocksListItem = ({ data }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobile rowGap={ 3 }>
       <Flex justifyContent="space-between" w="100%">
@@ -28,12 +30,12 @@ const FlashblocksListItem = ({ data }: Props) => {
       </Flex>
       { data.timestamp && (
         <Flex columnGap={ 2 }>
-          <Text fontWeight={ 500 }>Timestamp</Text>
+          <Text fontWeight={ 500 }>{ t('blocks.timestamp') }</Text>
           <Time color="text.secondary" timestamp={ data.timestamp } format="DD MMM, HH:mm:ss.SSS"/>
         </Flex>
       ) }
       <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Txn</Text>
+        <Text fontWeight={ 500 }>{ t('blocks.txn') }</Text>
         { data.transactions_count > 0 ? (
           <Link href={ route({
             pathname: '/block/[height_or_hash]',
@@ -46,7 +48,7 @@ const FlashblocksListItem = ({ data }: Props) => {
         }
       </Flex>
       <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Gas used</Text>
+        <Text fontWeight={ 500 }>{ t('blocks.gasUsed') }</Text>
         <Text color="text.secondary">{ data.gas_used.toLocaleString() }</Text>
       </Flex>
     </ListItemMobile>

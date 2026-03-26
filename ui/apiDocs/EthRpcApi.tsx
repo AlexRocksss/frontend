@@ -1,9 +1,11 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Link } from 'toolkit/chakra/link';
 
 const EthRpcApi = () => {
+  const { t } = useTranslation();
   return (
     <Box>
       <Text>
@@ -11,7 +13,7 @@ const EthRpcApi = () => {
         the Blockscout ETH RPC API supports 3 methods in the exact format specified for Ethereum nodes,
         ee the Ethereum JSON-RPC Specification for more details.
       </Text>
-      <Link href="https://docs.blockscout.com/devs/apis/rpc/eth-rpc" external mt={ 6 }>View examples</Link>
+      <Link href="https://docs.blockscout.com/devs/apis/rpc/eth-rpc" external mt={ 6 }>{ t('apiDocs.viewExamples') }</Link>
     </Box>
   );
 };

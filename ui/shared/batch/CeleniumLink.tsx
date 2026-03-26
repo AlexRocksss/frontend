@@ -1,4 +1,5 @@
 import { Flex, Icon } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -33,6 +34,7 @@ function getCeleniumUrl(props: Props) {
 }
 
 const CeleniumLink = (props: Props) => {
+  const { t } = useTranslation();
   const url = getCeleniumUrl(props);
 
   if (!url) {
@@ -42,7 +44,7 @@ const CeleniumLink = (props: Props) => {
   return (
     <Flex alignItems="center" columnGap={ 2 }>
       <Icon as={ celeniumIcon } boxSize={ 5 }/>
-      <Link external href={ getCeleniumUrl(props) }>Blob page</Link>
+      <Link external href={ getCeleniumUrl(props) }>{ t('batch.blobPage') }</Link>
     </Flex>
   );
 };

@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ArbitrumTransactionMessageStatus, Transaction } from 'types/api/transaction';
@@ -24,6 +25,7 @@ interface Props {
 }
 
 const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
+  const { t } = useTranslation();
 
   const steps = React.useMemo(() => {
     if (!data.arbitrum?.message_related_info) {
@@ -66,9 +68,9 @@ const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint="Detailed status progress of the transaction"
+          hint={ t('tx.hintWithdrawalStatus') }
         >
-          Withdrawal status
+          { t('tx.withdrawalStatus') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           { data.arbitrum.message_related_info.message_status ? (
@@ -76,7 +78,7 @@ const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
               steps={ steps as unknown as Array<ArbitrumTransactionMessageStatus> }
               currentStep={ data.arbitrum.message_related_info.message_status }
             />
-          ) : <Text color="text.secondary">Could not determine</Text> }
+          ) : <Text color="text.secondary">{ t('tx.couldNotDetermine') }</Text> }
         </DetailedInfo.ItemValue>
       </>
     );
@@ -84,14 +86,14 @@ const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="The hash of the transaction that originated the message from the base layer"
+        hint={ t('tx.hintOriginatingTxHash') }
       >
-        Originating { layerLabels.parent } txn hash
+        { t('tx.originatingTxHash', { parent: layerLabels.parent }) }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.arbitrum.message_related_info.associated_l1_transaction_hash ?
           <TxEntityL1 hash={ data.arbitrum.message_related_info.associated_l1_transaction_hash }/> :
-          <Text color="text.secondary">Waiting for confirmation</Text>
+          <Text color="text.secondary">{ t('tx.waitingForConfirmation') }</Text>
         }
       </DetailedInfo.ItemValue>
     </>

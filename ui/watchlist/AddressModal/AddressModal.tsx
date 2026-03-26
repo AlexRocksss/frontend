@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
@@ -17,8 +18,9 @@ type Props = {
 };
 
 const AddressModal: React.FC<Props> = ({ open, onOpenChange, onSuccess, data, isAdd, hasEmail, showEmailAlert }) => {
-  const title = !isAdd ? 'Edit watch list address' : 'New address to watch list';
-  const text = isAdd ? 'An email notification can be sent to you when an address on your watch list sends or receives any transactions.' : '';
+  const { t } = useTranslation();
+  const title = !isAdd ? t('watchlist.editTitle') : t('watchlist.newTitle');
+  const text = isAdd ? t('watchlist.newText') : '';
 
   const [ isAlertVisible, setAlertVisible ] = useState(false);
 

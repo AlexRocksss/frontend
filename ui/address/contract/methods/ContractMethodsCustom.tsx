@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -27,7 +28,7 @@ interface Props {
 }
 
 const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
-
+  const { t } = useTranslation();
   const modal = useDisclosure();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -81,7 +82,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
           />
           <RawDataSnippet
             data={ JSON.stringify(abi) }
-            title="Contract ABI"
+            title={ t('address.contractAbiTitle') }
             textareaMaxHeight="150px"
             isLoading={ isLoading }
             rightSlot={ updateButton }
@@ -99,8 +100,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
       ) : (
         <>
           <Skeleton loading={ isLoading }>
-            Add custom ABIs for this contract and access when logged into your account. Helpful for debugging,
-            functional testing and contract interaction.
+            { t('address.addCustomAbiDescription') }
           </Skeleton>
           <AuthGuard onAuthSuccess={ modal.onOpen }>
             { ({ onClick }) => (
@@ -109,7 +109,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
                   size="sm"
                   onClick={ onClick }
                 >
-                  Add custom ABI
+                  { t('address.addCustomAbi') }
                 </Button>
               </Skeleton>
             ) }

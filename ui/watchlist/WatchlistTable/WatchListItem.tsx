@@ -1,5 +1,6 @@
 import { Box, Text, HStack, Flex } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const WatchListItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEmail }: Props) => {
+  const { t } = useTranslation();
   const [ notificationEnabled, setNotificationEnabled ] = useState(item.notification_methods.email);
   const [ switchDisabled, setSwitchDisabled ] = useState(false);
   const onItemEditClick = useCallback(() => {
@@ -38,16 +40,16 @@ const WatchListItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEmail }
   const showErrorToast = useCallback(() => {
     toaster.error({
       title: 'Error',
-      description: 'There has been an error processing your request',
+      description: t('watchlist.errorRequest'),
     });
-  }, [ ]);
+  }, [ t ]);
 
   const showNotificationToast = useCallback((isOn: boolean) => {
     toaster.success({
       title: 'Success',
-      description: isOn ? 'Email notification is ON' : 'Email notification is OFF',
+      description: isOn ? t('watchlist.notificationOn') : t('watchlist.notificationOff'),
     });
-  }, [ ]);
+  }, [ t ]);
 
   const { mutate } = useMutation<WatchlistAddress>({
     mutationFn: () => {
@@ -79,18 +81,18 @@ const WatchListItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEmail }
       <Box maxW="100%">
         <WatchListAddressItem item={ item } isLoading={ isLoading }/>
         <HStack gap={ 3 } mt={ 6 }>
-          <Text textStyle="sm" fontWeight={ 500 }>Private tag</Text>
+          <Text textStyle="sm" fontWeight={ 500 }>{ t('watchlist.privateTagHeader') }</Text>
           <Tag loading={ isLoading } truncated>{ item.name }</Tag>
         </HStack>
       </Box>
       <Flex alignItems="center" justifyContent="space-between" mt={ 6 } w="100%">
         <HStack gap={ 3 }>
-          <Text textStyle="sm" fontWeight={ 500 }>Email notification</Text>
+          <Text textStyle="sm" fontWeight={ 500 }>{ t('watchlist.emailNotificationHeader') }</Text>
           <Skeleton loading={ isLoading } display="inline-block">
             <Switch
               checked={ notificationEnabled }
               onCheckedChange={ onSwitch }
-              aria-label="Email notification"
+              aria-label={ t('watchlist.emailNotificationHeader') }
               disabled={ !hasEmail || switchDisabled }
             />
           </Skeleton>

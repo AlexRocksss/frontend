@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -32,6 +33,7 @@ interface Props extends Omit<RoutedTabsProps, 'tabs'> {
 }
 
 const TxsTabs = ({ parentTab, tabsHeight, ...rest }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const router = useRouter();
   const tab = getQueryParamString(router.query.tab);
@@ -110,7 +112,7 @@ const TxsTabs = ({ parentTab, tabsHeight, ...rest }: Props) => {
         /> },
     {
       id: getTabId('pending', parentTab),
-      title: 'Pending',
+      title: t('txs.pending'),
       component: (
         <TxsWithFrontendSorting
           query={ txsPendingQuery }
@@ -122,7 +124,7 @@ const TxsTabs = ({ parentTab, tabsHeight, ...rest }: Props) => {
     },
     chainConfig?.features.dataAvailability.isEnabled && {
       id: getTabId('blob_txs', parentTab),
-      title: 'Blob txns',
+      title: t('txs.blobTxns'),
       component: (
         <TxsWithFrontendSorting
           query={ txsWithBlobsQuery }
@@ -132,7 +134,7 @@ const TxsTabs = ({ parentTab, tabsHeight, ...rest }: Props) => {
     },
     isAuth && {
       id: getTabId('watchlist', parentTab),
-      title: 'Watch list',
+      title: t('txs.watchList'),
       component: <TxsWatchlist query={ txsWatchlistQuery } top={ tabsHeight }/>,
     },
   ].filter(Boolean);

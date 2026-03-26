@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { VerifiedContract } from 'types/api/contracts';
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   const license = (() => {
     const license = CONTRACT_LICENSES.find((license) => license.type === data.license_type);
     if (!license || license.type === 'none') {
@@ -53,7 +55,7 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
         />
       </Flex>
       <Flex columnGap={ 3 } w="100%">
-        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">Balance { currencyUnits.ether }</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">{ t('verifiedContracts.balanceLabel', { ether: currencyUnits.ether }) }</Skeleton>
         <NativeCoinValue
           amount={ data.coin_balance }
           noSymbol
@@ -62,13 +64,13 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
         />
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Txs count</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('verifiedContracts.txsCountLabel') }</Skeleton>
         <Skeleton loading={ isLoading } color="text.secondary">
           <span>{ data.transactions_count ? data.transactions_count.toLocaleString() : '0' }</span>
         </Skeleton>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">Language</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">{ t('verifiedContracts.languageLabel') }</Skeleton>
         <Skeleton loading={ isLoading } display="flex" flexWrap="wrap">
           <Box>{ formatLanguageName(data.language) }</Box>
           <Box color="text.secondary" wordBreak="break-all" whiteSpace="pre-wrap"> ({ data.compiler_version })</Box>
@@ -76,26 +78,26 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
       </Flex>
       { data.zk_compiler_version && (
         <Flex columnGap={ 3 }>
-          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">ZK compiler</Skeleton>
+          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">{ t('verifiedContracts.zkCompilerLabel') }</Skeleton>
           <Skeleton loading={ isLoading } color="text.secondary" wordBreak="break-all" whiteSpace="pre-wrap">
             { data.zk_compiler_version }
           </Skeleton>
         </Flex>
       ) }
       <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Optimization</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('verifiedContracts.optimizationLabel') }</Skeleton>
         { data.optimization_enabled ?
           <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
           <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Constructor args</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('verifiedContracts.constructorArgsLabel') }</Skeleton>
         { data.has_constructor_args ?
           <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
           <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Verified</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('verifiedContracts.verifiedLabel') }</Skeleton>
         <Flex alignItems="center" columnGap={ 2 }>
           <IconSvg name="status/success" boxSize={ 4 } color="green.500" isLoading={ isLoading }/>
           <TimeWithTooltip
@@ -106,7 +108,7 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
         </Flex>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>License</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('verifiedContracts.licenseLabel') }</Skeleton>
         <Skeleton loading={ isLoading } color="text.secondary">
           <span>{ license }</span>
         </Skeleton>

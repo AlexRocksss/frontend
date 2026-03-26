@@ -1,5 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
@@ -50,6 +51,7 @@ type Props = {
 };
 
 const AmountFilter = ({ value = {}, handleFilterChange }: Props) => {
+  const { t } = useTranslation();
   const [ currentValue, setCurrentValue ] = React.useState<AmountValue>(value || defaultValue);
 
   const handleFromChange = React.useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +77,7 @@ const AmountFilter = ({ value = {}, handleFilterChange }: Props) => {
 
   return (
     <TableColumnFilter
-      title="Amount"
+      title={ t('advancedFilter.filterAmount') }
       isFilled={ Boolean(currentValue.from || currentValue.to) }
       isTouched={ !isEqual(currentValue, value) }
       onFilter={ onFilter }
@@ -92,9 +94,9 @@ const AmountFilter = ({ value = {}, handleFilterChange }: Props) => {
         </Flex>
       </PopoverCloseTriggerWrapper>
       <Flex mt={ 3 } alignItems="center">
-        <Input value={ currentValue.from } onChange={ handleFromChange } placeholder="From" type="number" size="sm"/>
+        <Input value={ currentValue.from } onChange={ handleFromChange } placeholder={ t('advancedFilter.filterFromDate') } type="number" size="sm"/>
         <Text mx={ 3 }>{ ndash }</Text>
-        <Input value={ currentValue.to } onChange={ handleToChange } placeholder="To" type="number" size="sm"/>
+        <Input value={ currentValue.to } onChange={ handleToChange } placeholder={ t('advancedFilter.filterToDate') } type="number" size="sm"/>
       </Flex>
     </TableColumnFilter>
   );

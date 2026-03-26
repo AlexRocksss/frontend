@@ -1,5 +1,6 @@
 import { Center, chakra } from '@chakra-ui/react';
 import { DappscoutIframeProvider, useDappscoutIframe } from 'dappscout-iframe';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 
 import config from 'configs/app';
@@ -25,6 +26,7 @@ type ContentProps = {
 };
 
 const Content = chakra(({ appUrl, address, message, isEssentialDapp, className }: ContentProps) => {
+  const { t } = useTranslation();
   const { iframeRef, isReady } = useDappscoutIframe();
   const web3Wallet = useWeb3Wallet({ source: 'Essential dapps' });
 
@@ -89,7 +91,7 @@ const Content = chakra(({ appUrl, address, message, isEssentialDapp, className }
           w="100%"
           display={ isFrameLoading ? 'none' : 'block' }
           src={ appUrl }
-          title="Marketplace dapp"
+          title={ t('marketplace.iframeDappTitle') }
           onLoad={ handleIframeLoad }
           background="transparent"
           allowTransparency={ true }

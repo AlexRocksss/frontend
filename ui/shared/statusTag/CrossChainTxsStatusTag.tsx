@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { MessageStatus } from '@blockscout/interchain-indexer-types';
@@ -12,15 +13,16 @@ interface Props extends BadgeProps {
 }
 
 const CrossChainTxsStatusTag = ({ status: statusProp, mode = 'compact', ...rest }: Props) => {
+  const { t } = useTranslation();
 
   const { status, text } = (() => {
     switch (statusProp) {
       case MessageStatus.MESSAGE_STATUS_COMPLETED:
-        return { status: 'ok' as const, text: 'Completed' };
+        return { status: 'ok' as const, text: t('status.completed') };
       case MessageStatus.MESSAGE_STATUS_FAILED:
-        return { status: 'error' as const, text: 'Failed' };
+        return { status: 'error' as const, text: t('status.failed') };
       case MessageStatus.MESSAGE_STATUS_INITIATED:
-        return { status: 'pending' as const, text: 'Initiated' };
+        return { status: 'pending' as const, text: t('status.initiated') };
       default:
         return { status: undefined, text: undefined };
     }

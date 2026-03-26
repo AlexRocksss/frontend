@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -14,12 +15,13 @@ interface Props {
 }
 
 const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   const isError = data.status === MessageStatus.MESSAGE_STATUS_FAILED;
 
   const firstStepContent = (() => {
     if (!data.source_transaction_hash) {
-      return <Trigger status="unfinalized" text="Initiated" isFirst isLast isLoading={ isLoading } isDisabled/>;
+      return <Trigger status="unfinalized" text={ t('crossChain.initiated') } isFirst isLast isLoading={ isLoading } isDisabled/>;
     }
 
     const isLast = isError && !data.destination_transaction_hash;
@@ -28,17 +30,17 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
       <>
         <Trigger
           status={ isLast && isError ? 'error' : 'success' }
-          text="Initiated"
+          text={ t('crossChain.initiated') }
           isFirst
           isLast={ isLast }
           isLoading={ isLoading }
         />
         <ItemContent isLast={ isLast }>
           <ItemBody>
-            <ItemRow label="Chain">
+            <ItemRow label={ t('crossChain.chain') }>
               <ChainLabel data={ data.source_chain } isLoading={ isLoading } py="6px"/>
             </ItemRow>
-            <ItemRow label="Transaction">
+            <ItemRow label={ t('crossChain.transaction') }>
               <TxEntityInterchain
                 chain={ data.source_chain }
                 hash={ data.source_transaction_hash }
@@ -47,7 +49,7 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
                 py="6px"
               />
             </ItemRow>
-            <ItemRow label="Timestamp">
+            <ItemRow label={ t('crossChain.timestamp') }>
               <DetailedInfoTimestamp timestamp={ data.send_timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }} py="6px"/>
             </ItemRow>
           </ItemBody>
@@ -61,24 +63,24 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
       if (isError) {
         return null;
       }
-      return <Trigger status="unfinalized" text="Completed" isFirst={ false } isLast isLoading={ isLoading } isDisabled/>;
+      return <Trigger status="unfinalized" text={ t('crossChain.completed') } isFirst={ false } isLast isLoading={ isLoading } isDisabled/>;
     }
 
     return (
       <>
         <Trigger
           status={ isError ? 'error' : 'success' }
-          text="Completed"
+          text={ t('crossChain.completed') }
           isFirst={ false }
           isLast
           isLoading={ isLoading }
         />
         <ItemContent isLast>
           <ItemBody>
-            <ItemRow label="Chain">
+            <ItemRow label={ t('crossChain.chain') }>
               <ChainLabel data={ data.destination_chain } isLoading={ isLoading } py="6px"/>
             </ItemRow>
-            <ItemRow label="Transaction">
+            <ItemRow label={ t('crossChain.transaction') }>
               <TxEntityInterchain
                 chain={ data.destination_chain }
                 hash={ data.destination_transaction_hash }
@@ -88,7 +90,7 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
               />
             </ItemRow>
             { data.receive_timestamp && (
-              <ItemRow label="Timestamp">
+              <ItemRow label={ t('crossChain.timestamp') }>
                 <DetailedInfoTimestamp timestamp={ data.receive_timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }} py="6px"/>
               </ItemRow>
             ) }

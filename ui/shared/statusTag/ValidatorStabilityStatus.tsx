@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ValidatorStability } from 'types/api/validators';
@@ -10,13 +11,15 @@ interface Props {
 }
 
 const ValidatorStabilityStatus = ({ state, isLoading }: Props) => {
+  const { t } = useTranslation();
+
   switch (state) {
     case 'active':
-      return <StatusTag type="ok" text="Active" loading={ isLoading }/>;
+      return <StatusTag type="ok" text={ t('status.active') } loading={ isLoading }/>;
     case 'probation':
-      return <StatusTag type="pending" text="Probation" loading={ isLoading }/>;
+      return <StatusTag type="pending" text={ t('status.probation') } loading={ isLoading }/>;
     case 'inactive':
-      return <StatusTag type="error" text="Inactive" loading={ isLoading }/>;
+      return <StatusTag type="error" text={ t('status.inactive') } loading={ isLoading }/>;
   }
 };
 

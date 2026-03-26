@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfo, TokenInstance } from 'types/api/token';
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const TokenTransferTable = ({ data, top, showSocketInfo, showSocketErrorAlert, socketInfoNum, tokenId, isLoading, token, instance }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const chainData = multichainContext?.chain;
   const tokenType = token.type;
@@ -36,17 +38,17 @@ const TokenTransferTable = ({ data, top, showSocketInfo, showSocketErrorAlert, s
           <TableRow>
             { chainData && <TableColumnHeader width="38px"/> }
             <TableColumnHeader width="280px">
-              Txn hash
+              { t('token.txnHash') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader width="200px">Method</TableColumnHeader>
-            <TableColumnHeader width={{ lg: '224px', xl: '380px' }}>From/To</TableColumnHeader>
+            <TableColumnHeader width="200px">{ t('token.method') }</TableColumnHeader>
+            <TableColumnHeader width={{ lg: '224px', xl: '380px' }}>{ t('token.fromTo') }</TableColumnHeader>
             { (NFT_TOKEN_TYPE_IDS.includes(tokenType)) &&
-              <TableColumnHeader width={ hasTokenIds(tokenType) ? '50%' : '100%' }>Token ID</TableColumnHeader>
+              <TableColumnHeader width={ hasTokenIds(tokenType) ? '50%' : '100%' }>{ t('token.tokenId') }</TableColumnHeader>
             }
             { hasTokenTransferValue(tokenType) && (
               <TableColumnHeader width={ (isFungibleTokenType(tokenType) || isConfidentialTokenType(tokenType)) ? '100%' : '50%' } isNumeric>
-                <TruncatedText text={ `Value ${ token?.symbol || '' }` } w="100%" verticalAlign="middle"/>
+                <TruncatedText text={ `${ t('token.value') }${ token?.symbol ? ` ${ token.symbol }` : '' }` } w="100%" verticalAlign="middle"/>
               </TableColumnHeader>
             ) }
           </TableRow>

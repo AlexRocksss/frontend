@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -7,11 +8,12 @@ import { FormFieldCheckbox } from 'toolkit/components/forms/fields/FormFieldChec
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 
 const ContractVerificationFieldIsYul = () => {
+  const { t } = useTranslation();
   return (
     <ContractVerificationFormRow>
       <FormFieldCheckbox<FormFields, 'is_yul'>
         name="is_yul"
-        label="Is Yul contract"
+        label={ t('contractVerification.isYulLabel') }
       />
     </ContractVerificationFormRow>
   );

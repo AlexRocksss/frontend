@@ -1,4 +1,5 @@
 import { Flex, HStack, Text, Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const InteropMessagesListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobile rowGap={ 2 }>
       <Flex alignItems="center" justifyContent="space-between" w="100%">
@@ -32,9 +34,9 @@ const InteropMessagesListItem = ({ item, isLoading }: Props) => {
           <TimeWithTooltip timestamp={ item.timestamp } isLoading={ isLoading } color="text.secondary"/>
         </HStack>
         <Grid templateColumns="120px 1fr" rowGap={ 2 }>
-          <Text as="span" color="text.secondary">Source tx</Text>
+          <Text as="span" color="text.secondary">{ t('interopMessages.sourceTx') }</Text>
           <InteropMessageSourceTx { ...item } isLoading={ isLoading }/>
-          <Text as="span" color="text.secondary">Destination tx</Text>
+          <Text as="span" color="text.secondary">{ t('interopMessages.destinationTx') }</Text>
           <InteropMessageDestinationTx { ...item } isLoading={ isLoading }/>
         </Grid>
         <Flex gap={ 2 } justifyContent="space-between" mt={ 2 }>

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -64,6 +65,7 @@ interface Props {
 }
 
 const TxInternals = ({ txQuery }: Props) => {
+  const { t } = useTranslation();
   // filters are not implemented yet in api
   // const [ filters, setFilters ] = React.useState<Array<TxInternalsType>>([]);
   // const [ searchTerm, setSearchTerm ] = React.useState<string>('');
@@ -125,7 +127,7 @@ const TxInternals = ({ txQuery }: Props) => {
     <DataListDisplay
       isError={ isError || txQuery.isError }
       itemsNum={ data?.items.length }
-      emptyText="There are no internal transactions for this transaction."
+      emptyText={ t('tx.noInternalTxs') }
       // filterProps={{
       // emptyFilteredText: `Couldn${ apos }t find any transaction that matches your query.`.
       // hasActiveFilters: Boolean(filters.length || searchTerm),

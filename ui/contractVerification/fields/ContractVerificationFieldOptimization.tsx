@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -9,6 +10,7 @@ import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 
 const ContractVerificationFieldOptimization = () => {
+  const { t } = useTranslation();
   const [ isEnabled, setIsEnabled ] = React.useState(true);
 
   const handleCheckboxChange = React.useCallback(() => {
@@ -20,7 +22,7 @@ const ContractVerificationFieldOptimization = () => {
       <Flex columnGap={ 5 } h={{ base: 'auto', lg: '32px' }}>
         <FormFieldCheckbox<FormFields, 'is_optimization_enabled'>
           name="is_optimization_enabled"
-          label="Optimization enabled"
+          label={ t('contractVerification.optimizationEnabled') }
           onChange={ handleCheckboxChange }
           flexShrink={ 0 }
         />
@@ -28,7 +30,7 @@ const ContractVerificationFieldOptimization = () => {
           <FormFieldText<FormFields, 'optimization_runs'>
             name="optimization_runs"
             required
-            placeholder="Optimization runs"
+            placeholder={ t('contractVerification.optimizationRunsPlaceholder') }
             inputProps={{
               type: 'number',
             }}

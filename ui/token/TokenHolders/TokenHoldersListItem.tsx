@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenHolder, TokenInfo } from 'types/api/token';
@@ -18,9 +19,10 @@ interface Props {
 }
 
 const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobileGrid.Container>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('token.owner') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <AddressEntity
           address={ holder.address }
@@ -32,14 +34,14 @@ const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
 
       { (hasTokenIds(token.type)) && 'token_id' in holder && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>ID#</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('token.idNumber') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <TruncatedText text={ holder.token_id } loading={ isLoading } w="100%"/>
           </ListItemMobileGrid.Value>
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Quantity</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('token.quantity') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         { isConfidentialTokenType(token.type) ? (
           <ConfidentialValue loading={ isLoading }/>
@@ -54,7 +56,7 @@ const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
 
       { token.total_supply && token.type !== 'ERC-404' && !isConfidentialTokenType(token.type) && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Percentage</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('token.percentage') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <Utilization
               value={ BigNumber(holder.value).div(BigNumber(token.total_supply)).dp(4).toNumber() }

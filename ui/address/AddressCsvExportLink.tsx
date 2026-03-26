@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CsvExportParams } from 'types/client/address';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const AddressCsvExportLink = ({ className, address, params, isLoading, chainData }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const isInitialLoading = useIsInitialLoading(isLoading);
   const multichainContext = useMultichainContext();
@@ -34,7 +36,7 @@ const AddressCsvExportLink = ({ className, address, params, isLoading, chainData
   }
 
   return (
-    <Tooltip disabled={ !isMobile } content="Download CSV">
+    <Tooltip disabled={ !isMobile } content={ t('address.csvExportTooltip') }>
       <Link
         className={ className }
         whiteSpace="nowrap"
@@ -46,7 +48,7 @@ const AddressCsvExportLink = ({ className, address, params, isLoading, chainData
         textStyle="sm"
       >
         <IconSvg name="files/csv" boxSize={ 5 }/>
-        <chakra.span ml={ 1 } hideBelow="lg">Download</chakra.span>
+        <chakra.span ml={ 1 } hideBelow="lg">{ t('address.csvExportDownload') }</chakra.span>
       </Link>
     </Tooltip>
   );

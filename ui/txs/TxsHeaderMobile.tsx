@@ -1,4 +1,5 @@
 import { HStack, chakra, createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TransactionsSortingValue } from 'types/api/transaction';
@@ -23,11 +24,21 @@ type Props = {
   tableViewButton?: React.ReactNode;
 };
 
-const collection = createListCollection({
-  items: SORT_OPTIONS,
-});
-
 const TxsHeaderMobile = ({ filterComponent, sorting, setSorting, paginationProps, className, showPagination = true, linkSlot, tableViewButton }: Props) => {
+  const { t } = useTranslation();
+  const collection = createListCollection({
+    items: SORT_OPTIONS.map((o) => ({
+      ...o,
+      label: t(`txs.${ ({
+        'default': 'sortDefault',
+        'value-asc': 'sortValueAsc',
+        'value-desc': 'sortValueDesc',
+        'fee-asc': 'sortFeeAsc',
+        'fee-desc': 'sortFeeDesc',
+        'block_number-asc': 'sortBlockNumberAsc',
+      } as Record<string, string>)[o.value] || o.value }` as 'txs.sortDefault'),
+    })),
+  });
   const handleSortValueChange = React.useCallback(({ value }: { value: Array<string> }) => {
     setSorting?.(value[0] as TransactionsSortingValue);
   }, [ setSorting ]);

@@ -1,4 +1,5 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import type { AdBannerProviders } from 'types/client/adProviders';
 
@@ -8,6 +9,7 @@ import config from 'configs/app';
 import * as cookies from 'lib/cookies';
 import type * as metadata from 'lib/metadata';
 
+import i18nConfig from '../../next-i18next.config';
 import { isLikelyHumanBrowser, isKnownBotRequest } from '../utils/checkRealBrowser';
 
 const adBannerFeature = config.features.adsBanner;
@@ -21,10 +23,12 @@ export interface Props<Pathname extends Route['pathname'] = never> {
   // so we force it to be always present in the props but it can be null
   apiData: metadata.ApiData<Pathname> | null;
   uuid: string;
+  _nextI18Next?: Record<string, unknown>;
 }
 
-export const base = async <Pathname extends Route['pathname'] = never>({ req, res, query }: GetServerSidePropsContext):
+export const base = async <Pathname extends Route['pathname'] = never>(context: GetServerSidePropsContext):
 Promise<GetServerSidePropsResult<Props<Pathname>>> => {
+  const { req, res, query } = context;
   const appProfile = req.headers?.['x-app-profile'] || cookies.getFromCookieString(req.headers.cookie || '', cookies.NAMES.APP_PROFILE);
   const adBannerProvider = (() => {
     if (adBannerFeature.isEnabled) {
@@ -72,8 +76,11 @@ Promise<GetServerSidePropsResult<Props<Pathname>>> => {
     }
   }
 
+  const i18nProps = await serverSideTranslations(context.locale ?? 'en', i18nConfig.ns as Array<string>, i18nConfig);
+
   return {
     props: {
+      ...i18nProps,
       query,
       cookies: req.headers.cookie || '',
       referrer: req.headers.referer || '',

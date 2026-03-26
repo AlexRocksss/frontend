@@ -1,4 +1,5 @@
 import { chakra, Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -13,22 +14,23 @@ interface Props {
 }
 
 const SearchBarSuggestBlockCountdown = ({ blockHeight, onClick, className, isMultichain }: Props) => {
+  const { t } = useTranslation();
 
   if (isMultichain) {
     return (
       <Box className={ className }>
-        This block hasn’t been created yet. <Link href={ route({ pathname: '/blocks' }) } onClick={ onClick }>View existing blocks</Link>.
+        { t('searchBar.blockNotCreated') } <Link href={ route({ pathname: '/blocks' }) } onClick={ onClick }>{ t('searchBar.viewExistingBlocks') }</Link>.
       </Box>
     );
   }
 
   return (
     <Box className={ className }>
-      <span>Learn </span>
+      <span>{ t('searchBar.learnEstimatedTime_pre') } </span>
       <Link href={ route({ pathname: '/block/countdown/[height]', query: { height: blockHeight } }) } onClick={ onClick }>
-        estimated time for this block
+        { t('searchBar.learnEstimatedTime_link') }
       </Link>
-      <span> to be created.</span>
+      <span> { t('searchBar.learnEstimatedTime_post') }</span>
     </Box>
   );
 };

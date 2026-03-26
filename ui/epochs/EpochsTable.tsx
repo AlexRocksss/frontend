@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CeloEpochListItem } from 'types/api/epochs';
@@ -15,19 +16,20 @@ interface Props {
 };
 
 const EpochsTable = ({ items, isLoading, top }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot minW="1100px">
       <TableHeaderSticky top={ top }>
         <TableRow>
           <TableColumnHeader w="280px">
-            Epoch
+            { t('epochs.epoch') }
             <TimeFormatToggle/>
           </TableColumnHeader>
-          <TableColumnHeader w="120px">Status</TableColumnHeader>
-          <TableColumnHeader w="25%">Block range</TableColumnHeader>
-          <TableColumnHeader w="25%" isNumeric>Community { config.chain.currency.symbol }</TableColumnHeader>
-          <TableColumnHeader w="25%" isNumeric>Carbon offset { config.chain.currency.symbol }</TableColumnHeader>
-          <TableColumnHeader w="25%" isNumeric>Total { config.chain.currency.symbol }</TableColumnHeader>
+          <TableColumnHeader w="120px">{ t('epochs.status') }</TableColumnHeader>
+          <TableColumnHeader w="25%">{ t('epochs.blockRange') }</TableColumnHeader>
+          <TableColumnHeader w="25%" isNumeric>{ t('epochs.community', { symbol: config.chain.currency.symbol }) }</TableColumnHeader>
+          <TableColumnHeader w="25%" isNumeric>{ t('epochs.carbonOffset', { symbol: config.chain.currency.symbol }) }</TableColumnHeader>
+          <TableColumnHeader w="25%" isNumeric>{ t('epochs.total', { symbol: config.chain.currency.symbol }) }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

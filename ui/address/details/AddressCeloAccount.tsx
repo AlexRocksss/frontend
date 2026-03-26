@@ -1,4 +1,5 @@
 import { upperFirst } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -18,28 +19,29 @@ interface Props {
 }
 
 const AddressCeloAccount = ({ isLoading, data }: Props) => {
+  const { t } = useTranslation();
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Celo account info (from the Accounts contract), including it's human-readable name"
+        hint={ t('address.celoAccountHint') }
         isLoading={ isLoading }
       >
-        Celo account
+        { t('address.celoAccountLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
         { data.name && <TruncatedText text={ data.name } mr={ 3 }/> }
         <DetailedInfoItemBreakdown.Container loading={ isLoading }>
           <DetailedInfoItemBreakdown.Row
-            label="Type"
-            hint="The role of the account: regular, validator, or validator group"
+            label={ t('address.celoTypeLabel') }
+            hint={ t('address.celoTypeHint') }
           >
             { upperFirst(data.type) }
           </DetailedInfoItemBreakdown.Row>
 
           { data.metadata_url && (
             <DetailedInfoItemBreakdown.Row
-              label="Metadata URL"
-              hint="Link to additional information published by the account owner"
+              label={ t('address.celoMetadataUrlLabel') }
+              hint={ t('address.celoMetadataUrlHint') }
             >
               <Link href={ data.metadata_url } external>
                 <TruncatedText text={ data.metadata_url }/>
@@ -48,23 +50,23 @@ const AddressCeloAccount = ({ isLoading, data }: Props) => {
           ) }
 
           <DetailedInfoItemBreakdown.Row
-            label={ `Locked ${ currencyUnits.ether }` }
-            hint="Total amount of CELO locked by this account (used for staking or governance)"
+            label={ t('address.celoLockedLabel', { ether: currencyUnits.ether }) }
+            hint={ t('address.celoLockedHint') }
           >
             <NativeCoinValue amount={ data.locked_celo } noSymbol/>
           </DetailedInfoItemBreakdown.Row>
 
           <DetailedInfoItemBreakdown.Row
-            label={ `Non-voting locked ${ currencyUnits.ether }` }
-            hint="Portion of locked CELO that is not currently used for voting"
+            label={ t('address.celoNonVotingLockedLabel', { ether: currencyUnits.ether }) }
+            hint={ t('address.celoNonVotingLockedHint') }
           >
             <NativeCoinValue amount={ data.nonvoting_locked_celo } noSymbol/>
           </DetailedInfoItemBreakdown.Row>
 
           { data.vote_signer_address && (
             <DetailedInfoItemBreakdown.Row
-              label="Vote signer address"
-              hint="Address authorized to vote in governance and validator elections on behalf of this account"
+              label={ t('address.celoVoteSignerLabel') }
+              hint={ t('address.celoVoteSignerHint') }
             >
               <AddressEntity address={ data.vote_signer_address }/>
             </DetailedInfoItemBreakdown.Row>
@@ -72,8 +74,8 @@ const AddressCeloAccount = ({ isLoading, data }: Props) => {
 
           { data.validator_signer_address && (
             <DetailedInfoItemBreakdown.Row
-              label="Validator signer address"
-              hint="Address authorized to manage a validator or validator group and sign consensus messages for this account"
+              label={ t('address.celoValidatorSignerLabel') }
+              hint={ t('address.celoValidatorSignerHint') }
             >
               <AddressEntity address={ data.validator_signer_address }/>
             </DetailedInfoItemBreakdown.Row>
@@ -81,8 +83,8 @@ const AddressCeloAccount = ({ isLoading, data }: Props) => {
 
           { data.attestation_signer_address && (
             <DetailedInfoItemBreakdown.Row
-              label="Attestation signer address"
-              hint="Address whose key this account uses to sign attestations on the Attestations contract"
+              label={ t('address.celoAttestationSignerLabel') }
+              hint={ t('address.celoAttestationSignerHint') }
             >
               <AddressEntity address={ data.attestation_signer_address }/>
             </DetailedInfoItemBreakdown.Row>

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -16,6 +17,7 @@ import ZkEvmL2WithdrawalsListItem from 'ui/withdrawals/zkEvmL2/ZkEvmL2Withdrawal
 import ZkEvmL2WithdrawalsTable from 'ui/withdrawals/zkEvmL2/ZkEvmL2WithdrawalsTable';
 
 const ZkEvmL2Withdrawals = () => {
+  const { t } = useTranslation();
   const { data, isError, isPlaceholderData, pagination } = useQueryWithPages({
     resourceName: 'general:zkevm_l2_withdrawals',
     options: {
@@ -73,7 +75,7 @@ const ZkEvmL2Withdrawals = () => {
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no withdrawals."
+        emptyText={ t('pages.noWithdrawals') }
         actionBar={ actionBar }
       >
         { content }

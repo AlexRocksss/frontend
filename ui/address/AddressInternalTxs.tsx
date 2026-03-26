@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useIsMounted from 'lib/hooks/useIsMounted';
@@ -17,6 +18,7 @@ type Props = {
   isQueryEnabled?: boolean;
 };
 const AddressInternalTxs = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const isMounted = useIsMounted();
 
   const { hash, query, filterValue, onFilterChange } = useAddressInternalTxsQuery({ enabled: isQueryEnabled });
@@ -63,7 +65,7 @@ const AddressInternalTxs = ({ shouldRender = true, isQueryEnabled = true }: Prop
       emptyStateProps={{
         term: 'transaction',
       }}
-      emptyText="There are no internal transactions for this address."
+      emptyText={ t('address.noInternalTxs') }
       actionBar={ actionBar }
     >
       { content }

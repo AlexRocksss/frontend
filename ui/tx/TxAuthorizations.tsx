@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const TxAuthorizations = ({ txQuery }: Props) => {
+  const { t } = useTranslation();
 
   if (!txQuery.isPlaceholderData && !txQuery.isError && !txQuery.data?.status) {
     return txQuery.socketStatus ? <TxSocketAlert status={ txQuery.socketStatus }/> : <TxPendingAlert/>;
@@ -34,7 +36,7 @@ const TxAuthorizations = ({ txQuery }: Props) => {
     <DataListDisplay
       isError={ txQuery.isError }
       itemsNum={ txQuery.data?.authorization_list?.length }
-      emptyText="There are no authorizations for this transaction."
+      emptyText={ t('tx.noAuthorizations') }
     >
       { content }
     </DataListDisplay>

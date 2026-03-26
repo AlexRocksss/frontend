@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as bens from '@blockscout/bens-types';
@@ -18,11 +19,12 @@ interface Props {
 }
 
 const NameDomainHistoryTable = ({ history, domain, isLoading, sort, onSortToggle }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot>
       <TableHeaderSticky top={ 0 }>
         <TableRow>
-          <TableColumnHeader width="25%">Txn hash</TableColumnHeader>
+          <TableColumnHeader width="25%">{ t('nameDomain.txnHash') }</TableColumnHeader>
           <TableColumnHeaderSortable
             width="25%"
             pl={ 9 }
@@ -31,10 +33,10 @@ const NameDomainHistoryTable = ({ history, domain, isLoading, sort, onSortToggle
             onSortToggle={ onSortToggle }
             contentAfter={ <TimeFormatToggle/> }
           >
-            Timestamp
+            { t('nameDomain.timestamp') }
           </TableColumnHeaderSortable>
-          <TableColumnHeader width="25%">From</TableColumnHeader>
-          <TableColumnHeader width="25%">Method</TableColumnHeader>
+          <TableColumnHeader width="25%">{ t('nameDomain.from') }</TableColumnHeader>
+          <TableColumnHeader width="25%">{ t('nameDomain.method') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

@@ -1,5 +1,6 @@
 import { HStack, VStack, Flex, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
@@ -17,6 +18,7 @@ import SimpleValue from 'ui/shared/value/SimpleValue';
 import { DEFAULT_ACCURACY_USD } from 'ui/shared/value/utils';
 
 const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isLoading?: boolean }) => {
+  const { t } = useTranslation();
   const nativeTokenData = React.useMemo(() => ({
     name: config.chain.currency.name || '',
     icon_url: '',
@@ -48,7 +50,7 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
           isLoading={ isLoading }
         />
         <Skeleton loading={ isLoading } whiteSpace="pre" display="inline-flex">
-          <span>{ currencyUnits.ether } balance: </span>
+          <span>{ t('watchlist.etherBalance', { ether: currencyUnits.ether }) }</span>
           <NativeCoinValue
             amount={ item.address_balance }
             exchangeRate={ item.exchange_rate }
@@ -60,7 +62,7 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
         <HStack gap={ 2 } fontSize="sm" pl={ 7 }>
           <IconSvg name="tokens" boxSize={ 5 } isLoading={ isLoading } borderRadius="sm"/>
           <Skeleton loading={ isLoading } display="inline-flex">
-            <span>{ `Tokens:${ nbsp }` + item.tokens_count + (item.tokens_overflow ? '+' : '') }</span>
+            <span>{ t('watchlist.tokens') + nbsp + item.tokens_count + (item.tokens_overflow ? '+' : '') }</span>
             <Text color="text.secondary">{ `${ nbsp }($${ BigNumber(item.tokens_fiat_value).toFormat(2) })` }</Text>
           </Skeleton>
         </HStack>
@@ -72,7 +74,7 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
           startElement={ (
             <HStack>
               <IconSvg boxSize={ 5 } name="wallet" isLoading={ isLoading }/>
-              <span>Net worth:{ nbsp }</span>
+              <span>{ t('watchlist.netWorth') }{ nbsp }</span>
             </HStack>
           ) }
           accuracy={ DEFAULT_ACCURACY_USD }

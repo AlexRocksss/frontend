@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Link } from 'toolkit/chakra/link';
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const DocsLink = ({ href }: Props) => {
+  const { t } = useTranslation();
   return (
     <Link
       href={ href }
@@ -18,7 +20,7 @@ const DocsLink = ({ href }: Props) => {
       columnGap={ 1 }
     >
       <IconSvg name="docs" boxSize={ 5 } color="icon.primary"/>
-      <span>Documentation</span>
+      <span>{ t('token.documentation') }</span>
     </Link>
   );
 };

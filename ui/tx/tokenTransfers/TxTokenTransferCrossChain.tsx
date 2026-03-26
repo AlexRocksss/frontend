@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import TokenTransfersCrossChainListItem from 'ui/crossChain/transfers/TokenTransfersCrossChainListItem';
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const TxTokenTransferCrossChain = ({ txQuery, crossChainQuery, isLoading, tableTop }: Props) => {
+  const { t } = useTranslation();
   const content = crossChainQuery.data?.items ? (
     <>
       <Box hideFrom="lg">
@@ -42,7 +44,7 @@ const TxTokenTransferCrossChain = ({ txQuery, crossChainQuery, isLoading, tableT
     <DataListDisplay
       isError={ txQuery.isError || crossChainQuery.isError }
       itemsNum={ crossChainQuery.data?.items.length }
-      emptyText="There are no cross-chain token transfers."
+      emptyText={ t('tx.noCrossChainTokenTransfers') }
       emptyStateProps={{
         term: 'token transfer',
       }}

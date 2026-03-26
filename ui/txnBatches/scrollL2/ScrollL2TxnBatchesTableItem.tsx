@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ScrollL2TxnBatch } from 'types/api/scrollL2';
@@ -20,6 +21,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ScrollL2TxnBatch; isLoading?: boolean };
 
 const ScrollL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'scroll') {
     return null;
   }
@@ -57,7 +59,7 @@ const ScrollL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
       <TableCell verticalAlign="middle">
         <TimeWithTooltip
           timestamp={ item.commitment_transaction.timestamp }
-          fallbackText="Undefined"
+          fallbackText={ t('txnBatches.undefined') }
           isLoading={ isLoading }
           color="text.secondary"
         />
@@ -68,7 +70,7 @@ const ScrollL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
             number={ item.confirmation_transaction.block_number }
             isLoading={ isLoading }
           />
-        ) : <Skeleton loading={ isLoading } display="inline-block">Pending</Skeleton> }
+        ) : <Skeleton loading={ isLoading } display="inline-block">{ t('txnBatches.pending') }</Skeleton> }
       </TableCell>
       <TableCell verticalAlign="middle">
         { item.confirmation_transaction.hash ? (
@@ -78,7 +80,7 @@ const ScrollL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
             truncation="constant_long"
             noCopy
           />
-        ) : <Skeleton loading={ isLoading } display="inline-block">Pending</Skeleton> }
+        ) : <Skeleton loading={ isLoading } display="inline-block">{ t('txnBatches.pending') }</Skeleton> }
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>
         <Link

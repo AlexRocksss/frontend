@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -11,14 +12,15 @@ interface Props {
 }
 
 const MyProfileFieldsEmail = ({ isReadOnly, defaultValue }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <FormFieldEmail<FormFields>
       name="email"
-      placeholder="Email"
+      placeholder={ t('myProfile.emailPlaceholder') }
       required
       readOnly={ isReadOnly }
-      helperText="Email for watch list notifications and private tags"
+      helperText={ t('myProfile.emailHelperText') }
       group={{
         endElement: ({ field }) => {
           const isVerified = defaultValue && field.value === defaultValue;

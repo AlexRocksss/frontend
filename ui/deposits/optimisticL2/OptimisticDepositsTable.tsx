@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { OptimisticL2DepositsItem } from 'types/api/optimisticL2';
@@ -16,20 +17,21 @@ type Props = {
 };
 
 const OptimisticDepositsTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot tableLayout="auto" minW="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader>{ layerLabels.parent } block No</TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.current } txn hash</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentBlockNo', { parent: layerLabels.parent }) }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.currentTxnHash', { current: layerLabels.current }) }</TableColumnHeader>
             <TableColumnHeader>
-              Timestamp
+              { t('deposits.timestampHeader') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.parent } txn hash</TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.parent } txn origin</TableColumnHeader>
-            <TableColumnHeader isNumeric>Gas limit</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentTxnHash', { parent: layerLabels.parent }) }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentTxnOrigin', { parent: layerLabels.parent }) }</TableColumnHeader>
+            <TableColumnHeader isNumeric>{ t('deposits.gasLimitLabel') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

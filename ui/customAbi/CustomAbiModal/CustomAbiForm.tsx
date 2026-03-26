@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -35,6 +36,7 @@ type Inputs = {
 const NAME_MAX_LENGTH = 255;
 
 const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAlertVisible }) => {
+  const { t } = useTranslation();
   const formApi = useForm<Inputs>({
     defaultValues: {
       contract_address_hash: data?.contract_address_hash || '',
@@ -107,7 +109,7 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
       <form noValidate onSubmit={ formApi.handleSubmit(onSubmit) }>
         <FormFieldAddress<Inputs>
           name="contract_address_hash"
-          placeholder="Smart contract address (0x...)"
+          placeholder={ t('customAbi.contractAddressPlaceholder') }
           required
           bgColor="dialog.bg"
           readOnly={ Boolean(data && 'contract_address_hash' in data) }
@@ -115,7 +117,7 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
         />
         <FormFieldText<Inputs>
           name="name"
-          placeholder="Project name"
+          placeholder={ t('customAbi.projectNamePlaceholder') }
           required
           rules={{
             maxLength: NAME_MAX_LENGTH,
@@ -125,7 +127,7 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
         />
         <FormFieldText<Inputs>
           name="abi"
-          placeholder="Custom ABI [{...}] (JSON format)"
+          placeholder={ t('customAbi.abiPlaceholder') }
           required
           asComponent="Textarea"
           bgColor="dialog.bg"
@@ -139,7 +141,7 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
             disabled={ !formApi.formState.isDirty }
             loading={ isPending }
           >
-            { data && 'id' in data ? 'Save' : 'Create custom ABI' }
+            { data && 'id' in data ? t('customAbi.save') : t('customAbi.create') }
           </Button>
         </Box>
       </form>

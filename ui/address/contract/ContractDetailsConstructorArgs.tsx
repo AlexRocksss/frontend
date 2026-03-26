@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContract } from 'types/api/contract';
@@ -64,6 +65,7 @@ interface Props {
 }
 
 const ContractDetailsConstructorArgs = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   const content = React.useMemo(() => {
     if (!data?.decoded_constructor_args) {
@@ -74,7 +76,7 @@ const ContractDetailsConstructorArgs = ({ data, isLoading }: Props) => {
       .map(([ value, { name, type } ], index) => {
         return (
           <Box key={ index }>
-            <span>Arg [{ index }] { name || '' } ({ type }): </span>
+            <span>{ t('address.argPrefix', { index, name: name || '', type }) }</span>
             <DecodedItemValue value={ value } type={ type }/>
           </Box>
         );
@@ -87,7 +89,7 @@ const ContractDetailsConstructorArgs = ({ data, isLoading }: Props) => {
         { decoded }
       </>
     );
-  }, [ data?.constructor_args, data?.decoded_constructor_args ]);
+  }, [ data?.constructor_args, data?.decoded_constructor_args, t ]);
 
   if (!content) {
     return null;
@@ -96,7 +98,7 @@ const ContractDetailsConstructorArgs = ({ data, isLoading }: Props) => {
   return (
     <RawDataSnippet
       data={ content }
-      title="Constructor Arguments"
+      title={ t('address.constructorArgs') }
       textareaMaxHeight="200px"
       isLoading={ isLoading }
     />

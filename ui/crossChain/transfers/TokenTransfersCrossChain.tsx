@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -10,6 +11,7 @@ import StickyPaginationWithText from 'ui/shared/StickyPaginationWithText';
 import TokenTransfersCrossChainContent from './TokenTransfersCrossChainContent';
 
 const TokenTransfersCrossChain = () => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError, pagination } = useQueryWithPages({
     resourceName: 'interchainIndexer:transfers',
     options: {
@@ -24,7 +26,7 @@ const TokenTransfersCrossChain = () => {
 
   const actionBarText = (
     <Skeleton loading={ statsQuery.isPlaceholderData || isPlaceholderData }>
-      A total of { Number(statsQuery.data?.total_transfers).toLocaleString() } cross-chain token transfers found
+      { t('crossChain.totalTransfersFound', { count: Number(statsQuery.data?.total_transfers).toLocaleString() }) }
     </Skeleton>
   );
 

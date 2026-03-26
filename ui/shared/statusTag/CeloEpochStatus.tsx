@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Props as StatusTagProps } from './StatusTag';
@@ -8,11 +9,13 @@ export interface Props extends Omit<StatusTagProps, 'type' | 'text'> {
 }
 
 const CeloEpochStatus = ({ isFinalized, ...rest }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <StatusTag
       { ...rest }
       type={ isFinalized ? 'ok' : 'pending' }
-      text={ isFinalized ? 'Finalized' : 'In progress' }
+      text={ isFinalized ? t('status.finalized') : t('status.inProgress') }
     />
   );
 };

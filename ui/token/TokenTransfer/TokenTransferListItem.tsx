@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -32,6 +33,7 @@ const TokenTransferListItem = ({
   instance,
   chainData,
 }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobile rowGap={ 3 }>
       <Flex justifyContent="space-between" alignItems="center" lineHeight="24px" width="100%">
@@ -76,7 +78,7 @@ const TokenTransferListItem = ({
             whiteSpace="pre"
             overflow="hidden"
           >
-            <span>Value </span>
+            <span>{ t('token.value') } </span>
             { token.symbol && <TruncatedText text={ token.symbol } loading={ isLoading }/> }
           </Skeleton>
           <AssetValue
@@ -100,7 +102,7 @@ const TokenTransferListItem = ({
             whiteSpace="pre"
             overflow="hidden"
           >
-            <span>Value </span>
+            <span>{ t('token.value') } </span>
             { token.symbol && <TruncatedText text={ token.symbol } loading={ isLoading }/> }
           </Skeleton>
           <ConfidentialValue

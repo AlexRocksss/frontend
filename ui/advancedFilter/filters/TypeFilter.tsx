@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { isEqual, without } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AdvancedFilterParams, AdvancedFilterType } from 'types/api/advancedFilter';
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
+  const { t } = useTranslation();
   const [ currentValue, setCurrentValue ] = React.useState<Array<AdvancedFilterType | typeof RESET_VALUE>>([ ...value ]);
 
   const multichainContext = useMultichainContext();
@@ -46,13 +48,23 @@ const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
     handleFilterChange(FILTER_PARAM, value);
   }, [ handleFilterChange, currentValue ]);
 
+  const typeNameOverrides = React.useMemo<Partial<Record<string, string>>>(() => ({
+    all: t('advancedFilter.filterTypeAll'),
+    coin_transfer: t('advancedFilter.filterTypeCoinTransfer'),
+    contract_creation: t('advancedFilter.filterTypeContractCreation'),
+    contract_interaction: t('advancedFilter.filterTypeContractInteraction'),
+  }), [ t ]);
+
   const advancedFilterTypes = React.useMemo(() => {
-    return getAdvancedFilterTypes(multichainContext?.chain?.app_config, true);
-  }, [ multichainContext?.chain?.app_config ]);
+    return getAdvancedFilterTypes(multichainContext?.chain?.app_config, true).map(type => ({
+      ...type,
+      name: typeNameOverrides[type.id] ?? type.name,
+    }));
+  }, [ multichainContext?.chain?.app_config, typeNameOverrides ]);
 
   return (
     <TableColumnFilter
-      title="Transaction type"
+      title={ t('advancedFilter.filterType') }
       isFilled={ !(currentValue.length === 1 && currentValue[0] === RESET_VALUE) }
       isTouched={ !isEqual(currentValue.sort(), value.sort()) }
       onFilter={ onFilter }

@@ -1,4 +1,5 @@
 import { Box, HStack, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -30,6 +31,7 @@ type Props = {
 type FilterKeys = keyof AddressMudRecordsFilter;
 
 const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [ sorting, setSorting ] =
     React.useState<AddressMudRecordsSorting | undefined>(getSortParamsFromQuery<AddressMudRecordsSorting>(router.query, SORT_SEQUENCE));
@@ -134,8 +136,8 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
 
   const emptyText = (
     <>
-      <chakra.span>There are no records for </chakra.span>
-      { data?.table.table_full_name ? <chakra.span fontWeight={ 600 }>{ data?.table.table_full_name }</chakra.span> : 'this table' }
+      <chakra.span>{ t('address.noRecordsFor') }</chakra.span>
+      { data?.table.table_full_name ? <chakra.span fontWeight={ 600 }>{ data?.table.table_full_name }</chakra.span> : t('address.thisTable') }
     </>
   );
 

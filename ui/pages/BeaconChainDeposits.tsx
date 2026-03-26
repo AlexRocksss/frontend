@@ -1,5 +1,6 @@
 import { Box, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -18,6 +19,7 @@ import StickyPaginationWithText from 'ui/shared/StickyPaginationWithText';
 const feature = config.features.beaconChain;
 
 const BeaconChainDeposits = () => {
+  const { t } = useTranslation();
   const { data, isError, isPlaceholderData, pagination } = useQueryWithPages({
     resourceName: 'general:deposits',
     options: {
@@ -86,7 +88,7 @@ const BeaconChainDeposits = () => {
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no deposits."
+        emptyText={ t('pages.noDeposits') }
         actionBar={ actionBar }
       >
         { content }

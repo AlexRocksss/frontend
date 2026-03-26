@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import multichainConfig from 'configs/multichain';
@@ -15,6 +16,7 @@ import UserOpsListItem from 'ui/userOps/UserOpsListItem';
 import UserOpsTable from 'ui/userOps/UserOpsTable';
 
 const MultichainUserOps = () => {
+  const { t } = useTranslation();
 
   const chains = React.useMemo(() => (multichainConfig()?.chains || []).filter(chain => chain.app_config.features.userOps.isEnabled), []);
   const chainIds = React.useMemo(() => chains.map(chain => chain.id).filter(Boolean), [ chains ]);
@@ -73,13 +75,13 @@ const MultichainUserOps = () => {
   return (
     <>
       <PageTitle
-        title="User operations"
+        title={ t('multichain.userOperations') }
         withTextAd
       />
       <DataListDisplay
         isError={ query.isError }
         itemsNum={ query.data?.items?.length }
-        emptyText="There are no user operations."
+        emptyText={ t('multichain.noUserOps') }
         actionBar={ actionBar }
         showActionBarIfError
         showActionBarIfEmpty

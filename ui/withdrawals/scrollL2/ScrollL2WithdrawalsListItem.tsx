@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ScrollL2MessageItem } from 'types/api/scrollL2';
@@ -18,6 +19,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ScrollL2MessageItem; isLoading?: boolean };
 
 const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'scroll') {
     return null;
   }
@@ -25,7 +27,7 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } block</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.currentBlock', { current: layerLabels.current }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BlockEntity
           number={ item.origination_transaction_block_number }
@@ -34,14 +36,14 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.indexLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">
           { item.id }
         </Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.currentTxnHash', { current: layerLabels.current }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TxEntity
           isLoading={ isLoading }
@@ -50,7 +52,7 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.ageLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.origination_timestamp }
@@ -59,7 +61,7 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.parentTxnHash', { parent: layerLabels.parent }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         { item.completion_transaction_hash ? (
           <TxEntityL1
@@ -70,12 +72,12 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
           />
         ) : (
           <chakra.span>
-            Pending Claim
+            { t('withdrawals.pendingClaim') }
           </chakra.span>
         ) }
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Value</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.valueLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <NativeCoinValue
           amount={ item.value }

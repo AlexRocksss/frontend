@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ChainInfo } from 'types/api/interop';
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const InteropMessageDestinationTx = (props: Props) => {
+  const { t } = useTranslation();
   if (props.relay_chain !== undefined) {
     return (
       <TxEntityInterop
@@ -27,7 +29,7 @@ const InteropMessageDestinationTx = (props: Props) => {
   }
 
   if (!props.relay_transaction_hash) {
-    return 'N/A';
+    return t('interopMessages.naValue');
   }
 
   return (

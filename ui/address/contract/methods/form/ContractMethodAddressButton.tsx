@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useAccount from 'lib/web3/useAccount';
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const ContractMethodAddressButton = ({ onClick, isDisabled }: Props) => {
+  const { t } = useTranslation();
   const { address } = useAccount();
 
   const handleClick = React.useCallback(() => {
@@ -17,7 +19,7 @@ const ContractMethodAddressButton = ({ onClick, isDisabled }: Props) => {
   }, [ address, onClick ]);
 
   return (
-    <Tooltip content="Connect your wallet to enter your address." disabled={ Boolean(address) } disableOnMobile>
+    <Tooltip content={ t('address.connectWalletTooltip') } disabled={ Boolean(address) } disableOnMobile>
       <Button
         variant="subtle"
         size="xs"

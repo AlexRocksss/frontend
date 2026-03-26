@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ClustersDirectoryObject } from 'types/api/clusters';
@@ -17,17 +18,19 @@ interface Props {
 }
 
 const ClustersDirectoryListItem = ({ item, isLoading, isClusterDetailsLoading }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <ListItemMobileGrid.Container>
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Cluster name
+        { t('nameServices.clusterNameLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 500 }/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Address
+        { t('nameServices.addressLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         { item.owner && (
@@ -42,7 +45,7 @@ const ClustersDirectoryListItem = ({ item, isLoading, isClusterDetailsLoading }:
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Joined
+        { t('nameServices.joinedLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
@@ -52,11 +55,11 @@ const ClustersDirectoryListItem = ({ item, isLoading, isClusterDetailsLoading }:
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
-        Active chains
+        { t('nameServices.activeChainsLabel') }
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading || isClusterDetailsLoading }>
-          { (item.chainIds?.length || 1) } { (item.chainIds?.length || 1) === 1 ? 'chain' : 'chains' }
+          { t('nameServices.chainCount', { count: item.chainIds?.length || 1 }) }
         </Skeleton>
       </ListItemMobileGrid.Value>
     </ListItemMobileGrid.Container>

@@ -1,4 +1,5 @@
 import { Box, Flex, Text, chakra, Center } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const SolidityscanReportScore = ({ className, score }: Props) => {
+  const { t } = useTranslation();
   const { scoreLevel, scoreColor } = useScoreLevelAndColor(score);
 
   const yetAnotherGrayColor = { _light: 'gray.400', _dark: 'gray.500' };
@@ -37,7 +39,7 @@ const SolidityscanReportScore = ({ className, score }: Props) => {
           <Text color={ scoreColor } fontSize="lg" fontWeight={ 500 }>{ score }</Text>
           <Text color={ yetAnotherGrayColor } fontSize="lg" fontWeight={ 500 } whiteSpace="pre"> / 100</Text>
         </Flex>
-        <Text color={ scoreColor } fontWeight={ 500 }>Security score is { scoreLevel }</Text>
+        <Text color={ scoreColor } fontWeight={ 500 }>{ t('solidityScan.securityScoreIs', { level: scoreLevel }) }</Text>
       </Box>
     </Flex>
   );

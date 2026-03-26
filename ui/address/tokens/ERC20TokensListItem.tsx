@@ -1,5 +1,6 @@
 import { Flex, HStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressTokensErc20Item } from './types';
@@ -28,6 +29,7 @@ const ERC20TokensListItem = ({
   chain_values: chainValues,
   hasAdditionalTokenTypes,
 }: Props) => {
+  const { t } = useTranslation();
   const {
     valueBn: tokenQuantity,
     usdBn: tokenValue,
@@ -72,7 +74,7 @@ const ERC20TokensListItem = ({
       </Flex>
       { token.exchange_rate !== undefined && token.exchange_rate !== null && (
         <HStack gap={ 3 }>
-          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Price</Skeleton>
+          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('address.erc20Price') }</Skeleton>
           <SimpleValue
             value={ BigNumber(token.exchange_rate) }
             loading={ isLoading }
@@ -83,7 +85,7 @@ const ERC20TokensListItem = ({
         </HStack>
       ) }
       <HStack gap={ 3 } alignItems="baseline">
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Quantity</Skeleton>
+        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('address.erc20Quantity') }</Skeleton>
         { isConfidentialTokenType(token.type) ? (
           <ConfidentialValue loading={ isLoading }/>
         ) : (
@@ -97,13 +99,13 @@ const ERC20TokensListItem = ({
       </HStack>
       { isConfidentialTokenType(token.type) && (
         <HStack gap={ 3 } alignItems="baseline">
-          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
+          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('address.erc20Value') }</Skeleton>
           <ConfidentialValue loading={ isLoading }/>
         </HStack>
       ) }
       { !isConfidentialTokenType(token.type) && token.exchange_rate && (
         <HStack gap={ 3 } alignItems="baseline">
-          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
+          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('address.erc20Value') }</Skeleton>
           <SimpleValue
             value={ tokenValue }
             prefix="$"

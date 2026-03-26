@@ -4,6 +4,7 @@ import {
   Grid,
   GridItem,
 } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -150,6 +151,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
 };
 
 const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum }: Props) => {
+  const { t } = useTranslation();
   const depositsUrl = route({ pathname: '/deposits' });
   return (
     <>
@@ -171,7 +173,7 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
         ))) }
       </Box>
       <Flex justifyContent="center">
-        <Link textStyle="sm" href={ depositsUrl }>View all deposits</Link>
+        <Link textStyle="sm" href={ depositsUrl }>{ t('home.viewAllDeposits') }</Link>
       </Flex>
     </>
   );

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractConflictingImplementation, SmartContractProxyType } from 'types/api/contract';
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const ContractCodeProxyPattern = ({ type, isLoading, conflictingImplementations }: Props) => {
+  const { t } = useTranslation();
   const proxyInfo = PROXY_TYPES[type];
 
   if (!proxyInfo || type === 'unknown') {
@@ -40,9 +42,9 @@ const ContractCodeProxyPattern = ({ type, isLoading, conflictingImplementations 
       ) }
       { conflictingImplementations && conflictingImplementations.length > 0 && (
         <Box mt={ 1 } whiteSpace="pre-wrap">
-          <span>This contract contains more than one proxy implementation address.{ space }</span>
+          <span>{ t('address.conflictingImplementationsText') }{ space }</span>
           <ConflictingImplementationsModal data={ conflictingImplementations }>
-            <Link>View details</Link>
+            <Link>{ t('address.viewDetails') }</Link>
           </ConflictingImplementationsModal>
         </Box>
       ) }

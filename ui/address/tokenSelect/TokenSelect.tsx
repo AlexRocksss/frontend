@@ -1,6 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useQueryClient, useIsFetching } from '@tanstack/react-query';
 import { sumBy } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -24,6 +25,7 @@ import TokenSelectDesktop from './TokenSelectDesktop';
 import TokenSelectMobile from './TokenSelectMobile';
 
 const TokenSelect = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
@@ -67,14 +69,14 @@ const TokenSelect = () => {
         <TokenSelectMobile data={ data } isLoading={ tokensIsFetching === 1 }/> :
         <TokenSelectDesktop data={ data } isLoading={ tokensIsFetching === 1 }/>
       }
-      <Tooltip content="Show all tokens">
+      <Tooltip content={ t('address.showAllTokensTooltip') }>
         <Link
           href={ route({ pathname: '/address/[hash]', query: { hash: addressHash, tab: 'tokens' } }, { chain: multichainContext?.chain }) }
           asChild
           scroll={ false }
         >
           <IconButton
-            aria-label="Show all tokens"
+            aria-label={ t('address.showAllTokensTooltip') }
             variant="icon_background"
             size="md"
             onClick={ handleIconButtonClick }

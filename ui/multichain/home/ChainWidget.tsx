@@ -1,4 +1,5 @@
 import { Box, HStack, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const ChainWidget = ({ data, isLoading, metrics }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const { data: { wallet } = {} } = useProvider();
   const walletIcon = wallet ? WALLETS_INFO[wallet].icon : undefined;
@@ -34,7 +36,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
     <VStack gap={ 2 } alignItems="flex-start" fontWeight={ 500 }>
       <HStack gap={ 2 }>
         <Skeleton loading={ isLoading } color="text.secondary">
-          <span>Chain ID</span>
+          <span>{ t('multichain.chainId') }</span>
         </Skeleton>
         <Skeleton loading={ isLoading }>{ data.id }</Skeleton>
         <CopyToClipboard text={ String(data.id) } ml={ 0 } isLoading={ isLoading }/>
@@ -42,7 +44,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
       { metrics?.active_accounts?.current_full_week && (
         <HStack gap={ 2 }>
           <Skeleton loading={ isLoading } color="text.secondary">
-            <span>Active accounts</span>
+            <span>{ t('multichain.activeAccounts') }</span>
           </Skeleton>
           <Skeleton loading={ isLoading }>{ Number(metrics.active_accounts.current_full_week).toLocaleString() }</Skeleton>
         </HStack>
@@ -50,7 +52,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
       { metrics?.tps && (
         <HStack gap={ 2 }>
           <Skeleton loading={ isLoading } color="text.secondary">
-            <span>TPS</span>
+            <span>{ t('multichain.tps') }</span>
           </Skeleton>
           <Skeleton loading={ isLoading }>{ metrics.tps }</Skeleton>
         </HStack>
@@ -108,7 +110,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
       <HStack justifyContent="space-between">
         <ChainIcon data={ data } boxSize="30px" isLoading={ isLoading } noTooltip/>
         { walletIcon && (
-          <Tooltip content="Add to wallet">
+          <Tooltip content={ t('multichain.addToWallet') }>
             <IconButton
               onClick={ handleAddToWalletClick }
               size="md"

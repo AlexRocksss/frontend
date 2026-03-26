@@ -1,4 +1,5 @@
 import { Flex, VStack, Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { PaginationParams } from 'ui/shared/pagination/types';
@@ -32,6 +33,7 @@ const ClustersActionBar = ({
   isLoading,
   pagination,
 }: Props) => {
+  const { t } = useTranslation();
   const isInitialLoading = useIsInitialLoading(isLoading);
 
   const handleViewModeChange = React.useCallback((value: string) => {
@@ -51,10 +53,10 @@ const ClustersActionBar = ({
         loading={ isInitialLoading }
       >
         <Button value="directory" size="sm" px={ 3 }>
-          Directory
+          { t('nameServices.directoryButton') }
         </Button>
         <Button value="leaderboard" size="sm" px={ 3 }>
-          Leaderboard
+          { t('nameServices.leaderboardButton') }
         </Button>
       </ButtonGroupRadio>
       <FilterInput

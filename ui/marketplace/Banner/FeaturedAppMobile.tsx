@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import type { MouseEvent } from 'react';
 import React from 'react';
 
@@ -39,6 +40,7 @@ const FeaturedAppMobile = ({
   internalWallet,
   onAppClick,
 }: Props) => {
+  const { t } = useTranslation();
   const categoriesLabel = categories.join(', ');
 
   const logoUrl = useColorModeValue(logo, logoDarkMode || logo);
@@ -89,7 +91,7 @@ const FeaturedAppMobile = ({
                 href="#"
                 onClick={ onInfoClick }
               >
-                More info
+                { t('marketplace.moreInfo') }
               </Link>
             </Flex>
           ) }
@@ -140,8 +142,8 @@ const FeaturedAppMobile = ({
             position="absolute"
             right={{ base: 1, sm: '10px' }}
             top={{ base: 1, sm: '18px' }}
-            aria-label="Mark as favorite"
-            title="Mark as favorite"
+            aria-label={ t('marketplace.markAsFavorite') }
+            title={ t('marketplace.markAsFavorite') }
             variant="icon_background"
             size="md"
             onClick={ onFavoriteClick }

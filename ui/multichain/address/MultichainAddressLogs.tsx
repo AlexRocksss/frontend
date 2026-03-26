@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const MultichainAddressLogs = ({ addressData, isLoading }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const chainIds = React.useMemo(() => getAvailableChainIds(addressData), [ addressData ]);
   const isMobile = useIsMobile();
@@ -87,7 +89,7 @@ const MultichainAddressLogs = ({ addressData, isLoading }: Props) => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items?.length }
-      emptyText="There are no logs for this address."
+      emptyText={ t('multichain.noLogs') }
       showActionBarIfEmpty
       showActionBarIfError
       actionBar={ actionBar }

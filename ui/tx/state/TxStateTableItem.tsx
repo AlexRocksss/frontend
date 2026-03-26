@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxStateChange } from 'types/api/txStateChanges';
@@ -14,7 +15,8 @@ interface Props {
 }
 
 const TxStateTableItem = ({ data, isLoading }: Props) => {
-  const { before, after, change, tag, tokenId } = getStateElements(data, isLoading);
+  const { t } = useTranslation();
+  const { before, after, change, tag, tokenId } = getStateElements(data, isLoading, t);
 
   return (
     <TableRow>

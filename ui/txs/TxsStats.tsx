@@ -1,5 +1,6 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -15,6 +16,7 @@ import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
 interface Props extends BoxProps {}
 
 const TxsStats = (props: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
 
   const chainConfig = multichainContext?.chain.app_config || config;
@@ -91,7 +93,7 @@ const TxsStats = (props: Props) => {
         <StatsWidget
           label={ txsStatsQuery.data?.transactions_24h?.title ?
             getStatsLabelFromTitle(txsStatsQuery.data?.transactions_24h?.title) :
-            'Transactions' }
+            t('txs.transactions') }
           value={ Number(txCount24h).toLocaleString() }
           period="24h"
           isLoading={ isLoading }
@@ -106,7 +108,7 @@ const TxsStats = (props: Props) => {
         <StatsWidget
           label={ txsStatsQuery.data?.operational_transactions_24h?.title ?
             getStatsLabelFromTitle(txsStatsQuery.data?.operational_transactions_24h?.title) :
-            'Daily op txns' }
+            t('txs.dailyOpTxns') }
           value={ Number(operationalTxns24hArbitrum).toLocaleString() }
           period="24h"
           isLoading={ isLoading }
@@ -116,7 +118,7 @@ const TxsStats = (props: Props) => {
         <StatsWidget
           label={ txsStatsQuery.data?.op_stack_operational_transactions_24h?.title ?
             getStatsLabelFromTitle(txsStatsQuery.data?.op_stack_operational_transactions_24h?.title) :
-            'Daily op txns' }
+            t('txs.dailyOpTxns') }
           value={ Number(operationalTxns24hOptimistic).toLocaleString() }
           period="24h"
           isLoading={ isLoading }
@@ -126,7 +128,7 @@ const TxsStats = (props: Props) => {
         <StatsWidget
           label={ txsStatsQuery.data?.pending_transactions_30m?.title ?
             getStatsLabelFromTitle(txsStatsQuery.data?.pending_transactions_30m?.title) :
-            'Pending transactions' }
+            t('txs.pendingTransactions') }
           value={ Number(pendingTxns).toLocaleString() }
           period={ isStatsFeatureEnabled ? '30min' : '1h' }
           isLoading={ isLoading }
@@ -136,7 +138,7 @@ const TxsStats = (props: Props) => {
         <StatsWidget
           label={ txsStatsQuery.data?.transactions_fee_24h?.title ?
             getStatsLabelFromTitle(txsStatsQuery.data?.transactions_fee_24h?.title) :
-            'Transactions fees' }
+            t('txs.transactionsFees') }
           value={ txFeeSum24h.toLocaleString(undefined, { maximumFractionDigits: 2 }) }
           valuePostfix={ thinsp + chainConfig.chain.currency.symbol }
           period="24h"
@@ -152,7 +154,7 @@ const TxsStats = (props: Props) => {
         <StatsWidget
           label={ txsStatsQuery.data?.average_transactions_fee_24h?.title ?
             getStatsLabelFromTitle(txsStatsQuery.data?.average_transactions_fee_24h?.title) :
-            'Avg. transaction fee' }
+            t('txs.avgTransactionFee') }
           value={ txFeeAvg.usdStr ? txFeeAvg.usdStr : txFeeAvg.valueStr }
           valuePrefix={ txFeeAvg.usdStr ? '$' : undefined }
           valuePostfix={ txFeeAvg.usdStr ? undefined : thinsp + chainConfig.chain.currency.symbol }

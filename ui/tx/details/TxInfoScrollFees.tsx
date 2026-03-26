@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -16,16 +17,17 @@ type Props = {
 };
 
 export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <>
       { data.scroll?.l1_fee !== undefined && (
         <>
           <DetailedInfo.ItemLabel
 
-            hint={ `${ layerLabels.parent } fee that pays for rollup costs` }
+            hint={ t('tx.hintScrollL1DataFee', { parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } data fee
+            { t('tx.scrollL1DataFee', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ data.scroll?.l1_fee }
@@ -40,10 +42,10 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
       { data.scroll?.l2_fee !== undefined && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `${ layerLabels.current } execution fee` }
+            hint={ t('tx.hintScrollExecutionFee', { current: layerLabels.current }) }
             isLoading={ isLoading }
           >
-            Execution fee
+            { t('tx.scrollExecutionFee') }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ data.scroll?.l2_fee.value }
@@ -58,10 +60,10 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
       { data.scroll?.l1_fee_commit_scalar !== undefined && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Commitment scalar"
+            hint={ t('tx.hintScrollCommitScalar') }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } commit scalar
+            { t('tx.scrollCommitScalar', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ String(data.scroll?.l1_fee_commit_scalar) }
@@ -76,10 +78,10 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
       { data.scroll?.l1_fee_overhead !== undefined && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Additional gas overhead of a data commitment transaction"
+            hint={ t('tx.hintScrollFeeOverhead') }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } Fee Overhead
+            { t('tx.scrollFeeOverhead', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfoNativeCoinValue
             amount={ String(data.scroll?.l1_fee_overhead) }
@@ -93,15 +95,15 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
       { (data.scroll?.l1_base_fee !== undefined || data.scroll?.l1_fee_scalar !== undefined) && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `${ layerLabels.parent } gas fees` }
+            hint={ t('tx.scrollGasFees', { parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } gas fees
+            { t('tx.scrollGasFees', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             { data.scroll?.l1_base_fee !== undefined && (
               <Skeleton loading={ isLoading }>
-                <Text as="span" fontWeight="500">Base: </Text>
+                <Text as="span" fontWeight="500">{ t('tx.base') }</Text>
                 <NativeCoinValue
                   amount={ String(data.scroll?.l1_base_fee || 0) }
                   units="gwei"
@@ -114,7 +116,7 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
             { data.scroll?.l1_fee_scalar !== undefined && (
               <Skeleton loading={ isLoading }>
                 <TextSeparator/>
-                <Text as="span" fontWeight="500">Scalar: </Text>
+                <Text as="span" fontWeight="500">{ t('tx.scalar') }</Text>
                 <NativeCoinValue
                   amount={ String(data.scroll?.l1_fee_scalar || 0) }
                   units="gwei"
@@ -130,15 +132,15 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
       { (data.scroll?.l1_blob_base_fee !== undefined || data.scroll?.l1_fee_blob_scalar !== undefined) && (
         <>
           <DetailedInfo.ItemLabel
-            hint={ `${ layerLabels.parent } blob fees` }
+            hint={ t('tx.scrollBlobFees', { parent: layerLabels.parent }) }
             isLoading={ isLoading }
           >
-            { layerLabels.parent } blob fees
+            { t('tx.scrollBlobFees', { parent: layerLabels.parent }) }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             { data.scroll?.l1_blob_base_fee !== undefined && (
               <Skeleton loading={ isLoading }>
-                <Text as="span" fontWeight="500">Base: </Text>
+                <Text as="span" fontWeight="500">{ t('tx.base') }</Text>
                 <NativeCoinValue
                   amount={ String(data.scroll?.l1_blob_base_fee || 0) }
                   units="gwei"
@@ -151,7 +153,7 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
             { data.scroll?.l1_fee_blob_scalar !== undefined && (
               <Skeleton loading={ isLoading }>
                 <TextSeparator/>
-                <Text as="span" fontWeight="500">Scalar: </Text>
+                <Text as="span" fontWeight="500">{ t('tx.scalar') }</Text>
                 <NativeCoinValue
                   amount={ String(data.scroll?.l1_fee_blob_scalar || 0) }
                   units="gwei"

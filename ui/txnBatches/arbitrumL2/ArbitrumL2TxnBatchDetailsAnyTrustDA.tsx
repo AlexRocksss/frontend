@@ -1,4 +1,5 @@
 import { Grid, Text, Flex, Box, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ArbitrumL2TxnBatchDAAnytrust } from 'types/api/arbitrumL2';
@@ -16,27 +17,28 @@ type Props = {
 };
 
 const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
+  const { t } = useTranslation();
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Aggregated BLS signature of AnyTrust committee members"
+        hint={ t('txnBatches.signatureHint') }
       >
-        Signature
+        { t('txnBatches.signatureLabel') }
       </DetailedInfo.ItemLabel><DetailedInfo.ItemValue wordBreak="break-all" whiteSpace="break-spaces">
         { data.bls_signature }
       </DetailedInfo.ItemValue><DetailedInfo.ItemLabel
-        hint="The hash of the data blob stored by the AnyTrust committee"
+        hint={ t('txnBatches.dataHashHint') }
       >
-        Data hash
+        { t('txnBatches.dataHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue whiteSpace="pre-wrap" wordBreak="break-all" alignItems={{ base: 'flex-start', lg: 'center' }}>
         { data.data_hash }
         <CopyToClipboard text={ data.data_hash } ml={ 2 }/>
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemLabel
-        hint="Expiration timeout for the data blob"
+        hint={ t('txnBatches.timeoutHint') }
       >
-        Timeout
+        { t('txnBatches.timeoutLabel') }
       </DetailedInfo.ItemLabel><DetailedInfo.ItemValue multiRow>
         { dayjs(data.timeout) < dayjs() ?
           <DetailsTimestamp timestamp={ data.timeout }/> :
@@ -44,14 +46,14 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
             <>
               <DetailsTimestamp timestamp={ data.timeout } noRelativeTime/>
               <TextSeparator/>
-              <Text color="red.500">{ dayjs(data.timeout).diff(dayjs(), 'day') } days left</Text>
+              <Text color="red.500">{ t('txnBatches.daysLeft', { count: dayjs(data.timeout).diff(dayjs(), 'day') }) }</Text>
             </>
           ) }
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemLabel
-        hint="Members of AnyTrust committee"
+        hint={ t('txnBatches.signersHint') }
       >
-        Signers
+        { t('txnBatches.signersLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue overflowX="scroll" fontSize="sm">
         <Grid
@@ -63,9 +65,9 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
           borderRadius="md"
           minW="600px"
         >
-          <Text fontWeight={ 600 }>Key</Text>
-          <Text fontWeight={ 600 }>Trusted</Text>
-          <Text fontWeight={ 600 }>Proof</Text>
+          <Text fontWeight={ 600 }>{ t('txnBatches.keyColumn') }</Text>
+          <Text fontWeight={ 600 }>{ t('txnBatches.trustedColumn') }</Text>
+          <Text fontWeight={ 600 }>{ t('txnBatches.proofColumn') }</Text>
           { data.signers.map(signer => (
             <>
               <Flex justifyContent="space-between">
@@ -89,17 +91,17 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
           { data.signers.map(signer => (
             <VStack padding={ 4 } key={ signer.key } gap={ 2 }>
               <Flex w="100%" justifyContent="space-between">
-                <Text fontWeight={ 600 }>Key</Text>
+                <Text fontWeight={ 600 }>{ t('txnBatches.keyColumn') }</Text>
                 <CopyToClipboard text={ signer.key }/>
               </Flex>
               <Text wordBreak="break-all" whiteSpace="break-spaces">{ signer.key }</Text>
               <Flex w="100%" alignItems="center">
                 <Flex alignItems="center" w="50%">
-                  <Text fontWeight={ 600 } mr={ 2 }>Trusted</Text>
+                  <Text fontWeight={ 600 } mr={ 2 }>{ t('txnBatches.trustedColumn') }</Text>
                   { signer.trusted ? <IconSvg name="check" boxSize={ 6 }/> : <IconSvg name="cross" boxSize={ 6 }/> }
                 </Flex>
                 <Flex alignItems="center" w="50%">
-                  <Text fontWeight={ 600 } mr={ 2 }>Proof</Text>
+                  <Text fontWeight={ 600 } mr={ 2 }>{ t('txnBatches.proofColumn') }</Text>
                   { signer.proof ? (
                     <Flex>
                       <HashStringShorten hash={ signer.proof }/>

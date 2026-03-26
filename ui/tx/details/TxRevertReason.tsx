@@ -1,4 +1,5 @@
 import { Grid, GridItem, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TransactionRevertReason } from 'types/api/transaction';
@@ -10,6 +11,7 @@ import LogDecodedInputData from 'ui/shared/logs/LogDecodedInputData';
 type Props = TransactionRevertReason;
 
 const TxRevertReason = (props: Props) => {
+  const { t } = useTranslation();
   if ('raw' in props) {
     if (!HEX_REGEXP.test(props.raw)) {
       return <Text>{ props.raw }</Text>;
@@ -28,11 +30,11 @@ const TxRevertReason = (props: Props) => {
         columnGap={ 4 }
         whiteSpace="normal"
       >
-        <GridItem fontWeight={ 500 }>Raw:</GridItem>
+        <GridItem fontWeight={ 500 }>{ t('tx.rawLabel') }</GridItem>
         <GridItem>{ props.raw }</GridItem>
         { decoded.replace(/\s|\0/g, '') && (
           <>
-            <GridItem fontWeight={ 500 }>Decoded:</GridItem>
+            <GridItem fontWeight={ 500 }>{ t('tx.decodedLabel') }</GridItem>
             <GridItem>{ decoded }</GridItem>
           </>
         ) }

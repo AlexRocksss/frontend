@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import type { Channel } from 'phoenix';
 import React from 'react';
 
@@ -39,6 +40,7 @@ interface Props {
 }
 
 export default function useContractTabs({ addressData, isEnabled, hasMudTab, channel, chain }: Props): ReturnType {
+  const { t } = useTranslation();
   const contractQuery = useApiQuery('general:contract', {
     pathParams: { hash: addressData?.hash },
     queryOptions: {
@@ -70,7 +72,7 @@ export default function useContractTabs({ addressData, isEnabled, hasMudTab, cha
           {
             id: 'contract_code' as const,
             title: 'Code',
-            component: <p>This address is not a contract on this chain.</p>,
+            component: <p>{ t('address.notAContract') }</p>,
           },
         ],
         isLoading: false,
@@ -127,5 +129,6 @@ export default function useContractTabs({ addressData, isEnabled, hasMudTab, cha
     hasMudTab,
     mudSystemsQuery.isPlaceholderData,
     mudSystemsQuery.data?.items,
+    t,
   ]);
 }

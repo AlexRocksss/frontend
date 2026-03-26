@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AdvancedFilterParams, AdvancedFiltersSearchParams } from 'types/api/advancedFilter';
@@ -26,13 +27,14 @@ type Props = {
 };
 
 const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searchParams, isLoading }: Props) => {
+  const { t } = useTranslation();
   const commonProps = { columnName, handleFilterChange, isLoading };
   switch (column) {
     case 'type': {
       const value = filters.transaction_types;
       return (
         <TableColumnFilterWrapper
-          columnName="Type"
+          columnName={ t('advancedFilter.colType') }
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) }
         >
@@ -44,7 +46,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
       const value = filters.methods?.map(m => ({ name: searchParams?.methods[m], method_id: m }));
       return (
         <TableColumnFilterWrapper
-          columnName="Method"
+          columnName={ t('advancedFilter.colMethod') }
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) }
           w="350px"
@@ -57,7 +59,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
       const value = { age: filters.age || '' as const, from: filters.age_from || '', to: filters.age_to || '' };
       return (
         <TableColumnFilterWrapper
-          columnName="Age"
+          columnName={ t('advancedFilter.colAge') }
           isLoading={ isLoading }
           selected={ Boolean(value.from || value.to || value.age) }
           w="382px"
@@ -69,7 +71,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
     case 'or_and': {
       return (
         <TableColumnFilterWrapper
-          columnName="And/Or"
+          columnName={ t('advancedFilter.colAndOr') }
           isLoading={ isLoading }
           selected
           w="106px"
@@ -86,7 +88,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
       const value = (valueInclude || []).concat(valueExclude || []);
       return (
         <TableColumnFilterWrapper
-          columnName="Address from"
+          columnName={ t('advancedFilter.filterFromAddress') }
           isLoading={ isLoading }
           selected={ Boolean(value.length) }
           w="480px"
@@ -103,7 +105,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
       const value = (valueInclude || []).concat(valueExclude || []);
       return (
         <TableColumnFilterWrapper
-          columnName="Address to"
+          columnName={ t('advancedFilter.filterToAddress') }
           isLoading={ isLoading }
           selected={ Boolean(value.length) }
           w="480px"
@@ -116,7 +118,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
       const value = { from: filters.amount_from, to: filters.amount_to };
       return (
         <TableColumnFilterWrapper
-          columnName="Amount"
+          columnName={ t('advancedFilter.colAmount') }
           isLoading={ isLoading }
           selected={ Boolean(value.from || value.to) }
           w="382px"
@@ -143,7 +145,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
       }
       return (
         <TableColumnFilterWrapper
-          columnName="Asset"
+          columnName={ t('advancedFilter.colAsset') }
           isLoading={ isLoading }
           selected={ Boolean(value.length) }
           w="382px"

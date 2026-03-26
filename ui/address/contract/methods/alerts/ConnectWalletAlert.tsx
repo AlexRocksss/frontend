@@ -1,4 +1,5 @@
 import { Flex, Spinner } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const ConnectWalletAlert = ({ isLoading }: Props) => {
+  const { t } = useTranslation();
   const web3Wallet = useWeb3Wallet({ source: 'Smart contracts' });
   const isMobile = useIsMobile();
 
@@ -27,14 +29,14 @@ const ConnectWalletAlert = ({ isLoading }: Props) => {
     if (!web3Wallet.isConnected) {
       return (
         <Flex alignItems="center" flexWrap="wrap" columnGap={ 3 } rowGap={ 2 }>
-          <span>To interact with the contract, please</span>
+          <span>{ t('address.interactWithContract') }</span>
           <Button
             onClick={ web3Wallet.connect }
             size="sm"
             loading={ web3Wallet.isOpen }
-            loadingText="Connect your wallet"
+            loadingText={ t('address.connectYourWallet') }
           >
-            Connect your wallet
+            { t('address.connectYourWallet') }
           </Button>
         </Flex>
       );
@@ -42,7 +44,7 @@ const ConnectWalletAlert = ({ isLoading }: Props) => {
 
     return (
       <Flex alignItems="center" columnGap={ 2 }>
-        <span>Connected to </span>
+        <span>{ t('address.connectedTo') }</span>
         <AddressEntity
           address={{ hash: web3Wallet.address || '' }}
           truncation={ isMobile ? 'constant' : 'dynamic' }
@@ -53,7 +55,7 @@ const ConnectWalletAlert = ({ isLoading }: Props) => {
         />
         { web3Wallet.isReconnecting ? <Spinner size="sm" m="2px" flexShrink={ 0 }/> : (
           <IconButton
-            aria-label="Open wallet"
+            aria-label={ t('userProfile.openWallet') }
             variant="icon_secondary"
             size="2xs"
             onClick={ handleOpenWalletClick }

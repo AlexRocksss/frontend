@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -15,7 +16,7 @@ type Props = {
 };
 
 const MarketplaceDisclaimerModal = ({ isOpen, onClose, appId }: Props) => {
-
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const handleContinueClick = React.useCallback(() => {
@@ -30,15 +31,14 @@ const MarketplaceDisclaimerModal = ({ isOpen, onClose, appId }: Props) => {
     >
       <DialogContent>
         <DialogHeader>
-          Disclaimer
+          { t('marketplace.disclaimerHeader') }
         </DialogHeader>
 
         <DialogBody>
           <Text color={{ _light: 'gray.800', _dark: 'whiteAlpha.800' }}>
-            You are now accessing a third-party app. Blockscout does not own, control, maintain, or audit 3rd party apps,{ ' ' }
-            and is not liable for any losses associated with these interactions. Please do so at your own risk.
+            { t('marketplace.disclaimerBody') }
             <br/><br/>
-            By clicking continue, you agree that you understand the risks and have read the Disclaimer.
+            { t('marketplace.disclaimerAgree') }
           </Text>
         </DialogBody>
 
@@ -49,14 +49,14 @@ const MarketplaceDisclaimerModal = ({ isOpen, onClose, appId }: Props) => {
         >
           <Link href={ route({ pathname: '/apps/[id]', query: { id: appId } }) } asChild>
             <Button onClick={ handleContinueClick } >
-              Continue to app
+              { t('marketplace.continueToApp') }
             </Button>
           </Link>
           <Button
             variant="outline"
             onClick={ onClose }
           >
-            Cancel
+            { t('marketplace.cancel') }
           </Button>
         </DialogFooter>
       </DialogContent>

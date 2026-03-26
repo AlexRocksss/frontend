@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const DetailedInfoSponsoredItem = ({ isLoading }: Props) => {
+  const { t } = useTranslation();
   const hasAdblockCookie = cookies.get(cookies.NAMES.ADBLOCK_DETECTED);
 
   if (!feature.isEnabled || hasAdblockCookie === 'true') {
@@ -22,10 +24,10 @@ const DetailedInfoSponsoredItem = ({ isLoading }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Sponsored banner advertisement"
+        hint={ t('detailedInfo.sponsoredTooltip') }
         isLoading={ isLoading }
       >
-        Sponsored
+        { t('detailedInfo.sponsored') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue mt={{ base: 0, lg: 1 }}>
         <AdBanner format="responsive" isLoading={ isLoading }/>

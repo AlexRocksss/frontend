@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { Element } from 'react-scroll';
 
@@ -30,6 +31,7 @@ interface Props {
 }
 
 const ContractAbiItem = ({ data, index, id, addressHash, sourceAddress, tab, onSubmit, isVisible = true, isOpen }: Props) => {
+  const { t } = useTranslation();
   const [ attempt, setAttempt ] = React.useState(0);
 
   const url = React.useMemo(() => {
@@ -112,7 +114,7 @@ const ContractAbiItem = ({ data, index, id, addressHash, sourceAddress, tab, onS
       </Element>
       <AccordionItemContent pb={ 4 } pr={ 0 } pl="28px" w="calc(100% - 6px)">
         { 'is_invalid' in data && data.is_invalid ? (
-          <Alert status="warning">An error occurred while parsing the method signature.</Alert>
+          <Alert status="warning">{ t('address.parsingError') }</Alert>
         ) : (
           <ContractMethodForm
             key={ id + '_' + index + '_' + attempt }

@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -15,24 +16,25 @@ interface Props {
   isOverflow: boolean;
 }
 
-const TOKEN_TRANSFERS_TYPES = [
-  { title: 'Tokens transferred', hint: 'List of tokens transferred in the transaction', type: 'token_transfer' },
-  { title: 'Tokens minted', hint: 'List of tokens minted in the transaction', type: 'token_minting' },
-  { title: 'Tokens burnt', hint: 'List of tokens burnt in the transaction', type: 'token_burning' },
-  { title: 'Tokens created', hint: 'List of tokens created in the transaction', type: 'token_spawning' },
+const TOKEN_TRANSFERS_TYPE_KEYS = [
+  { titleKey: 'tx.tokensTransferred' as const, hintKey: 'tx.hintTokensTransferred' as const, type: 'token_transfer' },
+  { titleKey: 'tx.tokensMinted' as const, hintKey: 'tx.hintTokensMinted' as const, type: 'token_minting' },
+  { titleKey: 'tx.tokensBurnt' as const, hintKey: 'tx.hintTokensBurnt' as const, type: 'token_burning' },
+  { titleKey: 'tx.tokensCreated' as const, hintKey: 'tx.hintTokensCreated' as const, type: 'token_spawning' },
 ];
 
 const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
+  const { t } = useTranslation();
   const viewAllUrl = route({ pathname: '/tx/[hash]', query: { hash: txHash, tab: 'token_transfers' } });
 
-  const transferGroups = TOKEN_TRANSFERS_TYPES.map((group) => ({
+  const transferGroups = TOKEN_TRANSFERS_TYPE_KEYS.map((group) => ({
     ...group,
     items: data?.filter((token) => token.type === group.type) || [],
   }));
 
   return (
     <>
-      { transferGroups.map(({ title, hint, type, items }) => {
+      { transferGroups.map(({ titleKey, hintKey, type, items }) => {
         if (items.length === 0) {
           return null;
         }
@@ -40,9 +42,9 @@ const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
         return (
           <React.Fragment key={ type }>
             <DetailedInfo.ItemLabel
-              hint={ hint }
+              hint={ t(hintKey) }
             >
-              { title }
+              { t(titleKey) }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue position="relative" multiRow>
               <Flex
@@ -58,7 +60,7 @@ const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
                   { /* FIXME use non-navigation icon */ }
                   <IconSvg name="navigation/tokens" boxSize={ 6 }/>
                   <Link href={ viewAllUrl }>
-                    View all
+                    { t('tx.viewAll') }
                   </Link>
                 </>
               ) }

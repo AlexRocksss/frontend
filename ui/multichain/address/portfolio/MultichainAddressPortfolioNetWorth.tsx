@@ -1,5 +1,6 @@
 import { Text, Flex, HStack, VStack, Separator, Box, chakra } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -36,6 +37,7 @@ interface Props {
 }
 
 const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, topTokens }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const handleMultichainClick = React.useCallback(() => {
@@ -45,7 +47,7 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
   const topTokensContent = (() => {
     if (!topTokens) {
       return (
-        <chakra.span color="text.secondary">There are no tokens at this address</chakra.span>
+        <chakra.span color="text.secondary">{ t('multichain.noTokensAtAddress') }</chakra.span>
       );
     }
 
@@ -105,8 +107,8 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
         >
           <Flex alignItems="center">
             <IconSvg name="wallet" boxSize={ 5 } flexShrink={ 0 } color="icon.primary"/>
-            <Text ml={ 2 } fontWeight={ 500 }>Total net worth</Text>
-            <Text color="text.secondary"> (without NFT)</Text>
+            <Text ml={ 2 } fontWeight={ 500 }>{ t('multichain.totalNetWorth') }</Text>
+            <Text color="text.secondary"> { t('multichain.withoutNft') }</Text>
           </Flex>
           <Flex >
             <SimpleValue

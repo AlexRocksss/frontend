@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ShibariumDepositsItem } from 'types/api/shibarium';
@@ -16,17 +17,18 @@ type Props = {
 };
 
 const DepositsTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot tableLayout="auto" minW="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader>{ layerLabels.parent } block No</TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.parent } txn hash</TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.current } txn hash</TableColumnHeader>
-            <TableColumnHeader>User</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentBlockNo', { parent: layerLabels.parent }) }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentTxnHash', { parent: layerLabels.parent }) }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.currentTxnHash', { current: layerLabels.current }) }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.userLabel') }</TableColumnHeader>
             <TableColumnHeader>
-              Timestamp
+              { t('deposits.timestampHeader') }
               <TimeFormatToggle/>
             </TableColumnHeader>
           </TableRow>

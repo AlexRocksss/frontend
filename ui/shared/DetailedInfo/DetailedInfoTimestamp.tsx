@@ -1,5 +1,6 @@
 import type { StackProps } from '@chakra-ui/react';
 import { createListCollection, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
@@ -12,17 +13,13 @@ import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import IconSvg from 'ui/shared/IconSvg';
 import TextSeparator from 'ui/shared/TextSeparator';
 
-const FORMAT_OPTIONS = [
-  { label: 'Local', value: 'local' as const },
-  { label: 'UTC', value: 'utc' as const },
-  { label: 'Unix', value: 'unix' as const },
+const FORMAT_OPTIONS_VALUES: Array<{ translationKey: 'detailedInfo.local' | 'detailedInfo.utc' | 'detailedInfo.unix'; value: 'local' | 'utc' | 'unix' }> = [
+  { translationKey: 'detailedInfo.local', value: 'local' },
+  { translationKey: 'detailedInfo.utc', value: 'utc' },
+  { translationKey: 'detailedInfo.unix', value: 'unix' },
 ];
 
-const collection = createListCollection<SelectOption>({
-  items: FORMAT_OPTIONS,
-});
-
-type Format = (typeof FORMAT_OPTIONS)[number]['value'];
+type Format = (typeof FORMAT_OPTIONS_VALUES)[number]['value'];
 
 interface Props extends StackProps {
   timestamp: string | number;
@@ -31,6 +28,14 @@ interface Props extends StackProps {
 };
 
 const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }: Props) => {
+  const { t } = useTranslation();
+
+  const FORMAT_OPTIONS = FORMAT_OPTIONS_VALUES.map(({ translationKey, value }) => ({
+    label: t(translationKey) as string,
+    value,
+  }));
+
+  const collection = createListCollection<SelectOption>({ items: FORMAT_OPTIONS });
 
   const settings = useSettingsContext();
 
@@ -77,7 +82,7 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
             defaultValue={ format }
           >
             <IconButton
-              aria-label="Toggle time format"
+              aria-label={ t('detailedInfo.toggleTimeFormat') }
               variant="icon_secondary"
               boxSize={ 5 }
               borderRadius="sm"

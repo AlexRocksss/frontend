@@ -1,6 +1,7 @@
 import { chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import { scroller } from 'react-scroll';
@@ -32,6 +33,7 @@ interface Props {
 }
 
 const TokenDetails = ({ tokenQuery }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMounted = useIsMounted();
 
@@ -101,7 +103,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       { zilliqa?.zrc2_address_hash && (
         <>
           <DetailedInfo.ItemLabel
-            hint="ZRC-2 address of the token"
+            hint={ t('token.hintZrc2Address') }
             isLoading={ tokenQuery.isPlaceholderData }
           >
             ZRC-2 Address
@@ -117,7 +119,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       { exchangeRate && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Price per token on the exchanges"
+            hint={ t('token.hintPrice') }
             isLoading={ tokenQuery.isPlaceholderData }
           >
             Price
@@ -133,7 +135,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       { marketCap && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Circulating supply * Price"
+            hint={ t('token.hintMarketCap') }
             isLoading={ tokenQuery.isPlaceholderData }
           >
             Market cap
@@ -148,7 +150,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       { type && !isConfidentialTokenType(type) && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The total amount of tokens issued"
+            hint={ t('token.hintMaxTotalSupply') }
             isLoading={ tokenQuery.isPlaceholderData }
           >
             Max total supply
@@ -171,7 +173,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       ) }
 
       <DetailedInfo.ItemLabel
-        hint="Number of accounts holding the token"
+        hint={ t('token.hintHolders') }
         isLoading={ tokenQuery.isPlaceholderData }
       >
         Holders
@@ -183,7 +185,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Number of transfer for the token"
+        hint={ t('token.hintTransfers') }
         isLoading={ tokenQuery.isPlaceholderData }
       >
         Transfers
@@ -197,7 +199,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       { decimals && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Number of digits that come after the decimal place when displaying token value"
+            hint={ t('token.hintDecimals') }
             isLoading={ tokenQuery.isPlaceholderData }
           >
             Decimals
@@ -222,7 +224,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
       { (type !== 'ERC-20' && config.UI.views.nft.marketplaces.length === 0 && appActionData) && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Link to the dapp"
+            hint={ t('token.hintDapp') }
           >
             Dapp
           </DetailedInfo.ItemLabel>

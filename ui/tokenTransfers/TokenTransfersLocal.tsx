@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenType } from 'types/api/token';
@@ -14,6 +15,7 @@ import TokenTransfersTable from './TokenTransfersTable';
 import useTokenTransfersQuery from './useTokenTransfersQuery';
 
 const TokenTransfersLocal = () => {
+  const { t } = useTranslation();
   const { query, typeFilter, onTokenTypesChange } = useTokenTransfersQuery({ enabled: true });
 
   const content = (
@@ -54,7 +56,7 @@ const TokenTransfersLocal = () => {
     <DataListDisplay
       isError={ query.isError }
       itemsNum={ query.data?.items.length }
-      emptyText="There are no token transfers."
+      emptyText={ t('tokenTransfers.noTransfers') }
       actionBar={ actionBar }
       hasActiveFilters={ Boolean(typeFilter.length) }
       emptyStateProps={{

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -19,6 +20,7 @@ const TABS_RIGHT_SLOT_PROPS = {
 const QUERY_PRESERVED_PARAMS = [ 'tab' ];
 
 const MultichainTxs = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const chainSelect = useRoutedChainSelect({ persistedParams: QUERY_PRESERVED_PARAMS });
 
@@ -29,12 +31,12 @@ const MultichainTxs = () => {
     return [
       {
         id: 'txs_cross_chain',
-        title: 'Cross-chain',
+        title: t('multichain.crossChainTab'),
         component: <EmptyState type="coming_soon"/>,
       },
       {
         id: 'txs_local',
-        title: 'Local',
+        title: t('multichain.localTab'),
         component: (
           <MultichainProvider chainId={ chainSelect.value?.[0] }>
             <MultichainTxsLocal/>
@@ -43,7 +45,7 @@ const MultichainTxs = () => {
         subTabs: MULTICHAIN_TXS_LOCAL_TAB_IDS,
       },
     ];
-  }, [ chainSelect.value ]);
+  }, [ chainSelect.value, t ]);
 
   const rightSlot = isLocalTxs && (
     <ChainSelect
@@ -56,7 +58,7 @@ const MultichainTxs = () => {
     <>
       <PageTitle
         withTextAd
-        title="Transactions"
+        title={ t('multichain.transactions') }
       />
       <RoutedTabs
         tabs={ tabs }

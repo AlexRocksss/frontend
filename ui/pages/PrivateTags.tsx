@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TabItemRegular } from 'toolkit/components/AdaptiveTabs/types';
@@ -14,11 +15,12 @@ const TABS: Array<TabItemRegular> = [
 ];
 
 const PrivateTags = () => {
+  const { t } = useTranslation();
   useRedirectForInvalidAuthToken();
 
   return (
     <>
-      <PageTitle title="Private tags"/>
+      <PageTitle title={ t('pages.privateTags') }/>
       <RoutedTabs tabs={ TABS }/>
     </>
   );

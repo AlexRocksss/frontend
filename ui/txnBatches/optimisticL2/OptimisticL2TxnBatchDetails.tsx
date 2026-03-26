@@ -1,4 +1,5 @@
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -28,6 +29,7 @@ interface Props {
 }
 
 const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { data, isError, error, isPlaceholderData } = query;
@@ -63,9 +65,9 @@ const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
     >
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Batch ID indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }` }
+        hint={ t('txnBatches.batchIdHint', { current: layerLabels.current, parent: layerLabels.parent }) }
       >
-        Batch ID
+        { t('txnBatches.batchIdLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -74,8 +76,8 @@ const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
         <PrevNext
           ml={ 6 }
           onClick={ handlePrevNextClick }
-          prevLabel="View previous txn batch"
-          nextLabel="View next txn batch"
+          prevLabel={ t('txnBatches.prevBatchLabel') }
+          nextLabel={ t('txnBatches.nextBatchLabel') }
           isPrevDisabled={ data.number === 0 }
           isLoading={ isPlaceholderData }
         />
@@ -83,52 +85,52 @@ const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Date and time at which batch is submitted to ${ layerLabels.parent }` }
+        hint={ t('txnBatches.timestampHint', { parent: layerLabels.parent }) }
       >
-        Timestamp
+        { t('txnBatches.timestampLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.l1_timestamp ?
           <DetailedInfoTimestamp timestamp={ data.l1_timestamp } isLoading={ isPlaceholderData }/> :
-          'Undefined'
+          t('txnBatches.undefined')
         }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Number of transactions in this batch"
+        hint={ t('txnBatches.transactionsHint') }
       >
-        Transactions
+        { t('txnBatches.transactionsLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
           <Link href={ route({ pathname: '/batches/[number]', query: { number: data.number.toString(), tab: 'txs' } }) }>
             { data.transactions_count.toLocaleString() } transaction{ data.transactions_count === 1 ? '' : 's' }
           </Link>
-          { ' ' }in this batch
+          { ' ' }{ t('txnBatches.inThisBatch') }
         </Skeleton>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Number of ${ layerLabels.current } blocks in this batch` }
+        hint={ t('txnBatches.blocksHint', { current: layerLabels.current }) }
       >
-        Blocks
+        { t('txnBatches.blocksLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
           <Link href={ route({ pathname: '/batches/[number]', query: { number: data.number.toString(), tab: 'blocks' } }) }>
             { blocksCount.toLocaleString() } block{ blocksCount === 1 ? '' : 's' }
           </Link>
-          { ' ' }in this batch
+          { ' ' }{ t('txnBatches.inThisBatch') }
         </Skeleton>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Where the batch data is stored"
+        hint={ t('txnBatches.batchDataContainerHint') }
       >
-        Batch data container
+        { t('txnBatches.batchDataContainerLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexDir="column" alignItems="flex-start" rowGap={ 2 }>
         <OptimisticL2TxnBatchDA container={ data.batch_data_container } isLoading={ isPlaceholderData } mt={{ base: 0, lg: 1 }}/>

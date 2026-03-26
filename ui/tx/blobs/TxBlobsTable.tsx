@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxBlob } from 'types/api/blobs';
@@ -13,14 +14,14 @@ interface Props {
 }
 
 const TxBlobsTable = ({ data, top, isLoading }: Props) => {
-
+  const { t } = useTranslation();
   return (
     <TableRoot>
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader width="60%">Blob hash</TableColumnHeader>
-          <TableColumnHeader width="20%">Data type</TableColumnHeader>
-          <TableColumnHeader width="20%">Size, bytes</TableColumnHeader>
+          <TableColumnHeader width="60%">{ t('tx.blobHash') }</TableColumnHeader>
+          <TableColumnHeader width="20%">{ t('tx.dataType') }</TableColumnHeader>
+          <TableColumnHeader width="20%">{ t('tx.sizeBytes') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

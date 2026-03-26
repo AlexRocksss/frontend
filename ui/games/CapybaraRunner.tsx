@@ -52,7 +52,7 @@ const CapybaraRunner = () => {
       { easterEggBadgeFeature.isEnabled && hasReachedHighScore && (
         <Flex flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
           <Text fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</Text>
-          <Text fontSize="lg" textAlign="center">Congratulations! You’re eligible to claim an epic hidden badge!</Text>
+          <Text fontSize="lg" textAlign="center">Congratulations! You're eligible to claim an epic hidden badge!</Text>
           <Link
             href={ easterEggBadgeFeature.badgeClaimLink }
             external noIcon

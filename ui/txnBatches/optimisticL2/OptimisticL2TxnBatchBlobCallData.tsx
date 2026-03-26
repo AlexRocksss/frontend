@@ -1,4 +1,5 @@
 import { GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { layerLabels } from 'lib/rollups/utils';
@@ -14,13 +15,17 @@ interface Props {
 }
 
 const OptimisticL2TxnBatchBlobCallData = ({ l1TxHashes, l1Timestamp, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <OptimisticL2TxnBatchBlobWrapper isLoading={ isLoading }>
-      <GridItem fontWeight={ 600 }>Timestamp</GridItem>
+      <GridItem fontWeight={ 600 }>{ t('txnBatches.timestampLabel') }</GridItem>
       <GridItem overflow="hidden">
         <DetailedInfoTimestamp timestamp={ l1Timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }}/>
       </GridItem>
-      <GridItem fontWeight={ 600 }>{ layerLabels.parent } txn hash{ l1TxHashes.length > 1 ? 'es' : '' }</GridItem>
+      <GridItem fontWeight={ 600 }>
+        { t(l1TxHashes.length > 1 ? 'txnBatches.parentTxHashesLabel' : 'txnBatches.parentTxHashLabel',
+          { parent: layerLabels.parent }) }
+      </GridItem>
       <GridItem overflow="hidden" display="flex" flexDir="column" rowGap={ 2 }>
         { l1TxHashes.map((hash) => <TxEntityL1 key={ hash } hash={ hash } noIcon/>) }
       </GridItem>

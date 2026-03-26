@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { MultichainProvider } from 'lib/contexts/multichain';
@@ -16,6 +17,7 @@ import Pagination from 'ui/shared/pagination/Pagination';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 
 const MultichainAccounts = () => {
+  const { t } = useTranslation();
   const { isError, isPlaceholderData, data, pagination, chainValue, onChainValueChange } = useQueryWithPages({
     resourceName: 'general:addresses',
     options: {
@@ -74,13 +76,13 @@ const MultichainAccounts = () => {
   return (
     <>
       <PageTitle
-        title="Top accounts"
+        title={ t('multichain.topAccounts') }
         withTextAd
       />
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items?.length }
-        emptyText="There are no accounts."
+        emptyText={ t('multichain.noAccounts') }
         actionBar={ actionBar }
         showActionBarIfError
         showActionBarIfEmpty

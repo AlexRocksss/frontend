@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { DialogBody, DialogContent, DialogRoot, DialogHeader } from 'toolkit/chakra/dialog';
@@ -11,6 +12,7 @@ type Props = {
 };
 
 const RewardsTaskDetailsModal = ({ isOpen, onClose, title, children }: Props) => {
+  const { t } = useTranslation();
   const handleOpenChange = React.useCallback(({ open }: { open: boolean }) => {
     if (!open) {
       onClose();
@@ -30,7 +32,7 @@ const RewardsTaskDetailsModal = ({ isOpen, onClose, title, children }: Props) =>
         <DialogBody>
           <Text>{ children }</Text>
           <Text textStyle="sm" color="text.secondary" mt={ 3 }>
-            Note: Merits are only earned on supported networks where the program is active.
+            { t('rewards.taskDetailsNote') }
           </Text>
         </DialogBody>
       </DialogContent>

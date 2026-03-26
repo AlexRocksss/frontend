@@ -1,4 +1,5 @@
 import { Flex, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { VerifiedContract } from 'types/api/contracts';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
+  const { t } = useTranslation();
   const license = (() => {
     const license = CONTRACT_LICENSES.find((license) => license.type === data.license_type);
     if (!license || license.type === 'none') {
@@ -87,7 +89,7 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
         </Flex>
         { data.zk_compiler_version && (
           <Flex flexWrap="wrap" columnGap={ 2 } my={ 1 }>
-            <Skeleton loading={ isLoading } >ZK compiler</Skeleton>
+            <Skeleton loading={ isLoading } >{ t('verifiedContracts.zkCompilerLabel') }</Skeleton>
             <Skeleton loading={ isLoading } color="text.secondary" wordBreak="break-all">
               <span>{ data.zk_compiler_version }</span>
             </Skeleton>
@@ -95,14 +97,14 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
         ) }
       </TableCell>
       <TableCell>
-        <Tooltip content="Optimization" disabled={ isLoading }>
+        <Tooltip content={ t('verifiedContracts.optimizationTooltip') } disabled={ isLoading }>
           <chakra.span display="inline-block">
             { data.optimization_enabled ?
               <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
               <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
           </chakra.span>
         </Tooltip>
-        <Tooltip content="Constructor args" disabled={ isLoading }>
+        <Tooltip content={ t('verifiedContracts.constructorArgsTooltip') } disabled={ isLoading }>
           <chakra.span display="inline-block" ml={ 2 }>
             { data.has_constructor_args ?
               <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :

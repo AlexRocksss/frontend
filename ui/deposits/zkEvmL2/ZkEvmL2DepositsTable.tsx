@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZkEvmL2DepositsItem } from 'types/api/zkEvmL2';
@@ -16,21 +17,22 @@ type Props = {
 };
 
 const ZkEvmL2DepositsTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot tableLayout="auto" minW="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader>{ layerLabels.parent } block</TableColumnHeader>
-            <TableColumnHeader>Index</TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.parent } txn hash</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentBlock', { parent: layerLabels.parent }) }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.indexLabel') }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.parentTxnHash', { parent: layerLabels.parent }) }</TableColumnHeader>
             <TableColumnHeader>
-              Timestamp
+              { t('deposits.timestampHeader') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader>{ layerLabels.current } txn hash</TableColumnHeader>
-            <TableColumnHeader isNumeric>Value</TableColumnHeader>
-            <TableColumnHeader>Token</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.currentTxnHash', { current: layerLabels.current }) }</TableColumnHeader>
+            <TableColumnHeader isNumeric>{ t('deposits.valueLabel') }</TableColumnHeader>
+            <TableColumnHeader>{ t('deposits.tokenLabel') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

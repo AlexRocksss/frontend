@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { type RelatedCctx, CctxStatusReduced } from '@blockscout/zetachain-cctx-types';
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const ZetaChainCCTXDetailsRelatedTx = ({ tx, isLoading }: Props) => {
+  const { t } = useTranslation();
   const { data: chainsConfig } = useZetaChainConfig();
   const chainFrom = chainsConfig?.find((chain) => chain.id === tx.source_chain_id.toString());
 
@@ -43,7 +45,7 @@ const ZetaChainCCTXDetailsRelatedTx = ({ tx, isLoading }: Props) => {
       <ChainIcon data={ chainFrom }/>
       <IconSvg name="arrows/east" boxSize={ 5 } color="text.secondary"/>
       { chainsTo.map((chain, index) => <ChainIcon key={ index } data={ chain }/>) }
-      <Box>CCTX</Box>
+      <Box>{ t('zetaChain.cctx') }</Box>
       <TxEntityZetaChainCC hash={ tx.index } isLoading={ isLoading } noIcon truncation="constant"/>
       <ZetaChainCCTXReducedStatus status={ tx.status_reduced } isLoading={ isLoading } type="full"/>
     </Skeleton>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ArbitrumL2TxnWithdrawalsItem } from 'types/api/arbitrumL2';
@@ -13,14 +14,15 @@ interface Props {
 }
 
 const ArbitrumL2TxnWithdrawalsTable = ({ data, txHash, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot minW="900px">
       <TableHeader>
         <TableRow>
-          <TableColumnHeader width="150px">Message #</TableColumnHeader>
-          <TableColumnHeader width="30%">Receiver</TableColumnHeader>
-          <TableColumnHeader width="30%" isNumeric>Value</TableColumnHeader>
-          <TableColumnHeader width="40%">Status</TableColumnHeader>
+          <TableColumnHeader width="150px">{ t('txnWithdrawals.messageNoLabel') }</TableColumnHeader>
+          <TableColumnHeader width="30%">{ t('txnWithdrawals.receiverLabel') }</TableColumnHeader>
+          <TableColumnHeader width="30%" isNumeric>{ t('txnWithdrawals.valueLabel') }</TableColumnHeader>
+          <TableColumnHeader width="40%">{ t('txnWithdrawals.statusLabel') }</TableColumnHeader>
         </TableRow>
       </TableHeader>
       <TableBody>

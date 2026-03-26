@@ -1,4 +1,5 @@
 import { Text, Stack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressFromToFilter } from 'types/api/address';
@@ -31,6 +32,7 @@ const TokenTransferFilter = ({
   isLoading,
   chainConfig,
 }: Props) => {
+  const { t } = useTranslation();
   const isInitialLoading = useIsInitialLoading(isLoading);
 
   const handleAddressFilterChange = React.useCallback(({ value }: { value: string | null }) => {
@@ -45,7 +47,7 @@ const TokenTransferFilter = ({
     <PopoverFilter appliedFiltersNum={ appliedFiltersNum } contentProps={{ w: '220px' }} isLoading={ isInitialLoading }>
       { withAddressFilter && (
         <>
-          <Text color="text.secondary" fontWeight={ 600 }>Address</Text>
+          <Text color="text.secondary" fontWeight={ 600 }>{ t('tokenTransfers.filterAddress') }</Text>
           <RadioGroup
             size="lg"
             onValueChange={ handleAddressFilterChange }
@@ -55,9 +57,9 @@ const TokenTransferFilter = ({
             borderColor="border.divider"
           >
             <Stack gap={ 4 }>
-              <Radio value="all"><Text fontSize="md">All</Text></Radio>
-              <Radio value="from"><Text fontSize="md">Outgoing transfers</Text></Radio>
-              <Radio value="to"><Text fontSize="md">Incoming transfers</Text></Radio>
+              <Radio value="all"><Text fontSize="md">{ t('tokenTransfers.all') }</Text></Radio>
+              <Radio value="from"><Text fontSize="md">{ t('tokenTransfers.outgoing') }</Text></Radio>
+              <Radio value="to"><Text fontSize="md">{ t('tokenTransfers.incoming') }</Text></Radio>
             </Stack>
           </RadioGroup>
         </>

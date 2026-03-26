@@ -1,5 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
@@ -72,6 +73,7 @@ function BaseAgeFilter<T>({
   fieldNames,
   dateConverter,
 }: Props<T>) {
+  const { t } = useTranslation();
   const getFromValue = () => {
     if (value.age) return '';
     return value.from ? dateConverter.getCurrentValue(value.from) : '';
@@ -157,7 +159,7 @@ function BaseAgeFilter<T>({
 
   return (
     <TableColumnFilter
-      title="Set last duration"
+      title={ t('advancedFilter.filterAge') }
       isFilled={ Boolean(currentValue.from || currentValue.to || currentValue.age) }
       isTouched={ isTouched }
       onFilter={ onFilter }
@@ -177,14 +179,14 @@ function BaseAgeFilter<T>({
         <DateInput
           value={ currentValue.age ? '' : currentValue.from }
           onChange={ handleFromChange }
-          placeholder="From"
+          placeholder={ t('advancedFilter.filterFromDate') }
           max={ dayjs().format('YYYY-MM-DD') }
         />
         <Text mx={ 3 }>{ ndash }</Text>
         <DateInput
           value={ currentValue.age ? '' : currentValue.to }
           onChange={ handleToChange }
-          placeholder="To"
+          placeholder={ t('advancedFilter.filterToDate') }
           max={ dayjs().format('YYYY-MM-DD') }
         />
       </Flex>

@@ -1,4 +1,5 @@
 import { Flex, Text, Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { MarketplaceApp } from 'types/client/marketplace';
@@ -19,6 +20,7 @@ const SOCIAL_LINKS: Array<Omit<SocialLinkProps, 'href'>> = [
 ];
 
 const Content = ({ data }: Props) => {
+  const { t } = useTranslation();
   const socialLinks: Array<SocialLinkProps> = [];
   SOCIAL_LINKS.forEach((link) => {
     const href = data?.[link.field];
@@ -34,13 +36,13 @@ const Content = ({ data }: Props) => {
   return (
     <Flex fontSize="sm" flexDir="column" rowGap={ 5 }>
       <div>
-        <Text color="text.secondary" textStyle="xs">Project info</Text>
+        <Text color="text.secondary" textStyle="xs">{ t('marketplace.projectInfo') }</Text>
         <Text fontSize="sm" mt={ 3 }>{ data?.shortDescription }</Text>
         <WebsiteLink url={ data?.site }/>
       </div>
       { socialLinks.length > 0 && (
         <div>
-          <Text color="text.secondary" textStyle="xs">Links</Text>
+          <Text color="text.secondary" textStyle="xs">{ t('marketplace.links') }</Text>
           <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} columnGap={ 4 } rowGap={ 3 } mt={ 3 }>
             { socialLinks.map((link, index) => <SocialLink key={ index } { ...link }/>) }
           </Grid>

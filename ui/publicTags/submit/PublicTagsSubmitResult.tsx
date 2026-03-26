@@ -1,5 +1,6 @@
 import { Flex, Grid, GridItem } from '@chakra-ui/react';
 import { pickBy } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FormSubmitResult } from './types';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const PublicTagsSubmitResult = ({ data }: Props) => {
+  const { t } = useTranslation();
   const groupedData = React.useMemo(() => groupSubmitResult(data), [ data ]);
 
   if (!groupedData) {
@@ -40,25 +42,25 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
     <div>
       { !hasErrors && (
         <Alert status="success" mb={ 6 }>
-          Success! All tags went into moderation pipeline and soon will appear in the explorer.
+          { t('publicTags.successAlert') }
         </Alert>
       ) }
 
-      <Heading level="2">Company info</Heading>
+      <Heading level="2">{ t('publicTags.companyInfoHeading') }</Heading>
       <Grid rowGap={ 3 } columnGap={ 6 } gridTemplateColumns="170px 1fr" mt={ 6 }>
-        <GridItem>Your name</GridItem>
+        <GridItem>{ t('publicTags.yourName') }</GridItem>
         <GridItem>{ groupedData.requesterName }</GridItem>
-        <GridItem>Email</GridItem>
+        <GridItem>{ t('publicTags.email') }</GridItem>
         <GridItem>{ groupedData.requesterEmail }</GridItem>
         { groupedData.companyName && (
           <>
-            <GridItem>Company name</GridItem>
+            <GridItem>{ t('publicTags.companyName') }</GridItem>
             <GridItem>{ groupedData.companyName }</GridItem>
           </>
         ) }
         { companyWebsite && (
           <>
-            <GridItem>Company website</GridItem>
+            <GridItem>{ t('publicTags.companyWebsite') }</GridItem>
             <GridItem>
               <Link external href={ companyWebsite.href }>{ companyWebsite.domain }</Link>
             </GridItem>
@@ -66,19 +68,19 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
         ) }
       </Grid>
 
-      <Heading level="2" mt={ 8 } mb={ 5 }>Public tags/labels</Heading>
+      <Heading level="2" mt={ 8 } mb={ 5 }>{ t('publicTags.publicTagsHeading') }</Heading>
       { hasErrors ? <PublicTagsSubmitResultWithErrors data={ groupedData }/> : <PublicTagsSubmitResultSuccess data={ groupedData }/> }
 
       <Flex flexDir={{ base: 'column', lg: 'row' }} columnGap={ 6 } mt={ 8 } rowGap={ 3 }>
         { hasErrors && (
           <Link href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) } asChild>
             <Button variant="outline" w={{ base: '100%', lg: 'auto' }}>
-              Start over
+              { t('publicTags.startOver') }
             </Button>
           </Link>
         ) }
         <Link href={ route({ pathname: '/public-tags/submit' }) } asChild>
-          <Button w={{ base: '100%', lg: 'auto' }}>Add new tag</Button>
+          <Button w={{ base: '100%', lg: 'auto' }}>{ t('publicTags.addNewTag') }</Button>
         </Link>
       </Flex>
     </div>

@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -45,6 +46,7 @@ interface Props {
 }
 
 const MultichainAddressTxs = ({ addressData, isLoading }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMobile = useIsMobile();
 
@@ -140,12 +142,12 @@ const MultichainAddressTxs = ({ addressData, isLoading }: Props) => {
   const tabs: Array<TabItemRegular> = [
     {
       id: 'txs_cross_chain',
-      title: 'Cross-chain',
+      title: t('multichain.crossChainTab'),
       component: <EmptyState type="coming_soon"/>,
     },
     {
       id: [ 'txs_local', 'txs' ],
-      title: 'Local',
+      title: t('multichain.localTab'),
       component: chainIds.length > 0 ? (
         <SocketProvider url={ getSocketUrl(chainData?.app_config) }>
           <MultichainProvider chainId={ chainId }>
@@ -163,7 +165,7 @@ const MultichainAddressTxs = ({ addressData, isLoading }: Props) => {
             />
           </MultichainProvider>
         </SocketProvider>
-      ) : <p>There are no transactions.</p>,
+      ) : <p>{ t('multichain.noTxs') }</p>,
     },
   ];
 

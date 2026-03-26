@@ -1,4 +1,5 @@
 import { Box, Flex, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const LatestBlocksDegraded = ({ maxNum }: Props) => {
+  const { t } = useTranslation();
 
   const { blocks, isError, isLoading, enable } = useHomeRpcDataContext();
 
@@ -42,7 +44,7 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
   const items = isLoading ? Array(maxNum).fill(BLOCK) : blocks.slice(0, maxNum);
 
   if (items.length === 0) {
-    return <Box textStyle="sm">No latest blocks found.</Box>;
+    return <Box textStyle="sm">{ t('home.noLatestBlocks') }</Box>;
   }
 
   return (
@@ -58,7 +60,7 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
         ))) }
       </VStack>
       <Flex justifyContent="center">
-        <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isLoading }>View all blocks</Link>
+        <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isLoading }>{ t('home.viewAllBlocks') }</Link>
       </Flex>
     </>
   );

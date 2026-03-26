@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FheOperation } from 'types/api/fheOperations';
@@ -13,20 +14,21 @@ interface Props {
 }
 
 const TxFHEOperationsTable = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <Box maxW="100%" overflowX="auto" hideBelow="lg">
         <TableRoot tableLayout="fixed" minWidth="900px" w="100%">
           <TableHeader>
             <TableRow>
-              <TableColumnHeader width="10%">Index</TableColumnHeader>
-              <TableColumnHeader width="15%">Operation</TableColumnHeader>
-              <TableColumnHeader width="12%">Type</TableColumnHeader>
-              <TableColumnHeader width="12%">FHE type</TableColumnHeader>
-              <TableColumnHeader width="12%">Mode</TableColumnHeader>
-              <TableColumnHeader width="12%">HCU cost</TableColumnHeader>
-              <TableColumnHeader width="12%">HCU depth</TableColumnHeader>
-              <TableColumnHeader width="24%">Caller</TableColumnHeader>
+              <TableColumnHeader width="10%">{ t('tx.index') }</TableColumnHeader>
+              <TableColumnHeader width="15%">{ t('tx.operation') }</TableColumnHeader>
+              <TableColumnHeader width="12%">{ t('tx.type') }</TableColumnHeader>
+              <TableColumnHeader width="12%">{ t('tx.fheType') }</TableColumnHeader>
+              <TableColumnHeader width="12%">{ t('tx.mode') }</TableColumnHeader>
+              <TableColumnHeader width="12%">{ t('tx.hcuCost') }</TableColumnHeader>
+              <TableColumnHeader width="12%">{ t('tx.hcuDepth') }</TableColumnHeader>
+              <TableColumnHeader width="24%">{ t('tx.caller') }</TableColumnHeader>
             </TableRow>
           </TableHeader>
           <TableBody>

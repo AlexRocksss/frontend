@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import type { MouseEvent } from 'react';
 import React, { useCallback } from 'react';
 
@@ -31,6 +32,7 @@ const FeaturedApp = ({
   app, isFavorite, isLoading, onAppClick,
   onInfoClick, onFavoriteClick,
 }: FeaturedAppProps) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const { id, url, external, title, logo, logoDarkMode, shortDescription, categories, internalWallet } = app;
@@ -115,14 +117,14 @@ const FeaturedApp = ({
                 href="#"
                 onClick={ handleInfoClick }
               >
-                More info
+                { t('marketplace.moreInfo') }
               </Link>
             ) }
 
             { !isLoading && (
               <IconButton
-                aria-label="Mark as favorite"
-                title="Mark as favorite"
+                aria-label={ t('marketplace.markAsFavorite') }
+                title={ t('marketplace.markAsFavorite') }
                 variant="icon_background"
                 size="md"
                 onClick={ handleFavoriteClick }

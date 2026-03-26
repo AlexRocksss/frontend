@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const TxDetailsGasPrice = ({ gasPrice, gasToken, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (config.UI.views.tx.hiddenFields?.gas_price || !gasPrice) {
     return null;
   }
@@ -41,10 +43,10 @@ const TxDetailsGasPrice = ({ gasPrice, gasToken, isLoading }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Price per unit of gas specified by the sender. Higher gas prices can prioritize transaction inclusion during times of high usage"
+        hint={ t('tx.hintGasPrice') }
         isLoading={ isLoading }
       >
-        Gas price
+        { t('tx.gasPrice') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
         { content }

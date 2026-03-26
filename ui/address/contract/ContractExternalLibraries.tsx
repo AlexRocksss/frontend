@@ -1,4 +1,5 @@
 import { Box, Flex, Separator, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractExternalLibrary } from 'types/api/contract';
@@ -11,7 +12,6 @@ import { Heading } from 'toolkit/chakra/heading';
 import { PopoverRoot, PopoverBody, PopoverContent, PopoverTrigger } from 'toolkit/chakra/popover';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
-import { apos } from 'toolkit/utils/htmlEntities';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -37,6 +37,7 @@ const Item = (data: SmartContractExternalLibrary) => {
 };
 
 const ContractExternalLibraries = ({ className, data, isLoading }: Props) => {
+  const { t } = useTranslation();
   const { open, onToggle, onOpenChange } = useDisclosure();
   const isMobile = useIsMobile();
 
@@ -58,9 +59,9 @@ const ContractExternalLibraries = ({ className, data, isLoading }: Props) => {
       fontWeight={ 600 }
       px={ 2 }
       gap={ 0 }
-      aria-label="View external libraries"
+      aria-label={ t('address.viewExternalLibrariesAriaLabel') }
     >
-      <span>{ data.length } { data.length > 1 ? 'Libraries' : 'Library' } </span>
+      <span>{ data.length } { t('address.library', { count: data.length }) } </span>
       <IconSvg name="status/warning" boxSize={ 5 } color="orange.400" ml="2px"/>
       <IconSvg name="arrows/east-mini" transform={ open ? 'rotate(90deg)' : 'rotate(-90deg)' } transitionDuration="faster" boxSize={ 5 } ml={ 2 }/>
     </Button>
@@ -68,10 +69,9 @@ const ContractExternalLibraries = ({ className, data, isLoading }: Props) => {
 
   const content = (
     <>
-      <Heading size="sm" level="3">External libraries ({ data.length })</Heading>
+      <Heading size="sm" level="3">{ t('address.externalLibraries', { count: data.length }) }</Heading>
       <Alert status="warning" mt={ 4 }>
-        The linked library{ apos }s source code may not be the real one.
-        Check the source code at the library address (if any) if you want to be sure in case if there is any library linked
+        { t('address.externalLibrariesWarning') }
       </Alert>
       <VStack
         separator={ <Separator/> }

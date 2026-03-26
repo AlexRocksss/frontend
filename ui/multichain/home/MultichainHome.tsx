@@ -1,4 +1,5 @@
 import { Box, HStack, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -14,6 +15,7 @@ import LatestTxs from './LatestTxs';
 import Stats from './Stats';
 
 const MultichainHome = () => {
+  const { t } = useTranslation();
   const chains = multichainConfig()?.chains;
 
   const chainMetricsQuery = useApiQuery('multichainAggregator:chain_metrics');
@@ -36,7 +38,7 @@ const MultichainHome = () => {
               </MultichainProvider>
             )) }
           </HStack>
-          <Link textStyle="sm" justifyContent="center" href={ route({ pathname: '/ecosystems' }) }>View all chains</Link>
+          <Link textStyle="sm" justifyContent="center" href={ route({ pathname: '/ecosystems' }) }>{ t('multichain.viewAllChains') }</Link>
         </VStack>
       ) }
     </Box>

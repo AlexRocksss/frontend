@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Log } from 'types/api/log';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const TxLogs = ({ txQuery, logsFilter }: Props) => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError, pagination } = useQueryWithPages({
     resourceName: 'general:tx_logs',
     pathParams: { hash: txQuery.data?.hash },
@@ -49,7 +51,7 @@ const TxLogs = ({ txQuery, logsFilter }: Props) => {
   }
 
   if (!items.length) {
-    return <Text as="span">There are no logs for this transaction.</Text>;
+    return <Text as="span">{ t('tx.noLogs') }</Text>;
   }
 
   return (

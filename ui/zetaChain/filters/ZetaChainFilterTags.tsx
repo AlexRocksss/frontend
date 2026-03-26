@@ -1,5 +1,6 @@
 import { Flex, HStack, Text } from '@chakra-ui/react';
 import { castArray } from 'es-toolkit/compat';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZetaChainCCTXFilterParams } from 'types/client/zetaChain';
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
+  const { t } = useTranslation();
   const { data: chains = [] } = useZetaChainConfig();
 
   const filterTags: Array<{ key: keyof ZetaChainCCTXFilterParams; name: string; value: string }> = [];
@@ -28,14 +30,14 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
   if (filters.age) {
     filterTags.push({
       key: 'age',
-      name: 'Age',
+      name: t('zetaChain.age'),
       value: filters.age,
     });
   } else {
     if (filters.start_timestamp) {
       filterTags.push({
         key: 'start_timestamp',
-        name: 'Date from',
+        name: t('zetaChain.dateFrom'),
         value: dayjs(Number(filters.start_timestamp) * SECOND).format('MMM DD, YYYY'),
       });
     }
@@ -43,7 +45,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
     if (filters.end_timestamp) {
       filterTags.push({
         key: 'end_timestamp',
-        name: 'Date to',
+        name: t('zetaChain.dateTo'),
         value: dayjs(Number(filters.end_timestamp) * SECOND).format('MMM DD, YYYY'),
       });
     }
@@ -54,7 +56,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
   if (statusReduced.length > 0) {
     filterTags.push({
       key: 'status_reduced',
-      name: 'Status',
+      name: t('zetaChain.status'),
       value: statusReduced.join(', '),
     });
   }
@@ -64,7 +66,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
   if (senderAddresses.length > 0) {
     filterTags.push({
       key: 'sender_address',
-      name: 'Sender',
+      name: t('zetaChain.sender'),
       value: senderAddresses.map(address => shortenString(address, 8)).join(', '),
     });
   }
@@ -78,7 +80,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
     });
     filterTags.push({
       key: 'source_chain_id',
-      name: 'Sender Chain',
+      name: t('zetaChain.senderChain'),
       value: chainNames.join(', '),
     });
   }
@@ -88,7 +90,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
   if (receiverAddresses.length > 0) {
     filterTags.push({
       key: 'receiver_address',
-      name: 'Receiver',
+      name: t('zetaChain.receiver'),
       value: receiverAddresses.map(address => shortenString(address, 8)).join(', '),
     });
   }
@@ -102,7 +104,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
     });
     filterTags.push({
       key: 'target_chain_id',
-      name: 'Receiver Chain',
+      name: t('zetaChain.receiverChain'),
       value: chainNames.join(', '),
     });
   }
@@ -121,7 +123,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
     }
     filterTags.push({
       key: 'token_symbol',
-      name: 'Asset',
+      name: t('zetaChain.asset'),
       value: value.join(', '),
     });
   }
@@ -133,11 +135,11 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
   return (
     <Flex justifyContent="space-between" alignItems="center" mb={ 6 }>
       <Flex alignItems="center" gap={ 2 }>
-        <Text fontSize="lg" lineHeight="24px" w="100px">Filtered by:</Text>
+        <Text fontSize="lg" lineHeight="24px" w="100px">{ t('zetaChain.filteredBy') }</Text>
         <HStack gap={ 2 } flexWrap="wrap">
-          { filterTags.map(t => (
-            <Tag key={ t.name } variant="filter" onClose={ onClearFilter(t.key) } closable label={ t.name }>
-              { t.value }
+          { filterTags.map(tag => (
+            <Tag key={ tag.name } variant="filter" onClose={ onClearFilter(tag.key) } closable label={ tag.name }>
+              { tag.value }
             </Tag>
           )) }
         </HStack>
@@ -145,7 +147,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
       { filterTags.length !== 0 && (
         <Link onClick={ onClearAll } display="flex" alignItems="center" justifyContent="end" gap={ 2 } fontSize="sm" w="150px">
           <IconSvg name="repeat" boxSize={ 5 }/>
-          Reset filters
+          { t('zetaChain.resetFilters') }
         </Link>
       ) }
     </Flex>

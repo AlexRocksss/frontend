@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -40,6 +41,7 @@ const TokenTransferListItem = ({
   isLoading,
   chainData,
 }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobile rowGap={ 3 }>
       <Flex w="100%" justifyContent="space-between">
@@ -95,7 +97,7 @@ const TokenTransferListItem = ({
       />
       { total && 'value' in total && total.value !== null && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>Value</Skeleton>
+          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ t('tokenTransfers.value') }</Skeleton>
           <AssetValue
             amount={ total && 'value' in total && total.value !== null ? total.value : null }
             decimals={ total && 'decimals' in total ? total.decimals || '0' : '0' }
@@ -108,7 +110,7 @@ const TokenTransferListItem = ({
 
       { token && isConfidentialTokenType(token.type) && (!total || !('value' in total) || total.value === null) && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>Value</Skeleton>
+          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ t('tokenTransfers.value') }</Skeleton>
           <ConfidentialValue loading={ isLoading } color="text.secondary"/>
         </Flex>
       ) }

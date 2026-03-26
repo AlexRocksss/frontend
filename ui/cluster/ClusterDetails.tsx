@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ClusterByNameResponse } from 'types/api/clusters';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!clusterData && !isLoading) {
     throw new Error('Cluster not found', { cause: { status: 404 } });
   }
@@ -28,10 +30,10 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
   return (
     <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
-        hint="The unique cluster name"
+        hint={ t('cluster.clusterNameHint') }
         isLoading={ isLoading }
       >
-        Cluster name
+        { t('cluster.clusterName') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <ClustersEntity
@@ -43,10 +45,10 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="The address attached to this cluster name"
+        hint={ t('cluster.ownerAddressHint') }
         isLoading={ isLoading }
       >
-        Owner address
+        { t('cluster.ownerAddress') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressEntity
@@ -58,10 +60,10 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="The network type of the address attached to this cluster name"
+        hint={ t('cluster.typeHint') }
         isLoading={ isLoading }
       >
-        Type
+        { t('cluster.type') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isLoading }>
@@ -70,10 +72,10 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint={ `The amount of ${ currencyUnits.ether } backing this cluster name` }
+        hint={ t('cluster.backingHint', { ether: currencyUnits.ether }) }
         isLoading={ isLoading }
       >
-        Backing
+        { t('cluster.backing') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <NativeCoinValue
@@ -83,10 +85,10 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="When this cluster name was created"
+        hint={ t('cluster.createdHint') }
         isLoading={ isLoading }
       >
-        Created
+        { t('cluster.created') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { clusterData?.createdAt ? (

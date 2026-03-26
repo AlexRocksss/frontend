@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { IconButtonProps } from 'toolkit/chakra/icon-button';
@@ -17,6 +18,8 @@ export interface Props extends Omit<IconButtonProps, 'type' | 'loading'> {
 }
 
 const CopyToClipboard = (props: Props) => {
+  const { t } = useTranslation();
+
   const { text, type = 'text', isLoading, onClick, boxSize = 5, noTooltip, tooltipInteractive, ...rest } = props;
 
   const { hasCopied, copy, disclosure } = useClipboard(text);
@@ -60,14 +63,14 @@ const CopyToClipboard = (props: Props) => {
 
   const tooltipContent = (() => {
     if (hasCopied) {
-      return 'Copied';
+      return t('copy.copied');
     }
 
     if (type === 'link') {
-      return 'Copy link to clipboard';
+      return t('copy.linkToClipboard');
     }
 
-    return 'Copy to clipboard';
+    return t('copy.toClipboard');
   })();
 
   return (

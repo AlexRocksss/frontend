@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -11,6 +12,7 @@ import TransactionsCrossChainContent from './TransactionsCrossChainContent';
 import TransactionsCrossChainStats from './TransactionsCrossChainStats';
 
 const TransactionsCrossChain = () => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError, pagination } = useQueryWithPages({
     resourceName: 'interchainIndexer:messages',
     options: {
@@ -25,7 +27,7 @@ const TransactionsCrossChain = () => {
 
   const actionBarText = (
     <Skeleton loading={ statsQuery.isPlaceholderData || isPlaceholderData }>
-      A total of { Number(statsQuery.data?.total_messages).toLocaleString() } cross-chain transactions found
+      { t('crossChain.totalMessagesFound', { count: Number(statsQuery.data?.total_messages).toLocaleString() }) }
     </Skeleton>
   );
 

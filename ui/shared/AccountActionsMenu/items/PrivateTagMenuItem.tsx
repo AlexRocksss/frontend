@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -22,6 +23,7 @@ interface Props extends ItemProps {
 }
 
 const PrivateTagMenuItem = ({ hash, entityType = 'address', type }: Props) => {
+  const { t } = useTranslation();
   const modal = useDisclosure();
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -59,7 +61,7 @@ const PrivateTagMenuItem = ({ hash, entityType = 'address', type }: Props) => {
           <AuthGuard onAuthSuccess={ modal.onOpen }>
             { ({ onClick }) => (
               // FIXME use non-navigation icon
-              <ButtonItem label="Add private tag" icon="navigation/private_tags" onClick={ onClick }/>
+              <ButtonItem label={ t('action.addPrivateTag') } icon="navigation/private_tags" onClick={ onClick }/>
             ) }
           </AuthGuard>
         );
@@ -71,7 +73,7 @@ const PrivateTagMenuItem = ({ hash, entityType = 'address', type }: Props) => {
               <MenuItem onClick={ onClick } value="add-private-tag">
                 { /* FIXME use non-navigation icon */ }
                 <IconSvg name="navigation/private_tags" boxSize={ 6 }/>
-                <span>Add private tag</span>
+                <span>{ t('action.addPrivateTag') }</span>
               </MenuItem>
             ) }
           </AuthGuard>

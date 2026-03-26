@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxAuthorization } from 'types/api/transaction';
@@ -14,26 +15,27 @@ interface Props extends TxAuthorization {
 }
 
 const TxAuthorizationsListItem = ({ address_hash: addressHash, authority, chain_id: chainId, nonce, isLoading, status }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobile rowGap={ 3 } fontSize="sm">
       <HStack gap={ 3 } w="100%">
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Authority</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('tx.authority') }</Skeleton>
         <AddressEntity address={{ hash: authority }} isLoading={ isLoading } noIcon/>
       </HStack>
       <HStack gap={ 3 } w="100%">
-        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>Delegated address</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>{ t('tx.delegatedAddress') }</Skeleton>
         <AddressEntity address={{ hash: addressHash }} isLoading={ isLoading } noIcon/>
       </HStack>
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Chain</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('tx.chain') }</Skeleton>
         <Skeleton loading={ isLoading } color="text.secondary">{ chainId === Number(config.chain.id) ? 'this' : 'any' }</Skeleton>
       </HStack>
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Nonce</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('tx.noncePrefixed') }</Skeleton>
         <Skeleton loading={ isLoading } color="text.secondary">{ nonce }</Skeleton>
       </HStack>
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Status</Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 }>{ t('tx.status') }</Skeleton>
         <TxAuthorizationStatus status={ status } loading={ isLoading }/>
       </HStack>
     </ListItemMobile>

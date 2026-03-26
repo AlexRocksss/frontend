@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { EmptyState } from 'toolkit/chakra/empty-state';
@@ -6,16 +7,6 @@ import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import SearchResultsList from './SearchResultsList';
 import SearchResultsTabAll from './SearchResultsTabAll';
 import type { QueryType, SearchQueries } from './utils';
-
-const EMPTY_SEARCH_NAME_MAP: Record<QueryType, string> = {
-  addresses: 'addresses',
-  tokens: 'tokens',
-  blockNumbers: 'block numbers',
-  blocks: 'blocks',
-  transactions: 'transactions',
-  nfts: 'NFTs',
-  domains: 'names',
-};
 
 interface Props {
   isLoading: boolean;
@@ -26,6 +17,18 @@ interface Props {
 }
 
 const SearchResultTabContent = ({ isLoading, searchTerm, queries, queryType, beforeContent }: Props) => {
+  const { t } = useTranslation();
+
+  const emptySearchNameMap: Record<QueryType, string> = React.useMemo(() => ({
+    addresses: t('multichain.emptySearchAddresses'),
+    tokens: t('multichain.emptySearchTokens'),
+    blockNumbers: t('multichain.emptySearchBlockNumbers'),
+    blocks: t('multichain.emptySearchBlocks'),
+    transactions: t('multichain.emptySearchTransactions'),
+    nfts: t('multichain.emptySearchNfts'),
+    domains: t('multichain.emptySearchDomains'),
+  }), [ t ]);
+
   const content = (() => {
     if (isLoading) {
       return <ContentLoader maxW="240px"/>;
@@ -34,8 +37,8 @@ const SearchResultTabContent = ({ isLoading, searchTerm, queries, queryType, bef
     if (!searchTerm) {
       return (
         <EmptyState
-          title="Looking for something?"
-          description="Try searching by address, smart contract, transaction, block, token or NFT"
+          title={ t('multichain.lookingForSomething') }
+          description={ t('multichain.trySearching') }
         />
       );
     }
@@ -47,8 +50,8 @@ const SearchResultTabContent = ({ isLoading, searchTerm, queries, queryType, bef
     if (!hasResults) {
       return (
         <EmptyState
-          title={ queryType ? `No ${ EMPTY_SEARCH_NAME_MAP[queryType] } found` : 'No results found' }
-          description="It seems we can't find any results based on your request."
+          title={ queryType ? t('multichain.noTypeFound', { type: emptySearchNameMap[queryType] }) : t('multichain.noResultsFound') }
+          description={ t('multichain.noResultsDescription') }
         />
       );
     }

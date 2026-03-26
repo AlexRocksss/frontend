@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { CctxStatus } from '@blockscout/zetachain-cctx-types';
@@ -9,20 +10,22 @@ type Props = {
   isLoading?: boolean;
 };
 
-const TagText: Record<CctxStatus, string> = {
-  [CctxStatus.PENDING_OUTBOUND]: 'Pending outbound',
-  [CctxStatus.PENDING_INBOUND]: 'Pending inbound',
-  [CctxStatus.OUTBOUND_MINED]: 'Outbound mined',
-  [CctxStatus.PENDING_REVERT]: 'Pending revert',
-  [CctxStatus.ABORTED]: 'Aborted',
-  [CctxStatus.REVERTED]: 'Reverted',
-  [CctxStatus.UNRECOGNIZED]: 'Unknown Status',
-};
-
 const ZetaChainCCTXStatusTag = ({ status, isLoading }: Props) => {
+  const { t } = useTranslation();
+
+  const tagText: Record<CctxStatus, string> = {
+    [CctxStatus.PENDING_OUTBOUND]: t('zetaChainStatus.pendingOutbound'),
+    [CctxStatus.PENDING_INBOUND]: t('zetaChainStatus.pendingInbound'),
+    [CctxStatus.OUTBOUND_MINED]: t('zetaChainStatus.outboundMined'),
+    [CctxStatus.PENDING_REVERT]: t('zetaChainStatus.pendingRevert'),
+    [CctxStatus.ABORTED]: t('zetaChainStatus.aborted'),
+    [CctxStatus.REVERTED]: t('zetaChainStatus.reverted'),
+    [CctxStatus.UNRECOGNIZED]: t('zetaChainStatus.unknownStatus'),
+  };
+
   return (
     <Tag loading={ isLoading }>
-      { TagText[status] }
+      { tagText[status] }
     </Tag>
   );
 };

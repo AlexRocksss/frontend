@@ -1,5 +1,6 @@
 import type { HTMLChakraProps } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -10,8 +11,10 @@ interface Props extends HTMLChakraProps<'div'> {
 }
 
 const LogIndex = ({ children, isLoading, ...props }: Props) => {
+  const { t } = useTranslation();
+
   return (
-    <Tooltip content="Log index">
+    <Tooltip content={ t('log.logIndex') }>
       <Skeleton loading={ isLoading } asChild>
         <Center
           color={ isLoading ? 'transparent' : { _light: 'blue.600', _dark: 'gray.50' } }

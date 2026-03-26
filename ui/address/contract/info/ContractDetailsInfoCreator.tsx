@@ -1,4 +1,5 @@
-import { Text, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractCreationStatus } from 'types/api/contract';
@@ -17,9 +18,10 @@ interface Props {
 }
 
 const ContractDetailsInfoCreator = ({ addressHash, txHash, creationStatus, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <ContractDetailsInfoItem
-      label="Creator"
+      label={ t('address.contractInfoCreator') }
       isLoading={ isLoading }
       contentProps={{ gridColumn: { lg: '2 / span 3' } }}
     >
@@ -29,7 +31,7 @@ const ContractDetailsInfoCreator = ({ addressHash, txHash, creationStatus, isLoa
           truncation="constant"
           noIcon
         />
-        <Text whiteSpace="pre" color="text.secondary">at txn</Text>
+        { t('address.contractInfoAtTxn') }
         <TxEntity hash={ txHash } truncation="constant" noIcon/>
         { creationStatus && <ContractCreationStatus status={ creationStatus }/> }
       </Flex>

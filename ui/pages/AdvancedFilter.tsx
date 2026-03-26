@@ -6,6 +6,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { omit } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -45,6 +46,7 @@ const COLUMNS_CHECKED = {} as Record<ColumnsIds, boolean>;
 TABLE_COLUMNS.forEach(c => COLUMNS_CHECKED[c.id] = true);
 
 const AdvancedFilter = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const multichainContext = useMultichainContext();
 
@@ -163,7 +165,7 @@ const AdvancedFilter = () => {
                   >
                     { Boolean(column.name) && (
                       <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
-                        { column.id === 'age' ? 'Timestamp' : column.name }
+                        { column.id === 'age' ? t('advancedFilter.timestamp') : column.name }
                       </chakra.span>
                     ) }
                     <FilterByColumn
@@ -239,21 +241,21 @@ const AdvancedFilter = () => {
   return (
     <>
       <PageTitle
-        title="Advanced filter"
+        title={ t('advancedFilter.title') }
         withTextAd
       />
       <Flex mb={ 4 } justifyContent="space-between" alignItems="start">
-        <Text fontSize="lg" mr={ 3 } lineHeight="24px" w="100px">Filtered by:</Text>
+        <Text fontSize="lg" mr={ 3 } lineHeight="24px" w="100px">{ t('advancedFilter.filteredBy') }</Text>
         { filterTags.length !== 0 && (
           <Link onClick={ clearAllFilters } display="flex" alignItems="center" justifyContent="end" gap={ 2 } fontSize="sm" w="150px">
             <IconSvg name="repeat" boxSize={ 5 }/>
-            Reset filters
+            { t('advancedFilter.resetFilters') }
           </Link>
         ) }
       </Flex>
       <HStack gap={ 2 } flexWrap="wrap" mb={ 6 }>
         { multichainContext?.chain && (
-          <Tag variant="filter" label="Chain">
+          <Tag variant="filter" label={ t('advancedFilter.chainLabel') }>
             { multichainContext.chain.app_config.chain.name }
           </Tag>
         ) }
@@ -264,10 +266,10 @@ const AdvancedFilter = () => {
         )) }
         { filterTags.length === 0 && (
           <>
-            <Tag variant="filter" label="Type">
+            <Tag variant="filter" label={ t('advancedFilter.colType') }>
               All
             </Tag>
-            <Tag variant="filter" label="Age">
+            <Tag variant="filter" label={ t('advancedFilter.colAge') }>
               7d
             </Tag>
           </>
@@ -276,7 +278,7 @@ const AdvancedFilter = () => {
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no transactions."
+        emptyText={ t('pages.noTransactions') }
         actionBar={ actionBar }
         hasActiveFilters={ Object.values(filters).some(Boolean) }
         emptyStateProps={{

@@ -1,4 +1,5 @@
 import { chakra, Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -24,6 +25,7 @@ interface Props {
 }
 
 const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
+  const { t } = useTranslation();
 
   const apiFetch = useApiFetch();
   const recaptcha = useReCaptcha();
@@ -62,11 +64,11 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
         }
 
         toaster.error({
-          title: 'Error',
-          description: getErrorMessage(error) || 'Something went wrong',
+          title: t('auth.error'),
+          description: getErrorMessage(error) || t('auth.somethingWentWrong'),
         });
       });
-  }, [ apiFetch, email, onSuccess, isAuth, formApi ]);
+  }, [ apiFetch, email, onSuccess, isAuth, formApi, t ]);
 
   const resendCodeFetchFactory = React.useCallback((recaptchaToken?: string) => {
     return apiFetch('general:auth_send_otp', {
@@ -87,20 +89,20 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
       await recaptcha.fetchProtectedResource(resendCodeFetchFactory);
 
       toaster.success({
-        title: 'Success',
-        description: 'Code has been sent to your email',
+        title: t('status.success'),
+        description: t('auth.codeSentSuccess'),
       });
     } catch (error) {
       const apiError = getErrorObjPayload<{ message: string }>(error);
 
       toaster.error({
-        title: 'Error',
-        description: apiError?.message || getErrorMessage(error) || 'Something went wrong',
+        title: t('auth.error'),
+        description: apiError?.message || getErrorMessage(error) || t('auth.somethingWentWrong'),
       });
     } finally {
       setIsCodeSending(false);
     }
-  }, [ formApi, recaptcha, resendCodeFetchFactory ]);
+  }, [ formApi, recaptcha, resendCodeFetchFactory, t ]);
 
   return (
     <FormProvider { ...formApi }>
@@ -109,9 +111,9 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
         onSubmit={ formApi.handleSubmit(onFormSubmit) }
       >
         <Text mb={ 6 }>
-          Please check{ ' ' }
+          { t('auth.checkEmail_pre') }{ ' ' }
           <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
-          and enter your code below.
+          { t('auth.checkEmail_post') }
         </Text>
         <AuthModalFieldOtpCode isDisabled={ isCodeSending }/>
         <Button
@@ -122,7 +124,7 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
           onClick={ handleResendCodeClick }
         >
           <IconSvg name="repeat" boxSize={ 5 }/>
-          <Box fontSize="sm">Resend code</Box>
+          <Box fontSize="sm">{ t('auth.resendCode') }</Box>
         </Button>
         <ReCaptcha { ...recaptcha }/>
         <Button
@@ -130,10 +132,10 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
           type="submit"
           loading={ formApi.formState.isSubmitting }
           disabled={ formApi.formState.isSubmitting || isCodeSending || recaptcha.isInitError }
-          loadingText="Submit"
+          loadingText={ t('auth.submit') }
           onClick={ formApi.handleSubmit(onFormSubmit) }
         >
-          Submit
+          { t('auth.submit') }
         </Button>
       </chakra.form>
     </FormProvider>

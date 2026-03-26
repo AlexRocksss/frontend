@@ -3,6 +3,7 @@ import {
   Flex,
   Grid,
 } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { HomeStats } from 'types/api/stats';
@@ -29,6 +30,7 @@ interface Props {
 const feature = config.features.gasTracker;
 
 const GasInfoTooltip = ({ children, data, dataUpdatedAt, placement }: Props) => {
+  const { t } = useTranslation();
   if (!data.gas_prices) {
     return null;
   }
@@ -43,7 +45,7 @@ const GasInfoTooltip = ({ children, data, dataUpdatedAt, placement }: Props) => 
     <Flex flexDir="column" textStyle="xs" rowGap={ 3 } className="dark">
       { data.gas_price_updated_at && (
         <Flex justifyContent="space-between" alignItems="center">
-          <Box color="text.secondary">Last update</Box>
+          <Box color="text.secondary">{ t('gas.lastUpdate') }</Box>
           <Flex color="text.secondary" justifyContent="flex-end" alignItems="center" columnGap={ 2 } ml={ 3 }>
             <Time timestamp={ data.gas_price_updated_at } format="MMM DD, HH:mm:ss"/>
             { data.gas_prices_update_in !== 0 &&
@@ -52,12 +54,12 @@ const GasInfoTooltip = ({ children, data, dataUpdatedAt, placement }: Props) => 
         </Flex>
       ) }
       <Grid rowGap={ 2 } columnGap="10px" gridTemplateColumns={ `repeat(${ columnNum }, minmax(min-content, auto))` }>
-        <GasInfoTooltipRow name="Fast" info={ data.gas_prices.fast }/>
-        <GasInfoTooltipRow name="Normal" info={ data.gas_prices.average }/>
-        <GasInfoTooltipRow name="Slow" info={ data.gas_prices.slow }/>
+        <GasInfoTooltipRow name={ t('gas.fast') } info={ data.gas_prices.fast }/>
+        <GasInfoTooltipRow name={ t('gas.normal') } info={ data.gas_prices.average }/>
+        <GasInfoTooltipRow name={ t('gas.slow') } info={ data.gas_prices.slow }/>
       </Grid>
       <Link href={ route({ pathname: '/gas-tracker' }) }>
-        Gas tracker overview
+        { t('gas.trackerOverview') }
       </Link>
     </Flex>
   );

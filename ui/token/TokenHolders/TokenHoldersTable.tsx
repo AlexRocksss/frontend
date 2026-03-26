@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenHolder, TokenInfo } from 'types/api/token';
@@ -14,15 +15,16 @@ interface Props {
 }
 
 const TokenHoldersTable = ({ data, token, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot>
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader w="70%">Holder</TableColumnHeader>
-          { (hasTokenIds(token.type)) && <TableColumnHeader w="30%">ID#</TableColumnHeader> }
-          <TableColumnHeader isNumeric width="220px">Quantity</TableColumnHeader>
+          <TableColumnHeader w="70%">{ t('token.owner') }</TableColumnHeader>
+          { (hasTokenIds(token.type)) && <TableColumnHeader w="30%">{ t('token.idNumber') }</TableColumnHeader> }
+          <TableColumnHeader isNumeric width="220px">{ t('token.quantity') }</TableColumnHeader>
           { token.total_supply && token.type !== 'ERC-404' && !isConfidentialTokenType(token.type) && (
-            <TableColumnHeader isNumeric width="175px">Percentage</TableColumnHeader>
+            <TableColumnHeader isNumeric width="175px">{ t('token.percentage') }</TableColumnHeader>
           ) }
         </TableRow>
       </TableHeaderSticky>

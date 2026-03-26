@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TransactionTags, TransactionTag } from 'types/api/account';
@@ -15,12 +16,13 @@ interface Props {
 }
 
 const TransactionTagTable = ({ data, isLoading, onDeleteClick, onEditClick, top }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot minWidth="600px">
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader width="75%">Transaction</TableColumnHeader>
-          <TableColumnHeader width="25%">Private tag</TableColumnHeader>
+          <TableColumnHeader width="75%">{ t('privateTags.transactionHeader') }</TableColumnHeader>
+          <TableColumnHeader width="25%">{ t('privateTags.privateTagHeader') }</TableColumnHeader>
           <TableColumnHeader width="108px"></TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>

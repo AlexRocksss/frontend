@@ -1,4 +1,5 @@
 import { Flex, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CctxListItem } from '@blockscout/zetachain-cctx-types';
@@ -40,6 +41,7 @@ const ZetaChainCCTxsTable = ({
   showSocketErrorAlert = false,
   socketInfoNum = 0,
 }: Props) => {
+  const { t } = useTranslation();
   const initialList = useInitialList({
     data: txs ?? [],
     idFn: (item) => item.index,
@@ -54,11 +56,11 @@ const ZetaChainCCTxsTable = ({
             <TableColumnHeader width="300px">
               <Flex alignItems="center" columnGap={ 2 }>
                 <chakra.span lineHeight="24px" verticalAlign="middle">
-                  CCTx hash
+                  { t('zetaChain.cctxHash') }
                 </chakra.span>
                 <ZetaChainFilterByColumn
                   column="age"
-                  columnName="Age"
+                  columnName={ t('zetaChain.age') }
                   filters={ filters }
                   handleFilterChange={ onFilterChange }
                   isLoading={ isPlaceholderData }
@@ -68,12 +70,12 @@ const ZetaChainCCTxsTable = ({
             </TableColumnHeader>
             <TableColumnHeader width="105px">
               <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
-                Status
+                { t('zetaChain.status') }
               </chakra.span>
               { showStatusFilter && (
                 <ZetaChainFilterByColumn
                   column="status"
-                  columnName="Status"
+                  columnName={ t('zetaChain.status') }
                   filters={ filters }
                   handleFilterChange={ onFilterChange }
                   isLoading={ isPlaceholderData }
@@ -82,11 +84,11 @@ const ZetaChainCCTxsTable = ({
             </TableColumnHeader>
             <TableColumnHeader width="200px">
               <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
-                Sender
+                { t('zetaChain.sender') }
               </chakra.span>
               <ZetaChainFilterByColumn
                 column="sender"
-                columnName="Sender"
+                columnName={ t('zetaChain.sender') }
                 filters={ filters }
                 handleFilterChange={ onFilterChange }
                 isLoading={ isPlaceholderData }
@@ -94,11 +96,11 @@ const ZetaChainCCTxsTable = ({
             </TableColumnHeader>
             <TableColumnHeader width="165px">
               <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
-                Receiver
+                { t('zetaChain.receiver') }
               </chakra.span>
               <ZetaChainFilterByColumn
                 column="receiver"
-                columnName="Receiver"
+                columnName={ t('zetaChain.receiver') }
                 filters={ filters }
                 handleFilterChange={ onFilterChange }
                 isLoading={ isPlaceholderData }
@@ -106,11 +108,11 @@ const ZetaChainCCTxsTable = ({
             </TableColumnHeader>
             <TableColumnHeader width="100%" isNumeric>
               <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
-                Value
+                { t('zetaChain.value') }
               </chakra.span>
               <ZetaChainFilterByColumn
                 column="asset"
-                columnName="Asset"
+                columnName={ t('zetaChain.asset') }
                 filters={ filters }
                 handleFilterChange={ onFilterChange }
                 isLoading={ isPlaceholderData }

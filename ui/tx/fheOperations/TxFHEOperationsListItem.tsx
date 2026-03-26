@@ -1,5 +1,6 @@
 import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FheOperation } from 'types/api/fheOperations';
@@ -13,6 +14,7 @@ import { getTypeColor } from 'ui/tx/fheOperations/utils';
 type Props = FheOperation & { isLoading?: boolean };
 
 const TxFHEOperationsListItem = (props: Props) => {
+  const { t } = useTranslation();
   const { log_index: logIndex, operation, type, fhe_type: fheType, is_scalar: isScalar, hcu_cost: hcuCost, hcu_depth: hcuDepth, caller, isLoading } = props;
 
   return (
@@ -25,32 +27,32 @@ const TxFHEOperationsListItem = (props: Props) => {
           { fheType }
         </Badge>
         <Badge colorPalette="gray" loading={ isLoading }>
-          { isScalar ? 'Scalar' : 'Non-scalar' }
+          { isScalar ? t('tx.scalarBadge') : t('tx.nonScalar') }
         </Badge>
       </Flex>
 
       <Grid templateColumns="110px 1fr" rowGap={ 2 } columnGap={ 2 }>
-        <Text fontWeight="medium">Index</Text>
+        <Text fontWeight="medium">{ t('tx.index') }</Text>
         <Skeleton loading={ isLoading } color="text.secondary">
           { logIndex }
         </Skeleton>
 
-        <Text fontWeight="medium">Operation</Text>
+        <Text fontWeight="medium">{ t('tx.operation') }</Text>
         <Skeleton loading={ isLoading } color="text.secondary">
           { operation }
         </Skeleton>
 
-        <Text fontWeight="medium">HCU cost</Text>
+        <Text fontWeight="medium">{ t('tx.hcuCost') }</Text>
         <Skeleton loading={ isLoading } color="text.secondary">
           { hcuCost.toLocaleString() }
         </Skeleton>
 
-        <Text fontWeight="medium">HCU depth</Text>
+        <Text fontWeight="medium">{ t('tx.hcuDepth') }</Text>
         <Skeleton loading={ isLoading } color="text.secondary">
           { hcuDepth.toLocaleString() }
         </Skeleton>
 
-        <Text fontWeight="medium">Caller</Text>
+        <Text fontWeight="medium">{ t('tx.caller') }</Text>
         <Box minW={ 0 }>
           { caller && caller.hash ? (
             <AddressEntity

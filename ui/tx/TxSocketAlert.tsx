@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Alert } from 'toolkit/chakra/alert';
@@ -7,9 +8,10 @@ interface Props {
 }
 
 const TxSocketAlert = ({ status }: Props) => {
+  const { t } = useTranslation();
   const text = status === 'close' ?
-    'Connection is lost. Please click here to update transaction info.' :
-    'An error has occurred while fetching transaction info. Please click here to update.';
+    t('tx.socketLost') :
+    t('tx.socketError');
 
   return (
     <Link href={ window.document.location.href } asChild>

@@ -1,4 +1,5 @@
 import { createListCollection, Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import type { NextRouter } from 'next/router';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -70,6 +71,7 @@ const getResolutionFromQuery = (router: NextRouter) => {
 };
 
 const Chart = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const id = getQueryParamString(router.query.id);
   const intervalFromQuery = getIntervalFromQuery(router);
@@ -218,7 +220,7 @@ const Chart = () => {
               </Skeleton>
               <Select
                 collection={ resolutionCollection }
-                placeholder="Select resolution"
+                placeholder={ t('pages.chartSelectResolution') }
                 defaultValue={ [ defaultResolution ] }
                 onValueChange={ onResolutionChange }
                 w={{ base: 'fit-content', lg: '160px' }}
@@ -287,7 +289,7 @@ const Chart = () => {
           zoomRange={ zoomRange }
           handleZoom={ handleZoom }
           empty={ !hasNonEmptyCharts }
-          emptyText="No data for the selected resolution & interval."
+          emptyText={ t('pages.chartNoData') }
           resolution={ resolution }
         />
       </Flex>

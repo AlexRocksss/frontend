@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const TokenInstanceCreatorAddress = ({ hash }: Props) => {
+  const { t } = useTranslation();
   const addressQuery = useApiQuery('general:address', {
     pathParams: { hash },
     queryOptions: {
@@ -38,7 +40,7 @@ const TokenInstanceCreatorAddress = ({ hash }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Address that deployed this token contract"
+        hint={ t('token.hintCreator') }
         isLoading={ addressQuery.isPlaceholderData }
       >
         Creator

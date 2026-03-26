@@ -1,4 +1,5 @@
 import { chakra, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
+  const { t } = useTranslation();
 
   const apiFetch = useApiFetch();
   const recaptcha = useReCaptcha();
@@ -68,11 +70,11 @@ const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
       onSubmit({ type: 'otp_code', email: formData.email, isAuth });
     } catch (error) {
       toaster.error({
-        title: 'Error',
-        description: getErrorObjPayload<{ message: string }>(error)?.message || getErrorMessage(error) || 'Something went wrong',
+        title: t('auth.error'),
+        description: getErrorObjPayload<{ message: string }>(error)?.message || getErrorMessage(error) || t('auth.somethingWentWrong'),
       });
     }
-  }, [ recaptcha, sendCodeFetchFactory, isAuth, onSubmit, mixpanelConfig?.account_link_info.source ]);
+  }, [ recaptcha, sendCodeFetchFactory, isAuth, onSubmit, mixpanelConfig?.account_link_info.source, t ]);
 
   return (
     <FormProvider { ...formApi }>
@@ -80,11 +82,11 @@ const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
         noValidate
         onSubmit={ formApi.handleSubmit(onFormSubmit) }
       >
-        <Text>Account email, used for transaction notifications from your watchlist.</Text>
+        <Text>{ t('auth.emailAccountDesc') }</Text>
         <FormFieldEmail<EmailFormFields>
           name="email"
           required
-          placeholder="Email"
+          placeholder={ t('auth.emailPlaceholder') }
           bgColor="dialog.bg"
           mt={ 6 }
         />
@@ -94,9 +96,9 @@ const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
           type="submit"
           disabled={ formApi.formState.isSubmitting || recaptcha.isInitError }
           loading={ formApi.formState.isSubmitting }
-          loadingText="Send a code"
+          loadingText={ t('auth.sendCode') }
         >
-          Send a code
+          { t('auth.sendCode') }
         </Button>
       </chakra.form>
     </FormProvider>

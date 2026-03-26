@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import * as tac from '@blockscout/tac-operation-lifecycle-types';
@@ -15,21 +16,22 @@ interface Props {
 }
 
 const TacOperationLifecycleAccordionItemContent = ({ isLast, data }: Props) => {
+  const { t } = useTranslation();
   return (
     <ItemContent isLast={ isLast }>
       <ItemBody>
-        <ItemRow label="Status">
-          <StatusTag type={ data.is_success ? 'ok' : 'error' } text={ data.is_success ? 'Success' : 'Failed' } my={ 1 }/>
+        <ItemRow label={ t('operation.statusLabel') }>
+          <StatusTag type={ data.is_success ? 'ok' : 'error' } text={ data.is_success ? t('operation.success') : t('operation.failed') } my={ 1 }/>
         </ItemRow>
 
         { data.timestamp && (
-          <ItemRow label="Timestamp">
+          <ItemRow label={ t('operation.timestampLabel') }>
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ false } flexWrap={{ base: 'wrap', lg: 'nowrap' }} py="6px"/>
           </ItemRow>
         ) }
 
         { data.transactions.length > 0 && (
-          <ItemRow label="Transactions">
+          <ItemRow label={ t('operation.transactions') }>
             <Box
               display="flex"
               flexDirection="column"
@@ -52,7 +54,7 @@ const TacOperationLifecycleAccordionItemContent = ({ isLast, data }: Props) => {
         ) }
 
         { data.note && (
-          <ItemRow label="Note">
+          <ItemRow label={ t('operation.note') }>
             <Box
               display="inline-flex"
               alignItems="center"

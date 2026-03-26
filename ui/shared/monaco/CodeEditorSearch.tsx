@@ -1,6 +1,7 @@
 import type { HTMLChakraProps } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { File, Monaco, SearchResult } from './types';
@@ -25,6 +26,8 @@ interface Props {
 }
 
 const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, setActionBarRenderer, defaultValue }: Props) => {
+  const { t } = useTranslation();
+
   const [ searchTerm, changeSearchTerm ] = React.useState('');
   const [ searchResults, setSearchResults ] = React.useState<Array<SearchResult>>([]);
   const [ expandedSections, setExpandedSections ] = React.useState<Array<string>>([]);
@@ -169,7 +172,7 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
         onClick={ handleMatchCaseChange }
         bgColor={ isMatchCase ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
         _hover={{ bgColor: isMatchCase ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
-        title="Match Case"
+        title={ t('codeEditor.matchCase') }
         aria-label="Match Case"
       />
       <Box
@@ -178,7 +181,7 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
         bgColor={ isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
         onClick={ handleMatchWholeWordChange }
         _hover={{ bgColor: isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
-        title="Match Whole Word"
+        title={ t('codeEditor.matchWholeWord') }
         aria-label="Match Whole Word"
       />
       <Box
@@ -187,7 +190,7 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
         bgColor={ isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
         onClick={ handleMatchRegexChange }
         _hover={{ bgColor: isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
-        title="Use Regular Expression"
+        title={ t('codeEditor.useRegex') }
         aria-label="Use Regular Expression"
       />
     </>
@@ -211,7 +214,7 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
           size="xs"
           onChange={ handleSearchTermChange }
           value={ searchTerm }
-          placeholder="Search"
+          placeholder={ t('codeEditor.searchPlaceholder') }
           color={ themeColors['input.foreground'] }
           bgColor={ themeColors['input.background'] }
           borderRadius="none"

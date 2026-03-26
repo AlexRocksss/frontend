@@ -1,4 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback } from 'react';
 
 import type { MarketplaceApp } from 'types/client/marketplace';
@@ -88,6 +89,8 @@ const MarketplaceAppModal = ({
     }
   }
 
+  const { t } = useTranslation();
+
   const handleOpenChange = React.useCallback(({ open }: { open: boolean }) => {
     if (!open) {
       onClose();
@@ -146,7 +149,7 @@ const MarketplaceAppModal = ({
             textStyle={{ base: 'sm', md: 'md' }}
             fontWeight="normal"
           >
-            By{ nbsp }{ author }
+            { t('marketplace.byAuthor') }{ nbsp }{ author }
           </Text>
 
           { isRatingEnabled && (
@@ -176,13 +179,13 @@ const MarketplaceAppModal = ({
               <Flex width={{ base: '100%', md: 'auto' }} gap={ 2 }>
                 <Link href={ external ? url : route({ pathname: '/apps/[id]', query: { id: data.id } }) } external={ external } noIcon>
                   <Button size="sm">
-                    Launch app
+                    { t('marketplace.launchApp') }
                   </Button>
                 </Link>
 
                 <IconButton
-                  aria-label="Mark as favorite"
-                  title="Mark as favorite"
+                  aria-label={ t('marketplace.markAsFavorite') }
+                  title={ t('marketplace.markAsFavorite') }
                   variant="icon_background"
                   size="md"
                   onClick={ handleFavoriteClick }

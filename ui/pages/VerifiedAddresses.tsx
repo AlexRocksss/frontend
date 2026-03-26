@@ -1,5 +1,6 @@
 import { List, chakra, Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -27,6 +28,7 @@ import VerifiedAddressesListItem from 'ui/verifiedAddresses/VerifiedAddressesLis
 import VerifiedAddressesTable from 'ui/verifiedAddresses/VerifiedAddressesTable';
 
 const VerifiedAddresses = () => {
+  const { t } = useTranslation();
   useRedirectForInvalidAuthToken();
 
   const router = useRouter();
@@ -130,11 +132,11 @@ const VerifiedAddresses = () => {
   if (selectedAddress) {
     const addressInfo = addressesQuery.data?.verifiedAddresses.find(({ contractAddress }) => contractAddress.toLowerCase() === selectedAddress.toLowerCase());
     const tokenName = addressInfo ? `${ addressInfo.metadata.tokenName } (${ addressInfo.metadata.tokenSymbol })` : '';
-    const beforeTitle = <BackToButton onClick={ handleGoBack } hint="Back to my verified addresses" mr={ 3 }/>;
+    const beforeTitle = <BackToButton onClick={ handleGoBack } hint={ t('pages.backToVerifiedAddresses') } mr={ 3 }/>;
 
     return (
       <>
-        <PageTitle title="Token info application form" beforeTitle={ beforeTitle }/>
+        <PageTitle title={ t('pages.tokenInfoForm') } beforeTitle={ beforeTitle }/>
         <TokenInfoForm
           address={ selectedAddress }
           tokenName={ tokenName }
@@ -186,7 +188,7 @@ const VerifiedAddresses = () => {
 
   return (
     <>
-      <PageTitle title="My verified addresses"/>
+      <PageTitle title={ t('pages.myVerifiedAddresses') }/>
       { userWithoutEmail && <VerifiedAddressesEmailAlert/> }
       <AccountPageDescription allowCut={ false }>
         <span>
@@ -199,7 +201,7 @@ const VerifiedAddresses = () => {
           Before starting, make sure that:
         </chakra.p>
         <List.Root pl={ 5 } as="ol">
-          <List.Item>The source code for the smart contract is deployed on “{ config.chain.name }”.</List.Item>
+          <List.Item>The source code for the smart contract is deployed on "{ config.chain.name }".</List.Item>
           <List.Item>
             <span>The source code is verified (if not yet verified, you can use </span>
             <Link href="https://docs.blockscout.com/devs/verification" external noIcon>this tool</Link>

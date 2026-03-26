@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ClustersDirectoryObject } from 'types/api/clusters';
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const ClustersDirectoryTableItem = ({ item, isLoading, isClusterDetailsLoading }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
@@ -43,7 +46,7 @@ const ClustersDirectoryTableItem = ({ item, isLoading, isClusterDetailsLoading }
       </TableCell>
       <TableCell verticalAlign="middle">
         <Skeleton loading={ isLoading || isClusterDetailsLoading }>
-          { (item.chainIds?.length || 1) } { (item.chainIds?.length || 1) === 1 ? 'chain' : 'chains' }
+          { t('nameServices.chainCount', { count: item.chainIds?.length || 1 }) }
         </Skeleton>
       </TableCell>
     </TableRow>

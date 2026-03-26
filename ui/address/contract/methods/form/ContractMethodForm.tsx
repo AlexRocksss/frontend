@@ -1,4 +1,5 @@
 import { Box, Flex, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -37,6 +38,7 @@ interface Props {
 }
 
 const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props) => {
+  const { t } = useTranslation();
 
   const [ result, setResult ] = React.useState<FormSubmitResult>();
   const [ isLoading, setLoading ] = React.useState(false);
@@ -218,7 +220,7 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
     return (
       <Tooltip
         disabled={ isDisabled }
-        content="Copied"
+        content={ t('copy.copied') }
         closeDelay={ SECOND }
         open={ calldataButtonTooltip.open }
       >

@@ -1,4 +1,5 @@
 import { Box, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CeloEpochDetails } from 'types/api/epochs';
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const EpochDetails = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const processingRange = (() => {
@@ -70,10 +72,10 @@ const EpochDetails = ({ data, isLoading }: Props) => {
     <>
       <DetailedInfo.Container>
         <DetailedInfo.ItemLabel
-          hint="Current status of the epoch"
+          hint={ t('epochs.statusHint') }
           isLoading={ isLoading }
         >
-          Status
+          { t('epochs.status') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <CeloEpochStatus
@@ -82,31 +84,30 @@ const EpochDetails = ({ data, isLoading }: Props) => {
           />
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
-          hint="Timestamp of the block where the epoch processing completed"
+          hint={ t('epochs.timestampHint') }
           isLoading={ isLoading }
         >
-          Timestamp
+          { t('epochs.timestamp') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           { data.timestamp ?
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/> :
-            <Box color="text.secondary" whiteSpace="pre-wrap">Epochs are finalized approximately once a day</Box> }
+            <Box color="text.secondary" whiteSpace="pre-wrap">{ t('epochs.epochsNote') }</Box> }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
-        // eslint-disable-next-line max-len
-          hint={ `The range of blocks during which the epoch is processed — i.e., from the block where the "EpochProcessingStarted" event is emitted to the block where the "EpochProcessingEnded" event is emitted` }
+          hint={ t('epochs.processingRangeHint') }
           isLoading={ isLoading }
         >
-          Processing range
+          { t('epochs.processingRange') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           { processingRange }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
-          hint="Funds allocation to support Celo projects and community initiatives"
+          hint={ t('epochs.communityFundHint') }
           isLoading={ isLoading }
         >
-          Community fund
+          { t('epochs.communityFund') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue multiRow>
           { data.distribution?.community_transfer ? (
@@ -120,10 +121,10 @@ const EpochDetails = ({ data, isLoading }: Props) => {
           ) }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
-          hint="Funds allocation to support projects that make Celo carbon-negative"
+          hint={ t('epochs.carbonOffsetFundHint') }
           isLoading={ isLoading }
         >
-          Carbon offset fund
+          { t('epochs.carbonOffsetFund') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue multiRow>
           { data.distribution?.carbon_offsetting_transfer ? (
@@ -137,10 +138,10 @@ const EpochDetails = ({ data, isLoading }: Props) => {
           ) }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
-          hint="Sum of all fund allocations"
+          hint={ t('epochs.totalFundRewardsHint') }
           isLoading={ isLoading }
         >
-          Total fund rewards
+          { t('epochs.totalFundRewards') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           { totalFundRewards }

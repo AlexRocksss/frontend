@@ -1,5 +1,6 @@
 import { Flex, HStack, Grid, GridItem } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -33,6 +34,7 @@ const TokensListItem = ({
   index,
   isLoading,
 }: Props) => {
+  const { t } = useTranslation();
 
   const {
     address_hash: addressHash,
@@ -102,7 +104,7 @@ const TokensListItem = ({
       ) }
       { exchangeRate && (
         <HStack gap={ 3 }>
-          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>Price</Skeleton>
+          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>{ t('tokens.price') }</Skeleton>
           <SimpleValue
             value={ BigNumber(exchangeRate) }
             loading={ isLoading }
@@ -115,7 +117,7 @@ const TokensListItem = ({
       ) }
       { marketCap && (
         <HStack gap={ 3 }>
-          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>On-chain market cap</Skeleton>
+          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>{ t('tokens.onChainMarketCap') }</Skeleton>
           <SimpleValue
             value={ BigNumber(marketCap) }
             loading={ isLoading }
@@ -128,7 +130,7 @@ const TokensListItem = ({
       ) }
       { holdersCount && (
         <HStack gap={ 3 }>
-          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>Holders</Skeleton>
+          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>{ t('tokens.holders') }</Skeleton>
           <Skeleton loading={ isLoading } textStyle="sm" color="text.secondary"><span>{ Number(holdersCount).toLocaleString() }</span></Skeleton>
         </HStack>
       ) }

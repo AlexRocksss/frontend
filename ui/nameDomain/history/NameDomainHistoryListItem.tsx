@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as bens from '@blockscout/bens-types';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const NameDomainHistoryListItem = ({ isLoading, domain, event }: Props) => {
+  const { t } = useTranslation();
   const isProtocolBaseChain = stripTrailingSlash(domain?.protocol?.deployment_blockscout_base_url ?? '') === config.app.baseUrl;
   const txEntityProps = {
     link: { external: !isProtocolBaseChain ? true : false },
@@ -30,12 +32,12 @@ const NameDomainHistoryListItem = ({ isLoading, domain, event }: Props) => {
 
   return (
     <ListItemMobileGrid.Container>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('nameDomain.txnHash') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TxEntity { ...txEntityProps } hash={ event.transaction_hash } isLoading={ isLoading } fontWeight={ 500 } truncation="constant_long" noCopy/>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('nameDomain.age') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ event.timestamp }
@@ -47,7 +49,7 @@ const NameDomainHistoryListItem = ({ isLoading, domain, event }: Props) => {
 
       { event.from_address && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>From</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('nameDomain.from') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <AddressEntity address={ event.from_address } isLoading={ isLoading } truncation="constant"/>
           </ListItemMobileGrid.Value>
@@ -56,7 +58,7 @@ const NameDomainHistoryListItem = ({ isLoading, domain, event }: Props) => {
 
       { event.action && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Method</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('nameDomain.method') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <Badge colorPalette="gray" loading={ isLoading }>{ event.action }</Badge>
           </ListItemMobileGrid.Value>

@@ -1,5 +1,6 @@
 import { Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback } from 'react';
 
 import type { ApiKey, ApiKeys } from 'types/api/account';
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const DeleteApiKeyModal: React.FC<Props> = ({ open, onOpenChange, data }) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const apiFetch = useApiFetch();
 
@@ -33,15 +35,15 @@ const DeleteApiKeyModal: React.FC<Props> = ({ open, onOpenChange, data }) => {
 
   const renderText = useCallback(() => {
     return (
-      <Text> API key for <Text fontWeight="700" as="span">{ ` "${ data.name || 'name' }" ` }</Text> will be deleted </Text>
+      <Text>{ t('apiKey.deleteTextBefore') }<Text fontWeight="700" as="span">{ ` "${ data.name || 'name' }" ` }</Text>{ t('apiKey.deleteTextAfter') }</Text>
     );
-  }, [ data.name ]);
+  }, [ data.name, t ]);
 
   return (
     <DeleteModal
       open={ open }
       onOpenChange={ onOpenChange }
-      title="Remove API key"
+      title={ t('apiKey.removeTitle') }
       renderContent={ renderText }
       mutationFn={ mutationFn }
       onSuccess={ onSuccess }

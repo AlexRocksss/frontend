@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const MultichainEcosystemsTable = ({ data, isLoading, sort, setSorting }: Props) => {
+  const { t } = useTranslation();
 
   const chains = multichainConfig()?.chains;
 
@@ -32,21 +34,21 @@ const MultichainEcosystemsTable = ({ data, isLoading, sort, setSorting }: Props)
     <TableRoot minW="1000px">
       <TableHeaderSticky>
         <TableRow>
-          <TableColumnHeader width="30%">Chain name</TableColumnHeader>
+          <TableColumnHeader width="30%">{ t('multichain.chainName') }</TableColumnHeader>
           <TableColumnHeaderSortable width="17.5%" sortField="active_accounts" sortValue={ sort } onSortToggle={ onSortToggle }>
-            Active addresses
+            { t('multichain.activeAddresses') }
             <chakra.span color="text.secondary" whiteSpace="pre"> 7D</chakra.span>
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable width="17.5%" sortField="new_addresses" sortValue={ sort } onSortToggle={ onSortToggle }>
-            New addresses
+            { t('multichain.newAddresses') }
             <chakra.span color="text.secondary" whiteSpace="pre"> 7D</chakra.span>
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable width="17.5%" sortField="daily_transactions" sortValue={ sort } onSortToggle={ onSortToggle }>
-            Daily txs
+            { t('multichain.dailyTxs') }
             <chakra.span color="text.secondary" whiteSpace="pre"> 7D</chakra.span>
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable width="17.5%" sortField="tps" sortValue={ sort } onSortToggle={ onSortToggle }>
-            TPS
+            { t('multichain.tps') }
           </TableColumnHeaderSortable>
         </TableRow>
       </TableHeaderSticky>

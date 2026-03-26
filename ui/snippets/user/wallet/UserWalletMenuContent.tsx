@@ -1,4 +1,5 @@
 import { Box, Flex, Spinner, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import delay from 'lib/delay';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const UserWalletMenuContent = ({ isAutoConnectDisabled, address, domain, isReconnecting, onDisconnect, onOpenWallet }: Props) => {
+  const { t } = useTranslation();
 
   const handleOpenWalletClick = React.useCallback(async() => {
     await delay(100);
@@ -28,9 +30,9 @@ const UserWalletMenuContent = ({ isAutoConnectDisabled, address, domain, isRecon
   return (
     <Box>
       { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
-      <Text fontSize="sm" fontWeight={ 600 } mb={ 1 }>My wallet</Text>
+      <Text fontSize="sm" fontWeight={ 600 } mb={ 1 }>{ t('userProfile.myWallet') }</Text>
       <Text fontSize="sm" mb={ 5 } fontWeight={ 400 } color="text.secondary">
-        Your wallet is used to interact with apps and contracts in the explorer.
+        { t('userProfile.walletDesc') }
       </Text>
       <Flex alignItems="center" columnGap={ 2 } justifyContent="space-between">
         <AddressEntity
@@ -41,7 +43,7 @@ const UserWalletMenuContent = ({ isAutoConnectDisabled, address, domain, isRecon
         />
         { isReconnecting ? <Spinner size="sm" m="2px" flexShrink={ 0 }/> : (
           <IconButton
-            aria-label="Open wallet"
+            aria-label={ t('userProfile.openWallet') }
             variant="icon_secondary"
             size="2xs"
             onClick={ handleOpenWalletClick }
@@ -51,7 +53,7 @@ const UserWalletMenuContent = ({ isAutoConnectDisabled, address, domain, isRecon
         ) }
       </Flex>
       <Button size="sm" width="full" variant="outline" onClick={ onDisconnect } mt={ 6 }>
-        Disconnect
+        { t('userProfile.disconnect') }
       </Button>
     </Box>
   );

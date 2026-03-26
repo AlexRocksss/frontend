@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressMudRecord } from 'types/api/address';
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const AddressMudRecordValues = ({ data }: Props) => {
+  const { t } = useTranslation();
   const valuesBgColor = { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' };
 
   if (!data?.schema.value_names.length) {
@@ -21,9 +23,9 @@ const AddressMudRecordValues = ({ data }: Props) => {
   return (
     <>
       <TableRow backgroundColor={ valuesBgColor } borderBottomStyle="hidden" >
-        <TableCell fontWeight={ 600 } w="100px" fontSize="sm">Field</TableCell>
-        <TableCell fontWeight={ 600 } w="90px" fontSize="sm">Type</TableCell>
-        <TableCell fontWeight={ 600 } fontSize="sm">Value</TableCell>
+        <TableCell fontWeight={ 600 } w="100px" fontSize="sm">{ t('address.mudField') }</TableCell>
+        <TableCell fontWeight={ 600 } w="90px" fontSize="sm">{ t('address.mudType') }</TableCell>
+        <TableCell fontWeight={ 600 } fontSize="sm">{ t('address.mudValue') }</TableCell>
       </TableRow>
       {
         data?.schema.value_names.map((valName, index) => (

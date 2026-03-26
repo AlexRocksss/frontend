@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const AddressCoinBalanceChart = ({ addressHash }: Props) => {
+  const { t } = useTranslation();
   const { data, isPending, isError } = useApiQuery('general:address_coin_balance_chart', {
     pathParams: { hash: addressHash },
   });
@@ -25,7 +27,7 @@ const AddressCoinBalanceChart = ({ addressHash }: Props) => {
     return [
       {
         id: 'balance',
-        name: 'Value',
+        name: t('address.valueHeader'),
         items: data.items.map(({ date, value }) => ({
           date: new Date(date),
           value: BigNumber(value).div(10 ** config.chain.currency.decimals).toNumber(),
@@ -34,16 +36,16 @@ const AddressCoinBalanceChart = ({ addressHash }: Props) => {
         units: currencyUnits.ether,
       },
     ];
-  }, [ chartsConfig, data ]);
+  }, [ chartsConfig, data, t ]);
 
   return (
     <ChartWidget
       isError={ isError }
-      title="Balances"
+      title={ t('address.balancesChartTitle') }
       charts={ charts }
       isLoading={ isPending }
       h="300px"
-      emptyText={ data?.days ? `Insufficient data for the past ${ data.days } days` : undefined }
+      emptyText={ data?.days ? t('address.insufficientData', { days: data.days }) : undefined }
     />
   );
 };

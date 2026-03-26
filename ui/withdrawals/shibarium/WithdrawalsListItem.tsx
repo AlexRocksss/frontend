@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ShibariumWithdrawalsItem } from 'types/api/shibarium';
@@ -16,6 +17,7 @@ const feature = config.features.rollup;
 type Props = { item: ShibariumWithdrawalsItem; isLoading?: boolean };
 
 const WithdrawalsListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!(feature.isEnabled && feature.type === 'shibarium')) {
     return null;
   }
@@ -23,7 +25,7 @@ const WithdrawalsListItem = ({ item, isLoading }: Props) => {
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } block No</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.currentBlockNo', { current: layerLabels.current }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BlockEntity
           number={ item.l2_block_number }
@@ -33,7 +35,7 @@ const WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.currentTxnHash', { current: layerLabels.current }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TxEntity
           isLoading={ isLoading }
@@ -43,7 +45,7 @@ const WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.parentTxnHash', { parent: layerLabels.parent }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TxEntityL1
           isLoading={ isLoading }
@@ -54,7 +56,7 @@ const WithdrawalsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>User</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.userLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <AddressStringOrParam
           address={ item.user }
@@ -63,7 +65,7 @@ const WithdrawalsListItem = ({ item, isLoading }: Props) => {
           truncation="constant"
         />
       </ListItemMobileGrid.Value>
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.ageLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.timestamp }

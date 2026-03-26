@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxsSocketType } from './socket/types';
@@ -58,6 +59,7 @@ const TxsTable = ({
     '' :
     ' ' + currencyUnits.ether;
 
+  const { t } = useTranslation();
   const TableHeaderComponent = stickyHeader ? TableHeaderSticky : TableHeader;
 
   const columnNum = [
@@ -76,11 +78,11 @@ const TxsTable = ({
             <TableColumnHeader width="48px"></TableColumnHeader>
             { chainData && <TableColumnHeader width="32px"></TableColumnHeader> }
             <TableColumnHeader width="180px">
-              Txn hash
+              { t('txs.txnHash') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader width="160px">Type</TableColumnHeader>
-            <TableColumnHeader width={ baseWidth }>Method</TableColumnHeader>
+            <TableColumnHeader width="160px">{ t('txs.type') }</TableColumnHeader>
+            <TableColumnHeader width={ baseWidth }>{ t('txs.method') }</TableColumnHeader>
             { showBlockInfo && (
               onSortToggle ? (
                 <TableColumnHeaderSortable
@@ -89,13 +91,13 @@ const TxsTable = ({
                   sortValue={ sort }
                   onSortToggle={ onSortToggle }
                 >
-                  Block
+                  { t('txs.block') }
                 </TableColumnHeaderSortable>
               ) : (
-                <TableColumnHeader width={ baseWidth }>Block</TableColumnHeader>
+                <TableColumnHeader width={ baseWidth }>{ t('txs.block') }</TableColumnHeader>
               )
             ) }
-            <TableColumnHeader width={ columnNum <= 2 ? baseWidth : '224px' }>From/To</TableColumnHeader>
+            <TableColumnHeader width={ columnNum <= 2 ? baseWidth : '224px' }>{ t('txs.fromTo') }</TableColumnHeader>
             { !config.UI.views.tx.hiddenFields?.value && (
               onSortToggle ? (
                 <TableColumnHeaderSortable
@@ -105,10 +107,10 @@ const TxsTable = ({
                   sortValue={ sort }
                   onSortToggle={ onSortToggle }
                 >
-                  { `Value ${ currencyUnits.ether }` }
+                  { t('txs.valueEther', { ether: currencyUnits.ether }) }
                 </TableColumnHeaderSortable>
               ) : (
-                <TableColumnHeader width={ baseWidth } isNumeric>Value</TableColumnHeader>
+                <TableColumnHeader width={ baseWidth } isNumeric>{ t('txs.valueEther', { ether: currencyUnits.ether }) }</TableColumnHeader>
               )
             ) }
             { !config.UI.views.tx.hiddenFields?.tx_fee && (
@@ -121,10 +123,10 @@ const TxsTable = ({
                   sortValue={ sort }
                   onSortToggle={ onSortToggle }
                 >
-                  { `Fee${ feeCurrency }` }
+                  { t('txs.fee', { currency: feeCurrency }) }
                 </TableColumnHeaderSortable>
               ) : (
-                <TableColumnHeader width={ baseWidth } isNumeric pr={ 5 }>Fee</TableColumnHeader>
+                <TableColumnHeader width={ baseWidth } isNumeric pr={ 5 }>{ t('txs.fee', { currency: feeCurrency }) }</TableColumnHeader>
               )
             ) }
           </TableRow>

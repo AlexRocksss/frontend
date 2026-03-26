@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { GetInstancesResponse } from '@blockscout/points-types';
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const RewardsInstancesModal = ({ isOpen, onClose, items }: Props) => {
+  const { t } = useTranslation();
   const handleOpenChange = React.useCallback(({ open }: { open: boolean }) => {
     if (!open) {
       onClose();
@@ -29,13 +31,12 @@ const RewardsInstancesModal = ({ isOpen, onClose, items }: Props) => {
     >
       <DialogContent>
         <DialogHeader>
-          Choose explorer
+          { t('rewards.chooseExplorerHeader') }
         </DialogHeader>
         <DialogBody>
           <Flex flexDir="column" gap={ 6 }>
             <Text>
-              Choose Blockscout explorer that you want to interact with and earn
-              Merits
+              { t('rewards.chooseExplorerBody') }
             </Text>
             <Flex flexWrap="wrap" gap={ 2 }>
               { items?.map((instance) => (

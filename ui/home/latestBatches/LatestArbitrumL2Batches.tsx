@@ -1,6 +1,7 @@
 import { Box, Flex, VStack } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 // import { AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SocketMessage } from 'lib/socket/types';
@@ -21,6 +22,7 @@ import LatestBlocksFallback from '../fallbacks/LatestBlocksFallback';
 import LatestBatchItem from './LatestBatchItem';
 
 const LatestArbitrumL2Batches = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const batchesMaxCount = isMobile ? 2 : 6;
   const queryClient = useQueryClient();
@@ -81,17 +83,17 @@ const LatestArbitrumL2Batches = () => {
             ))) }
           </VStack>
           <Flex justifyContent="center">
-            <Link textStyle="sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
+            <Link textStyle="sm" href={ route({ pathname: '/batches' }) }>{ t('home.viewAllBatches') }</Link>
           </Flex>
         </>
       );
     }
-    return <Box textStyle="sm">No latest batches found.</Box>;
+    return <Box textStyle="sm">{ t('home.noLatestBatches') }</Box>;
   })();
 
   return (
     <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
-      <Heading level="3" mb={ 3 }>Latest batches</Heading>
+      <Heading level="3" mb={ 3 }>{ t('home.latestBatches') }</Heading>
       { content }
     </Box>
   );

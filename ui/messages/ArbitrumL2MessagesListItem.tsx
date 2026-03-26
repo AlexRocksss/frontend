@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ArbitrumL2MessagesItem } from 'types/api/arbitrumL2';
@@ -24,6 +25,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ArbitrumL2MessagesItem; isLoading?: boolean; direction: MessagesDirection };
 
 const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'arbitrum') {
     return null;
   }
@@ -51,7 +53,7 @@ const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
 
       { direction === 'from-rollup' && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>From</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('messages.from') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <AddressEntity
               address={{ hash: item.origination_address_hash }}
@@ -63,7 +65,7 @@ const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Message #</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('messages.messageNumber') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">
           { item.id }
@@ -87,7 +89,7 @@ const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
 
       { item.origination_timestamp && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('messages.age') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <TimeWithTooltip
               timestamp={ item.origination_timestamp }
@@ -98,10 +100,10 @@ const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('messages.status') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         { item.status === 'confirmed' && direction === 'from-rollup' ?
-          <Link href={ route({ pathname: '/txn-withdrawals', query: { q: item.origination_transaction_hash } }) }>Ready for relay</Link> :
+          <Link href={ route({ pathname: '/txn-withdrawals', query: { q: item.origination_transaction_hash } }) }>{ t('messages.readyForRelay') }</Link> :
           <ArbitrumL2MessageStatus status={ item.status } isLoading={ isLoading }/> }
       </ListItemMobileGrid.Value>
 

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ScrollL2TxnBatch } from 'types/api/scrollL2';
@@ -14,23 +15,24 @@ type Props = {
 };
 
 const ScrollL2TxnBatchesTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot tableLayout="auto" minW="1000px">
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader>Batch #</TableColumnHeader>
-          <TableColumnHeader>Container</TableColumnHeader>
-          <TableColumnHeader>Status</TableColumnHeader>
-          <TableColumnHeader>Committed block</TableColumnHeader>
-          <TableColumnHeader>Committed txn hash</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.batchNoHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.containerHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.statusHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.committedBlockHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.committedTxnHashHeader') }</TableColumnHeader>
           <TableColumnHeader>
-            Timestamp
+            { t('txnBatches.timestampLabel') }
             <TimeFormatToggle/>
           </TableColumnHeader>
-          <TableColumnHeader>Finalized block</TableColumnHeader>
-          <TableColumnHeader>Finalized txn hash</TableColumnHeader>
-          <TableColumnHeader isNumeric>Blocks</TableColumnHeader>
-          <TableColumnHeader isNumeric>Txn</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.finalizedBlockHeader') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.finalizedTxnHashHeader') }</TableColumnHeader>
+          <TableColumnHeader isNumeric>{ t('txnBatches.blocksHeader') }</TableColumnHeader>
+          <TableColumnHeader isNumeric>{ t('txnBatches.txnHeader') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

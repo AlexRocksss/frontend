@@ -1,6 +1,7 @@
 import { Grid } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import dayjs from 'lib/date/dayjs';
@@ -16,6 +17,7 @@ import { isHomeStatsItemEnabled, sortHomeStatsItems } from '../utils';
 import { useHomeRpcDataContext } from './rpcDataContext';
 
 const StatsDegraded = () => {
+  const { t } = useTranslation();
 
   const [ averageBlockTime, setAverageBlockTime ] = React.useState<number | undefined>(undefined);
 
@@ -77,14 +79,14 @@ const StatsDegraded = () => {
       {
         id: 'latest_batch' as const,
         icon: 'txn_batches' as const,
-        label: 'Latest batch',
+        label: t('home.statLatestBatch'),
         value: mdash,
         isFallback: true,
       },
       {
         id: 'total_blocks' as const,
         icon: 'block' as const,
-        label: 'Total blocks',
+        label: t('home.statTotalBlocks'),
         value: blocks[0] ? blocks[0].height.toLocaleString() : mdash,
         isFallback: blocks[0] === undefined,
         hint: blocks[0] && !isLoading ? <FallbackRpcIcon/> : undefined,
@@ -92,7 +94,7 @@ const StatsDegraded = () => {
       {
         id: 'average_block_time' as const,
         icon: 'clock-light' as const,
-        label: 'Average block time',
+        label: t('home.statAverageBlockTime'),
         value: averageBlockTime ? `${ averageBlockTime.toFixed(1) }s` : mdash,
         isFallback: averageBlockTime === undefined,
         hint: averageBlockTime && !isLoading ? <FallbackRpcIcon/> : undefined,
@@ -100,35 +102,35 @@ const StatsDegraded = () => {
       {
         id: 'total_txs' as const,
         icon: 'transactions' as const,
-        label: 'Total transactions',
+        label: t('home.statTotalTransactions'),
         value: mdash,
         isFallback: true,
       },
       {
         id: 'total_operational_txs' as const,
         icon: 'transactions' as const,
-        label: 'Total operational transactions',
+        label: t('home.statTotalOperationalTxs'),
         value: mdash,
         isFallback: true,
       },
       {
         id: 'latest_l1_state_batch' as const,
         icon: 'txn_batches' as const,
-        label: 'Latest L1 state batch',
+        label: t('home.statLatestL1StateBatch', { parent: 'L1' }),
         value: mdash,
         isFallback: true,
       },
       {
         id: 'wallet_addresses' as const,
         icon: 'wallet' as const,
-        label: 'Wallet addresses',
+        label: t('home.statWalletAddresses'),
         value: mdash,
         isFallback: true,
       },
       {
         id: 'gas_tracker' as const,
         icon: 'gas' as const,
-        label: 'Gas tracker',
+        label: t('home.statGasTracker'),
         value: gasPriceQuery.data ? <GasPrice data={ gasPriceQuery.data }/> : mdash,
         isFallback: !gasPriceQuery.data,
         isLoading: gasPriceQuery.isLoading,
@@ -137,14 +139,14 @@ const StatsDegraded = () => {
       {
         id: 'btc_locked' as const,
         icon: 'coins/bitcoin' as const,
-        label: 'BTC Locked in 2WP',
+        label: t('home.statBtcLocked'),
         value: mdash,
         isFallback: true,
       },
       {
         id: 'current_epoch' as const,
         icon: 'hourglass' as const,
-        label: 'Current epoch',
+        label: t('home.statCurrentEpoch'),
         value: mdash,
         isFallback: true,
       },

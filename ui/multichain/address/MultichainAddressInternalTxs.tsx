@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
+  const { t } = useTranslation();
   const chainIds = React.useMemo(() => getAvailableChainIds(addressData), [ addressData ]);
 
   const { hash, query, filterValue, onFilterChange } = useAddressInternalTxsQuery({
@@ -38,7 +40,7 @@ const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
   }, [ chainValue ]);
 
   if (chainIds.length === 0) {
-    return <p>There are no internal transactions.</p>;
+    return <p>{ t('multichain.noInternalTxs') }</p>;
   }
 
   const content = data?.items ? (
@@ -86,7 +88,7 @@ const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
       emptyStateProps={{
         term: 'transaction',
       }}
-      emptyText="There are no internal transactions."
+      emptyText={ t('multichain.noInternalTxs') }
       showActionBarIfEmpty
       showActionBarIfError
       actionBar={ actionBar }

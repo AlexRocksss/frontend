@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const AddressEpochRewards = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMounted = useIsMounted();
 
@@ -89,7 +91,7 @@ const AddressEpochRewards = ({ shouldRender = true, isQueryEnabled = true }: Pro
     <DataListDisplay
       isError={ rewardsQuery.isError }
       itemsNum={ rewardsQuery.data?.items?.length }
-      emptyText="There are no epoch rewards for this address."
+      emptyText={ t('address.noEpochRewards') }
       actionBar={ actionBar }
     >
       { content }

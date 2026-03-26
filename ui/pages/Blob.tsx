@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -14,6 +15,7 @@ import NetworkExplorers from 'ui/shared/NetworkExplorers';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 const BlobPageContent = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const hash = getQueryParamString(router.query.hash);
 
@@ -56,7 +58,7 @@ const BlobPageContent = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title="Blob details"
+        title={ t('pages.blobDetails') }
         secondRow={ titleSecondRow }
       />
       { content }

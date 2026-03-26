@@ -1,4 +1,5 @@
-import { Text, HStack } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -24,6 +25,7 @@ type Props = {
 };
 
 const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
+  const { t } = useTranslation();
   const { data, isError, isPending } = useFetchTokens({ hash: addressData?.hash, enabled: addressData?.has_tokens });
 
   const { usdBn: nativeUsd } = calculateUsdValue({
@@ -51,7 +53,7 @@ const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
       <>
         <TextSeparator/>
         <HStack columnGap={ 2 }>
-          <Text>Multichain</Text>
+          { t('address.multichain') }
           <HStack gap={{ base: 2, lg: 3 }}>
             { providers.map((item, index) => (
               <AddressMultichainButton
@@ -73,7 +75,7 @@ const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
   return (
     <Skeleton display="flex" alignItems="center" flexWrap="wrap" loading={ isLoading && !(addressData?.has_tokens && isPending) }>
       { (isError || !addressData?.exchange_rate) ?
-        <span>N/A</span> :
+        t('address.notAvailable') :
         <SimpleValue value={ totalUsd } accuracy={ DEFAULT_ACCURACY_USD } prefix="$" overflowed={ isOverflow }/> }
       { multichainItems }
     </Skeleton>

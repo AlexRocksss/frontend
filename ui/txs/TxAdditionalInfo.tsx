@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -26,6 +27,7 @@ type Props =
   };
 
 const TxAdditionalInfo = ({ hash, tx, isMobile, isLoading, className }: Props) => {
+  const { t } = useTranslation();
   const content = hash !== undefined ? <TxAdditionalInfoContainer hash={ hash }/> : <TxAdditionalInfoContent tx={ tx }/>;
 
   if (isMobile) {
@@ -36,7 +38,7 @@ const TxAdditionalInfo = ({ hash, tx, isMobile, isLoading, className }: Props) =
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            Additional info
+            { t('tx.additionalInfo') }
           </DialogHeader>
           <DialogBody>
             { content }
@@ -52,7 +54,7 @@ const TxAdditionalInfo = ({ hash, tx, isMobile, isLoading, className }: Props) =
       </PopoverTrigger>
       <PopoverContent w="330px">
         <PopoverBody>
-          <Heading level="3" mb={ 4 }>Additional info </Heading>
+          <Heading level="3" mb={ 4 }>{ t('tx.additionalInfo') }</Heading>
           { content }
         </PopoverBody>
       </PopoverContent>

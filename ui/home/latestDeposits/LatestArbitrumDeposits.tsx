@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SocketMessage } from 'lib/socket/types';
@@ -14,6 +15,7 @@ import LatestTxsFallback from '../fallbacks/LatestTxsFallback';
 import LatestDeposits from './LatestDeposits';
 
 const LatestArbitrumDeposits = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const itemsCount = isMobile ? 2 : 5;
   const { data, isPlaceholderData, isError } = useApiQuery('general:homepage_arbitrum_deposits', {
@@ -72,7 +74,7 @@ const LatestArbitrumDeposits = () => {
     );
   }
 
-  return <Text>No latest deposits found.</Text>;
+  return <Text>{ t('home.noLatestDeposits') }</Text>;
 };
 
 export default LatestArbitrumDeposits;

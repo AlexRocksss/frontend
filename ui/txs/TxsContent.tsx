@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxsSocketType } from './socket/types';
@@ -61,6 +62,7 @@ const TxsContent = ({
   showTableViewButton,
 }: Props) => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
 
   const tableViewFlag = useTableViewValue();
 
@@ -141,7 +143,7 @@ const TxsContent = ({
     <DataListDisplay
       isError={ isError }
       itemsNum={ items?.length }
-      emptyText="There are no transactions."
+      emptyText={ t('txs.noTransactions') }
       actionBar={ actionBar }
       hasActiveFilters={ Boolean(filterValue) }
       emptyStateProps={{

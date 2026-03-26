@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,6 +27,7 @@ const getChainIdFilterValue = (chainIds: Array<string>) => {
 };
 
 const MultichainTokens = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMobile = useIsMobile();
 
@@ -106,7 +108,7 @@ const MultichainTokens = () => {
       minW={{ base: 'auto', lg: '250px' }}
       size="sm"
       onChange={ handleSearchTermChange }
-      placeholder="Token name or symbol"
+      placeholder={ t('multichain.tokenSearchPlaceholder') }
       initialValue={ searchTerm }
     />
   );
@@ -148,7 +150,7 @@ const MultichainTokens = () => {
 
   return (
     <>
-      <PageTitle title="Tokens" withTextAd/>
+      <PageTitle title={ t('multichain.tokens') } withTextAd/>
       <Tokens
         query={ tokensQuery }
         actionBar={ actionBar }

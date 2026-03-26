@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { TransactionTag } from 'types/api/account';
@@ -16,8 +17,9 @@ type Props = {
 };
 
 const TransactionModal: React.FC<Props> = ({ open, onOpenChange, onSuccess, data }) => {
-  const title = data ? 'Edit transaction tag' : 'New transaction tag';
-  const text = !data ? 'Label any transaction with a private transaction tag (up to 35 chars) to customize your explorer experience.' : '';
+  const { t } = useTranslation();
+  const title = data ? t('privateTags.editTransactionTitle') : t('privateTags.newTransactionTitle');
+  const text = !data ? t('privateTags.newTransactionText') : '';
 
   const [ isAlertVisible, setAlertVisible ] = useState(false);
 

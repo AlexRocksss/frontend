@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -15,14 +16,14 @@ interface Props {
 }
 
 const PublicTagsSubmitFieldTagIcon = ({ index }: Props) => {
-
+  const { t } = useTranslation();
   const imageField = useImageField({ name: `tags.${ index }.iconUrl`, isRequired: false });
 
   return (
     <Flex columnGap={ 3 }>
       <FormFieldUrl<FormFields>
         name={ `tags.${ index }.iconUrl` }
-        placeholder="Label icon URL"
+        placeholder={ t('publicTags.labelIconUrlPlaceholder') }
         { ...imageField.input }
       />
       <PublicTagsSubmitFieldTagIconPreview url={ imageField.preview.src } isInvalid={ imageField.preview.isInvalid }>

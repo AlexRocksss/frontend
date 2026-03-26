@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ArbitrumL2TxnBatchesItem } from 'types/api/arbitrumL2';
@@ -21,6 +22,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ArbitrumL2TxnBatchesItem; isLoading?: boolean };
 
 const ArbitrumL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'arbitrum') {
     return null;
   }
@@ -61,7 +63,7 @@ const ArbitrumL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
       <TableCell verticalAlign="middle">
         <TimeWithTooltip
           timestamp={ item.commitment_transaction.timestamp }
-          fallbackText="Undefined"
+          fallbackText={ t('txnBatches.undefined') }
           isLoading={ isLoading }
           color="text.secondary"
         />

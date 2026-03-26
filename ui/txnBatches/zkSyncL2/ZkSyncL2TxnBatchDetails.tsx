@@ -1,5 +1,6 @@
 import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -34,6 +35,7 @@ interface Props {
 }
 
 const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { data, isPlaceholderData, isError, error } = query;
@@ -69,10 +71,10 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
       templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
     >
       <DetailedInfo.ItemLabel
-        hint={ `Batch number indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }.` }
+        hint={ t('txnBatches.batchNumberHintDot', { current: layerLabels.current, parent: layerLabels.parent }) }
         isLoading={ isPlaceholderData }
       >
-        Txn batch number
+        { t('txnBatches.batchNumberLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -81,18 +83,18 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
         <PrevNext
           ml={ 6 }
           onClick={ handlePrevNextClick }
-          prevLabel="View previous txn batch"
-          nextLabel="View next txn batch"
+          prevLabel={ t('txnBatches.prevBatchLabel') }
+          nextLabel={ t('txnBatches.nextBatchLabel') }
           isPrevDisabled={ data.number === 0 }
           isLoading={ isPlaceholderData }
         />
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Status is the short interpretation of the batch lifecycle"
+        hint={ t('txnBatches.statusHintZkSync') }
         isLoading={ isPlaceholderData }
       >
-        Status
+        { t('txnBatches.statusLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <VerificationSteps
@@ -103,20 +105,20 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Date and time at which batch is produced"
+        hint={ t('txnBatches.timestampProducedHint') }
         isLoading={ isPlaceholderData }
       >
-        Timestamp
+        { t('txnBatches.timestampLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        { data.timestamp ? <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isPlaceholderData }/> : 'Undefined' }
+        { data.timestamp ? <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isPlaceholderData }/> : t('txnBatches.undefined') }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Number of transactions inside the batch."
+        hint={ t('txnBatches.transactionsHintDot') }
         isLoading={ isPlaceholderData }
       >
-        Transactions
+        { t('txnBatches.transactionsLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -134,9 +136,9 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
         <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
 
         <DetailedInfo.ItemLabel
-          hint={ `${ layerLabels.parent } batch root is a hash that summarizes batch data and submitted to ${ layerLabels.parent }` }
+          hint={ t('txnBatches.rootHashHint', { parent: layerLabels.parent }) }
         >
-          Root hash
+          { t('txnBatches.rootHashLabel') }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
           flexWrap="nowrap"
@@ -147,9 +149,9 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
         </DetailedInfo.ItemValue>
 
         <DetailedInfo.ItemLabel
-          hint={ `Gas price for the batch settlement transaction on ${ layerLabels.parent }` }
+          hint={ t('txnBatches.parentGasPriceHint', { parent: layerLabels.parent }) }
         >
-          { layerLabels.parent } gas price
+          { t('txnBatches.parentGasPriceLabel', { parent: layerLabels.parent }) }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue multiRow>
           <GasPriceValue
@@ -160,9 +162,9 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
         </DetailedInfo.ItemValue>
 
         <DetailedInfo.ItemLabel
-          hint='The gas price below which the "baseFee" of the batch should not fall'
+          hint={ t('txnBatches.currentFairGasPriceHint') }
         >
-          { layerLabels.current } fair gas price
+          { t('txnBatches.currentFairGasPriceLabel', { current: layerLabels.current }) }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue multiRow>
           <GasPriceValue

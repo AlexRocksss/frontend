@@ -1,4 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -70,6 +71,7 @@ const Item = ({ data, isLoading }: ItemProps) => {
 };
 
 const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) => {
+  const { t } = useTranslation();
   const { status: refetchStatus } = useMetadataUpdateContext() || {};
 
   const metadata = React.useMemo(() => parseMetadata(data?.metadata), [ data ]);
@@ -87,7 +89,7 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
       { metadata?.name && (
         <>
           <DetailedInfo.ItemLabel
-            hint="NFT name"
+            hint={ t('token.hintMetadataName') }
             isLoading={ isLoading }
           >
             Name
@@ -105,7 +107,7 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
       { metadata?.description && (
         <>
           <DetailedInfo.ItemLabel
-            hint="NFT description"
+            hint={ t('token.hintMetadataDescription') }
             isLoading={ isLoading }
           >
             Description
@@ -123,7 +125,7 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
       { metadata?.attributes && metadata.attributes.length > 0 && (
         <>
           <DetailedInfo.ItemLabel
-            hint="NFT attributes"
+            hint={ t('token.hintMetadataAttributes') }
             isLoading={ isLoading }
           >
             Attributes

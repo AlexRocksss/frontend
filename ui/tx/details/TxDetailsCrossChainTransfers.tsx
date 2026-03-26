@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const TxDetailsCrossChainTransfers = ({ hash, isLoading: isLoadingProp }: Props) => {
+  const { t } = useTranslation();
 
   const { data, isPending } = useTxCrossChainTransfersQuery({ hash });
 
@@ -34,10 +36,10 @@ const TxDetailsCrossChainTransfers = ({ hash, isLoading: isLoadingProp }: Props)
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Number of cross-chain transfers in this transaction"
+        hint={ t('tx.hintCrossChainTransfers') }
         isLoading={ isLoading }
       >
-        Cross-chain transfers
+        { t('tx.crossChainTransfersLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Link

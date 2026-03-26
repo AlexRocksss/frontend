@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
@@ -13,13 +14,14 @@ type Props = {
 };
 
 const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props) => {
+  const { t } = useTranslation();
   const onFocusCapture = usePreventFocusAfterModalClosing();
 
   return (
     <HStack gap={ 6 } alignSelf="flex-end">
-      <Tooltip content="Edit" disableOnMobile>
+      <Tooltip content={ t('action.edit') } disableOnMobile>
         <IconButton
-          aria-label="edit"
+          aria-label={ t('action.edit') }
           variant="link"
           size="2xs"
           onClick={ onEditClick }
@@ -30,9 +32,9 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
           <IconSvg name="edit"/>
         </IconButton>
       </Tooltip>
-      <Tooltip content="Delete" disableOnMobile>
+      <Tooltip content={ t('action.delete') } disableOnMobile>
         <IconButton
-          aria-label="delete"
+          aria-label={ t('action.delete') }
           variant="link"
           size="2xs"
           onClick={ onDeleteClick }

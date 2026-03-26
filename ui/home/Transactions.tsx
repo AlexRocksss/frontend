@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -22,6 +23,7 @@ const zetachainFeature = config.features.zetachain;
 const crossChainTxsFeature = config.features.crossChainTxs;
 
 const Transactions = () => {
+  const { t } = useTranslation();
 
   const isAuth = useAuth();
   const rpcDataContext = useHomeRpcDataContext();
@@ -31,24 +33,24 @@ const Transactions = () => {
     const tabs = [
       zetachainFeature.isEnabled && {
         id: 'cctx',
-        title: 'Cross-chain',
+        title: t('home.crossChain'),
         component: (
           <SocketProvider url={ config.apis.zetachain?.socketEndpoint } name="zetachain">
             <LatestZetaChainCCTXs/>
           </SocketProvider>
         ),
       },
-      { id: 'txn', title: zetachainFeature.isEnabled ? 'ZetaChain EVM' : 'Latest txn', component: <LatestTxs/> },
+      { id: 'txn', title: zetachainFeature.isEnabled ? t('home.zetachainEvm') : t('home.latestTxn'), component: <LatestTxs/> },
       rollupFeature.isEnabled && rollupFeature.type === 'optimistic' &&
-        { id: 'deposits', title: `Deposits (${ layerLabels.parent }→${ layerLabels.current } txn)`, component: <LatestOptimisticDeposits/> },
+        { id: 'deposits', title: t('home.depositsTab', { parent: layerLabels.parent, current: layerLabels.current }), component: <LatestOptimisticDeposits/> },
       rollupFeature.isEnabled && rollupFeature.type === 'arbitrum' &&
-        { id: 'deposits', title: `Deposits (${ layerLabels.parent }→${ layerLabels.current } txn)`, component: <LatestArbitrumDeposits/> },
-      isAuth && { id: 'watchlist', title: 'Watch list', component: <LatestWatchlistTxs/> },
+        { id: 'deposits', title: t('home.depositsTab', { parent: layerLabels.parent, current: layerLabels.current }), component: <LatestArbitrumDeposits/> },
+      isAuth && { id: 'watchlist', title: t('home.watchList'), component: <LatestWatchlistTxs/> },
     ].filter(Boolean);
     return (
       <>
         <HStack mb={ 3 }>
-          <Heading level="3" >Transactions</Heading>
+          <Heading level="3" >{ t('home.transactions') }</Heading>
           { isRpcData && <FallbackRpcIcon/> }
         </HStack>
         <AdaptiveTabs tabs={ tabs } unmountOnExit={ false } listProps={{ mb: 3 }}/>
@@ -58,14 +60,14 @@ const Transactions = () => {
 
   if (crossChainTxsFeature.isEnabled) {
     const tabs = [
-      { id: 'txs', title: 'Txns', component: <LatestTxs/> },
-      { id: 'cross_chain_txs', title: 'Cross-chain txns', component: <LatestCrossChainTxs/> },
+      { id: 'txs', title: t('home.txns'), component: <LatestTxs/> },
+      { id: 'cross_chain_txs', title: t('home.crossChainTxns'), component: <LatestCrossChainTxs/> },
     ];
 
     return (
       <>
         <HStack mb={ 3 }>
-          <Heading level="3" >Latest transactions</Heading>
+          <Heading level="3" >{ t('home.latestTransactions') }</Heading>
           { isRpcData && <FallbackRpcIcon/> }
         </HStack>
         <AdaptiveTabs tabs={ tabs } unmountOnExit={ false } listProps={{ mb: 3 }}/>
@@ -76,7 +78,7 @@ const Transactions = () => {
   return (
     <>
       <HStack mb={ 3 }>
-        <Heading level="3" >Latest transactions</Heading>
+        <Heading level="3" >{ t('home.latestTransactions') }</Heading>
         { isRpcData && <FallbackRpcIcon/> }
       </HStack>
       <LatestTxs/>

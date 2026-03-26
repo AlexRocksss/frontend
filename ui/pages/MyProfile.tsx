@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Screen } from 'ui/snippets/auth/types';
@@ -25,6 +26,7 @@ const MIXPANEL_CONFIG = {
 };
 
 const MyProfile = () => {
+  const { t } = useTranslation();
   const [ authInitialScreen, setAuthInitialScreen ] = React.useState<Screen>();
   const authModal = useDisclosure();
 
@@ -64,7 +66,7 @@ const MyProfile = () => {
 
   return (
     <>
-      <PageTitle title="My profile"/>
+      <PageTitle title={ t('pages.myProfile') }/>
       { content }
     </>
   );

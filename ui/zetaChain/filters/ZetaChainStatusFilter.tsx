@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZetaChainCCTXFilterParams, StatusReducedFilters } from 'types/client/zetaChain';
@@ -10,12 +11,6 @@ const FILTER_PARAM_STATUS = 'status_reduced';
 
 type FilterValue = 'all' | StatusReducedFilters;
 
-const STATUS_OPTIONS: Array<{ value: FilterValue; label: string }> = [
-  { value: 'all', label: 'All' },
-  { value: 'Success', label: 'Success' },
-  { value: 'Failed', label: 'Failed' },
-];
-
 type Props = {
   value?: Array<StatusReducedFilters>;
   handleFilterChange: (field: keyof ZetaChainCCTXFilterParams, value?: Array<StatusReducedFilters>) => void;
@@ -25,6 +20,14 @@ type Props = {
 };
 
 const ZetaChainStatusFilter = ({ value = [], handleFilterChange, onClose }: Props) => {
+  const { t } = useTranslation();
+
+  const STATUS_OPTIONS = React.useMemo((): Array<{ value: FilterValue; label: string }> => [
+    { value: 'all', label: t('zetaChain.filterAll') },
+    { value: 'Success', label: t('zetaChain.success') },
+    { value: 'Failed', label: t('zetaChain.failed') },
+  ], [ t ]);
+
   // Convert API values to internal format and determine initial state
   const getInitialValue = React.useCallback((): FilterValue => {
     if (value.length === 1) {
@@ -68,7 +71,7 @@ const ZetaChainStatusFilter = ({ value = [], handleFilterChange, onClose }: Prop
 
   return (
     <TableColumnFilter
-      title="Status"
+      title={ t('zetaChain.status') }
       isFilled={ currentValue !== 'all' }
       isTouched={ isTouched }
       onFilter={ onFilter }

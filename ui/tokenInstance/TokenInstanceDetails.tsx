@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfo, TokenInstance } from 'types/api/token';
@@ -28,6 +29,7 @@ interface Props {
 }
 
 const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
+  const { t } = useTranslation();
   const appActionData = useAppActionData(token?.address_hash, !isLoading);
   const isMounted = useIsMounted();
 
@@ -52,7 +54,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
           { data.is_unique && data.owner && (
             <>
               <DetailedInfo.ItemLabel
-                hint="Current owner of this token instance"
+                hint={ t('token.hintOwner') }
                 isLoading={ isLoading }
               >
                 Owner
@@ -69,7 +71,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
           <TokenInstanceCreatorAddress hash={ isLoading ? '' : token.address_hash }/>
 
           <DetailedInfo.ItemLabel
-            hint="This token instance unique token ID"
+            hint={ t('token.hintTokenId') }
             isLoading={ isLoading }
           >
             Token ID
@@ -96,7 +98,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
           { (config.UI.views.nft.marketplaces.length === 0 && appActionData) && (
             <>
               <DetailedInfo.ItemLabel
-                hint="Link to the dapp"
+                hint={ t('token.hintDapp') }
               >
                 Dapp
               </DetailedInfo.ItemLabel>

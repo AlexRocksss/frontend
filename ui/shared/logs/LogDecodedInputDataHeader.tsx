@@ -1,5 +1,6 @@
 import type { FlexProps } from '@chakra-ui/react';
 import { Separator, Flex, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Badge } from 'toolkit/chakra/badge';
@@ -38,6 +39,8 @@ const Item = ({ label, children, isLoading, ...rest }: ItemProps) => {
 };
 
 const LogDecodedInputDataHeader = ({ methodId, methodCall, isLoading, rightSlot }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <VStack
       align="flex-start"
@@ -48,12 +51,12 @@ const LogDecodedInputDataHeader = ({ methodId, methodCall, isLoading, rightSlot 
       w="100%"
     >
       <Flex columnGap={ 2 } w="100%">
-        <Item label="Method id" isLoading={ isLoading } flexDir="row" alignItems="center">
+        <Item label={ t('log.methodId') } isLoading={ isLoading } flexDir="row" alignItems="center">
           <Badge loading={ isLoading }>{ methodId }</Badge>
         </Item>
         { rightSlot }
       </Flex>
-      <Item label="Call" isLoading={ isLoading }>
+      <Item label={ t('log.call') } isLoading={ isLoading }>
         <Skeleton loading={ isLoading } whiteSpace="pre-wrap" wordBreak="break-all" flexGrow={ 1 }>{ methodCall }</Skeleton>
       </Item>
     </VStack>

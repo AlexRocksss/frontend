@@ -1,4 +1,5 @@
 import { Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractConflictingImplementation } from 'types/api/contract';
@@ -16,13 +17,14 @@ interface Props {
 }
 
 const ConflictingImplementationsModal = ({ data, children }: Props) => {
+  const { t } = useTranslation();
   return (
     <DialogRoot size={{ lgDown: 'full', lg: 'md' }}>
       <DialogTrigger>
         { children }
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>Detected proxy implementations</DialogHeader>
+        <DialogHeader>{ t('address.detectedProxyImplementations') }</DialogHeader>
         <DialogBody>
           <Text>
             Multiple proxy patterns were detected for this contract.
@@ -46,7 +48,7 @@ const ConflictingImplementationsModal = ({ data, children }: Props) => {
                   borderRadius="md"
                   bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
                 >
-                  <GridItem>Proxy type:</GridItem>
+                  <GridItem>{ t('address.proxyType') }</GridItem>
                   <GridItem>{ proxyType }</GridItem>
                   <GridItem>{ addressText }</GridItem>
                   <GridItem>
@@ -65,7 +67,7 @@ const ConflictingImplementationsModal = ({ data, children }: Props) => {
           </VStack>
           <HStack mt={ 6 } gap={ 6 }>
             <DialogActionTrigger asChild>
-              <Button>Got it, thanks</Button>
+              <Button>{ t('address.gotItThanks') }</Button>
             </DialogActionTrigger>
             <Link external noIcon href="https://discord.com/invite/blockscout">
               Contact us

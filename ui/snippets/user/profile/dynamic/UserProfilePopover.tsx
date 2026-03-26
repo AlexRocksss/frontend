@@ -1,4 +1,5 @@
 import { DynamicConnectButton, useAuthenticateConnectedUser } from '@dynamic-labs/sdk-react-core';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const UserProfilePopover = ({ children, isAutoConnectDisabled }: Props) => {
-
+  const { t } = useTranslation();
   const { authenticateUser } = useAuthenticateConnectedUser();
 
   return (
@@ -32,7 +33,7 @@ const UserProfilePopover = ({ children, isAutoConnectDisabled }: Props) => {
           { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
           <UserProfileContentWallet/>
           <DynamicConnectButton buttonClassName="dynamic-login-button">
-            <Button as="div" mt={ 3 } onClick={ authenticateUser } size="sm" w="100%" >Log in</Button>
+            <Button as="div" mt={ 3 } onClick={ authenticateUser } size="sm" w="100%" >{ t('userProfile.logIn') }</Button>
           </DynamicConnectButton>
         </PopoverBody>
       </PopoverContent>

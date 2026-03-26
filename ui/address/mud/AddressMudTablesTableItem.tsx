@@ -1,4 +1,5 @@
 import { Text, VStack, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -18,6 +19,7 @@ type Props = {
 };
 
 const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
+  const { t } = useTranslation();
   const [ isOpened, setIsOpened ] = React.useState(false);
 
   const router = useRouter();
@@ -59,7 +61,7 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
                 cursor="pointer"
                 onClick={ handleIconClick }
                 transitionDuration="faster"
-                aria-label="View schema"
+                aria-label={ t('address.viewSchemaAriaLabel') }
               />
             </Link>
           </Skeleton>
@@ -95,7 +97,7 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
               <TableBody>
                 { Boolean(item.schema.key_names.length) && (
                   <TableRow>
-                    <TableCell width="80px" fontSize="sm" fontWeight={ 600 } py={ 2 } pl={ 0 } verticalAlign="middle">Key</TableCell>
+                    <TableCell width="80px" fontSize="sm" fontWeight={ 600 } py={ 2 } pl={ 0 } verticalAlign="middle">{ t('address.mudKey') }</TableCell>
                     <TableCell py={ 2 }>
                       <VStack gap={ 1 } alignItems="start">
                         { item.schema.key_names.map((name, index) => (
@@ -108,7 +110,7 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
                   </TableRow>
                 ) }
                 <TableRow borderBottomStyle="hidden">
-                  <TableCell width="80px" fontSize="sm" fontWeight={ 600 } py={ 2 } pl={ 0 } >Value</TableCell>
+                  <TableCell width="80px" fontSize="sm" fontWeight={ 600 } py={ 2 } pl={ 0 } >{ t('address.mudValue') }</TableCell>
                   <TableCell fontSize="sm" py={ 2 }>
                     <VStack gap={ 1 } alignItems="start">
                       { item.schema.value_names.map((name, index) => (

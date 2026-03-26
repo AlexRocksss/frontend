@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -32,6 +33,7 @@ const TokenTransferTable = ({
   socketInfoNum,
   isLoading,
 }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const chainData = multichainContext?.chain;
 
@@ -42,16 +44,16 @@ const TokenTransferTable = ({
           <TableRow>
             { showTxInfo && <TableColumnHeader width="48px"></TableColumnHeader> }
             { chainData && <TableColumnHeader width={ showTxInfo ? '32px' : '38px' }/> }
-            <TableColumnHeader width="230px">Token</TableColumnHeader>
-            <TableColumnHeader width="160px">Token ID</TableColumnHeader>
+            <TableColumnHeader width="230px">{ t('tokenTransfers.token') }</TableColumnHeader>
+            <TableColumnHeader width="160px">{ t('tokenTransfers.tokenId') }</TableColumnHeader>
             { showTxInfo && (
               <TableColumnHeader width="200px">
-                Txn hash
+                { t('tokenTransfers.txnHash') }
                 <TimeFormatToggle/>
               </TableColumnHeader>
             ) }
-            <TableColumnHeader width="60%">From/To</TableColumnHeader>
-            <TableColumnHeader width="40%" isNumeric>Value</TableColumnHeader>
+            <TableColumnHeader width="60%">{ t('tokenTransfers.fromTo') }</TableColumnHeader>
+            <TableColumnHeader width="40%" isNumeric>{ t('tokenTransfers.value') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

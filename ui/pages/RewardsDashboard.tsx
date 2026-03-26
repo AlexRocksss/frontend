@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 
 import config from 'configs/app';
@@ -9,7 +10,6 @@ import { Button } from 'toolkit/chakra/button';
 import { Link } from 'toolkit/chakra/link';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
-import { apos } from 'toolkit/utils/htmlEntities';
 import DailyRewardClaimButton from 'ui/rewards/dashboard/DailyRewardClaimButton';
 import RewardsDashboardCard from 'ui/rewards/dashboard/RewardsDashboardCard';
 import RewardsDashboardCardValue from 'ui/rewards/dashboard/RewardsDashboardCardValue';
@@ -23,6 +23,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import useRedirectForInvalidAuthToken from 'ui/snippets/auth/useRedirectForInvalidAuthToken';
 
 const RewardsDashboard = () => {
+  const { t } = useTranslation();
   const { balancesQuery, isAuth, referralsQuery, rewardsConfigQuery, dailyRewardQuery, isInitialized } = useRewardsContext();
   const { nextAchievementText, isLoading: isBadgesLoading, badgesQuery } = useStreakBadges();
   const streakModal = useDisclosure();
@@ -50,13 +51,13 @@ const RewardsDashboard = () => {
     <>
       <Flex gap={ 3 } justifyContent="space-between" mb={ 6 }>
         <PageTitle
-          title="Dashboard"
+          title={ t('rewards.dashboard') }
           secondRow={ (
             <span>
               <Link external href={ `https://merits.blockscout.com/?tab=users&utm_source=${ config.chain.id }&utm_medium=text-banner` }>
-                Explore the Merits Hub
+                { t('rewards.exploreHubLink') }
               </Link>{ ' ' }
-              to earn, spend, and learn more about the program.
+              { t('rewards.exploreHubAfter') }
             </span>
           ) }
           mb={ 0 }
@@ -64,19 +65,19 @@ const RewardsDashboard = () => {
         { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
       </Flex>
       <Flex flexDirection="column" alignItems="flex-start" w="full" gap={ 6 }>
-        { isError && <Alert status="error">Failed to load some data. Please try again later.</Alert> }
+        { isError && <Alert status="error">{ t('rewards.loadError') }</Alert> }
         <Flex gap={ 6 } flexDirection={{ base: 'column', md: 'row' }} w="full">
           <RewardsDashboardCard
-            title="All Merits"
-            description="Claim your daily Merits and any Merits received from referrals."
+            title={ t('rewards.allMerits') }
+            description={ t('rewards.allMeritsDesc') }
             contentDirection="column-reverse"
             cardValueStyle={{ minH: { base: '64px', md: '116px' } }}
             contentAfter={ <DailyRewardClaimButton/> }
             hint={ (
               <>
-                Total number of Merits earned from all activities.{ ' ' }
+                { t('rewards.allMeritsHint') }{ ' ' }
                 <Link external href="https://docs.blockscout.com/using-blockscout/merits">
-                  More info on Merits
+                  { t('rewards.moreInfoOnMerits') }
                 </Link>
               </>
             ) }
@@ -88,8 +89,8 @@ const RewardsDashboard = () => {
             />
           </RewardsDashboardCard>
           <RewardsDashboardCard
-            title="Referrals"
-            description="Total number of users who have joined the program using your code or referral link."
+            title={ t('rewards.referrals') }
+            description={ t('rewards.referralsDesc') }
             contentDirection="column-reverse"
             cardValueStyle={{ minH: { base: '64px', md: '116px' } }}
           >
@@ -102,22 +103,20 @@ const RewardsDashboard = () => {
             />
           </RewardsDashboardCard>
           <RewardsDashboardCard
-            title="Streak"
-            description={
-              `Current number of consecutive days you${ apos }ve claimed your daily Merits. The longer your streak, the more daily Merits you can earn.`
-            }
+            title={ t('rewards.streak') }
+            description={ t('rewards.streakCardDesc') }
             hint={ (
               <>
-                See the{ ' ' }
-                <Link external href="https://docs.blockscout.com/using-blockscout/merits/streak-rewards">docs</Link>{ ' ' }
-                to learn how your streak number affects daily rewards
+                { t('rewards.streakHintBefore') }{ ' ' }
+                <Link external href="https://docs.blockscout.com/using-blockscout/merits/streak-rewards">{ t('rewards.streakHintDocs') }</Link>{ ' ' }
+                { t('rewards.streakHintAfter') }
               </>
             ) }
             contentDirection="column-reverse"
             cardValueStyle={{ minH: { base: '64px', md: '116px' } }}
             contentAfter={ (
               <Button mt={ 3 } onClick={ streakModal.onOpen } loading={ isBadgesLoading }>
-                Check achievements
+                { t('rewards.checkAchievements') }
               </Button>
             ) }
           >
@@ -136,17 +135,17 @@ const RewardsDashboard = () => {
           tabs={ [
             {
               id: 'activity',
-              title: 'Activity',
+              title: t('rewards.activityTab'),
               component: <ActivityTab/>,
             },
             {
               id: 'referrals',
-              title: 'Referrals',
+              title: t('rewards.referralsTab'),
               component: <ReferralsTab/>,
             },
             {
               id: 'resources',
-              title: 'Resources',
+              title: t('rewards.resourcesTab'),
               component: <ResourcesTab/>,
             },
           ] }

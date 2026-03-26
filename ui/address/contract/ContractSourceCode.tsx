@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContract } from 'types/api/contract';
@@ -52,6 +53,7 @@ interface Props {
 }
 
 export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) => {
+  const { t } = useTranslation();
 
   const multichainContext = useMultichainContext();
 
@@ -61,7 +63,7 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
 
   const heading = (
     <Skeleton loading={ isLoading } fontWeight={ 500 }>
-      <span>Contract source code</span>
+      <span>{ t('address.contractSourceCode') }</span>
       { data?.language &&
         <Text whiteSpace="pre" as="span" color="text.secondary"> ({ formatLanguageName(data.language) })</Text> }
     </Skeleton>
@@ -72,14 +74,14 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
     null;
 
   const diagramLink = data?.can_be_visualized_via_sol2uml ? (
-    <Tooltip content="Visualize contract code using Sol2Uml JS library">
+    <Tooltip content={ t('address.visualizeContractTooltip') }>
       <Link
         href={ route({ pathname: '/visualize/sol2uml', query: { address: sourceAddress } }, multichainContext) }
         ml={{ base: '0', lg: 'auto' }}
         loading={ isLoading }
       >
         <Skeleton loading={ isLoading }>
-          View UML diagram
+          { t('address.viewUmlDiagram') }
         </Skeleton>
       </Link>
     </Tooltip>

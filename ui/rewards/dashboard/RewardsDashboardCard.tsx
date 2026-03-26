@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Badge } from 'toolkit/chakra/badge';
@@ -24,6 +25,8 @@ const RewardsDashboardCard = ({
   title, description, availableSoon, contentAfter, cardValueStyle, hint,
   contentDirection = 'column', children, blurFilter, label, isLoading,
 }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Flex
       as="section"
@@ -51,7 +54,7 @@ const RewardsDashboardCard = ({
           <Flex alignItems="center" gap={ 2 }>
             <Heading level="3">{ title }</Heading>
             { hint && <Hint label={ hint } tooltipProps={{ interactive: true }}/> }
-            { availableSoon && <Badge colorPalette="blue">Available soon</Badge> }
+            { availableSoon && <Badge colorPalette="blue">{ t('rewards.availableSoon') }</Badge> }
           </Flex>
         ) }
         <Text as="div" fontSize="sm">

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -14,13 +15,14 @@ interface Props {
 }
 
 const TxDetailsGasUsage = ({ isLoading, data }: Props) => {
+  const { t } = useTranslation();
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Actual gas amount used by the transaction"
+        hint={ t('tx.hintGasUsageAndLimit') }
         isLoading={ isLoading }
       >
-        Gas usage & limit by txn
+        { t('tx.gasUsageAndLimit') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isLoading }>{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>

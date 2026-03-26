@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -19,7 +20,7 @@ import SearchResultTabContent from './SearchResultTabContent';
 import useSearchQuery from './useSearchQuery';
 import useSearchRedirect from './useSearchRedirect';
 import type { QueryType } from './utils';
-import { SEARCH_TABS_IDS, SEARCH_TABS_NAMES } from './utils';
+import { SEARCH_TABS_IDS } from './utils';
 
 const TAB_LIST_PROPS = {
   marginBottom: 0,
@@ -31,6 +32,7 @@ const TAB_LIST_PROPS = {
 const PRESERVED_PARAMS = [ 'q', 'tab', 'chain_id' ];
 
 const SearchResults = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const chainSelect = useRoutedChainSelect({
@@ -85,12 +87,22 @@ const SearchResults = () => {
     />
   );
 
+  const tabNames: Record<QueryType, string> = React.useMemo(() => ({
+    tokens: t('multichain.searchTabTokens'),
+    nfts: t('multichain.searchTabNfts'),
+    addresses: t('multichain.searchTabAddresses'),
+    blockNumbers: t('multichain.searchTabBlockNumbers'),
+    blocks: t('multichain.searchTabBlocks'),
+    transactions: t('multichain.searchTabTransactions'),
+    domains: t('multichain.searchTabDomains'),
+  }), [ t ]);
+
   const detailedTabs = Object.entries(SEARCH_TABS_IDS).map(([ key, value ]) => {
     const queryType = key as QueryType;
 
     return {
       id: value,
-      title: SEARCH_TABS_NAMES[queryType],
+      title: tabNames[queryType],
       component: (
         <SearchResultTabContent
           queries={ queries }
@@ -106,7 +118,7 @@ const SearchResults = () => {
   const tabs = [
     {
       id: 'all',
-      title: 'All',
+      title: t('multichain.allTab'),
       component: (
         <SearchResultTabContent
           queries={ queries }
@@ -124,9 +136,11 @@ const SearchResults = () => {
     <ContentLoader/> :
     (
       <>
-        <PageTitle title="Search results"/>
+        <PageTitle title={ t('multichain.searchResults') }/>
         <Skeleton loading={ totalResults === undefined } mb={ 6 } w="fit-content">
-          Found <chakra.span fontWeight={ 700 }>{ totalResults?.num }{ totalResults?.isOverflow ? '+' : '' }</chakra.span> matching results
+          { t('multichain.foundResultsBefore') }{ ' ' }
+          <chakra.span fontWeight={ 700 }>{ totalResults?.num }{ totalResults?.isOverflow ? '+' : '' }</chakra.span>
+          { ' ' }{ t('multichain.foundResultsAfter') }
         </Skeleton>
         <RoutedTabs
           tabs={ tabs }

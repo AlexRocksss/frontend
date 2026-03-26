@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,6 +27,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import VerifyWith from 'ui/shared/VerifyWith';
 
 const Pool = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const hash = getQueryParamString(router.query.hash);
 
@@ -108,8 +110,8 @@ const Pool = () => {
         { hasLinks && (
           <VerifyWith
             links={ externalLinksComponents }
-            label="Verify with"
-            longText="View in"
+            label={ t('pool.verifyWith') }
+            longText={ t('pool.viewIn') }
             shortText=""
           />
         ) }
@@ -130,7 +132,7 @@ const Pool = () => {
             variant="heading"
           />
         ) : null }
-        contentAfter={ <Skeleton loading={ isPlaceholderData }><Tag>Pool</Tag></Skeleton> }
+        contentAfter={ <Skeleton loading={ isPlaceholderData }><Tag>{ t('pool.tag') }</Tag></Skeleton> }
         secondRow={ titleSecondRow }
         isLoading={ isPlaceholderData }
         withTextAd

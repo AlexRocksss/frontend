@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfo, TokenInstance } from 'types/api/token';
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
 
   const title = (() => {
@@ -30,7 +32,7 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
     }
 
     if (!instance) {
-      return `Unknown token instance`;
+      return t('token.unknownInstance');
     }
 
     if (token?.name || token?.symbol) {

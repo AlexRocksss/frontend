@@ -1,4 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -14,6 +15,7 @@ import TransactionsCrossChainListItem from 'ui/crossChain/txs/TransactionsCrossC
 import LatestCrossChainTxsItemDesktop from './LatestCrossChainTxsItemDesktop';
 
 const LatestCrossChainTxs = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const txsCount = isMobile ? 2 : 5;
   const { data, isPlaceholderData, isError } = useApiQuery('interchainIndexer:messages', {
@@ -29,7 +31,7 @@ const LatestCrossChainTxs = () => {
   });
 
   if (isError || !data) {
-    return <Text mt={ 4 }>No data. Please reload the page.</Text>;
+    return <Text mt={ 4 }>{ t('home.noData') }</Text>;
   }
 
   return (
@@ -64,7 +66,7 @@ const LatestCrossChainTxs = () => {
         </TableRoot>
       </Box>
       <Flex justifyContent="center">
-        <Link textStyle="sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>View all transactions</Link>
+        <Link textStyle="sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>{ t('home.viewAllTransactions') }</Link>
       </Flex>
     </>
   );

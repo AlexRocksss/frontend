@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { AddressTag } from 'types/api/account';
@@ -16,8 +17,9 @@ type Props = {
 };
 
 const AddressModal: React.FC<Props> = ({ open, onOpenChange, onSuccess, data, pageType }) => {
-  const title = data?.id ? 'Edit address tag' : 'New address tag';
-  const text = !data?.id ? 'Label any address with a private address tag (up to 35 chars) to customize your explorer experience.' : '';
+  const { t } = useTranslation();
+  const title = data?.id ? t('privateTags.editAddressTitle') : t('privateTags.newAddressTitle');
+  const text = !data?.id ? t('privateTags.newAddressText') : '';
 
   const [ isAlertVisible, setAlertVisible ] = useState(false);
 

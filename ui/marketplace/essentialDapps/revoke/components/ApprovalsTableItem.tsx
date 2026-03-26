@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -30,6 +31,7 @@ export default function ApprovalsTableItem({
   isAddressMatch,
   hideApproval,
 }: Props) {
+  const { t } = useTranslation();
   const revoke = useRevoke();
   const [ isPending, setIsPending ] = useState(false);
 
@@ -117,7 +119,7 @@ export default function ApprovalsTableItem({
             loading={ isLoading || isPending }
             onClick={ handleRevoke }
           >
-            Revoke
+            { t('marketplace.revokeAction') }
           </Button>
         </TableCell>
       ) }

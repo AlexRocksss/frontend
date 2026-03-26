@@ -1,5 +1,6 @@
 import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -20,6 +21,8 @@ interface Props {
 }
 
 const BlockGasUsed = ({ className, gasUsed, gasLimit, gasTarget, isLoading }: Props) => {
+  const { t } = useTranslation();
+
   const hasGasUtilization =
     gasUsed && gasUsed !== '0' &&
     (!rollupFeature.isEnabled || rollupFeature.type === 'optimistic' || rollupFeature.type === 'shibarium');
@@ -30,7 +33,7 @@ const BlockGasUsed = ({ className, gasUsed, gasLimit, gasTarget, isLoading }: Pr
 
   return (
     <>
-      <Tooltip content="Gas Used %" disabled={ isLoading }>
+      <Tooltip content={ t('gasUsed.percentTooltip') } disabled={ isLoading }>
         <Utilization
           colorScheme="gray"
           value={ BigNumber(gasUsed).dividedBy(BigNumber(gasLimit)).toNumber() }

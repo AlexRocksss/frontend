@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -33,6 +34,7 @@ type Props = {
 };
 
 const TokenTransfer = ({ transfersQuery, tokenId, tokenQuery, tabsHeight = TABS_HEIGHT, tokenInstance, shouldRender = true }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const isMounted = useIsMounted();
   const router = useRouter();
@@ -112,7 +114,7 @@ const TokenTransfer = ({ transfersQuery, tokenId, tokenQuery, tabsHeight = TABS_
     <DataListDisplay
       isError={ isError || isTokenError }
       itemsNum={ data?.items.length }
-      emptyText="There are no token transfers."
+      emptyText={ t('token.noTokenTransfers') }
       actionBar={ actionBar }
     >
       { content }

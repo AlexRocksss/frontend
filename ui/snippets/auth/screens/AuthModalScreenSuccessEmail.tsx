@@ -1,4 +1,5 @@
 import { chakra, Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Screen } from '../types';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, profile }: Props) => {
+  const { t } = useTranslation();
   const handleConnectWalletClick = React.useCallback(() => {
     onConnectWallet({ type: 'connect_wallet', isAuth: true, loginToRewards: true });
   }, [ onConnectWallet ]);
@@ -24,16 +26,16 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
     return (
       <Box>
         <Text>
-          Your account was linked to{ ' ' }
+          { t('auth.linkedToEmail_pre') }{ ' ' }
           <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
-          email. Use for the next login.
+          { t('auth.linkedToEmail_post') }
         </Text>
         <Button
           mt={ 6 }
           variant="outline"
           onClick={ onClose }
         >
-          Got it!
+          { t('auth.gotIt') }
         </Button>
       </Box>
     );
@@ -43,12 +45,12 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
     <Box>
       <Text>
         <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
-        email has been successfully used to log in to your Blockscout account.
+        { t('auth.emailUsedToLogin_post') }
       </Text>
       { !profile?.address_hash && config.features.blockchainInteraction.isEnabled ? (
         <>
-          <Text mt={ 6 }>Add your web3 wallet to safely interact with smart contracts and dapps inside Blockscout.</Text>
-          <Button mt={ 6 } onClick={ handleConnectWalletClick }>Connect wallet</Button>
+          <Text mt={ 6 }>{ t('auth.addWeb3Wallet') }</Text>
+          <Button mt={ 6 } onClick={ handleConnectWalletClick }>{ t('auth.connectWalletBtn') }</Button>
         </>
       ) : (
         <Button
@@ -56,7 +58,7 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
           mt={ 6 }
           onClick={ onClose }
         >
-          Got it!
+          { t('auth.gotIt') }
         </Button>
       ) }
     </Box>

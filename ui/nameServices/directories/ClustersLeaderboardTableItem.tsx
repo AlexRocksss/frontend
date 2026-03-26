@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ClustersLeaderboardObject } from 'types/api/clusters';
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const ClustersLeaderboardTableItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
@@ -34,7 +37,7 @@ const ClustersLeaderboardTableItem = ({ item, isLoading }: Props) => {
       </TableCell>
       <TableCell verticalAlign="middle">
         <Skeleton loading={ isLoading }>
-          { item.chainIds.length } { item.chainIds.length === 1 ? 'chain' : 'chains' }
+          { t('nameServices.chainCount', { count: item.chainIds.length }) }
         </Skeleton>
       </TableCell>
     </TableRow>

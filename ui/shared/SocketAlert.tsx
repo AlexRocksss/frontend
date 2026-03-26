@@ -1,4 +1,5 @@
-import { Text, chakra } from '@chakra-ui/react';
+import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Alert } from 'toolkit/chakra/alert';
@@ -9,10 +10,12 @@ interface Props {
 }
 
 const SocketAlert = ({ className }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Alert status="warning" className={ className }>
-      <Text whiteSpace="pre">Connection lost, click </Text>
-      <Link href={ window.document.location.href }>to load newer records</Link>
+      { t('alert.connectionLost') }
+      <Link href={ window.document.location.href }>{ t('alert.connectionLostLink') }</Link>
     </Alert>
   );
 };

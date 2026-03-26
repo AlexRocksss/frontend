@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -21,6 +22,7 @@ export interface Props extends Omit<DataListDisplayProps, 'children'> {
 }
 
 const TransactionsCrossChainContent = ({ items, isLoading, pagination, isTableView, stickyHeader = true, currentAddress, ...rest }: Props) => {
+  const { t } = useTranslation();
   const content = items ? (
     <>
       <Box display={{ base: isTableView ? 'none' : 'block', lg: 'none' }}>
@@ -53,7 +55,7 @@ const TransactionsCrossChainContent = ({ items, isLoading, pagination, isTableVi
   return (
     <DataListDisplay
       itemsNum={ items?.length }
-      emptyText="There are no cross-chain transactions."
+      emptyText={ t('crossChain.noTxs') }
       emptyStateProps={{
         term: 'transaction',
       }}

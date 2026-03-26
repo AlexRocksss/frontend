@@ -1,4 +1,5 @@
 import { Flex, Text, Separator } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { GetAvailableBadgesResponse } from '@blockscout/points-types';
@@ -19,16 +20,17 @@ type Props = {
 const EMPTY_ARRAY: GetAvailableBadgesResponse['items'] = [];
 
 const RewardsStreakModal = ({ open, onOpenChange, currentStreak, badges = EMPTY_ARRAY }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <DialogRoot open={ open } onOpenChange={ onOpenChange } size={{ lgDown: 'full', lg: 'md' }}>
       <DialogContent>
-        <DialogHeader>Streak progress</DialogHeader>
+        <DialogHeader>{ t('rewards.streakProgress') }</DialogHeader>
         <DialogBody>
           <Flex direction="column" gap={ 6 }>
             <Flex direction="column" gap={{ base: 6, lg: 3 }}>
               <Text textStyle={{ base: 'sm', lg: 'md' }}>
-                Build your streak day by day and unlock exclusive badges as a reward for staying consistent.
+                { t('rewards.streakDescription') }
               </Text>
               <Flex
                 direction={{ base: 'column', lg: 'row' }}
@@ -41,7 +43,7 @@ const RewardsStreakModal = ({ open, onOpenChange, currentStreak, badges = EMPTY_
               >
                 <Flex direction="column" alignItems="center" gap={{ base: 1, lg: 2 }}>
                   <Heading level="1">{ currentStreak }</Heading>
-                  <Text textStyle="xs" color="text.secondary">Day streak</Text>
+                  <Text textStyle="xs" color="text.secondary">{ t('rewards.dayStreak') }</Text>
                 </Flex>
                 <Flex flex={ 1 } pl={{ base: 2, lg: 0 }}>
                   { badges.map((badge, i) => {
@@ -63,7 +65,7 @@ const RewardsStreakModal = ({ open, onOpenChange, currentStreak, badges = EMPTY_
             </Flex>
 
             <Flex direction="column" gap={ 2 }>
-              <Heading level="3">Rewards</Heading>
+              <Heading level="3">{ t('rewards.streakRewards') }</Heading>
               <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 2, lg: 6 }} justifyContent="space-between">
                 { badges.map((badge, i) => (
                   <>

@@ -1,5 +1,6 @@
 import type { ButtonProps } from '@chakra-ui/react';
 import { Box, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -19,12 +20,12 @@ interface Props {
 }
 
 const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, address, domain, ...rest }: Props, ref: React.ForwardedRef<HTMLButtonElement>) => {
-
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const content = (() => {
     if (!address) {
-      return 'Connect';
+      return t('userProfile.connect');
     }
 
     const text = domain || shortenString(address);
@@ -39,7 +40,7 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
 
   return (
     <Tooltip
-      content="Connect your wallet to Blockscout for full-featured access"
+      content={ t('userProfile.walletConnectTooltip') }
       disabled={ isMobile || Boolean(address) }
       openDelay={ 500 }
       disableOnMobile
@@ -54,7 +55,7 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
           px={{ base: 2.5, lg: 3 }}
           fontWeight={ address ? 700 : 600 }
           loading={ isPending }
-          loadingText={ isMobile ? undefined : 'Connecting' }
+          loadingText={ isMobile ? undefined : t('userProfile.connecting') }
           { ...rest }
         >
           { content }

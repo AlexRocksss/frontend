@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { UptimeRealTimeData } from 'types/api/megaEth';
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const UptimeStats = ({ realtimeData }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -20,23 +22,23 @@ const UptimeStats = ({ realtimeData }: Props) => {
       gridTemplateColumns={{ base: '1fr', lg: 'repeat(4, 1fr)' }}
     >
       <StatsWidget
-        label="Current TPS"
-        hint="Number of transactions processed per second on the network"
+        label={ t('megaEth.currentTps') }
+        hint={ t('megaEth.currentTpsHint') }
         value={ realtimeData ? Number(realtimeData.instant_tps).toLocaleString() : '-' }
       />
       <StatsWidget
-        label="MGas/s"
-        hint="Number of computational gas consumed per second on the network"
+        label={ t('megaEth.mGasS') }
+        hint={ t('megaEth.mGasSHint') }
         value={ realtimeData ? Number(realtimeData.instant_mgas_per_second).toLocaleString(undefined, { maximumFractionDigits: 2 }) : '-' }
       />
       <StatsWidget
-        label="Block height"
-        hint="Number of blocks created since the genesis block"
+        label={ t('megaEth.blockHeight') }
+        hint={ t('megaEth.blockHeightHint') }
         value={ realtimeData ? Number(realtimeData.latest_mini_block_id).toLocaleString() : '-' }
       />
       <StatsWidget
-        label="Block time"
-        hint="Time taken by the sequencer to produce a new block"
+        label={ t('megaEth.blockTime') }
+        hint={ t('megaEth.blockTimeHint') }
         valuePostfix=" ms"
         value={ realtimeData ? Number(realtimeData.instant_mini_block_interval).toLocaleString(undefined, { maximumFractionDigits: 2 }) : '-' }
       />

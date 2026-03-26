@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { OptimisticL2TxnBatchesItem } from 'types/api/optimisticL2';
@@ -12,17 +13,18 @@ export interface Props extends BadgeProps {
 }
 
 const OptimisticL2TxnBatchDA = ({ container, isLoading, ...rest }: Props) => {
+  const { t } = useTranslation();
 
   const text = (() => {
     switch (container) {
       case 'in_blob4844':
-        return 'EIP-4844 blob';
+        return t('batch.eip4844Blob');
       case 'in_calldata':
-        return 'Calldata';
+        return t('batch.calldata');
       case 'in_celestia':
-        return 'Celestia blob';
+        return t('batch.celestiaBlob');
       case 'in_eigenda':
-        return 'EigenDA';
+        return t('batch.eigenDA');
     }
   })();
 

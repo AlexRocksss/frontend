@@ -1,4 +1,5 @@
 import { chakra, Text, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const InteropMessageAdditionalInfo = ({ payload, isLoading, className }: Props) => {
+  const { t } = useTranslation();
   return (
     <PopoverRoot positioning={{ placement: 'right-start' }}>
       <PopoverTrigger>
@@ -22,7 +24,7 @@ const InteropMessageAdditionalInfo = ({ payload, isLoading, className }: Props) 
       <PopoverContent w="330px">
         <PopoverBody>
           <Flex alignItems="center" justifyContent="space-between" mb={ 3 }>
-            <Text color="text.secondary" fontWeight="600">Message payload</Text>
+            <Text color="text.secondary" fontWeight="600">{ t('interopMessages.messagePayload') }</Text>
             <PopoverCloseTriggerWrapper>
               <CopyToClipboard text={ payload }/>
             </PopoverCloseTriggerWrapper>

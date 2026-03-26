@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainTransfer } from '@blockscout/interchain-indexer-types';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const TokenTransfersCrossChainTable = ({ data, isLoading, top, currentAddress }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot tableLayout="auto">
@@ -25,16 +27,16 @@ const TokenTransfersCrossChainTable = ({ data, isLoading, top, currentAddress }:
           <TableRow>
             <TableColumnHeader w="42px"/>
             { currentAddress && <TableColumnHeader w="44px"/> }
-            <TableColumnHeader>Source token</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.sourceToken') }</TableColumnHeader>
             <TableColumnHeader/>
-            <TableColumnHeader>Target token</TableColumnHeader>
-            <TableColumnHeader>Source tx</TableColumnHeader>
-            <TableColumnHeader>Dest tx</TableColumnHeader>
-            <TableColumnHeader>Protocol</TableColumnHeader>
-            <TableColumnHeader>Message</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.targetToken') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.sourceTx') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.destTx') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.protocol') }</TableColumnHeader>
+            <TableColumnHeader>{ t('crossChain.message') }</TableColumnHeader>
             <TableColumnHeader>
               <Flex alignItems="center" flexWrap="nowrap">
-                Timestamp
+                { t('crossChain.timestamp') }
                 <TimeFormatToggle/>
               </Flex>
             </TableColumnHeader>

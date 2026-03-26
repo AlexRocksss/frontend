@@ -1,5 +1,6 @@
 import { Flex, Grid } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -21,21 +22,22 @@ interface Props {
 }
 
 const TxDetailsWrapped = ({ data }: Props) => {
+  const { t } = useTranslation();
   return (
     <Grid columnGap={ 8 } rowGap={{ base: 3, lg: 3 }} templateColumns={{ base: 'minmax(0, 1fr)', lg: 'auto minmax(0, 1fr)' }}>
       <DetailedInfo.ItemLabel
-        hint="Unique character string (TxID) assigned to every verified transaction"
+        hint={ t('tx.hintTransactionHash') }
       >
-        Transaction hash
+        { t('tx.transactionHash') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <TxEntity hash={ data.hash } noIcon noLink/>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Transaction method name"
+        hint={ t('tx.hintMethod') }
       >
-        Method
+        { t('tx.method') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Badge colorPalette="gray">
@@ -48,9 +50,9 @@ const TxDetailsWrapped = ({ data }: Props) => {
       { data.to && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Address (external or contract) receiving the transaction"
+            hint={ t('tx.hintTo') }
           >
-            { data.to.is_contract ? 'Interacted with contract' : 'To' }
+            { data.to.is_contract ? t('tx.interactedWith') : t('tx.to') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Flex flexWrap="nowrap" alignItems="center" maxW="100%">
@@ -63,18 +65,18 @@ const TxDetailsWrapped = ({ data }: Props) => {
       <DetailedInfo.ItemDivider/>
 
       <DetailedInfo.ItemLabel
-        hint="Value sent in the native token (and USD) if applicable"
+        hint={ t('tx.hintValue') }
       >
-        Value
+        { t('tx.value') }
       </DetailedInfo.ItemLabel>
       <DetailedInfoNativeCoinValue amount={ data.value }/>
 
       { data.fee.value !== null && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Total transaction fee"
+            hint={ t('tx.hintTransactionFee') }
           >
-            Transaction fee
+            { t('tx.transactionFee') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <TxFee tx={ data } hasExchangeRateToggle/>
@@ -87,9 +89,9 @@ const TxDetailsWrapped = ({ data }: Props) => {
       { data.gas_limit && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Maximum amount of gas that can be used by the transaction"
+            hint={ t('tx.hintGasLimit') }
           >
-            Gas limit
+            { t('tx.gasLimit') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             { BigNumber(data.gas_limit).toFormat() }
@@ -102,9 +104,9 @@ const TxDetailsWrapped = ({ data }: Props) => {
       <TxDetailsOther type={ data.type } nonce={ data.nonce } position={ null }/>
 
       <DetailedInfo.ItemLabel
-        hint="Binary data included with the transaction. See logs tab for additional info"
+        hint={ t('tx.hintRawInput') }
       >
-        Raw input
+        { t('tx.rawInput') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <RawInputData hex={ data.raw_input }/>
@@ -113,9 +115,9 @@ const TxDetailsWrapped = ({ data }: Props) => {
       { data.decoded_input && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Decoded input data"
+            hint={ t('tx.hintDecodedInputData') }
           >
-            Decoded input data
+            { t('tx.decodedInputData') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <LogDecodedInputData data={ data.decoded_input }/>

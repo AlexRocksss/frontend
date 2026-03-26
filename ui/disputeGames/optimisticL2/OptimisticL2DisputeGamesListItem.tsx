@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { OptimisticL2DisputeGamesItem } from 'types/api/optimisticL2';
@@ -16,6 +17,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: OptimisticL2DisputeGamesItem; isLoading?: boolean };
 
 const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'optimistic') {
     return null;
   }
@@ -23,17 +25,17 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('disputeGames.indexLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value fontWeight={ 600 } color="text.primary">
         <Skeleton loading={ isLoading } display="inline-block">{ item.index }</Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Game type</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('disputeGames.gameTypeLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">{ item.game_type }</Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('disputeGames.addressLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value color="text.primary">
         <Skeleton loading={ isLoading } display="flex" overflow="hidden" w="100%" alignItems="center">
           <HashStringShorten hash={ item.contract_address_hash } type="long"/>
@@ -41,7 +43,7 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
         </Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } block #</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('disputeGames.currentBlockNo', { current: layerLabels.current }) }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BlockEntityL2
           isLoading={ isLoading }
@@ -50,7 +52,7 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('disputeGames.ageLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.created_at }
@@ -59,14 +61,14 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('disputeGames.statusLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value color="text.primary">
         <Skeleton loading={ isLoading } display="inline-block">{ item.status }</Skeleton>
       </ListItemMobileGrid.Value>
 
       { item.resolved_at && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Resolution age</ListItemMobileGrid.Label><ListItemMobileGrid.Value>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('disputeGames.resolutionAgeLabel') }</ListItemMobileGrid.Label><ListItemMobileGrid.Value>
             <TimeWithTooltip
               timestamp={ item.resolved_at }
               isLoading={ isLoading }

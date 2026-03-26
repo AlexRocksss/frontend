@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit/compat';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -27,6 +28,7 @@ const TAB_LIST_PROPS = {
 const TABS_HEIGHT = 88;
 
 const ZetaChainEvmTransactions = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const tab = getQueryParamString(router.query.tab);
   const isMobile = useIsMobile();
@@ -72,7 +74,7 @@ const ZetaChainEvmTransactions = () => {
         /> },
     {
       id: 'zetachain_pending',
-      title: 'Pending',
+      title: t('zetaChain.pendingTab'),
       component: (
         <TxsWithFrontendSorting
           query={ txsPendingQuery }

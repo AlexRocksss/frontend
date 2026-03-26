@@ -1,8 +1,12 @@
 import { Box, createListCollection, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
+
+import type { VerifiedContractsSortingValue } from 'types/api/verifiedContracts';
 
 import { MultichainProvider } from 'lib/contexts/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
+import type { SelectOption } from 'toolkit/chakra/select';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ChainSelect from 'ui/multichain/components/ChainSelect';
 import ActionBar from 'ui/shared/ActionBar';
@@ -11,20 +15,27 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Pagination from 'ui/shared/pagination/Pagination';
 import Sort from 'ui/shared/sort/Sort';
 import useVerifiedContractsQuery from 'ui/verifiedContracts/useVerifiedContractsQuery';
-import { SORT_OPTIONS } from 'ui/verifiedContracts/utils';
 import VerifiedContractsCounters from 'ui/verifiedContracts/VerifiedContractsCounters';
 import VerifiedContractsFilter from 'ui/verifiedContracts/VerifiedContractsFilter';
 import VerifiedContractsList from 'ui/verifiedContracts/VerifiedContractsList';
 import VerifiedContractsTable from 'ui/verifiedContracts/VerifiedContractsTable';
 
-const sortCollection = createListCollection({
-  items: SORT_OPTIONS,
-});
-
 const MultichainVerifiedContracts = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const { query, type, searchTerm, sort, onSearchTermChange, onTypeChange, onSortChange } = useVerifiedContractsQuery({ isMultichain: true });
+
+  const sortCollection = React.useMemo(() => {
+    const items: Array<SelectOption<VerifiedContractsSortingValue>> = [
+      { label: t('verifiedContracts.sortDefault'), value: 'default' },
+      { label: t('verifiedContracts.sortBalanceDesc'), value: 'balance-desc' },
+      { label: t('verifiedContracts.sortBalanceAsc'), value: 'balance-asc' },
+      { label: t('verifiedContracts.sortTxsCountDesc'), value: 'transactions_count-desc' },
+      { label: t('verifiedContracts.sortTxsCountAsc'), value: 'transactions_count-asc' },
+    ];
+    return createListCollection({ items });
+  }, [ t ]);
   const { isError, isPlaceholderData, data, pagination, chainValue, onChainValueChange } = query;
 
   const typeFilter = (
@@ -40,7 +51,7 @@ const MultichainVerifiedContracts = () => {
       w={{ base: '100%', lg: '350px' }}
       size="sm"
       onChange={ onSearchTermChange }
-      placeholder="Search by contract name or address"
+      placeholder={ t('multichain.contractSearchPlaceholder') }
       initialValue={ searchTerm }
     />
   );
@@ -88,7 +99,7 @@ const MultichainVerifiedContracts = () => {
   return (
     <Box>
       <PageTitle
-        title="Verified contracts"
+        title={ t('multichain.verifiedContracts') }
         withTextAd
       />
       <ChainSelect
@@ -102,7 +113,7 @@ const MultichainVerifiedContracts = () => {
         <DataListDisplay
           isError={ isError }
           itemsNum={ data?.items.length }
-          emptyText="There are no verified contracts."
+          emptyText={ t('multichain.noVerifiedContracts') }
           hasActiveFilters={ Boolean(searchTerm || type) }
           emptyStateProps={{
             term: 'contract',

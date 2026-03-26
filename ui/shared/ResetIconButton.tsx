@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { CloseButton } from 'toolkit/chakra/close-button';
@@ -8,8 +9,10 @@ type Props = {
 };
 
 const ResetIconButton = ({ onClick }: Props) => {
+  const { t } = useTranslation();
+
   return (
-    <Tooltip content="Reset filter">
+    <Tooltip content={ t('action.resetFilter') }>
       <CloseButton onClick={ onClick } ml={ 1 }/>
     </Tooltip>
   );

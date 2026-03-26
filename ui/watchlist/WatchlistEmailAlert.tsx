@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -10,6 +11,7 @@ import useLinkEmail from 'ui/snippets/auth/linkEmail/useLinkEmail';
 const feature = config.features.account;
 
 const WatchlistEmailAlert = () => {
+  const { t } = useTranslation();
   const authModal = useDisclosure();
   const linkEmail = useLinkEmail();
 
@@ -29,8 +31,8 @@ const WatchlistEmailAlert = () => {
         w="fit-content"
         mb={ 6 }
       >
-        To receive notifications you need to add an email to your profile.
-        <Button variant="outline" size="sm" onClick={ handleButtonClick }>Add email</Button>
+        { t('watchlist.emailAlertText') }
+        <Button variant="outline" size="sm" onClick={ handleButtonClick }>{ t('watchlist.addEmail') }</Button>
       </Alert>
       { authModal.open && <AuthModal initialScreen={{ type: 'email', isAuth: true }} onClose={ authModal.onClose }/> }
     </>

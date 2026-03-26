@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -12,6 +13,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Pagination from 'ui/shared/pagination/Pagination';
 
 const InternalTxs = () => {
+  const { t } = useTranslation();
 
   const isMobile = useIsMobile();
 
@@ -23,7 +25,7 @@ const InternalTxs = () => {
       w={{ base: '100%', lg: '350px' }}
       size="sm"
       onChange={ onSearchTermChange }
-      placeholder="Search by transaction hash"
+      placeholder={ t('pages.searchByTxHash') }
       initialValue={ searchTerm }
     />
   );
@@ -58,13 +60,13 @@ const InternalTxs = () => {
   return (
     <>
       <PageTitle
-        title="Internal transactions"
+        title={ t('pages.internalTransactions') }
         withTextAd
       />
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no internal transactions."
+        emptyText={ t('pages.noInternalTxs') }
         hasActiveFilters={ Boolean(debouncedSearchTerm) }
         emptyStateProps={{
           term: 'internal transaction',

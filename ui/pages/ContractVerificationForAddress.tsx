@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -15,6 +16,7 @@ import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 const ContractVerificationForAddress = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = getQueryParamString(router.query.hash);
@@ -68,7 +70,7 @@ const ContractVerificationForAddress = () => {
   return (
     <>
       <PageTitle
-        title="New smart contract verification"
+        title={ t('pages.newSmartContractVerification') }
       />
       <AddressEntity
         address={{ hash, is_contract: true }}

@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { RouteParams } from 'nextjs/routes';
@@ -15,6 +16,8 @@ interface Props extends LinkProps {
 }
 
 const AdvancedFilterLink = ({ query, routeParams, adaptive = true, ...rest }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Link
       href={ route({ pathname: '/advanced-filter', query }, routeParams) }
@@ -25,7 +28,7 @@ const AdvancedFilterLink = ({ query, routeParams, adaptive = true, ...rest }: Pr
       { ...rest }
     >
       <IconSvg name="advanced-filter" boxSize={ 5 }/>
-      <chakra.span hideBelow={ adaptive ? 'lg' : undefined }>Advanced</chakra.span>
+      <chakra.span hideBelow={ adaptive ? 'lg' : undefined }>{ t('action.advanced') }</chakra.span>
     </Link>
   );
 };

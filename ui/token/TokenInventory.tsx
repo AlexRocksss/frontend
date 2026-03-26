@@ -1,5 +1,6 @@
 import { Flex, Grid, Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -25,6 +26,7 @@ type Props = {
 };
 
 const TokenInventory = ({ inventoryQuery, tokenQuery, ownerFilter, shouldRender = true }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const isMounted = useIsMounted();
 
@@ -45,7 +47,7 @@ const TokenInventory = ({ inventoryQuery, tokenQuery, ownerFilter, shouldRender 
       mb={{ base: isActionBarHidden ? 3 : 6, lg: 3 }}
       mr={ 4 }
     >
-      <Text whiteSpace="nowrap" mr={ 2 } py={ 1 }>Filtered by owner</Text>
+      <Text whiteSpace="nowrap" mr={ 2 } py={ 1 }>{ t('token.filteredByOwner') }</Text>
       <Flex alignItems="center" py={ 1 }>
         <AddressEntity address={{ hash: ownerFilter }} truncation={ isMobile ? 'constant' : 'none' }/>
         <ResetIconButton onClick={ resetOwnerFilter }/>
@@ -89,10 +91,10 @@ const TokenInventory = ({ inventoryQuery, tokenQuery, ownerFilter, shouldRender 
     <DataListDisplay
       isError={ inventoryQuery.isError }
       itemsNum={ items?.length }
-      emptyText="There are no tokens."
+      emptyText={ t('token.noInventory') }
       hasActiveFilters={ Boolean(ownerFilter) }
       emptyStateProps={{
-        description: 'No tokens found for the selected owner.',
+        description: t('token.noInventoryForOwner'),
       }}
       actionBar={ actionBar }
     >

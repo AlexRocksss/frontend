@@ -1,4 +1,5 @@
 import { chakra, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { type FieldError, type FieldErrorsImpl, type Merge } from 'react-hook-form';
 
@@ -33,6 +34,7 @@ interface Props {
 }
 
 const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRemoveClick, tagTypes, field }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const bgColorDefault = { _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' };
   const bgColorError = { _light: 'red.50', _dark: 'red.900' };
@@ -56,7 +58,7 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
           <GridItem colSpan={{ base: 1, lg: 2 }}>
             <FormFieldText<FormFields>
               name={ `tags.${ index }.name` }
-              placeholder="Tag (max 35 characters)"
+              placeholder={ t('publicTags.tagNamePlaceholder') }
               required
               rules={{ maxLength: 35 }}
             />
@@ -67,17 +69,17 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
           <GridItem colSpan={{ base: 1, lg: 2 }}>
             <FormFieldUrl<FormFields>
               name={ `tags.${ index }.url` }
-              placeholder="Label URL"
+              placeholder={ t('publicTags.labelUrlPlaceholder') }
             />
           </GridItem>
           <FormFieldColor<FormFields>
             name={ `tags.${ index }.bgColor` }
-            placeholder="Background (Hex)"
+            placeholder={ t('publicTags.bgColorPlaceholder') }
             sampleDefaultBgColor={ CIRCLE_BG_COLOR_DEFAULT.bgColor }
           />
           <FormFieldColor<FormFields>
             name={ `tags.${ index }.textColor` }
-            placeholder="Text (Hex)"
+            placeholder={ t('publicTags.textColorPlaceholder') }
             sampleDefaultBgColor={ CIRCLE_BG_COLOR_DEFAULT.textColor }
           />
           <GridItem colSpan={{ base: 1, lg: 4 }}>
@@ -86,7 +88,7 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
           <GridItem colSpan={{ base: 1, lg: 4 }}>
             <FormFieldText<FormFields>
               name={ `tags.${ index }.tooltipDescription` }
-              placeholder="Label description (max 80 characters)"
+              placeholder={ t('publicTags.tooltipDescPlaceholder') }
               maxH="160px"
               rules={{ maxLength: 80 }}
               asComponent="Textarea"
@@ -120,7 +122,7 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
           <Flex flexDir="column" alignItems="flex-start" mt={ 4 } rowGap={ 2 }>
             <EntityTag
               data={{
-                name: field.name || 'Tag name',
+                name: field.name || t('publicTags.tagNameDefault'),
                 tagType: field.type[0],
                 meta: {
                   tagIcon: errors?.iconUrl ? undefined : field.iconUrl,

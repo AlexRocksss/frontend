@@ -1,4 +1,5 @@
 import { chakra, Flex, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainTransfer } from '@blockscout/interchain-indexer-types';
@@ -22,13 +23,14 @@ interface Props {
 }
 
 const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Tokens moved as part of the cross-chain operation"
+        hint={ t('crossChain.tokenTransferredHint') }
         isLoading={ isLoading }
       >
-        Token transferred
+        { t('crossChain.tokenTransferred') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue position="relative" multiRow>
         <Flex
@@ -49,7 +51,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     noIcon
                     truncation="constant"
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
+                ) : <chakra.span color="text.secondary">{ t('crossChain.unknown') }</chakra.span> }
                 <AddressFromToIcon
                   isLoading={ isLoading }
                   type="unspecified"
@@ -62,9 +64,9 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     noIcon
                     truncation="constant"
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
+                ) : <chakra.span color="text.secondary">{ t('crossChain.unknown') }</chakra.span> }
                 <Skeleton loading={ isLoading } color="text.secondary">
-                  <span>for</span>
+                  <span>{ t('crossChain.for') }</span>
                 </Skeleton>
                 { item.source_token ? (
                   <TokenValueInterchain
@@ -73,7 +75,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     chain={ item.source_chain }
                     loading={ isLoading }
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
+                ) : <chakra.span color="text.secondary">{ t('crossChain.unknown') }</chakra.span> }
                 <AddressFromToIcon
                   isLoading={ isLoading }
                   type="unspecified"
@@ -85,7 +87,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     chain={ item.destination_chain }
                     loading={ isLoading }
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
+                ) : <chakra.span color="text.secondary">{ t('crossChain.unknown') }</chakra.span> }
               </Flex>
             );
           }) }
@@ -100,7 +102,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
             <Link
               href={ route({ pathname: '/cross-chain-tx/[id]', query: { id, tab: 'transfers' } }) }
             >
-              View all
+              { t('crossChain.viewAll') }
             </Link>
           </GridItem>
         </>

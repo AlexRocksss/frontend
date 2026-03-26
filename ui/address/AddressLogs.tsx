@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const AddressLogs = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMounted = useIsMounted();
 
@@ -69,7 +71,7 @@ const AddressLogs = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items?.length }
-      emptyText="There are no logs for this address."
+      emptyText={ t('address.noLogs') }
       actionBar={ actionBar }
     >
       { content }

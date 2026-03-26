@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -35,6 +36,7 @@ interface Props {
 const isRollup = config.features.rollup.isEnabled;
 
 const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chainData }: Props) => {
+  const { t } = useTranslation();
   const totalReward = getBlockTotalReward(data);
   const burntFees = BigNumber(data.burnt_fees || 0);
   const txFees = BigNumber(data.transaction_fees || 0);
@@ -54,7 +56,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
             </Tooltip>
           ) }
           { data.is_pending_update && <BlockPendingUpdateHint/> }
-          <Tooltip disabled={ data.type !== 'reorg' } content="Chain reorganizations">
+          <Tooltip disabled={ data.type !== 'reorg' } content={ t('blocks.reorgTooltip') }>
             <span>
               <BlockEntity
                 isLoading={ isLoading }
@@ -126,7 +128,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
             loading={ isLoading }
             display="flex"
           />
-          <Tooltip content="Burnt fees / Txn fees * 100%" disabled={ isLoading }>
+          <Tooltip content={ t('blockDetails.hintBurntFeesTip') } disabled={ isLoading }>
             <Utilization mt={ 2 } w="min-content" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
           </Tooltip>
         </TableCell>

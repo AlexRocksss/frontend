@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -10,6 +11,7 @@ import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import TxsWithFrontendSorting from 'ui/txs/TxsWithFrontendSorting';
 
 const KettleTxs = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = getQueryParamString(router.query.hash);
@@ -29,7 +31,7 @@ const KettleTxs = () => {
 
   return (
     <>
-      <PageTitle title="Computor transactions" withTextAd/>
+      <PageTitle title={ t('pages.computorTransactions') } withTextAd/>
       <AddressEntity address={{ hash }} mb={ 6 }/>
       <TxsWithFrontendSorting query={ query }/>
     </>

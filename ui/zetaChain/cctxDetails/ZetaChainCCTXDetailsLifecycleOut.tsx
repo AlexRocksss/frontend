@@ -1,5 +1,6 @@
 import { Flex, Grid, Text } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { type OutboundParams, type CrossChainTx, CctxStatus } from '@blockscout/zetachain-cctx-types';
@@ -24,6 +25,7 @@ type Props = {
 };
 
 const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast, hasTxAfter }: Props) => {
+  const { t } = useTranslation();
   const { data: chainsConfig } = useZetaChainConfig();
   const chainToId = outboundParam.receiver_chain_id?.toString() || '';
   const chainTo = chainsConfig?.find((chain) => chain.id.toString() === chainToId);
@@ -46,7 +48,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     if (isCCTX) {
       return (
         <>
-          <Text color="text.secondary" fontWeight="medium">CCTX</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.cctx') }</Text>
           <TxEntityZetaChainCC
             hash={ outboundParam.hash }
             isLoading={ isLoading }
@@ -57,7 +59,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     }
     return (
       <>
-        <Text color="text.secondary" fontWeight="medium">Transaction</Text>
+        <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.transaction') }</Text>
         { chainToId !== config.chain.id ? (
           <TxEntityZetaChainExternal chainId={ chainToId } hash={ outboundParam.hash } noIcon/>
         ) : (
@@ -71,16 +73,16 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     content = (
       <>
         { transactionOrCCTX }
-        <Text color="text.secondary" fontWeight="medium">Status</Text>
-        <StatusTag type="ok" text="Success"/>
-        <Text color="text.secondary" fontWeight="medium">Receiver</Text>
+        <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.status') }</Text>
+        <StatusTag type="ok" text={ t('zetaChain.success') }/>
+        <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.receiver') }</Text>
         <AddressEntityZetaChain
           address={{ hash: outboundParam.receiver }}
           chainId={ outboundParam.receiver_chain_id?.toString() }
           isLoading={ isLoading }
           truncation="constant"
         />
-        <Text color="text.secondary" fontWeight="medium">Transferred</Text>
+        <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.transferred') }</Text>
         <ZetaChainCCTXValue
           coinType={ outboundParam.coin_type }
           tokenSymbol={ tx.token_symbol }
@@ -88,29 +90,29 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
           decimals={ tx.decimals ?? null }
           isLoading={ isLoading }
         />
-        <Text color="text.secondary" fontWeight="medium">Gas used</Text>
+        <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.gasUsed') }</Text>
         <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
           { BigNumber(outboundParam.gas_used || 0).div(10 ** gasDecimals).toFormat() }
         </Text>
       </>
     );
-    text = `Sent tx to ${ chainTo?.name || 'Unknown chain' }`;
+    text = t('zetaChain.sentTxTo', { chain: chainTo?.name || t('zetaChain.unknownChain') });
     color = 'text.success';
   } else if (tx.cctx_status?.status === CctxStatus.PENDING_REVERT) {
     if (!isLast) {
       content = (
         <>
           { transactionOrCCTX }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
-          <StatusTag type="error" text="Failed"/>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.status') }</Text>
+          <StatusTag type="error" text={ t('zetaChain.failed') }/>
         </>
       );
-      text = `Destination tx failed`;
+      text = t('zetaChain.destinationTxFailed');
       color = 'text.error';
     } else {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Reverting to</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.revertingTo') }</Text>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -119,40 +121,40 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
           />
         </>
       );
-      text = `Waiting for revert to ${ chainTo?.name || 'Unknown chain' }`;
+      text = t('zetaChain.waitingForRevertTo', { chain: chainTo?.name || t('zetaChain.unknownChain') });
       color = 'text.secondary';
     }
   } else if (tx.cctx_status?.status === CctxStatus.PENDING_OUTBOUND) {
     content = (
       <>
-        <Text color="text.secondary" fontWeight="medium">Destination</Text>
+        <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.destination') }</Text>
         <AddressEntityZetaChain
           address={{ hash: outboundParam.receiver }}
           chainId={ outboundParam.receiver_chain_id?.toString() }
           isLoading={ isLoading }
           truncation="constant"
         />
-        <Text color="text.secondary" fontWeight="medium">Nonce</Text>
+        <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.nonce') }</Text>
         <Text>{ outboundParam.tss_nonce }</Text>
       </>
     );
-    text = `Waiting for outbound tx to ${ chainTo?.name || 'Unknown chain' }`;
+    text = t('zetaChain.waitingForOutboundTxTo', { chain: chainTo?.name || t('zetaChain.unknownChain') });
     color = 'text.secondary';
   } else if (tx.cctx_status?.status === CctxStatus.REVERTED) {
     if (!isLast) {
       content = (
         <>
           { transactionOrCCTX }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
-          <StatusTag type="error" text="Failed"/>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.status') }</Text>
+          <StatusTag type="error" text={ t('zetaChain.failed') }/>
         </>
       );
-      text = `Destination tx failed`;
+      text = t('zetaChain.destinationTxFailed');
       color = 'text.error';
     } else {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Origin</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.origin') }</Text>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -160,9 +162,9 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
             truncation="constant"
           />
           { transactionOrCCTX }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
-          <StatusTag type="ok" text="Success"/>
-          <Text color="text.secondary" fontWeight="medium">Transferred</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.status') }</Text>
+          <StatusTag type="ok" text={ t('zetaChain.success') }/>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.transferred') }</Text>
           <ZetaChainCCTXValue
             coinType={ outboundParam.coin_type }
             tokenSymbol={ tx.token_symbol }
@@ -170,20 +172,20 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
             decimals={ tx.decimals ?? null }
             isLoading={ isLoading }
           />
-          <Text color="text.secondary" fontWeight="medium">Gas used</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.gasUsed') }</Text>
           <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
             { BigNumber(outboundParam.gas_used || 0).div(10 ** gasDecimals).toFormat() }&nbsp;
           </Text>
         </>
       );
-      text = `Reverted to ${ chainTo?.name || 'Unknown chain' }`;
+      text = t('zetaChain.revertedTo', { chain: chainTo?.name || t('zetaChain.unknownChain') });
       color = 'text.success';
     }
   } else if (tx.cctx_status?.status === CctxStatus.ABORTED) {
     if (!isLast) {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Receiver</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.receiver') }</Text>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -192,12 +194,12 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
           />
         </>
       );
-      text = `Destination tx failed`;
+      text = t('zetaChain.destinationTxFailed');
       color = 'text.error';
     } else {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Sender</Text>
+          <Text color="text.secondary" fontWeight="medium">{ t('zetaChain.sender') }</Text>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -207,7 +209,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
         </>
       );
       const isFailed = tx.cctx_status?.is_abort_refunded === false;
-      text = isFailed ? `Abort failed` : `Abort executed`;
+      text = isFailed ? t('zetaChain.abortFailed') : t('zetaChain.abortExecuted');
       color = isFailed ? 'text.error' : 'text.success';
     }
   }

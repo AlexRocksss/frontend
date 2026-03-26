@@ -1,6 +1,7 @@
 import { chakra, Box, Flex, Text, VStack, HStack } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { upperFirst } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SocketMessage } from 'lib/socket/types';
@@ -29,6 +30,7 @@ import { useHomeRpcDataContext } from './fallbacks/rpcDataContext';
 import LatestBlocksItem from './LatestBlocksItem';
 
 const LatestBlocks = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   // const blocksMaxCount = isMobile ? 2 : 3;
   let blocksMaxCount: number;
@@ -102,12 +104,12 @@ const LatestBlocks = () => {
             ))) }
           </VStack>
           <Flex justifyContent="center">
-            <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
+            <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>{ t('home.viewAllBlocks') }</Link>
           </Flex>
         </>
       );
     }
-    return <Box textStyle="sm">No latest blocks found.</Box>;
+    return <Box textStyle="sm">{ t('home.noLatestBlocks') }</Box>;
   })();
 
   const networkUtilization = getNetworkUtilizationParams(statsQueryResult.data?.network_utilization_percentage ?? 0);
@@ -115,13 +117,13 @@ const LatestBlocks = () => {
   return (
     <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
       <HStack alignItems="center">
-        <Heading level="3">Latest blocks</Heading>
+        <Heading level="3">{ t('home.latestBlocks') }</Heading>
         { isRpcData && <FallbackRpcIcon/> }
       </HStack>
       { statsQueryResult.data?.network_utilization_percentage !== undefined && (
         <Skeleton loading={ statsQueryResult.isPlaceholderData } mt={ 2 } display="inline-block" textStyle="sm">
           <Text as="span">
-            Network utilization:{ nbsp }
+            { t('home.networkUtilization') }{ nbsp }
           </Text>
           <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
             <Text as="span" color={ networkUtilization.color } fontWeight={ 700 }>
@@ -132,7 +134,7 @@ const LatestBlocks = () => {
       ) }
       { statsQueryResult.data?.celo && (
         <Box whiteSpace="pre-wrap" textStyle="sm" mt={ 2 }>
-          <span>Current epoch: </span>
+          <span>{ t('home.currentEpoch') }{ ' ' }</span>
           <chakra.span fontWeight={ 700 }>#{ statsQueryResult.data.celo.epoch_number }</chakra.span>
         </Box>
       ) }

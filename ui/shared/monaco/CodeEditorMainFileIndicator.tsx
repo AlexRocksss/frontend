@@ -1,4 +1,5 @@
 import { Box, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -9,8 +10,9 @@ interface Props {
 }
 
 const CodeEditorMainFileIndicator = ({ className }: Props) => {
+  const { t } = useTranslation();
   return (
-    <Tooltip content="The main file containing verified contract">
+    <Tooltip content={ t('codeEditor.mainFileHint') }>
       <Box className={ className } >
         <IconSvg name="star_filled" boxSize={ 3 } display="block" color="green.500"/>
       </Box>

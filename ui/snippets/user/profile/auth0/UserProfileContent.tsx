@@ -1,4 +1,5 @@
 import { Box, Separator, Flex, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { NavLink } from './types';
@@ -19,39 +20,6 @@ import UserWalletAutoConnectAlert from '../../UserWalletAutoConnectAlert';
 import UserProfileContentWallet from '../common/UserProfileContentWallet';
 import UserProfileContentNavLink from './UserProfileContentNavLink';
 
-const navLinks: Array<NavLink> = [
-  {
-    text: 'My profile',
-    href: route({ pathname: '/auth/profile' }),
-    icon: 'profile' as const,
-  },
-  {
-    text: 'Watch list',
-    href: route({ pathname: '/account/watchlist' }),
-    icon: 'star_outline' as const,
-  },
-  {
-    text: 'Private tags',
-    href: route({ pathname: '/account/tag-address' }),
-    icon: 'private_tags' as const,
-  },
-  {
-    text: 'API keys',
-    href: route({ pathname: '/account/api-key' }),
-    icon: 'API' as const,
-  },
-  {
-    text: 'Custom ABI',
-    href: route({ pathname: '/account/custom-abi' }),
-    icon: 'ABI' as const,
-  },
-  config.features.addressVerification.isEnabled && {
-    text: 'Verified addrs',
-    href: route({ pathname: '/account/verified-addresses' }),
-    icon: 'verified' as const,
-  },
-].filter(Boolean);
-
 interface Props {
   data: UserInfo | undefined;
   onClose: () => void;
@@ -61,8 +29,42 @@ interface Props {
 }
 
 const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }: Props) => {
+  const { t } = useTranslation();
   const { isAutoConnectDisabled } = useMarketplaceContext();
   const logout = useLogout();
+
+  const navLinks: Array<NavLink> = [
+    {
+      text: t('userProfile.myProfile'),
+      href: route({ pathname: '/auth/profile' }),
+      icon: 'profile' as const,
+    },
+    {
+      text: t('userProfile.watchList'),
+      href: route({ pathname: '/account/watchlist' }),
+      icon: 'star_outline' as const,
+    },
+    {
+      text: t('userProfile.privateTags'),
+      href: route({ pathname: '/account/tag-address' }),
+      icon: 'private_tags' as const,
+    },
+    {
+      text: t('userProfile.apiKeys'),
+      href: route({ pathname: '/account/api-key' }),
+      icon: 'API' as const,
+    },
+    {
+      text: t('userProfile.customAbi'),
+      href: route({ pathname: '/account/custom-abi' }),
+      icon: 'ABI' as const,
+    },
+    config.features.addressVerification.isEnabled && {
+      text: t('userProfile.verifiedAddrs'),
+      href: route({ pathname: '/account/verified-addresses' }),
+      icon: 'verified' as const,
+    },
+  ].filter(Boolean) as Array<NavLink>;
 
   const handleLogoutClick = React.useCallback(() => {
     logout();
@@ -74,7 +76,7 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
       <Box>
         { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
         { config.features.blockchainInteraction.isEnabled && <UserProfileContentWallet onClose={ onClose }/> }
-        <Button mt={ 3 } onClick={ onLogin } size="sm" w="100%">Log in</Button>
+        <Button mt={ 3 } onClick={ onLogin } size="sm" w="100%">{ t('userProfile.logIn') }</Button>
       </Box>
     );
   }
@@ -83,7 +85,7 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
     <Box>
       { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
 
-      <Box textStyle="xs" fontWeight="500" px={ 1 } mb="1">Account</Box>
+      <Box textStyle="xs" fontWeight="500" px={ 1 } mb="1">{ t('userProfile.account') }</Box>
       <Box
         textStyle="xs"
         fontWeight="500"
@@ -94,20 +96,20 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
       >
         { config.features.blockchainInteraction.isEnabled && (
           <Flex p={ 2 } borderColor="border.divider" borderBottomWidth="1px">
-            <Box>Address</Box>
+            <Box>{ t('userProfile.address') }</Box>
             <Hint
-              label={ `This wallet address is linked to your Blockscout account. It can be used to login ${ config.features.rewards.isEnabled ? 'and is used for Merits Program participation' : '' }` } // eslint-disable-line max-len
+              label={ t('userProfile.addressHint') + (config.features.rewards.isEnabled ? ' ' + t('userProfile.addressHintMerits') : '') } // eslint-disable-line max-len
               boxSize={ 4 }
               ml={ 1 }
             />
             { data?.address_hash ?
-              <Box ml="auto">{ shortenString(data?.address_hash) }</Box> : <Link ml="auto" onClick={ onAddAddress }>Add address</Link> }
+              <Box ml="auto">{ shortenString(data?.address_hash) }</Box> : <Link ml="auto" onClick={ onAddAddress }>{ t('userProfile.addAddress') }</Link> }
           </Flex>
         ) }
         <Flex p={ 2 } columnGap={ 4 }>
-          <Box mr="auto">Email</Box>
+          <Box mr="auto">{ t('userProfile.email') }</Box>
           { data?.email ?
-            <TruncatedText text={ data.email }/> : <Link onClick={ onAddEmail }>Add email</Link> }
+            <TruncatedText text={ data.email }/> : <Link onClick={ onAddEmail }>{ t('userProfile.addEmail') }</Link> }
         </Flex>
       </Box>
 
@@ -126,7 +128,7 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
       <Separator my={ 1 }/>
 
       <UserProfileContentNavLink
-        text="Sign out"
+        text={ t('userProfile.signOut') }
         icon="sign_out"
         onClick={ handleLogoutClick }
       />

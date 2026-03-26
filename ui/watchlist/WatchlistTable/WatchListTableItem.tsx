@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const WatchListTableItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEmail }: Props) => {
+  const { t } = useTranslation();
   const [ notificationEnabled, setNotificationEnabled ] = useState(item.notification_methods.email);
   const [ switchDisabled, setSwitchDisabled ] = useState(false);
   const onItemEditClick = useCallback(() => {
@@ -37,16 +39,16 @@ const WatchListTableItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEm
   const showErrorToast = useCallback(() => {
     toaster.error({
       title: 'Error',
-      description: 'There has been an error processing your request',
+      description: t('watchlist.errorRequest'),
     });
-  }, [ ]);
+  }, [ t ]);
 
   const showNotificationToast = useCallback((isOn: boolean) => {
     toaster.success({
       title: 'Success',
-      description: isOn ? 'Email notification is ON' : 'Email notification is OFF',
+      description: isOn ? t('watchlist.notificationOn') : t('watchlist.notificationOff'),
     });
-  }, [ ]);
+  }, [ t ]);
 
   const { mutate } = useMutation<WatchlistAddress>({
     mutationFn: () => {
@@ -85,7 +87,7 @@ const WatchListTableItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEm
             checked={ notificationEnabled }
             onCheckedChange={ onSwitch }
             disabled={ !hasEmail || switchDisabled }
-            aria-label="Email notification"
+            aria-label={ t('watchlist.emailNotificationHeader') }
           />
         </Skeleton>
       </TableCell>

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -12,6 +13,7 @@ type Props = {
 const TABS_HEIGHT = 88;
 
 const BlockWithdrawals = ({ blockWithdrawalsQuery }: Props) => {
+  const { t } = useTranslation();
   const content = blockWithdrawalsQuery.data?.items ? (
     <>
       <Box hideFrom="lg">
@@ -36,7 +38,7 @@ const BlockWithdrawals = ({ blockWithdrawalsQuery }: Props) => {
     <DataListDisplay
       isError={ blockWithdrawalsQuery.isError }
       itemsNum={ blockWithdrawalsQuery.data?.items?.length }
-      emptyText="There are no withdrawals for this block."
+      emptyText={ t('blockDetails.noWithdrawals') }
     >
       { content }
     </DataListDisplay>

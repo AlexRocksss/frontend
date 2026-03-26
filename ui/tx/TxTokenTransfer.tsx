@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -31,6 +32,7 @@ interface Props {
 }
 
 const TxTokenTransfer = ({ txQuery, tokenTransferFilter, noCrossChain }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const multichainContext = useMultichainContext();
   const isMobile = useIsMobile();
@@ -70,7 +72,7 @@ const TxTokenTransfer = ({ txQuery, tokenTransferFilter, noCrossChain }: Props) 
   const tabs = [
     {
       id: 'token_transfers',
-      title: 'Transfers',
+      title: t('tx.transfers'),
       component: (
         <TxTokenTransferLocal
           txQuery={ txQuery }
@@ -82,7 +84,7 @@ const TxTokenTransfer = ({ txQuery, tokenTransferFilter, noCrossChain }: Props) 
     },
     hasCrossChainTab && {
       id: 'token_transfers_cross_chain',
-      title: 'Cross-chain',
+      title: t('tx.crossChainTransfers'),
       component: (
         <TxTokenTransferCrossChain
           txQuery={ txQuery }

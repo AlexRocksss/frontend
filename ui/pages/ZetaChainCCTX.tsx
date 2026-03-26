@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -11,6 +12,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import ZetaChainCCTXDetails from 'ui/zetaChain/cctxDetails/ZetaChainCCTXDetails';
 
 const ZetaChainCCTX = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = getQueryParamString(router.query.hash);
@@ -28,7 +30,7 @@ const ZetaChainCCTX = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title="Cross-chain tx details"
+        title={ t('pages.crossChainTxDetails') }
         secondRow={ <TxEntityZetaChainCC hash={ hash } noLink variant="subheading" mr={{ base: 0, lg: 2 }}/> }
       />
       <ZetaChainCCTXDetails data={ cctxQuery.data } isLoading={ cctxQuery.isPlaceholderData }/>

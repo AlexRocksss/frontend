@@ -1,4 +1,5 @@
 import { Text, Box, Flex, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { ControllerRenderProps, FieldPathValue, ValidateResult } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -27,6 +28,7 @@ interface Props {
 }
 
 const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title, hint, name = 'sources', fullFilePath }: Props) => {
+  const { t } = useTranslation();
   const { setValue, getValues, control, formState, clearErrors } = useFormContext<FormFields>();
 
   const error = (() => {
@@ -58,11 +60,11 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
       <VStack gap={ 3 }>
         <Text fontWeight={ 500 }>{ title }</Text>
         <Button size="sm" variant="outline">
-          Drop file{ multiple ? 's' : '' } or click here
+          { multiple ? t('contractVerification.dropFileMultiple') : t('contractVerification.dropFileSingle') }
         </Button>
       </VStack>
     );
-  }, [ multiple, title ]);
+  }, [ multiple, t, title ]);
 
   const renderFiles = React.useCallback((files: Array<File>) => {
     const errorList = fileError?.message?.split(';');
@@ -96,7 +98,7 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
 
     const errorElement = (() => {
       if (commonError?.type === 'required') {
-        return <FormFieldError message="Field is required"/>;
+        return <FormFieldError message={ t('contractVerification.sourceFieldRequired') }/>;
       }
 
       if (commonError?.message) {
@@ -131,37 +133,37 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
         { errorElement }
       </>
     );
-  }, [ fileTypes, multiple, commonError?.type, commonError?.message, fullFilePath, formState.isSubmitting, error, renderFiles, renderUploadButton ]);
+  }, [ fileTypes, multiple, commonError?.type, commonError?.message, fullFilePath, formState.isSubmitting, error, renderFiles, renderUploadButton, t ]);
 
   const validateFileType = React.useCallback(async(value: FieldPathValue<FormFields, typeof name>): Promise<ValidateResult> => {
     if (Array.isArray(value)) {
-      const errorText = `Wrong file type. Allowed files types are ${ fileTypes.join(',') }.`;
+      const errorText = t('contractVerification.wrongFileType', { types: fileTypes.join(',') });
       const errors = value.map(({ name }) => fileTypes.some((ext) => name.endsWith(ext)) ? '' : errorText);
       if (errors.some((item) => item !== '')) {
         return errors.join(';');
       }
     }
     return true;
-  }, [ fileTypes ]);
+  }, [ fileTypes, t ]);
 
   const validateFileSize = React.useCallback(async(value: FieldPathValue<FormFields, typeof name>): Promise<ValidateResult> => {
     if (Array.isArray(value)) {
       const FILE_SIZE_LIMIT = 20 * Mb;
-      const errors = value.map(({ size }) => size > FILE_SIZE_LIMIT ? 'File is too big. Maximum size is 20 Mb.' : '');
+      const errors = value.map(({ size }) => size > FILE_SIZE_LIMIT ? t('contractVerification.fileTooBig') : '');
       if (errors.some((item) => item !== '')) {
         return errors.join(';');
       }
     }
     return true;
-  }, []);
+  }, [ t ]);
 
   const validateQuantity = React.useCallback(async(value: FieldPathValue<FormFields, typeof name>): Promise<ValidateResult> => {
     if (!multiple && Array.isArray(value) && value.length > 1) {
-      return 'You can upload only one file';
+      return t('contractVerification.onlyOneFile');
     }
 
     return true;
-  }, [ multiple ]);
+  }, [ multiple, t ]);
 
   const rules = React.useMemo(() => ({
     required,

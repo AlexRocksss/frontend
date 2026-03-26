@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import React from 'react';
@@ -34,6 +35,7 @@ type Props = {
 };
 
 const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
+  const { t } = useTranslation();
   const inputRef = React.useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -103,7 +105,7 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
         />
         <Box
           onClick={ handleOverlayClick }
-          aria-label="Search"
+          aria-label={ t('searchBar.drawerTitle') }
           cursor="pointer"
           zIndex={ 1 }
           position="absolute"
@@ -137,7 +139,7 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
       </DrawerTrigger>
       <DrawerContent h="75vh" overflowY="hidden">
         <DrawerHeader>
-          <DrawerTitle>Search</DrawerTitle>
+          <DrawerTitle>{ t('searchBar.drawerTitle') }</DrawerTitle>
           <DrawerCloseTrigger/>
         </DrawerHeader>
         <DrawerBody overflow="hidden" display="flex" flexDirection="column">
@@ -175,7 +177,7 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
               onClick={ handleViewAllResultsClick }
               textStyle="sm"
             >
-              View all results
+              { t('searchBar.viewAllResults') }
             </Link>
           </DrawerFooter>
         ) }

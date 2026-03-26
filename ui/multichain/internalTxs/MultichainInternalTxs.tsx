@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { MultichainProvider } from 'lib/contexts/multichain';
@@ -14,6 +15,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Pagination from 'ui/shared/pagination/Pagination';
 
 const MultichainInternalTxs = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const { query, searchTerm, onSearchTermChange } = useInternalTxsQuery({ isMultichain: true });
@@ -24,7 +26,7 @@ const MultichainInternalTxs = () => {
       w={{ base: '100%', lg: '350px' }}
       size="sm"
       onChange={ onSearchTermChange }
-      placeholder="Search by transaction hash"
+      placeholder={ t('multichain.txHashSearchPlaceholder') }
       initialValue={ searchTerm }
       ml={{ base: 0, lg: 2 }}
     />
@@ -66,13 +68,13 @@ const MultichainInternalTxs = () => {
   return (
     <>
       <PageTitle
-        title="Internal transactions"
+        title={ t('multichain.internalTransactions') }
         withTextAd
       />
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no internal transactions."
+        emptyText={ t('multichain.noInternalTxs') }
         hasActiveFilters={ Boolean(searchTerm) }
         emptyStateProps={{
           term: 'internal transaction',

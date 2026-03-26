@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Pool } from 'types/api/pools';
@@ -13,13 +14,14 @@ type Props = {
 };
 
 const PoolInfo = ({ data, isPlaceholderData }: Props) => {
+  const { t } = useTranslation();
   return (
     <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="The base token in a liquidity pool pair"
+        hint={ t('pool.baseTokenHint') }
       >
-        Base token
+        { t('pool.baseToken') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <TokenEntity
@@ -37,9 +39,9 @@ const PoolInfo = ({ data, isPlaceholderData }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="The quote token in a liquidity pool pair"
+        hint={ t('pool.quoteTokenHint') }
       >
-        Quote token
+        { t('pool.quoteToken') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <TokenEntity
@@ -57,9 +59,9 @@ const PoolInfo = ({ data, isPlaceholderData }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Fully Diluted Valuation: theoretical market cap if all tokens were in circulation"
+        hint={ t('pool.fdvHint') }
       >
-        Base token FDV
+        { t('pool.baseTokenFdv') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -72,9 +74,9 @@ const PoolInfo = ({ data, isPlaceholderData }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Current market capitalization of the base token"
+        hint={ t('pool.marketCapHint') }
       >
-        Base token market cap
+        { t('pool.baseTokenMarketCap') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -87,9 +89,9 @@ const PoolInfo = ({ data, isPlaceholderData }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Fully Diluted Valuation: theoretical market cap if all tokens were in circulation"
+        hint={ t('pool.fdvHint') }
       >
-        Quote token FDV
+        { t('pool.quoteTokenFdv') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -102,9 +104,9 @@ const PoolInfo = ({ data, isPlaceholderData }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Current market capitalization of the base token"
+        hint={ t('pool.quoteTokenMarketCapHint') }
       >
-        Quote token market cap
+        { t('pool.quoteTokenMarketCap') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -117,9 +119,9 @@ const PoolInfo = ({ data, isPlaceholderData }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Current liquidity of the pool"
+        hint={ t('pool.liquidityHint') }
       >
-        Liquidity
+        { t('pool.liquidity') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -129,9 +131,9 @@ const PoolInfo = ({ data, isPlaceholderData }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="DEX where the pool is traded"
+        hint={ t('pool.dexHint') }
       >
-        DEX
+        { t('pool.dex') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>

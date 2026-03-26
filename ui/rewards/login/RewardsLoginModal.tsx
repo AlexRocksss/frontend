@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useEffect } from 'react';
 
 import type { Screen } from 'ui/snippets/auth/types';
@@ -21,6 +22,7 @@ const MIXPANEL_CONFIG = {
 };
 
 const RewardsLoginModal = () => {
+  const { t } = useTranslation();
   const { isOpen: isWalletModalOpen } = useWallet({ source: 'Merits' });
   const { isLoginModalOpen, closeLoginModal, openLoginModal } = useRewardsContext();
 
@@ -74,7 +76,7 @@ const RewardsLoginModal = () => {
       >
         <DialogContent>
           <DialogHeader>
-            { isLoginStep ? 'Login' : 'Congratulations' }
+            { isLoginStep ? t('rewards.loginHeader') : t('rewards.congratsHeader') }
           </DialogHeader>
           <DialogBody>
             { isLoginStep ?

@@ -1,9 +1,11 @@
 import { Text, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
 
 const UserWalletAutoConnectAlert = () => {
+  const { t } = useTranslation();
   return (
     <Flex
       borderRadius="base"
@@ -20,7 +22,7 @@ const UserWalletAutoConnectAlert = () => {
         mr={ 2 }
       />
       <Text fontSize="xs" lineHeight="16px">
-        Connect your wallet in the app below
+        { t('userProfile.autoConnectAlert') }
       </Text>
     </Flex>
   );

@@ -1,5 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SocketMessage } from 'lib/socket/types';
@@ -10,10 +11,10 @@ import useApiQuery, { getResourceKey } from 'lib/api/useApiQuery';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { Tooltip } from 'toolkit/chakra/tooltip';
-import { apos, nbsp, ndash } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 
 const IntTxsIndexingStatus = () => {
+  const { t } = useTranslation();
 
   const { data, isError, isPending } = useApiQuery('general:homepage_indexing_status', {
     queryOptions: {
@@ -56,8 +57,8 @@ const IntTxsIndexingStatus = () => {
   const hint = (
     <Text textStyle="xs">
       { data.indexed_internal_transactions_ratio &&
-        `${ Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) }% Blocks With Internal Transactions Indexed${ nbsp }${ ndash } ` }
-      We{ apos }re indexing this chain right now. Some of the counts may be inaccurate.
+        t('footer.indexingProgress', { percent: Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) }) + ' ' }
+      { t('footer.indexingInProgress') }
     </Text>
   );
 

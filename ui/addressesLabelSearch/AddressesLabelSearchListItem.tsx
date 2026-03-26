@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressesItem } from 'types/api/addresses';
@@ -18,6 +19,7 @@ const AddressesLabelSearchListItem = ({
   item,
   isLoading,
 }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <ListItemMobile rowGap={ 3 }>
@@ -28,7 +30,7 @@ const AddressesLabelSearchListItem = ({
         w="100%"
       />
       <HStack gap={ 3 } maxW="100%" alignItems="flex-start">
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>{ `Balance ${ currencyUnits.ether }` }</Skeleton>
+        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>{ t('addresses.balance', { ether: currencyUnits.ether }) }</Skeleton>
         <NativeCoinValue
           amount={ item.coin_balance }
           noSymbol
@@ -38,7 +40,7 @@ const AddressesLabelSearchListItem = ({
         />
       </HStack>
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Txn count</Skeleton>
+        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('addresses.txnCount') }</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
           <span>{ Number(item.transactions_count).toLocaleString() }</span>
         </Skeleton>

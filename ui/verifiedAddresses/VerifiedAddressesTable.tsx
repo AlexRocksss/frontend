@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfoApplication, VerifiedAddress } from 'types/api/account';
@@ -15,15 +16,16 @@ interface Props {
 }
 
 const VerifiedAddressesTable = ({ data, applications, onItemEdit, onItemAdd, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot>
       <TableHeader>
         <TableRow>
-          <TableColumnHeader>Address</TableColumnHeader>
-          <TableColumnHeader w="168px" pr={ 1 }>Token info</TableColumnHeader>
+          <TableColumnHeader>{ t('verifiedAddresses.addressHeader') }</TableColumnHeader>
+          <TableColumnHeader w="168px" pr={ 1 }>{ t('verifiedAddresses.tokenInfoHeader') }</TableColumnHeader>
           <TableColumnHeader w="36px" pl="0"></TableColumnHeader>
-          <TableColumnHeader w="160px">Request status</TableColumnHeader>
-          <TableColumnHeader w="150px">Date</TableColumnHeader>
+          <TableColumnHeader w="160px">{ t('verifiedAddresses.requestStatusHeader') }</TableColumnHeader>
+          <TableColumnHeader w="150px">{ t('verifiedAddresses.dateHeader') }</TableColumnHeader>
         </TableRow>
       </TableHeader>
       <TableBody>

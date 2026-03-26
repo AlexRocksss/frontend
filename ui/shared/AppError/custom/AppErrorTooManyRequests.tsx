@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -28,6 +29,7 @@ interface Props {
 }
 
 const AppErrorTooManyRequests = ({ bypassOptions, reset }: Props) => {
+  const { t } = useTranslation();
 
   const [ timeLeft, setTimeLeft ] = React.useState(reset ? Math.ceil(Number(reset) / SECOND) : undefined);
 
@@ -105,25 +107,25 @@ const AppErrorTooManyRequests = ({ bypassOptions, reset }: Props) => {
 
   const text = (() => {
     if (timeLeft === undefined && bypassOptions === 'no_bypass') {
-      return 'Rate limit exceeded.';
+      return t('error.rateLimitExceeded');
     }
 
     const timeLeftText = timeLeft !== undefined ? `wait ${ formatTimeLeft(timeLeft) } ` : '';
     const bypassText = bypassOptions !== 'no_bypass' ? `verify you${ apos }re human ` : '';
     const orText = timeLeft !== undefined && bypassOptions !== 'no_bypass' ? 'OR ' : '';
 
-    return `Rate limit exceeded. Please ${ timeLeftText }${ orText }${ bypassText }before making another request.`;
+    return `${ t('error.rateLimitExceeded') } Please ${ timeLeftText }${ orText }${ bypassText }before making another request.`;
   })();
 
   return (
     <>
       <AppErrorIcon statusCode={ 429 }/>
-      <AppErrorTitle title="Too many requests"/>
+      <AppErrorTitle title={ t('error.tooManyRequests_title') }/>
       <Text color="text.secondary" mt={ 3 }>
         { text }
       </Text>
       <ReCaptcha { ...recaptcha }/>
-      { bypassOptions !== 'no_bypass' && <Button onClick={ handleSubmit } disabled={ recaptcha.isInitError } mt={ 8 }>I'm not a robot</Button> }
+      { bypassOptions !== 'no_bypass' && <Button onClick={ handleSubmit } disabled={ recaptcha.isInitError } mt={ 8 }>{ t('action.iAmNotARobot') }</Button> }
     </>
   );
 };

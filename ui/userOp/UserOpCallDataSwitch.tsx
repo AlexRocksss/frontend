@@ -1,4 +1,5 @@
 import { chakra, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Switch } from 'toolkit/chakra/switch';
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const UserOpCallDataSwitch = ({ className, initialValue, isDisabled, onChange, id }: Props) => {
+  const { t } = useTranslation();
   const [ isChecked, setIsChecked ] = React.useState(initialValue ?? false);
 
   const handleChange = React.useCallback(() => {
@@ -34,10 +36,10 @@ const UserOpCallDataSwitch = ({ className, initialValue, isDisabled, onChange, i
         direction="rtl"
         labelProps={{ fontWeight: '600', textStyle: 'sm' }}
       >
-        <chakra.span hideBelow="lg">Show external call data</chakra.span>
-        <chakra.span hideFrom="lg">External call data</chakra.span>
+        <chakra.span hideBelow="lg">{ t('userOp.showExternalCallData') }</chakra.span>
+        <chakra.span hideFrom="lg">{ t('userOp.externalCallDataShort') }</chakra.span>
       </Switch>
-      <Hint label="Inner call data is a predicted decoded call from this user operation"/>
+      <Hint label={ t('userOp.innerCallDataHint') }/>
     </Flex>
   );
 };

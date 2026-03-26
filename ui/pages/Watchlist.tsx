@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress, WatchlistResponse } from 'types/api/account';
@@ -25,6 +26,7 @@ import WatchListItem from 'ui/watchlist/WatchlistTable/WatchListItem';
 import WatchlistTable from 'ui/watchlist/WatchlistTable/WatchlistTable';
 
 const WatchList: React.FC = () => {
+  const { t } = useTranslation();
 
   const { data, isPlaceholderData, isError, pagination } = useQueryWithPages({
     resourceName: 'general:watchlist',
@@ -149,7 +151,7 @@ const WatchList: React.FC = () => {
 
   return (
     <>
-      <PageTitle title="Watch list"/>
+      <PageTitle title={ t('pages.watchList') }/>
       { content }
     </>
   );

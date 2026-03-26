@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import BeaconChainDepositsList from 'ui/deposits/beaconChain/BeaconChainDepositsList';
@@ -12,6 +13,7 @@ type Props = {
 const TABS_HEIGHT = 88;
 
 const BlockDeposits = ({ blockDepositsQuery }: Props) => {
+  const { t } = useTranslation();
   const content = blockDepositsQuery.data?.items ? (
     <>
       <Box hideFrom="lg">
@@ -36,7 +38,7 @@ const BlockDeposits = ({ blockDepositsQuery }: Props) => {
     <DataListDisplay
       isError={ blockDepositsQuery.isError }
       itemsNum={ blockDepositsQuery.data?.items?.length }
-      emptyText="There are no deposits for this block."
+      emptyText={ t('blockDetails.noDeposits') }
     >
       { content }
     </DataListDisplay>

@@ -1,4 +1,5 @@
 import { Code } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const ContractVerificationFieldCommit = ({ latestCommitHash }: Props) => {
+  const { t } = useTranslation();
   const hashErrorRef = React.useRef<string | undefined>(undefined);
   const fetch = useFetch();
   const { getValues, trigger, setValue, getFieldState } = useFormContext<FormFields>();
@@ -69,9 +71,9 @@ const ContractVerificationFieldCommit = ({ latestCommitHash }: Props) => {
       } catch (error) {}
     }
 
-    hashErrorRef.current = 'Commit hash not found in the repository';
+    hashErrorRef.current = t('contractVerification.commitHashNotFound');
     trigger('commit_hash');
-  }, [ fetch, getValues, trigger, getFieldState ]);
+  }, [ fetch, getValues, trigger, getFieldState, t ]);
 
   React.useEffect(() => {
     if (latestCommitHash) {
@@ -98,18 +100,18 @@ const ContractVerificationFieldCommit = ({ latestCommitHash }: Props) => {
     <ContractVerificationFormRow>
       <FormFieldText<FormFields>
         name="commit_hash"
-        placeholder="Commit hash"
+        placeholder={ t('contractVerification.commitHashPlaceholder') }
         required
         onBlur={ handleBlur }
         rules={ rules }
       />
       { latestCommitHash ? (
         <div>
-          <span >We have found the latest commit hash for the repository: </span>
+          <span>{ t('contractVerification.latestCommitBefore') }</span>
           <Code color="text.secondary">{ latestCommitHash.slice(0, 7) }</Code>
-          <span>. If you want to use it, </span>
-          <Link onClick={ handleUseLatestCommitClick }>click here</Link>
-          <span>.</span>
+          <span>{ t('contractVerification.latestCommitAfter') }</span>
+          <Link onClick={ handleUseLatestCommitClick }>{ t('contractVerification.latestCommitLink') }</Link>
+          <span>{ t('contractVerification.latestCommitEnd') }</span>
         </div>
       ) : null }
     </ContractVerificationFormRow>

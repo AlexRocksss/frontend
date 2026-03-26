@@ -2,6 +2,7 @@ import type { HTMLChakraProps } from '@chakra-ui/react';
 import { GrowthBookProvider } from '@growthbook/growthbook-react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import React from 'react';
@@ -133,4 +134,4 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

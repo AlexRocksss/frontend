@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 
 import { useRewardsContext } from 'lib/contexts/rewards';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -7,21 +8,22 @@ import RewardsReadOnlyInputWithCopy from '../../RewardsReadOnlyInputWithCopy';
 import RewardsDashboardCard from '../RewardsDashboardCard';
 
 export default function ReferralsTab() {
+  const { t } = useTranslation();
   const { rewardsConfigQuery, referralsQuery } = useRewardsContext();
 
   return (
     <RewardsDashboardCard
-      title="Referral program"
+      title={ t('rewards.referralProgramTitle') }
       description={ (
         <>
-          Refer friends and boost your Merits! You receive a{ ' ' }
+          { t('rewards.referralProgramDescBefore') }{ ' ' }
           <Skeleton as="span" loading={ rewardsConfigQuery.isPending }>
             { rewardsConfigQuery.data?.rewards?.referral_share ?
               `${ Number(rewardsConfigQuery.data.rewards.referral_share) * 100 }%` :
               'N/A'
             }
           </Skeleton>
-          { ' ' }bonus on all Merits earned by your referrals.
+          { ' ' }{ t('rewards.referralProgramDescAfter') }
         </>
       ) }
       contentDirection="row"
@@ -34,13 +36,13 @@ export default function ReferralsTab() {
         flexDirection={{ base: 'column', lg: 'row' }}
       >
         <RewardsReadOnlyInputWithCopy
-          label="Referral link"
+          label={ t('rewards.referralLink') }
           value={ referralsQuery.data?.link || 'N/A' }
           isLoading={ referralsQuery.isPending }
           flex={ 2 }
         />
         <RewardsReadOnlyInputWithCopy
-          label="Referral code"
+          label={ t('rewards.referralCode') }
           value={ referralsQuery.data?.code || 'N/A' }
           isLoading={ referralsQuery.isPending }
           flex={ 1 }

@@ -1,5 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { range } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractMethod } from './types';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const ContractAbi = ({ abi, addressHash, sourceAddress, tab, visibleItems }: Props) => {
+  const { t } = useTranslation();
   const [ expandedSections, setExpandedSections ] = React.useState<Array<string>>(abi.length === 1 ? [ '0' ] : []);
   const [ id, setId ] = React.useState(0);
 
@@ -55,13 +57,13 @@ const ContractAbi = ({ abi, addressHash, sourceAddress, tab, visibleItems }: Pro
   return (
     <div>
       <Flex mb={ 3 }>
-        <Box fontWeight={ 500 } mr="auto">Contract information</Box>
+        <Box fontWeight={ 500 } mr="auto">{ t('address.contractAbiInfo') }</Box>
         { abi.length > 1 && (
           <Link onClick={ handleExpandAll } variant="secondary">
             { expandedSections.length === abi.length ? 'Collapse' : 'Expand' } all
           </Link>
         ) }
-        <Link onClick={ handleReset } ml={ 3 } variant="secondary">Reset</Link>
+        <Link onClick={ handleReset } ml={ 3 } variant="secondary">{ t('address.contractAbiReset') }</Link>
       </Flex>
       <AccordionRoot multiple lazyMount position="relative" onValueChange={ handleAccordionStateChange } value={ expandedSections }>
         { abi.map((item, index) => (

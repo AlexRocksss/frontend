@@ -1,4 +1,5 @@
 import { Text, Box, Flex, Separator } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import type { ChangeEvent } from 'react';
 import React from 'react';
@@ -14,7 +15,6 @@ import { Input } from 'toolkit/chakra/input';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Switch } from 'toolkit/chakra/switch';
-import { apos } from 'toolkit/utils/htmlEntities';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 
 type Props = {
@@ -24,6 +24,7 @@ type Props = {
 };
 
 const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { connect, isConnected, address } = useWallet({ source: 'Merits' });
   const savedRefCode = cookies.get(cookies.NAMES.REWARDS_REFERRAL_CODE);
@@ -100,54 +101,54 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
 
   const buttonText = React.useMemo(() => {
     if (canTrySharedLogin) {
-      return 'Continue with wallet';
+      return t('rewards.continueWithWallet');
     }
 
     if (!isConnected) {
-      return 'Connect wallet';
+      return t('rewards.connectWallet');
     }
     if (isLoggedIntoAccountWithWallet) {
-      return isSignUp ? 'Get started' : 'Continue';
+      return isSignUp ? t('rewards.getStarted') : t('rewards.continue');
     }
-    return profileQuery.data?.email ? 'Add wallet to account' : 'Log in to account';
-  }, [ canTrySharedLogin, isConnected, isLoggedIntoAccountWithWallet, profileQuery.data?.email, isSignUp ]);
+    return profileQuery.data?.email ? t('rewards.addWalletToAccount') : t('rewards.logInToAccount');
+  }, [ canTrySharedLogin, isConnected, isLoggedIntoAccountWithWallet, profileQuery.data?.email, isSignUp, t ]);
 
   return (
     <>
       <Image
         src="/static/merits/merits_program.png"
-        alt="Merits program"
+        alt={ t('rewards.meritsImageAlt') }
         mb={ 3 }
         fallback={ <Skeleton loading w="full" h="120px"/> }
       />
       <Box mb={ 6 }>
-        Merits are awarded for a variety of different Blockscout activities. Connect a wallet to get started.
+        { t('rewards.loginDescription') }
         <Link external href="https://docs.blockscout.com/using-blockscout/merits" ml={ 1 } fontWeight="500">
-          More about Blockscout Merits
+          { t('rewards.loginLearnMore') }
         </Link>
       </Box>
       { isSignUp && isLoggedIntoAccountWithWallet && (
         <Box mb={ 6 }>
           <Separator mb={ 6 }/>
           <Flex w="full" alignItems="center" justifyContent="space-between">
-            I have a referral code
+            { t('rewards.iHaveReferralCode') }
             <Switch
               size="md"
               checked={ isRefCodeUsed }
               onCheckedChange={ handleToggleChange }
-              aria-label="Referral code switch"
+              aria-label={ t('rewards.referralCodeSwitchLabel') }
             />
           </Flex>
           { isRefCodeUsed && (
             <Field
-              label="Code"
+              label={ t('rewards.codeLabel') }
               floating
               id="referral-code"
               size="lg"
               mt={ 3 }
               invalid={ refCodeError }
-              helperText="The code should be in format XXXXXX"
-              errorText={ refCodeError ? 'Incorrect code or format (6 or 12 characters)' : undefined }
+              helperText={ t('rewards.codeHelperText') }
+              errorText={ refCodeError ? t('rewards.codeErrorText') : undefined }
             >
               <Input
                 value={ refCode }
@@ -159,7 +160,7 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
       ) }
       { isAddressMismatch && (
         <Alert status="warning" mb={ 4 }>
-          Your wallet address doesn{ apos }t match the one in your Blockscout account. Please connect the correct wallet.
+          { t('rewards.walletMismatchAlert') }
         </Alert>
       ) }
       <Button
@@ -169,13 +170,13 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
         mb={ 4 }
         onClick={ handleButtonClick }
         loading={ isLoading || profileQuery.isLoading || checkUserQuery.isFetching }
-        loadingText={ isLoading ? 'Sign message in your wallet' : undefined }
+        loadingText={ isLoading ? t('rewards.signMessageLoading') : undefined }
         disabled={ isAddressMismatch || refCodeError }
       >
         { buttonText }
       </Button>
       <Text textStyle="sm" color="text.secondary" textAlign="center">
-        Already registered for Blockscout Merits on another network or chain? Connect the same wallet here.
+        { t('rewards.alreadyRegistered') }
       </Text>
     </>
   );

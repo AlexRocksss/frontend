@@ -1,4 +1,5 @@
 import { Box, chakra, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -18,6 +19,7 @@ import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import StickyPaginationWithText from 'ui/shared/StickyPaginationWithText';
 
 const AccountsLabelSearch = () => {
+  const { t } = useTranslation();
 
   const router = useRouter();
   const slug = getQueryParamString(router.query.slug);
@@ -96,7 +98,7 @@ const AccountsLabelSearch = () => {
 
   return (
     <>
-      <PageTitle title="Search result" withTextAd/>
+      <PageTitle title={ t('pages.searchResult') } withTextAd/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }

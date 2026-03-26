@@ -1,4 +1,5 @@
 import { createListCollection, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { MouseEvent } from 'react';
 
@@ -53,6 +54,7 @@ if (feature.isEnabled) {
 }
 
 const Marketplace = () => {
+  const { t } = useTranslation();
   const {
     isPlaceholderData,
     isError,
@@ -229,7 +231,7 @@ const Marketplace = () => {
           <FilterInput
             initialValue={ filterQuery }
             onChange={ onSearchInputChange }
-            placeholder="Find app by name or keyword..."
+            placeholder={ t('marketplace.filterPlaceholder') }
             loading={ isPlaceholderData }
             size="sm"
             w={{ base: '100%', lg: '350px' }}

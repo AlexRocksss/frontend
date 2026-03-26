@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,6 +27,7 @@ const feature = config.features.nameServices;
 const availableProtocols = feature.isEnabled && feature.ens.isEnabled ? feature.ens.protocols : [];
 
 const NameDomain = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const domainName = getQueryParamString(router.query.name);
   const protocolId = getQueryParamString(router.query.protocol_id) || availableProtocols[0];
@@ -72,7 +74,7 @@ const NameDomain = () => {
             isLoading={ isLoading }
             variant="subheading"
           />
-          <Tooltip content="Lookup for related domain names">
+          <Tooltip content={ t('pages.lookupRelatedDomains') }>
             <Link
               flexShrink={ 0 }
               display="inline-flex"
@@ -92,7 +94,7 @@ const NameDomain = () => {
   return (
     <>
       <TextAd mb={ 6 }/>
-      <PageTitle title="Name details" secondRow={ titleSecondRow }/>
+      <PageTitle title={ t('pages.nameDetails') } secondRow={ titleSecondRow }/>
       <RoutedTabs tabs={ tabs } isLoading={ infoQuery.isPlaceholderData }/>
     </>
   );

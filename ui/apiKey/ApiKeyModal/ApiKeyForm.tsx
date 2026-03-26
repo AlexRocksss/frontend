@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -27,6 +28,7 @@ type Inputs = {
 const NAME_MAX_LENGTH = 255;
 
 const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) => {
+  const { t } = useTranslation();
   const formApi = useForm<Inputs>({
     mode: 'onTouched',
     defaultValues: {
@@ -96,14 +98,14 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
         { data && (
           <FormFieldText<Inputs>
             name="token"
-            placeholder="Auto-generated API key token"
+            placeholder={ t('apiKey.tokenPlaceholder') }
             readOnly
             mb={ 5 }
           />
         ) }
         <FormFieldText<Inputs>
           name="name"
-          placeholder="Application name for API key (e.g Web3 project)"
+          placeholder={ t('apiKey.namePlaceholder') }
           required
           rules={{
             maxLength: NAME_MAX_LENGTH,
@@ -117,7 +119,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
             disabled={ !formApi.formState.isDirty }
             loading={ isPending }
           >
-            { data ? 'Save' : 'Generate API key' }
+            { data ? t('apiKey.save') : t('apiKey.generate') }
           </Button>
         </Box>
       </form>

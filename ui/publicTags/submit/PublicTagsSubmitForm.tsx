@@ -1,4 +1,5 @@
 import { chakra, Grid, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -33,6 +34,7 @@ interface Props {
 }
 
 const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const router = useRouter();
   const apiFetch = useApiFetch();
@@ -107,21 +109,21 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
         >
           <GridItem colSpan={{ base: 1, lg: 3 }}>
             <Heading level="2">
-              Company info
+              { t('publicTags.companyInfoHeading') }
             </Heading>
           </GridItem>
-          <FormFieldText<FormFields> name="requesterName" required placeholder="Your name"/>
+          <FormFieldText<FormFields> name="requesterName" required placeholder={ t('publicTags.yourName') }/>
           <FormFieldEmail<FormFields> name="requesterEmail" required/>
 
           { !isMobile && <div/> }
-          <FormFieldText<FormFields> name="companyName" placeholder="Company name"/>
-          <FormFieldUrl<FormFields> name="companyWebsite" placeholder="Company website"/>
+          <FormFieldText<FormFields> name="companyName" placeholder={ t('publicTags.companyName') }/>
+          <FormFieldUrl<FormFields> name="companyWebsite" placeholder={ t('publicTags.companyWebsite') }/>
           { !isMobile && <div/> }
 
           <GridItem colSpan={{ base: 1, lg: 3 }} mt={{ base: 3, lg: 5 }}>
             <Heading level="2" display="flex" alignItems="center" columnGap={ 1 }>
-              Public tags/labels
-              <Hint label="Submit a public tag proposal for our moderation team to review"/>
+              { t('publicTags.publicTagsHeading') }
+              <Hint label={ t('publicTags.hintText') }/>
             </Heading>
           </GridItem>
           <PublicTagsSubmitFieldAddresses/>
@@ -132,8 +134,8 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
               required
               placeholder={
                 isMobile ?
-                  'Confirm the connection between addresses and tags' :
-                  'Provide a comment to confirm the connection between addresses and tags (max 500 characters)'
+                  t('publicTags.descriptionPlaceholderMobile') :
+                  t('publicTags.descriptionPlaceholderDesktop')
               }
               maxH="160px"
               rules={{ maxLength: 500 }}
@@ -152,11 +154,11 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
             type="submit"
             mt={ 3 }
             loading={ formApi.formState.isSubmitting }
-            loadingText="Send request"
+            loadingText={ t('publicTags.sendRequest') }
             w="min-content"
             disabled={ recaptcha.isInitError }
           >
-            Send request
+            { t('publicTags.sendRequest') }
           </Button>
         </Grid>
       </chakra.form>

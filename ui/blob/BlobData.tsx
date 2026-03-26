@@ -1,4 +1,5 @@
 import { createListCollection, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import * as blobUtils from 'lib/blob';
@@ -34,6 +35,7 @@ interface Props {
 }
 
 const BlobData = ({ data, isLoading, hash }: Props) => {
+  const { t } = useTranslation();
   const [ format, setFormat ] = React.useState<Array<Format>>([ 'Raw' ]);
 
   const guessedType = React.useMemo(() => {
@@ -114,16 +116,16 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Blob data"
+        hint={ t('blob.dataHint') }
         isLoading={ isLoading }
       >
-        Blob data
+        { t('blob.data') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
         <Flex alignItems="center" w="100%" mb={{ base: 1, lg: 3 }} mt={{ base: 1, lg: 0 }}>
           <Select
             collection={ collection }
-            placeholder="Select type"
+            placeholder={ t('blob.selectType') }
             value={ format }
             onValueChange={ handleFormatChange }
             w="100px"
@@ -135,7 +137,7 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
               size="sm"
               onClick={ handleDownloadButtonClick }
             >
-              Download
+              { t('blob.download') }
             </Button>
           </Skeleton>
           <CopyToClipboard text={ data } isLoading={ isLoading }/>

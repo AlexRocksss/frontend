@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const TxFHEOperations = ({ txQuery }: Props) => {
+  const { t } = useTranslation();
   const hash = txQuery.data?.hash || '';
   const isEnabled = Boolean(hash) && Boolean(txQuery.data?.status) && !txQuery.isPlaceholderData;
 
@@ -57,7 +59,7 @@ const TxFHEOperations = ({ txQuery }: Props) => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items?.length ?? 0 }
-      emptyText="There are no FHE operations for this transaction."
+      emptyText={ t('tx.noFheOperations') }
     >
       { content }
     </DataListDisplay>

@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressCoinBalanceHistoryResponse } from 'types/api/address';
@@ -24,6 +25,7 @@ interface Props {
 }
 
 const AddressCoinBalanceHistory = ({ query }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const chainData = multichainContext?.chain;
 
@@ -34,14 +36,14 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
           <TableHeaderSticky top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <TableRow>
               { chainData && <TableColumnHeader width="38px"/> }
-              <TableColumnHeader width="20%">Block</TableColumnHeader>
-              <TableColumnHeader width="20%">Txn</TableColumnHeader>
+              <TableColumnHeader width="20%">{ t('address.blockHeader') }</TableColumnHeader>
+              <TableColumnHeader width="20%">{ t('address.txnHeader') }</TableColumnHeader>
               <TableColumnHeader width="20%">
-                Timestamp
+                { t('address.timestampHeader') }
                 <TimeFormatToggle/>
               </TableColumnHeader>
-              <TableColumnHeader width="20%" isNumeric pr={ 1 }>Balance { currencyUnits.ether }</TableColumnHeader>
-              <TableColumnHeader width="20%" isNumeric>Delta</TableColumnHeader>
+              <TableColumnHeader width="20%" isNumeric pr={ 1 }>{ t('address.balanceEtherHeader', { ether: currencyUnits.ether }) }</TableColumnHeader>
+              <TableColumnHeader width="20%" isNumeric>{ t('address.deltaHeader') }</TableColumnHeader>
             </TableRow>
           </TableHeaderSticky>
           <TableBody>
@@ -82,7 +84,7 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
       mt={ 8 }
       isError={ query.isError }
       itemsNum={ query.data?.items.length }
-      emptyText="There is no coin balance history for this address."
+      emptyText={ t('address.noCoinBalanceHistory') }
       actionBar={ actionBar }
     >
       { content }

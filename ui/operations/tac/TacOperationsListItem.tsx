@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as tac from '@blockscout/tac-operation-lifecycle-types';
@@ -11,10 +12,11 @@ import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
 type Props = { item: tac.OperationBriefDetails; isLoading?: boolean };
 
 const TacOperationsListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Operation</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('operations.operation') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <OperationEntity
           id={ item.operation_id }
@@ -23,7 +25,7 @@ const TacOperationsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('operations.age') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.timestamp }
@@ -31,14 +33,14 @@ const TacOperationsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('operations.status') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TacOperationStatus status={ item.type } isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
       { item.sender && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Sender</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('operations.sender') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <AddressEntityTacTon
               address={{ hash: item.sender.address }}

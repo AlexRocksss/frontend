@@ -1,4 +1,5 @@
 import { chakra, Code, createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const ContractVerificationFieldCompiler = ({ isVyper, isStylus, config }: Props) => {
+  const { t } = useTranslation();
   const [ isNightly, setIsNightly ] = React.useState(false);
   const { formState, getValues, resetField } = useFormContext<FormFields>();
 
@@ -70,7 +72,7 @@ const ContractVerificationFieldCompiler = ({ isVyper, isStylus, config }: Props)
       disabled={ formState.isSubmitting }
       size="sm"
     >
-      Include nightly builds
+      { t('contractVerification.includeNightlyBuilds') }
     </Checkbox>
   ) : null;
 
@@ -78,18 +80,18 @@ const ContractVerificationFieldCompiler = ({ isVyper, isStylus, config }: Props)
     <ContractVerificationFormRow>
       <FormFieldSelectAsync<FormFields, 'compiler'>
         name="compiler"
-        placeholder="Compiler"
+        placeholder={ t('contractVerification.compilerPlaceholder') }
         loadOptions={ loadOptions }
         extraControls={ extraControls }
         required
       />
       { isVyper || isStylus ? null : (
         <chakra.div>
-          <span >The compiler version is specified in </span>
+          <span>{ t('contractVerification.compilerVersionNote1') }</span>
           <Code color="text.secondary">pragma solidity X.X.X</Code>
-          <span>. Use the compiler version rather than the nightly build. If using the Solidity compiler, run </span>
+          <span>{ t('contractVerification.compilerVersionNote2') }</span>
           <Code color="text.secondary">solc —version</Code>
-          <span> to check.</span>
+          <span>{ t('contractVerification.compilerVersionNote3') }</span>
         </chakra.div>
       ) }
     </ContractVerificationFormRow>

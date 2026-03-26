@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { SmartContractVerificationConfig } from 'types/client/contract';
@@ -13,27 +14,27 @@ const MAIN_SOURCES_TYPES = [ '.vy' as const ];
 const INTERFACE_TYPES = [ '.vy' as const, '.json' as const ];
 
 const ContractVerificationVyperMultiPartFile = ({ config }: { config: SmartContractVerificationConfig }) => {
+  const { t } = useTranslation();
 
   const interfacesHint = (
     <>
-      <span>Add any </span>
-      <Link href="https://docs.vyperlang.org/en/stable/interfaces.html" external noIcon>required interfaces</Link>
-      <span> for the main compiled contract.</span>
+      <span>{ t('contractVerification.methodVyperMultiPartInterfacesHintBefore') }</span>
+      <Link href="https://docs.vyperlang.org/en/stable/interfaces.html" external noIcon>
+        { t('contractVerification.methodVyperMultiPartInterfacesHintLink') }
+      </Link>
+      <span>{ t('contractVerification.methodVyperMultiPartInterfacesHintAfter') }</span>
     </>
   );
 
   return (
-    <ContractVerificationMethod title="Contract verification via Vyper (multi-part files)">
+    <ContractVerificationMethod title={ t('contractVerification.methodVyperMultiPartTitle') }>
       <ContractVerificationFieldCompiler config={ config } isVyper/>
       <ContractVerificationFieldEvmVersion isVyper config={ config }/>
       <ContractVerificationFieldSources
         name="sources"
         fileTypes={ MAIN_SOURCES_TYPES }
-        title="Upload main *.vy source"
-        hint={ `
-          Primary compiled Vyper contract. 
-          Only add the main contract here whose bytecode has been deployed, all other files can be uploaded to the interfaces box below.
-        ` }
+        title={ t('contractVerification.methodVyperMultiPartSourcesTitle') }
+        hint={ t('contractVerification.methodVyperMultiPartSourcesHint') }
         required
       />
       <ContractVerificationFieldSources
@@ -41,7 +42,7 @@ const ContractVerificationVyperMultiPartFile = ({ config }: { config: SmartContr
         fileTypes={ INTERFACE_TYPES }
         multiple
         fullFilePath
-        title="Interfaces (.vy or .json)"
+        title={ t('contractVerification.methodVyperMultiPartInterfacesTitle') }
         hint={ interfacesHint }
       />
     </ContractVerificationMethod>

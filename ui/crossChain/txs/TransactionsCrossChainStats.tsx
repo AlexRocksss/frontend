@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -8,6 +9,7 @@ import StatsWidget from 'ui/shared/stats/StatsWidget';
 interface Props {}
 
 const TransactionsCrossChainStats = (props: Props) => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError } = useApiQuery('interchainIndexer:stats_daily', {
     queryOptions: {
       placeholderData: INTERCHAIN_STATS_DAILY,
@@ -28,7 +30,7 @@ const TransactionsCrossChainStats = (props: Props) => {
       { ...props }
     >
       <StatsWidget
-        label="Cross-chain txns"
+        label={ t('crossChain.crossChainTxnsLabel') }
         value={ Number(data.daily_messages).toLocaleString() }
         period="24h"
         isLoading={ isPlaceholderData }

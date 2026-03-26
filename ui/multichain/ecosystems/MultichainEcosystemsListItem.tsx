@@ -1,4 +1,5 @@
 import { chakra, Grid, HStack, Stat } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => {
+  const { t } = useTranslation();
   const activeAddresses = {
     value: data.active_accounts?.current_full_week ? Number(data.active_accounts.current_full_week) : 0,
     delta: data.active_accounts?.wow_diff_percent ? Number(data.active_accounts.wow_diff_percent) : 0,
@@ -44,7 +46,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
             loading={ isLoading }
             maxW="100%"
           >
-            <TruncatedText text={ chainInfo?.name ?? 'Unknown chain' } loading={ isLoading }/>
+            <TruncatedText text={ chainInfo?.name ?? t('multichain.unknownChain') } loading={ isLoading }/>
           </Link>
         </HStack>
         <HStack gap={ 0 } flexShrink={ 0 }>
@@ -54,7 +56,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
       </HStack>
       <Grid gridTemplateColumns="140px 1fr" columnGap={ 2 } rowGap={ 3 }>
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
-          <span>Active addresses</span>
+          <span>{ t('multichain.activeAddresses') }</span>
           <chakra.span color="text.secondary"> 7D</chakra.span>
         </Skeleton>
         <HStack gap={ 1 }>
@@ -74,7 +76,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
         </HStack>
 
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
-          <span>New addresses</span>
+          <span>{ t('multichain.newAddresses') }</span>
           <chakra.span color="text.secondary"> 7D</chakra.span>
         </Skeleton>
         <HStack gap={ 1 }>
@@ -94,7 +96,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
         </HStack>
 
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
-          <span>Daily txs</span>
+          <span>{ t('multichain.dailyTxs') }</span>
           <chakra.span color="text.secondary"> 7D</chakra.span>
         </Skeleton>
         <HStack gap={ 1 }>
@@ -114,7 +116,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
         </HStack>
 
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
-          <span>TPS</span>
+          <span>{ t('multichain.tps') }</span>
         </Skeleton>
         <Skeleton loading={ isLoading }>
           <span>{ Number(data.tps ?? 0).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>

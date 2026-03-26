@@ -1,4 +1,5 @@
 import { Box, createListCollection, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,6 +27,7 @@ const sortCollection = createListCollection({
 });
 
 const HotContracts = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [ interval, setInterval ] = React.useState<HotContractsInterval>(getIntervalValueFromQuery(router.query.scale));
   const [ sort, setSort ] =
@@ -114,13 +116,13 @@ const HotContracts = () => {
   return (
     <>
       <PageTitle
-        title="Hot contracts"
+        title={ t('pages.hotContracts') }
         withTextAd
       />
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no hot contracts."
+        emptyText={ t('pages.noHotContracts') }
         actionBar={ actionBar }
         hasActiveFilters={ Boolean(interval) }
         emptyStateProps={{

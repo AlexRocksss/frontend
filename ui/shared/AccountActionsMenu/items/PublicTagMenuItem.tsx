@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -9,6 +10,7 @@ import IconSvg from 'ui/shared/IconSvg';
 import ButtonItem from '../parts/ButtonItem';
 
 const PublicTagMenuItem = ({ hash, type }: ItemProps) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const handleClick = React.useCallback(() => {
@@ -18,14 +20,14 @@ const PublicTagMenuItem = ({ hash, type }: ItemProps) => {
   switch (type) {
     case 'button': {
       // FIXME use non-navigation icon
-      return <ButtonItem label="Add public tag" icon="navigation/public_tags" onClick={ handleClick }/>;
+      return <ButtonItem label={ t('action.addPublicTag') } icon="navigation/public_tags" onClick={ handleClick }/>;
     }
     case 'menu_item': {
       return (
         <MenuItem onClick={ handleClick } value="add-public-tag">
           { /* FIXME use non-navigation icon */ }
           <IconSvg name="navigation/public_tags" boxSize={ 6 }/>
-          <span>Add public tag</span>
+          <span>{ t('action.addPublicTag') }</span>
         </MenuItem>
       );
     }

@@ -1,4 +1,5 @@
 import { GridItem, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { OptimisticL2BlobTypeEip4844 } from 'types/api/optimisticL2';
@@ -16,20 +17,21 @@ interface Props {
 }
 
 const OptimisticL2TxnBatchBlobEip4844 = ({ blobs, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <VStack rowGap={ 2 } w="100%">
       { blobs.map((blob) => {
         return (
           <OptimisticL2TxnBatchBlobWrapper key={ blob.hash } isLoading={ isLoading }>
-            <GridItem fontWeight={ 600 }>Versioned hash</GridItem>
+            <GridItem fontWeight={ 600 }>{ t('txnBatches.versionedHashLabel') }</GridItem>
             <GridItem overflow="hidden">
               <BlobEntityL1 hash={ blob.hash }/>
             </GridItem>
-            <GridItem fontWeight={ 600 }>Timestamp</GridItem>
+            <GridItem fontWeight={ 600 }>{ t('txnBatches.timestampLabel') }</GridItem>
             <GridItem overflow="hidden">
               <DetailedInfoTimestamp timestamp={ blob.l1_timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }}/>
             </GridItem>
-            <GridItem fontWeight={ 600 }>{ layerLabels.parent } txn hash</GridItem>
+            <GridItem fontWeight={ 600 }>{ t('txnBatches.parentTxHashLabel', { parent: layerLabels.parent }) }</GridItem>
             <GridItem overflow="hidden">
               <TxEntityL1 hash={ blob.l1_transaction_hash } noIcon/>
             </GridItem>

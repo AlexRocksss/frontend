@@ -1,6 +1,7 @@
 import type { GridProps, HTMLChakraProps } from '@chakra-ui/react';
 import { Box, Grid, Flex, Text, VStack } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { CustomLinksGroup } from 'types/footerLinks';
@@ -11,7 +12,6 @@ import useApiQuery from 'lib/api/useApiQuery';
 import useFetch from 'lib/hooks/useFetch';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
-import { copy } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import NetworkAddToWallet from 'ui/shared/NetworkAddToWallet';
@@ -26,6 +26,7 @@ const FRONT_VERSION_URL = `https://github.com/blockscout/frontend/tree/${ config
 const FRONT_COMMIT_URL = `https://github.com/blockscout/frontend/commit/${ config.UI.footer.frontendCommit }`;
 
 const Footer = () => {
+  const { t } = useTranslation();
 
   const { data: backendVersionData } = useApiQuery('general:config_backend_version', {
     queryOptions: {
@@ -129,7 +130,7 @@ const Footer = () => {
     return (
       <Box gridArea={ gridArea }>
         <Flex columnGap={ 2 } textStyle="xs" alignItems="center">
-          <span>Made with</span>
+          <span>{ t('footer.madeWith') }</span>
           <Link href="https://www.blockscout.com" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
             <IconSvg
               name="networks/logo-placeholder"
@@ -139,26 +140,26 @@ const Footer = () => {
           </Link>
         </Flex>
         <Text mt={ 3 } fontSize="xs">
-          Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.
+          { t('footer.description') }
         </Text>
         <Box mt={ 6 } alignItems="start" textStyle="xs">
           { apiVersionUrl && (
             <Text>
-              Backend: <Link href={ apiVersionUrl } external noIcon>{ backendVersionData?.backend_version }</Link>
+              { t('footer.backend') } <Link href={ apiVersionUrl } external noIcon>{ backendVersionData?.backend_version }</Link>
             </Text>
           ) }
           { frontendLink && (
             <Text>
-              Frontend: { frontendLink }
+              { t('footer.frontend') } { frontendLink }
             </Text>
           ) }
           <Text>
-            Copyright { copy } Blockscout Limited 2023-{ (new Date()).getFullYear() }
+            { t('footer.copyright', { year: (new Date()).getFullYear() }) }
           </Text>
         </Box>
       </Box>
     );
-  }, [ apiVersionUrl, backendVersionData?.backend_version, frontendLink ]);
+  }, [ apiVersionUrl, backendVersionData?.backend_version, frontendLink, t ]);
 
   const containerProps: HTMLChakraProps<'div'> = {
     as: 'footer',
@@ -182,11 +183,11 @@ const Footer = () => {
 
     return (
       <Box gridArea={ gridArea } textStyle="xs" mt={ 6 }>
-        <span>This site is protected by reCAPTCHA and the Google </span>
-        <Link href="https://policies.google.com/privacy" external noIcon>Privacy Policy</Link>
-        <span> and </span>
-        <Link href="https://policies.google.com/terms" external noIcon>Terms of Service</Link>
-        <span> apply.</span>
+        <span>{ t('footer.recaptcha_pre') } </span>
+        <Link href="https://policies.google.com/privacy" external noIcon>{ t('footer.recaptcha_privacyPolicy') }</Link>
+        <span> { t('footer.recaptcha_and') } </span>
+        <Link href="https://policies.google.com/terms" external noIcon>{ t('footer.recaptcha_terms') }</Link>
+        <span> { t('footer.recaptcha_post') }</span>
       </Box>
     );
   };

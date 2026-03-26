@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ValidatorZilliqa } from 'types/api/validators';
@@ -19,13 +20,14 @@ interface Props {
 }
 
 const ValidatorDetails = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
-        hint="Index of the staker in the committee"
+        hint={ t('validators.indexHint') }
         isLoading={ isLoading }
       >
-        Index
+        { t('validators.indexLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isLoading } display="inline">
@@ -34,10 +36,10 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Staker's balance"
+        hint={ t('validators.stakedHint') }
         isLoading={ isLoading }
       >
-        Staked
+        { t('validators.stakedLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <NativeCoinValue
@@ -48,10 +50,10 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="libp2p peer ID, corresponding to the staker's BLS public key"
+        hint={ t('validators.peerIdHint') }
         isLoading={ isLoading }
       >
-        Peer ID
+        { t('validators.peerIdLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Flex alignItems="center" w="100%" minWidth={ 0 }>
@@ -63,50 +65,50 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="The address used for authenticating requests from this staker to the deposit contract"
+        hint={ t('validators.controlAddressHint') }
         isLoading={ isLoading }
       >
-        Control address
+        { t('validators.controlAddressLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressEntity address={ data.control_address } isLoading={ isLoading }/>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="The address which rewards for this staker will be sent to"
+        hint={ t('validators.rewardAddressHint') }
         isLoading={ isLoading }
       >
-        Reward address
+        { t('validators.rewardAddressLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressEntity address={ data.reward_address } isLoading={ isLoading }/>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="The address whose key the validator uses to sign cross-chain events"
+        hint={ t('validators.signingAddressHint') }
         isLoading={ isLoading }
       >
-        Signing address
+        { t('validators.signingAddressLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressEntity address={ data.signing_address } isLoading={ isLoading }/>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Block number at which the staker was added"
+        hint={ t('validators.addedAtBlockHint') }
         isLoading={ isLoading }
       >
-        Added at block
+        { t('validators.addedAtBlockLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <BlockEntity number={ data.added_at_block_number } isLoading={ isLoading }/>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="Block number at which the staker's stake was last updated"
+        hint={ t('validators.stakeUpdatedHint') }
         isLoading={ isLoading }
       >
-        Stake updated
+        { t('validators.stakeUpdatedLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <BlockEntity number={ data.stake_updated_at_block_number } isLoading={ isLoading }/>

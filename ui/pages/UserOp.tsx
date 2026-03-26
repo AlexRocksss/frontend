@@ -1,4 +1,5 @@
 import { inRange } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -22,6 +23,7 @@ import UserOpRaw from 'ui/userOp/UserOpRaw';
 import UserOpSubHeading from 'ui/userOp/UserOpSubHeading';
 
 const UserOp = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const hash = getQueryParamString(router.query.hash);
 
@@ -87,7 +89,7 @@ const UserOp = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title="User operation details"
+        title={ t('pages.userOpDetails') }
         secondRow={ titleSecondRow }
       />
       <RoutedTabs tabs={ tabs } isLoading={ userOpQuery.isPlaceholderData }/>

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -17,6 +18,7 @@ import Pagination from 'ui/shared/pagination/Pagination';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 
 const TacOperations = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [ searchTerm, setSearchTerm ] = React.useState(getQueryParamString(router.query.q) || undefined);
 
@@ -46,7 +48,7 @@ const TacOperations = () => {
       w={{ base: '100%', lg: '460px' }}
       size="sm"
       onChange={ handleSearchTermChange }
-      placeholder="Search by operation, tx hash, sender"
+      placeholder={ t('pages.tacOperationsSearchPlaceholder') }
       initialValue={ searchTerm }
     />
   );
@@ -89,11 +91,11 @@ const TacOperations = () => {
 
   return (
     <>
-      <PageTitle title="Operations" withTextAd/>
+      <PageTitle title={ t('pages.operations') } withTextAd/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items?.length }
-        emptyText="There are no operations."
+        emptyText={ t('pages.noOperations') }
         hasActiveFilters={ Boolean(debouncedSearchTerm) }
         emptyStateProps={{
           term: 'operation',

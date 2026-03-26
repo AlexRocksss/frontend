@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -8,6 +9,7 @@ import { VERIFIED_CONTRACTS_COUNTERS, VERIFIED_CONTRACTS_COUNTERS_MICROSERVICE }
 import StatsWidget from 'ui/shared/stats/StatsWidget';
 
 const VerifiedContractsCounters = () => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
 
   const chainConfig = multichainContext?.chain.app_config || config;
@@ -46,7 +48,7 @@ const VerifiedContractsCounters = () => {
   return (
     <Box columnGap={ 3 } rowGap={ 3 } mb={ 6 } display="grid" gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}>
       <StatsWidget
-        label="Total contracts"
+        label={ t('verifiedContracts.totalContracts') }
         value={ Number(contractsCount).toLocaleString() }
         diff={ newContractsCount }
         diffFormatted={ Number(newContractsCount).toLocaleString() }
@@ -55,7 +57,7 @@ const VerifiedContractsCounters = () => {
         // href={ config.features.stats.isEnabled ? { pathname: '/stats/[id]', query: { id: 'contractsGrowth' } } : undefined }
       />
       <StatsWidget
-        label="Verified contracts"
+        label={ t('verifiedContracts.verifiedContracts') }
         value={ Number(verifiedContractsCount).toLocaleString() }
         diff={ newVerifiedContractsCount }
         diffFormatted={ Number(newVerifiedContractsCount).toLocaleString() }

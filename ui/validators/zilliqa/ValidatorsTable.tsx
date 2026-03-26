@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ValidatorsZilliqaItem } from 'types/api/validators';
@@ -14,14 +15,15 @@ interface Props {
 }
 
 const ValidatorsTable = ({ data, isLoading, top }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot>
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader width="50%">BLS public key</TableColumnHeader>
-          <TableColumnHeader width="15%">Index</TableColumnHeader>
+          <TableColumnHeader width="50%">{ t('validators.blsPublicKeyHeader') }</TableColumnHeader>
+          <TableColumnHeader width="15%">{ t('validators.indexHeader') }</TableColumnHeader>
           <TableColumnHeader width="35%" isNumeric>
-            Staked { config.chain.currency.symbol }
+            { t('validators.stakedHeader', { symbol: config.chain.currency.symbol }) }
           </TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>

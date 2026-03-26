@@ -1,4 +1,5 @@
 import { upperFirst } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxAuthorization } from 'types/api/transaction';
@@ -12,6 +13,7 @@ export interface Props extends BadgeProps {
 }
 
 const TxAuthorizationStatus = ({ status, ...rest }: Props) => {
+  const { t } = useTranslation();
 
   const type = (() => {
     if (!status) {
@@ -25,10 +27,10 @@ const TxAuthorizationStatus = ({ status, ...rest }: Props) => {
 
   const text = (() => {
     if (!status) {
-      return 'Pending';
+      return t('status.pending');
     }
     if (status === 'ok') {
-      return 'Success';
+      return t('status.success');
     }
     return upperFirst(status.replace('_', ' '));
   })();

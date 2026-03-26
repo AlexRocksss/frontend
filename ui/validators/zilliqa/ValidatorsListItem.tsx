@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ValidatorsZilliqaItem } from 'types/api/validators';
@@ -13,11 +14,12 @@ interface Props {
 }
 
 const ValidatorsListItem = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <ListItemMobileGrid.Container>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>BLS public key</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.blsPublicKeyLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <ValidatorEntity
           isLoading={ isLoading }
@@ -25,14 +27,14 @@ const ValidatorsListItem = ({ data, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.indexLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">
           { data.index }
         </Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Balance</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.balanceLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <NativeCoinValue
           amount={ data.balance }

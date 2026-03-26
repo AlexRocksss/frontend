@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as bens from '@blockscout/bens-types';
@@ -18,13 +19,15 @@ interface Props {
 }
 
 const NameDomainsTable = ({ data, isLoading, sort, onSortToggle }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <AddressHighlightProvider>
       <TableRoot>
         <TableHeaderSticky top={ ACTION_BAR_HEIGHT_DESKTOP }>
           <TableRow>
-            <TableColumnHeader width="25%">Domain</TableColumnHeader>
-            <TableColumnHeader width="25%">Address</TableColumnHeader>
+            <TableColumnHeader width="25%">{ t('nameServices.domainHeader') }</TableColumnHeader>
+            <TableColumnHeader width="25%">{ t('nameServices.addressHeader') }</TableColumnHeader>
             <TableColumnHeaderSortable
               width="25%"
               pl={ 9 }
@@ -33,10 +36,10 @@ const NameDomainsTable = ({ data, isLoading, sort, onSortToggle }: Props) => {
               onSortToggle={ onSortToggle }
               contentAfter={ <TimeFormatToggle/> }
             >
-              Registered
+              { t('nameServices.registeredHeader') }
             </TableColumnHeaderSortable>
             <TableColumnHeader width="25%">
-              Expires
+              { t('nameServices.expiresHeader') }
               <TimeFormatToggle/>
             </TableColumnHeader>
           </TableRow>

@@ -1,4 +1,5 @@
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const ScrollL2TxnBatchDetails = ({ query }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { data, isPlaceholderData, isError, error } = query;
@@ -60,9 +62,9 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
     >
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Batch number indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }` }
+        hint={ t('txnBatches.batchNumberHint', { current: layerLabels.current, parent: layerLabels.parent }) }
       >
-        Txn batch number
+        { t('txnBatches.batchNumberLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -71,8 +73,8 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
         <PrevNext
           ml={ 6 }
           onClick={ handlePrevNextClick }
-          prevLabel="View previous txn batch"
-          nextLabel="View next txn batch"
+          prevLabel={ t('txnBatches.prevBatchLabel') }
+          nextLabel={ t('txnBatches.nextBatchLabel') }
           isPrevDisabled={ data.number === 0 }
           isLoading={ isPlaceholderData }
         />
@@ -80,9 +82,9 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Data availability container"
+        hint={ t('txnBatches.containerHint') }
       >
-        Container
+        { t('txnBatches.containerLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <ScrollL2TxnBatchDA container={ data.data_availability.batch_data_container } isLoading={ isPlaceholderData }/>
@@ -90,9 +92,9 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Status of this batch"
+        hint={ t('txnBatches.statusHintScroll') }
       >
-        Status
+        { t('txnBatches.statusLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <ScrollL2TxnBatchStatus status={ data.confirmation_transaction.hash ? 'Finalized' : 'Committed' } isLoading={ isPlaceholderData }/>
@@ -100,14 +102,14 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Date and time at which batch is finalized to ${ layerLabels.parent }` }
+        hint={ t('txnBatches.finalizedTimestampHint', { parent: layerLabels.parent }) }
       >
-        Finalized timestamp
+        { t('txnBatches.finalizedTimestampLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.confirmation_transaction.timestamp ?
           <DetailedInfoTimestamp timestamp={ data.confirmation_transaction.timestamp } isLoading={ isPlaceholderData }/> :
-          <Skeleton loading={ isPlaceholderData } display="inline-block">Pending</Skeleton>
+          <Skeleton loading={ isPlaceholderData } display="inline-block">{ t('txnBatches.pending') }</Skeleton>
         }
       </DetailedInfo.ItemValue>
 
@@ -115,9 +117,9 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
         <>
           <DetailedInfo.ItemLabel
             isLoading={ isPlaceholderData }
-            hint="Number of transactions in this batch"
+            hint={ t('txnBatches.transactionsHint') }
           >
-            Transactions
+            { t('txnBatches.transactionsLabel') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Link loading={ isPlaceholderData } href={ route({ pathname: '/batches/[number]', query: { number: data.number.toString(), tab: 'txs' } }) }>
@@ -129,9 +131,9 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Number of ${ layerLabels.current } blocks in this batch` }
+        hint={ t('txnBatches.blocksHint', { current: layerLabels.current }) }
       >
-        Blocks
+        { t('txnBatches.blocksLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Link loading={ isPlaceholderData } href={ route({ pathname: '/batches/[number]', query: { number: data.number.toString(), tab: 'blocks' } }) }>
@@ -141,22 +143,22 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Date and time at which batch is committed to ${ layerLabels.parent }` }
+        hint={ t('txnBatches.committedTimestampHint', { parent: layerLabels.parent }) }
       >
-        Committed timestamp
+        { t('txnBatches.committedTimestampLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.commitment_transaction.timestamp ?
           <DetailedInfoTimestamp timestamp={ data.commitment_transaction.timestamp } isLoading={ isPlaceholderData }/> :
-          <Skeleton loading={ isPlaceholderData } display="inline-block">Pending</Skeleton>
+          <Skeleton loading={ isPlaceholderData } display="inline-block">{ t('txnBatches.pending') }</Skeleton>
         }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Hash of ${ layerLabels.parent } transaction this batch was committed in` }
+        hint={ t('txnBatches.committedTxHashHint', { parent: layerLabels.parent }) }
       >
-        Committed transaction hash
+        { t('txnBatches.committedTxHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue alignSelf="flex-start">
         <TxEntityL1
@@ -170,9 +172,9 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `${ layerLabels.parent } block that includes transaction with this batch commitment` }
+        hint={ t('txnBatches.committedBlockHint', { parent: layerLabels.parent }) }
       >
-        Committed block
+        { t('txnBatches.committedBlockLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <BlockEntityL1
@@ -183,9 +185,9 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `Hash of ${ layerLabels.parent } transaction this batch was finalized in` }
+        hint={ t('txnBatches.finalizedTxHashHint', { parent: layerLabels.parent }) }
       >
-        Finalized transaction hash
+        { t('txnBatches.finalizedTxHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue alignSelf="flex-start">
         { data.confirmation_transaction.hash ? (
@@ -195,14 +197,14 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
             maxW="100%"
             noCopy
           />
-        ) : <Skeleton loading={ isPlaceholderData } display="inline-block">Pending</Skeleton> }
+        ) : <Skeleton loading={ isPlaceholderData } display="inline-block">{ t('txnBatches.pending') }</Skeleton> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint={ `${ layerLabels.parent } block that includes transaction with this batch finalization data` }
+        hint={ t('txnBatches.finalizedBlockHint', { parent: layerLabels.parent }) }
       >
-        Finalized block
+        { t('txnBatches.finalizedBlockLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.confirmation_transaction.block_number ? (
@@ -210,7 +212,7 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
             isLoading={ isPlaceholderData }
             number={ data.confirmation_transaction.block_number }
           />
-        ) : <Skeleton loading={ isPlaceholderData } display="inline-block">Pending</Skeleton> }
+        ) : <Skeleton loading={ isPlaceholderData } display="inline-block">{ t('txnBatches.pending') }</Skeleton> }
       </DetailedInfo.ItemValue>
     </DetailedInfo.Container>
   );

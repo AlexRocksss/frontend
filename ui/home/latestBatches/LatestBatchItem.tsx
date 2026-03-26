@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -18,6 +19,7 @@ type Props = {
 };
 
 const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animation }: Props) => {
+  const { t } = useTranslation();
   return (
     <Box
       animation={ animation }
@@ -49,7 +51,7 @@ const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animat
       </Flex>
       <Flex alignItems="center" justifyContent="space-between" w="100%" flexWrap="wrap" textStyle="sm">
         <Flex alignItems="center">
-          <Skeleton loading={ isLoading } mr={ 2 }>Txn</Skeleton>
+          <Skeleton loading={ isLoading } mr={ 2 }>{ t('home.txnAbbr') }</Skeleton>
           <Link
             href={ route({ pathname: '/batches/[number]', query: { number: number.toString(), tab: 'txs' } }) }
             loading={ isLoading }

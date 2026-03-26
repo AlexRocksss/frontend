@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -16,6 +17,7 @@ import Pagination from 'ui/shared/pagination/Pagination';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 
 const Pools = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const q = getQueryParamString(router.query.query);
 
@@ -63,7 +65,7 @@ const Pools = () => {
       w={{ base: '100%', lg: '360px' }}
       size="sm"
       onChange={ handleSearchTermChange }
-      placeholder="Pair, token symbol or token address"
+      placeholder={ t('pages.poolSearchPlaceholder') }
       initialValue={ searchTerm }
     />
   );
@@ -88,13 +90,13 @@ const Pools = () => {
   return (
     <>
       <PageTitle
-        title="DEX tracker"
+        title={ t('pages.dexTracker') }
         withTextAd
       />
       <DataListDisplay
         isError={ poolsQuery.isError }
         itemsNum={ poolsQuery.data?.items.length }
-        emptyText="There are no pools."
+        emptyText={ t('pages.noPools') }
         actionBar={ actionBar }
         hasActiveFilters={ Boolean(debouncedSearchTerm) }
         emptyStateProps={{

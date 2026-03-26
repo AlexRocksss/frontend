@@ -1,4 +1,5 @@
 import { Text, Box, Flex, Center } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -17,6 +18,7 @@ type Props = {
 };
 
 const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
+  const { t } = useTranslation();
   const { referralsQuery, rewardsConfigQuery } = useRewardsContext();
 
   const registrationReward = Number(rewardsConfigQuery.data?.rewards?.registration);
@@ -53,11 +55,11 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
             <Flex flexDirection="column" justifyContent="space-between" gap={ 2 }>
               { [
                 {
-                  title: 'Registration',
+                  title: t('rewards.congratsRegistrationTitle'),
                   value: registrationReward || 'N/A',
                 },
                 {
-                  title: 'Referral program',
+                  title: t('rewards.congratsReferralTitle'),
                   value: referralReward || 'N/A',
                 },
               ].map(({ title, value }) => (
@@ -88,21 +90,18 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
             <IconSvg name="profile" boxSize={ 5 }/>
           </Center>
           <Text fontSize="lg" fontWeight="500">
-            Referral program
+            { t('rewards.congratsReferralHeading') }
           </Text>
         </Flex>
         <Text fontSize="md" mt={ 2 }>
-          Receive a{ ' ' }
-          <Skeleton as="span" loading={ rewardsConfigQuery.isLoading }>
-            { rewardsConfigQuery.data?.rewards?.referral_share ?
-              `${ Number(rewardsConfigQuery.data.rewards.referral_share) * 100 }%` :
-              'N/A'
-            }
-          </Skeleton>
-          { ' ' }bonus on all Merits earned by your referrals
+          { t('rewards.congratsReceiveBonus', {
+            share: rewardsConfigQuery.data?.rewards?.referral_share ?
+              Number(rewardsConfigQuery.data.rewards.referral_share) * 100 :
+              'N/A',
+          }) }
         </Text>
         <RewardsReadOnlyInputWithCopy
-          label="Referral link"
+          label={ t('rewards.congratsReferralLink') }
           value={ refLink }
           isLoading={ referralsQuery.isLoading }
           mt={ 3 }
@@ -111,7 +110,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
         <Skeleton loading={ referralsQuery.isLoading } mt={ 6 }>
           <Button asChild>
             <a href={ `https://x.com/intent/tweet?text=${ encodeURIComponent(shareText) }` } target="_blank" rel="noopener noreferrer">
-              Share on <IconSvg name="social/twitter" boxSize={ 6 } ml={ 1 }/>
+              { t('rewards.congratsShareOn') } <IconSvg name="social/twitter" boxSize={ 6 } ml={ 1 }/>
             </a>
           </Button>
         </Skeleton>
@@ -128,15 +127,14 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
             <IconSvg name="navigation/stats" boxSize={ 6 }/>
           </Center>
           <Text fontSize="lg" fontWeight="500">
-            Dashboard
+            { t('rewards.congratsDashboardHeading') }
           </Text>
         </Flex>
         <Text fontSize="md" mt={ 2 }>
-          Explore your current Merits balance, find activities to boost your Merits,
-          and view your capybara NFT badge collection on the dashboard
+          { t('rewards.congratsDashboardText') }
         </Text>
         <Button asChild mt={ 3 }>
-          <a href={ route({ pathname: '/account/merits' }) }>Open</a>
+          <a href={ route({ pathname: '/account/merits' }) }>{ t('rewards.congratsOpen') }</a>
         </Button>
       </Flex>
     </>

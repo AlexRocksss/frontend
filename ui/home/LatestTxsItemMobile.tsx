@@ -5,6 +5,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -28,6 +29,7 @@ type Props = {
 };
 
 const LatestTxsItem = ({ tx, isLoading }: Props) => {
+  const { t } = useTranslation();
   const dataTo = tx.to ? tx.to : tx.created_contract;
 
   const protocolTag = tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
@@ -82,7 +84,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         <VStack rowGap={ 2 } mt={ 3 } alignItems="flex-start">
           { !config.UI.views.tx.hiddenFields?.value && (
             <Skeleton loading={ isLoading } w="fit-content">
-              <Text as="span">Value </Text>
+              <Text as="span">{ t('home.valueLabel') }</Text>
               <NativeCoinValue
                 amount={ tx.value }
                 accuracy={ 5 }
@@ -93,7 +95,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
           ) }
           { !config.UI.views.tx.hiddenFields?.tx_fee && (
             <Skeleton loading={ isLoading } w="fit-content" display="flex" whiteSpace="pre">
-              <Text as="span">Fee </Text>
+              <Text as="span">{ t('home.feeLabel') }</Text>
               <TxFee tx={ tx } accuracy={ 5 } color="text.secondary" noUsd/>
             </Skeleton>
           ) }

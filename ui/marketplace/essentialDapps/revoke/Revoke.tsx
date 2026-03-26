@@ -1,5 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { getEnsAddress } from '@wagmi/core';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { useMemo, useCallback, useEffect, useState } from 'react';
 import { isAddress } from 'viem';
@@ -37,6 +38,7 @@ const defaultChainId = (
 ) as string;
 
 const Revoke = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { updateQuery } = useQueryParams();
   const chainIdFromQuery: string | undefined = getQueryParamString(router.query.chainId);
@@ -118,7 +120,7 @@ const Revoke = () => {
       />
     ) : (
       <EmptyState
-        description={ `The input "${ searchAddress }" is not correct. Enter a correct 0x address to search` }
+        description={ t('marketplace.revokeInvalidAddress', { address: searchAddress }) }
       />
     );
   }
@@ -146,7 +148,7 @@ const Revoke = () => {
             }}
           >
             <Text textStyle="sm" fontWeight="500" color="text.secondary">
-              Examples
+              { t('marketplace.revokeExamples') }
             </Text>
             { [
               '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
@@ -174,8 +176,8 @@ const Revoke = () => {
           <Flex gap={ 3 } w={{ base: 'full', md: 'auto' }}>
             { connectedAddress ? (
               <Flex gap={ 2 } alignItems="center" flexShrink={ 0 }>
-                <Text textStyle="sm" fontWeight="500" color="text.secondary">My wallet</Text>
-                <Tooltip content="Click to see your approvals" disableOnMobile>
+                <Text textStyle="sm" fontWeight="500" color="text.secondary">{ t('marketplace.revokeMyWallet') }</Text>
+                <Tooltip content={ t('marketplace.revokeClickToSeeApprovals') } disableOnMobile>
                   <Button
                     variant="plain"
                     size="sm"
@@ -200,10 +202,10 @@ const Revoke = () => {
                 variant="outline"
                 onClick={ web3Wallet.connect }
                 loading={ web3Wallet.isOpen }
-                loadingText="Connect wallet"
+                loadingText={ t('marketplace.revokeConnectWallet') }
                 flexShrink={ 0 }
               >
-                Connect wallet
+                { t('marketplace.revokeConnectWallet') }
               </Button>
             ) }
             <ChainSelect

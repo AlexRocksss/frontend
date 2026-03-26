@@ -1,4 +1,5 @@
 import { chakra, Box, Flex, Spinner } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import delay from 'lib/delay';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const UserProfileContentWallet = ({ onClose, className }: Props) => {
+  const { t } = useTranslation();
   const web3Wallet = useWeb3Wallet({ source: 'Profile dropdown' });
 
   const web3AccountWithDomain = useWeb3AccountWithDomain(true);
@@ -59,7 +61,7 @@ const UserProfileContentWallet = ({ onClose, className }: Props) => {
           />
           { web3Wallet.isReconnecting ? <Spinner size="sm" m="2px" flexShrink={ 0 }/> : (
             <IconButton
-              aria-label="Open wallet"
+              aria-label={ t('userProfile.openWallet') }
               variant="icon_secondary"
               size="2xs"
               onClick={ handleOpenWalletClick }
@@ -77,10 +79,10 @@ const UserProfileContentWallet = ({ onClose, className }: Props) => {
         size="sm"
         onClick={ handleConnectWalletClick }
         loading={ web3Wallet.isOpen }
-        loadingText="Connect Wallet"
+        loadingText={ t('userProfile.connectWalletLoading') }
         w="100%"
       >
-        Connect
+        { t('userProfile.connect') }
       </Button>
     );
   })();
@@ -88,12 +90,12 @@ const UserProfileContentWallet = ({ onClose, className }: Props) => {
   return (
     <Box className={ className }>
       <Flex px={ 1 } mb="1" textStyle="xs" alignItems="center" fontWeight="500">
-        <span>Connected wallet</span>
+        <span>{ t('userProfile.connectedWallet') }</span>
         <Hint
           label={
             web3Wallet.isConnected ?
-              'This wallet is currently connected to Blockscout and used for interacting with apps and smart contracts' :
-              'This wallet is used for interacting with apps and smart contracts'
+              t('userProfile.connectedWalletHint') :
+              t('userProfile.walletHint')
           }
           boxSize={ 4 }
           ml={ 1 }

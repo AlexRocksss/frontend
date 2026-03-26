@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ItemProps } from '../types';
@@ -9,6 +10,7 @@ import { useMetadataUpdateContext } from 'ui/tokenInstance/contexts/metadataUpda
 import ButtonItem from '../parts/ButtonItem';
 
 const MetadataUpdateMenuItem = ({ type }: ItemProps) => {
+  const { t } = useTranslation();
 
   const { status, setStatus } = useMetadataUpdateContext() || {};
 
@@ -21,7 +23,7 @@ const MetadataUpdateMenuItem = ({ type }: ItemProps) => {
       case 'button': {
         return (
           <ButtonItem
-            label="Refresh metadata"
+            label={ t('action.refreshMetadata') }
             icon="refresh"
             onClick={ handleClick }
             isDisabled={ status === 'WAITING_FOR_RESPONSE' }
@@ -32,7 +34,7 @@ const MetadataUpdateMenuItem = ({ type }: ItemProps) => {
         return (
           <MenuItem onClick={ handleClick } disabled={ status === 'WAITING_FOR_RESPONSE' } value="refresh-metadata">
             <IconSvg name="refresh" boxSize={ 5 }/>
-            <span>Refresh metadata</span>
+            <span>{ t('action.refreshMetadata') }</span>
           </MenuItem>
         );
       }

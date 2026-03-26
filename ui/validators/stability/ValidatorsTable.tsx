@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type {
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const ValidatorsTable = ({ data, sort, setSorting, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   const onSortToggle = React.useCallback((field: ValidatorsStabilitySortingField) => {
     const value = getNextSortValue<ValidatorsStabilitySortingField, ValidatorsStabilitySortingValue>(VALIDATORS_STABILITY_SORT_SEQUENCE, field)(sort);
@@ -31,14 +33,14 @@ const ValidatorsTable = ({ data, sort, setSorting, isLoading }: Props) => {
     <TableRoot>
       <TableHeaderSticky top={ ACTION_BAR_HEIGHT_DESKTOP }>
         <TableRow>
-          <TableColumnHeader width="50%">Validator’s address</TableColumnHeader>
+          <TableColumnHeader width="50%">{ t('validators.addressHeader') }</TableColumnHeader>
           <TableColumnHeaderSortable
             width="25%"
             sortField="state"
             sortValue={ sort }
             onSortToggle={ onSortToggle }
           >
-            Status
+            { t('validators.statusHeader') }
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable
             width="25%"
@@ -47,7 +49,7 @@ const ValidatorsTable = ({ data, sort, setSorting, isLoading }: Props) => {
             onSortToggle={ onSortToggle }
             isNumeric
           >
-            Blocks
+            { t('validators.blocksHeader') }
           </TableColumnHeaderSortable>
         </TableRow>
       </TableHeaderSticky>

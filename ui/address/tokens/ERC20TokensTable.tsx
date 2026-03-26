@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressTokensErc20Item } from './types';
@@ -14,15 +15,16 @@ interface Props {
 }
 
 const ERC20TokensTable = ({ data, top, isLoading, hasAdditionalTokenTypes }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot>
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader width="30%">Asset</TableColumnHeader>
-          <TableColumnHeader width="30%">Contract address</TableColumnHeader>
-          <TableColumnHeader width="10%" isNumeric>Price</TableColumnHeader>
-          <TableColumnHeader width="15%" isNumeric>Quantity</TableColumnHeader>
-          <TableColumnHeader width="15%" isNumeric>Value</TableColumnHeader>
+          <TableColumnHeader width="30%">{ t('address.erc20Asset') }</TableColumnHeader>
+          <TableColumnHeader width="30%">{ t('address.erc20ContractAddress') }</TableColumnHeader>
+          <TableColumnHeader width="10%" isNumeric>{ t('address.erc20Price') }</TableColumnHeader>
+          <TableColumnHeader width="15%" isNumeric>{ t('address.erc20Quantity') }</TableColumnHeader>
+          <TableColumnHeader width="15%" isNumeric>{ t('address.erc20Value') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

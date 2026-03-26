@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const TxDetailsTxFee = ({ isLoading, data }: Props) => {
+  const { t } = useTranslation();
 
   if (config.UI.views.tx.hiddenFields?.tx_fee) {
     return null;
@@ -53,8 +55,8 @@ const TxDetailsTxFee = ({ isLoading, data }: Props) => {
         />
         <DetailedInfoItemBreakdown.Container loading={ isLoading }>
           <DetailedInfoItemBreakdown.Row
-            label="Base fee"
-            hint="The minimum network fee charged per transaction"
+            label={ t('tx.baseFee') }
+            hint={ t('tx.hintBaseFee') }
           >
             <NativeCoinValue
               amount={ BigNumber(data.base_fee_per_gas || 0).multipliedBy(data.gas_used || 0).toString() }
@@ -70,8 +72,8 @@ const TxDetailsTxFee = ({ isLoading, data }: Props) => {
             />
           </DetailedInfoItemBreakdown.Row>
           <DetailedInfoItemBreakdown.Row
-            label="Priority fee"
-            hint="An extra fee set by the sender to speed up transaction execution"
+            label={ t('tx.priorityFee') }
+            hint={ t('tx.hintPriorityFee') }
           >
             <NativeCoinValue
               amount={ data.priority_fee || '0' }
@@ -95,10 +97,10 @@ const TxDetailsTxFee = ({ isLoading, data }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint={ data.blob_gas_used ? 'Transaction fee without blob fee' : 'Total transaction fee' }
+        hint={ data.blob_gas_used ? t('tx.hintTransactionFeeWithBlob') : t('tx.hintTransactionFee') }
         isLoading={ isLoading }
       >
-        Transaction fee
+        { t('tx.transactionFee') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
         { content }

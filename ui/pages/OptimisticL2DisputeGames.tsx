@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -14,6 +15,7 @@ import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import StickyPaginationWithText from 'ui/shared/StickyPaginationWithText';
 
 const OptimisticL2DisputeGames = () => {
+  const { t } = useTranslation();
   const { data, isError, isPlaceholderData, pagination } = useQueryWithPages({
     resourceName: 'general:optimistic_l2_dispute_games',
     options: {
@@ -72,11 +74,11 @@ const OptimisticL2DisputeGames = () => {
 
   return (
     <>
-      <PageTitle title="Dispute games" withTextAd/>
+      <PageTitle title={ t('pages.disputeGames') } withTextAd/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no dispute games."
+        emptyText={ t('pages.noDisputeGames') }
         actionBar={ actionBar }
       >
         { content }

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -17,13 +18,14 @@ interface Props {
 }
 
 const TxInternalsTable = ({ data, sort, onSortToggle, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <AddressHighlightProvider>
       <TableRoot>
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader width="28%">Type</TableColumnHeader>
-            <TableColumnHeader width="40%">From/To</TableColumnHeader>
+            <TableColumnHeader width="28%">{ t('tx.type') }</TableColumnHeader>
+            <TableColumnHeader width="40%">{ t('tx.fromTo') }</TableColumnHeader>
             <TableColumnHeaderSortable
               width="16%"
               isNumeric
@@ -31,7 +33,7 @@ const TxInternalsTable = ({ data, sort, onSortToggle, top, isLoading }: Props) =
               sortValue={ sort }
               onSortToggle={ onSortToggle }
             >
-              Value { currencyUnits.ether }
+              { t('tx.valueEther', { ether: currencyUnits.ether }) }
             </TableColumnHeaderSortable>
             <TableColumnHeaderSortable
               width="16%"
@@ -40,7 +42,7 @@ const TxInternalsTable = ({ data, sort, onSortToggle, top, isLoading }: Props) =
               sortValue={ sort }
               onSortToggle={ onSortToggle }
             >
-              Gas limit
+              { t('tx.gasLimit') }
             </TableColumnHeaderSortable>
           </TableRow>
         </TableHeaderSticky>

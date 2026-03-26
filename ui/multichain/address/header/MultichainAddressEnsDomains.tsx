@@ -1,5 +1,6 @@
 import { Box, chakra, Flex, Grid, Text } from '@chakra-ui/react';
 import { clamp } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
@@ -33,6 +34,7 @@ interface Props {
 }
 
 const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => {
+  const { t } = useTranslation();
   const rootRef = React.useRef<HTMLDivElement>(null);
 
   const popover = useDisclosure();
@@ -58,20 +60,20 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
 
   return (
     <PopoverRoot open={ popover.open } onOpenChange={ popover.onOpenChange }>
-      <Tooltip content="List of names resolved or owned by this address" disabled={ popover.open } disableOnMobile closeOnClick>
+      <Tooltip content={ t('multichain.ensDomainsTooltip') } disabled={ popover.open } disableOnMobile closeOnClick>
         <div>
           <PopoverTrigger>
             <Button
               size="sm"
               variant="dropdown"
-              aria-label="Address domains"
+              aria-label={ t('multichain.addressDomainsAriaLabel') }
               fontWeight={ 500 }
               flexShrink={ 0 }
               columnGap={ 1 }
               loadingSkeleton={ isLoading }
             >
               <IconSvg name="ENS" boxSize={ 5 }/>
-              <chakra.span hideBelow="xl">{ totalRecords }{ totalRecordsPostfix } Domain{ totalRecords > 1 ? 's' : '' }</chakra.span>
+              <chakra.span hideBelow="xl">{ t('multichain.domain', { count: totalRecords, postfix: totalRecordsPostfix }) }</chakra.span>
               <chakra.span hideFrom="xl">{ totalRecords }{ totalRecordsPostfix }</chakra.span>
             </Button>
           </PopoverTrigger>
@@ -81,7 +83,7 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
         <PopoverBody textStyle="sm" display="flex" flexDir="column" rowGap={ 5 } alignItems="flex-start">
           { mainDomain && (
             <Box w="100%">
-              <chakra.span color="text.secondary" textStyle="xs">Primary*</chakra.span>
+              <chakra.span color="text.secondary" textStyle="xs">{ t('multichain.primaryDomain') }</chakra.span>
               <Flex alignItems="center" textStyle="md" mt={ 2 }>
                 <EnsEntity
                   domain={ mainDomain.name }
@@ -95,20 +97,20 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
           ) }
           { ownedDomains.length > 0 && (
             <div>
-              <chakra.span color="text.secondary" textStyle="xs">Owned by this address</chakra.span>
+              <chakra.span color="text.secondary" textStyle="xs">{ t('multichain.ownedByAddress') }</chakra.span>
               <DomainsGrid data={ ownedDomains }/>
             </div>
           ) }
 
           { isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
 
-          { isError && <Text color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</Text> }
+          { isError && <Text color="text.error" mt={ 3 }>{ t('multichain.domainLoadError') }</Text> }
 
           <Box h="0" w="100px" ref={ cutRef }/>
 
           { mainDomain && (
             <chakra.span textStyle="xs" mt={ -1 }>
-              *A domain name is not necessarily held by a person popularly associated with the name
+              { t('multichain.domainDisclaimer') }
             </chakra.span>
           ) }
         </PopoverBody>

@@ -1,4 +1,5 @@
 import { Flex, Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { DecodedInput } from 'types/api/decodedInput';
@@ -71,6 +72,8 @@ const Row = ({ name, type, indexed, value, isLoading }: ArrayElement<DecodedInpu
 };
 
 const LogDecodedInputDataTable = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
+
   const hasIndexed = data.some(({ indexed }) => indexed !== undefined);
 
   const gridTemplateColumnsBase = hasIndexed ?
@@ -93,10 +96,10 @@ const LogDecodedInputDataTable = ({ data, isLoading }: Props) => {
       borderBottomLeftRadius="md"
       borderBottomRightRadius="md"
     >
-      <HeaderItem isLoading={ isLoading }>Name</HeaderItem>
-      <HeaderItem isLoading={ isLoading }>Type</HeaderItem>
-      { hasIndexed && <HeaderItem isLoading={ isLoading }>Inde<wbr/>xed?</HeaderItem> }
-      <HeaderItem isLoading={ isLoading }>Data</HeaderItem>
+      <HeaderItem isLoading={ isLoading }>{ t('log.name') }</HeaderItem>
+      <HeaderItem isLoading={ isLoading }>{ t('log.type') }</HeaderItem>
+      { hasIndexed && <HeaderItem isLoading={ isLoading }>{ t('log.indexed') }</HeaderItem> }
+      <HeaderItem isLoading={ isLoading }>{ t('log.data') }</HeaderItem>
       { data.map((item) => {
 
         return <Row key={ item.name } { ...item } isLoading={ isLoading }/>;

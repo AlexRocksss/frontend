@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZkSyncBatch } from 'types/api/zkSyncL2';
@@ -22,13 +23,14 @@ interface Props {
 }
 
 const ZkSyncL2TxnBatchHashesInfo = ({ isLoading, data }: Props) => {
+  const { t } = useTranslation();
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint={ `Hash of ${ layerLabels.parent } tx on which the batch was committed` }
+        hint={ t('txnBatches.commitTxHashHint', { parent: layerLabels.parent }) }
         isLoading={ isLoading }
       >
-        Commit tx hash
+        { t('txnBatches.commitTxHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow >
         { data.commit_transaction_hash ? (
@@ -42,14 +44,14 @@ const ZkSyncL2TxnBatchHashesInfo = ({ isLoading, data }: Props) => {
               <DetailedInfoTimestamp timestamp={ data.commit_transaction_timestamp } isLoading={ isLoading }/>
             ) }
           </>
-        ) : <Skeleton loading={ isLoading }>Pending</Skeleton> }
+        ) : <Skeleton loading={ isLoading }>{ t('txnBatches.pending') }</Skeleton> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint={ `Hash of ${ layerLabels.parent } tx on which the batch was proven` }
+        hint={ t('txnBatches.proveTxHashHint', { parent: layerLabels.parent }) }
         isLoading={ isLoading }
       >
-        Prove tx hash
+        { t('txnBatches.proveTxHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
         { data.prove_transaction_hash ? (
@@ -63,14 +65,14 @@ const ZkSyncL2TxnBatchHashesInfo = ({ isLoading, data }: Props) => {
               <DetailedInfoTimestamp timestamp={ data.prove_transaction_timestamp } isLoading={ isLoading }/>
             ) }
           </>
-        ) : <Skeleton loading={ isLoading }>Pending</Skeleton> }
+        ) : <Skeleton loading={ isLoading }>{ t('txnBatches.pending') }</Skeleton> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint={ `Hash of ${ layerLabels.parent } tx on which the batch was executed and finalized` }
+        hint={ t('txnBatches.executeTxHashHint', { parent: layerLabels.parent }) }
         isLoading={ isLoading }
       >
-        Execute tx hash
+        { t('txnBatches.executeTxHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
         { data.execute_transaction_hash ? (
@@ -84,7 +86,7 @@ const ZkSyncL2TxnBatchHashesInfo = ({ isLoading, data }: Props) => {
               <DetailedInfoTimestamp timestamp={ data.execute_transaction_timestamp } isLoading={ isLoading }/>
             ) }
           </>
-        ) : <Skeleton loading={ isLoading }>Pending</Skeleton> }
+        ) : <Skeleton loading={ isLoading }>{ t('txnBatches.pending') }</Skeleton> }
       </DetailedInfo.ItemValue>
     </>
   );

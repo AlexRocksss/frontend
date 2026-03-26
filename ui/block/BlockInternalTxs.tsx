@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import InternalTxsList from 'ui/internalTxs/InternalTxsList';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const BlockInternalTxs = ({ query, top }: Props) => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError } = query;
 
   const content = data?.items ? (
@@ -29,7 +31,7 @@ const BlockInternalTxs = ({ query, top }: Props) => {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items.length }
-      emptyText="There are no internal transactions."
+      emptyText={ t('blockDetails.noInternalTxs') }
     >
       { content }
     </DataListDisplay>

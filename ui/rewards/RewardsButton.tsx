@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback } from 'react';
 
 import { route } from 'nextjs-routes';
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const RewardsButton = ({ variant = 'header', size }: Props) => {
+  const { t } = useTranslation();
   const { isInitialized, isAuth, openLoginModal, dailyRewardQuery, balancesQuery } = useRewardsContext();
   const isMobile = useIsMobile();
   const isLoading = !isInitialized || dailyRewardQuery.isLoading || balancesQuery.isLoading;
@@ -26,7 +28,7 @@ const RewardsButton = ({ variant = 'header', size }: Props) => {
 
   return (
     <Tooltip
-      content="Earn Merits for using Blockscout"
+      content={ t('rewards.earnMeritsTooltip') }
       openDelay={ 500 }
       disabled={ isMobile || isLoading || isAuth }
     >
@@ -54,7 +56,7 @@ const RewardsButton = ({ variant = 'header', size }: Props) => {
           display={{ base: 'none', md: 'inline' }}
           fontWeight={ isAuth ? '700' : '600' }
         >
-          { isAuth ? (balancesQuery.data?.total || 'N/A') : 'Merits' }
+          { isAuth ? (balancesQuery.data?.total || 'N/A') : t('rewards.merits') }
         </chakra.span>
       </Button>
     </Tooltip>

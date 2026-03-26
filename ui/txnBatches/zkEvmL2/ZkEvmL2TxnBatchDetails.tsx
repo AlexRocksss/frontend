@@ -1,5 +1,6 @@
 import { Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -30,6 +31,7 @@ interface Props {
 }
 
 const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { data, isPlaceholderData, isError, error } = query;
@@ -64,7 +66,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Txn batch number
+        { t('txnBatches.batchNumberLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -73,8 +75,8 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         <PrevNext
           ml={ 6 }
           onClick={ handlePrevNextClick }
-          prevLabel="View previous txn batch"
-          nextLabel="View next txn batch"
+          prevLabel={ t('txnBatches.prevBatchLabel') }
+          nextLabel={ t('txnBatches.nextBatchLabel') }
           isPrevDisabled={ data.number === 0 }
           isLoading={ isPlaceholderData }
         />
@@ -83,7 +85,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Status
+        { t('txnBatches.statusLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <VerificationSteps
@@ -96,16 +98,16 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Timestamp
+        { t('txnBatches.timestampLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        { data.timestamp ? <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isPlaceholderData }/> : 'Undefined' }
+        { data.timestamp ? <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isPlaceholderData }/> : t('txnBatches.undefined') }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Verify tx hash
+        { t('txnBatches.verifyTxHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.verify_transaction_hash ? (
@@ -115,13 +117,13 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
             maxW="100%"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <Text>{ t('txnBatches.pending') }</Text> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Transactions
+        { t('txnBatches.transactionsLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ isPlaceholderData }>
@@ -136,7 +138,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Global exit root
+        { t('txnBatches.globalExitRootLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
         flexWrap="nowrap"
@@ -150,7 +152,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Acc input hash
+        { t('txnBatches.accInputHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
         flexWrap="nowrap"
@@ -164,7 +166,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        Sequence tx hash
+        { t('txnBatches.sequenceTxHashLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.sequence_transaction_hash ? (
@@ -174,13 +176,13 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
             maxW="100%"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <Text>{ t('txnBatches.pending') }</Text> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
-        State root
+        { t('txnBatches.stateRootLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
         flexWrap="nowrap"

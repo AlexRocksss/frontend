@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const TokenInstanceTransfersCount = ({ hash, id, onClick }: Props) => {
+  const { t } = useTranslation();
   const transfersCountQuery = useApiQuery('general:token_instance_transfers_count', {
     pathParams: { hash, id },
     queryOptions: {
@@ -39,7 +41,7 @@ const TokenInstanceTransfersCount = ({ hash, id, onClick }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Number of transfer for the token instance"
+        hint={ t('token.hintInstanceTransfers') }
         isLoading={ transfersCountQuery.isPlaceholderData }
       >
         Transfers

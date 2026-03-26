@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -25,6 +26,7 @@ interface Props {
 }
 
 export default function useContractDetailsTabs({ data, isLoading, addressData, sourceAddress }: Props): Array<Tab> {
+  const { t } = useTranslation();
 
   return React.useMemo(() => {
 
@@ -57,7 +59,7 @@ export default function useContractDetailsTabs({ data, isLoading, addressData, s
           <CodeViewSnippet
             data={ JSON.stringify(data.compiler_settings, undefined, 2) }
             language="json"
-            title="Compiler Settings"
+            title={ t('address.contractCompilerSettings') }
             copyData={ JSON.stringify(data.compiler_settings) }
             isLoading={ isLoading }
           />
@@ -71,7 +73,7 @@ export default function useContractDetailsTabs({ data, isLoading, addressData, s
           <CodeViewSnippet
             data={ JSON.stringify(data.abi, undefined, 2) }
             language="json"
-            title="Contract ABI"
+            title={ t('address.contractAbiTitle') }
             copyData={ JSON.stringify(data.abi) }
             isLoading={ isLoading }
           />
@@ -84,5 +86,5 @@ export default function useContractDetailsTabs({ data, isLoading, addressData, s
         component: <ContractDetailsByteCode data={ data } isLoading={ isLoading } addressData={ addressData }/>,
       } : undefined,
     ].filter(Boolean);
-  }, [ isLoading, addressData, data, sourceAddress ]);
+  }, [ isLoading, addressData, data, sourceAddress, t ]);
 }

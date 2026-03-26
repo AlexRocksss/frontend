@@ -1,4 +1,5 @@
 import { Box, chakra, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   if (!data) {
     return null;
@@ -39,7 +41,7 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
           <Button
             size="sm"
             variant="dropdown"
-            aria-label="Chains this address has interacted with"
+            aria-label={ t('multichain.chainsAriaLabel') }
             px={ 2 }
             fontWeight={ 500 }
             flexShrink={ 0 }
@@ -47,13 +49,13 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
             loadingSkeleton={ isLoading }
           >
             <IconSvg name="pie_chart" boxSize={ 5 }/>
-            { activeChains.length } Chain{ activeChains.length > 1 ? 's' : '' }
+            { t('multichain.chainButton', { count: activeChains.length }) }
           </Button>
         </PopoverTrigger>
       </Box>
       <PopoverContent w="auto" maxH="400px" overflowY="auto">
         <PopoverBody >
-          <chakra.span color="text.secondary" textStyle="xs">Chains this address has interacted with</chakra.span>
+          <chakra.span color="text.secondary" textStyle="xs">{ t('multichain.chainsInteractedWith') }</chakra.span>
           <VStack gap={ 2 } mt={ 1 } alignItems="flex-start">
             { activeChains.map((chain) => (
               <Link

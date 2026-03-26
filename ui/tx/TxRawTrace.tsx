@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const TxRawTrace = ({ txQuery }: Props) => {
+  const { t } = useTranslation();
   const [ isQueryEnabled, setIsQueryEnabled ] = React.useState(false);
   const [ rawTraces, setRawTraces ] = React.useState<RawTracesResponse>();
   const router = useRouter();
@@ -63,7 +65,7 @@ const TxRawTrace = ({ txQuery }: Props) => {
   const dataToDisplay = rawTraces ? rawTraces : data;
 
   if (!isPlaceholderData && dataToDisplay?.length === 0) {
-    return <span>No trace entries found.</span>;
+    return <span>{ t('tx.noTraceEntries') }</span>;
   }
 
   const text = JSON.stringify(dataToDisplay, undefined, 4);

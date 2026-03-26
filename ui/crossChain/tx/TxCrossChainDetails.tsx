@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const TxCrossChainDetails = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   if (!data) {
     return <DataFetchAlert/>;
@@ -29,10 +31,10 @@ const TxCrossChainDetails = ({ data, isLoading }: Props) => {
       { data.sender && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Address that initiated the cross-chain operation on the source chain"
+            hint={ t('crossChain.senderHint') }
             isLoading={ isLoading }
           >
-            Sender
+            { t('crossChain.sender') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <AddressEntityInterchain
@@ -46,10 +48,10 @@ const TxCrossChainDetails = ({ data, isLoading }: Props) => {
       { data.recipient && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Recipient address on the destination chain, usually the account or contract that receives tokens or the message"
+            hint={ t('crossChain.targetHint') }
             isLoading={ isLoading }
           >
-            Target
+            { t('crossChain.targetLabel') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <AddressEntityInterchain
@@ -61,10 +63,10 @@ const TxCrossChainDetails = ({ data, isLoading }: Props) => {
         </>
       ) }
       <DetailedInfo.ItemLabel
-        hint="Cross-chain protocol used to route the message between chains (bridge or messaging layer)"
+        hint={ t('crossChain.protocolHint') }
         isLoading={ isLoading }
       >
-        Protocol
+        { t('crossChain.protocol') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading }/>
@@ -73,28 +75,28 @@ const TxCrossChainDetails = ({ data, isLoading }: Props) => {
       { data.transfers.length > 0 && <TxCrossChainDetailsTransfers data={ data.transfers } id={ data.message_id } isLoading={ isLoading }/> }
 
       <DetailedInfo.ItemLabel
-        hint="Current state of the cross-chain operation"
+        hint={ t('crossChain.statusHint') }
         isLoading={ isLoading }
       >
-        Status
+        { t('crossChain.statusLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading } mode="full"/>
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemLabel
-        hint="Date and time when the cross-chain operation was completed or initiated"
+        hint={ t('crossChain.timestampHint') }
         isLoading={ isLoading }
       >
-        Timestamp
+        { t('crossChain.timestamp') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <DetailedInfoTimestamp timestamp={ data.receive_timestamp || data.send_timestamp } isLoading={ isLoading }/>
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemLabel
-        hint="Source and destination transactions linked to this cross-chain operation"
+        hint={ t('crossChain.lifecycleHint') }
         isLoading={ isLoading }
       >
-        Lifecycle
+        { t('crossChain.lifecycleLabel') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue py={ 1 }>
         <TxCrossChainDetailsLifecycle data={ data } isLoading={ isLoading }/>
@@ -102,10 +104,10 @@ const TxCrossChainDetails = ({ data, isLoading }: Props) => {
       { data.payload && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Message data sent as part of the cross-chain operation"
+            hint={ t('crossChain.payloadHint') }
             isLoading={ isLoading }
           >
-            Payload
+            { t('crossChain.payloadLabel') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <RawInputData hex={ data.payload } isLoading={ isLoading }/>

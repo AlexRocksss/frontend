@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokensSortingValue } from 'types/api/tokens';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const Tokens = ({ query, onSortChange, sort, actionBar, description, hasActiveFilters, tableTop }: Props) => {
+  const { t } = useTranslation();
 
   const { isError, isPlaceholderData, data, pagination } = query;
 
@@ -64,7 +66,7 @@ const Tokens = ({ query, onSortChange, sort, actionBar, description, hasActiveFi
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.items.length }
-      emptyText="There are no tokens."
+      emptyText={ t('tokens.noTokens') }
       hasActiveFilters={ hasActiveFilters }
       emptyStateProps={{
         term: 'token',

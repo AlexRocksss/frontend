@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -23,26 +24,15 @@ interface Props {
   error: Error | undefined;
 }
 
-const ERROR_TEXTS: Record<string, { title: string; text: string }> = {
-  '403': {
-    title: 'Alert',
-    text: 'Access to this resource is restricted.',
-  },
-  '404': {
-    title: 'Page not found',
-    text: 'This page is no longer explorable! If you are lost, use the search bar to find what you are looking for.',
-  },
-  '422': {
-    title: 'Request cannot be processed',
-    text: 'Your request contained an error, perhaps a mistyped tx/block/address hash. Try again, and check the developer tools console for more info.',
-  },
-  '500': {
-    title: 'Oops! Something went wrong',
-    text: 'An unexpected error has occurred. Try reloading the page, or come back soon and try again.',
-  },
-};
-
 const AppError = ({ error, className }: Props) => {
+  const { t } = useTranslation();
+
+  const ERROR_TEXTS: Record<string, { title: string; text: string }> = {
+    '403': { title: t('error.403_title'), text: t('error.403_text') },
+    '404': { title: t('error.404_title'), text: t('error.404_text') },
+    '422': { title: t('error.422_title'), text: t('error.422_text') },
+    '500': { title: t('error.500_title'), text: t('error.500_text') },
+  };
   const content = (() => {
     const resourceErrorPayload = getResourceErrorPayload(error);
     const cause = getErrorCause(error);

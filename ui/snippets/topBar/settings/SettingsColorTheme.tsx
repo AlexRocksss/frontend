@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ColorThemeId } from 'types/settings';
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const SettingsColorTheme = ({ onSelect }: Props) => {
+  const { t } = useTranslation();
   const { setColorMode } = useColorMode();
 
   const [ activeThemeId, setActiveThemeId ] = React.useState<ColorThemeId>();
@@ -77,7 +79,7 @@ const SettingsColorTheme = ({ onSelect }: Props) => {
 
   return (
     <div>
-      <Box fontWeight={ 600 }>Color theme</Box>
+      <Box fontWeight={ 600 }>{ t('settings.colorTheme') }</Box>
       <Box color="text.secondary" mt={ 1 } mb={ 2 }>{ activeTheme?.label }</Box>
       <Flex>
         { COLOR_THEMES.map((theme) => {

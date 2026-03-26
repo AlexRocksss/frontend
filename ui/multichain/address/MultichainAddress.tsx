@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -31,6 +32,7 @@ import MultichainAddressTxs, { ADDRESS_MULTICHAIN_TXS_TAB_IDS } from './Multicha
 const TABS_PRESERVED_PARAMS = [ 'chain_id' ];
 
 const MultichainAddress = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = getQueryParamString(router.query.hash);
@@ -61,44 +63,44 @@ const MultichainAddress = () => {
     return [
       {
         id: 'portfolio',
-        title: 'Portfolio',
+        title: t('multichain.portfolioTab'),
         component: <MultichainAddressPortfolio addressData={ addressQuery.data } isLoading={ isLoading }/>,
       },
       isContractSomewhere && {
         id: 'contract',
-        title: 'Contract',
+        title: t('multichain.contractTab'),
         component: <MultichainAddressContract addressHash={ checkSummedHash } data={ addressQuery.data } isLoading={ isLoading }/>,
         subTabs: CONTRACT_TAB_IDS,
       },
       {
         id: 'txs',
-        title: 'Transactions',
+        title: t('multichain.transactionsTab'),
         component: <MultichainAddressTxs addressData={ addressQuery.data } isLoading={ isLoading }/>,
         subTabs: ADDRESS_MULTICHAIN_TXS_TAB_IDS,
       },
       {
         id: 'token_transfers',
-        title: 'Token transfers',
+        title: t('multichain.tokenTransfersTab'),
         component: <MultichainAddressTokenTransfers addressData={ addressQuery.data } isLoading={ isLoading }/>,
         subTabs: ADDRESS_MULTICHAIN_TOKEN_TRANSFERS_TAB_IDS,
       },
       {
         id: 'internal_txs',
-        title: 'Internal txns',
+        title: t('multichain.internalTxsTab'),
         component: <MultichainAddressInternalTxs addressData={ addressQuery.data } isLoading={ isLoading }/>,
       },
       {
         id: 'coin_balance_history',
-        title: 'Coin balance history',
+        title: t('multichain.coinBalanceHistoryTab'),
         component: <MultichainAddressCoinBalanceHistory addressData={ addressQuery.data } isLoading={ isLoading }/>,
       },
       isContractSomewhere && {
         id: 'logs',
-        title: 'Logs',
+        title: t('multichain.logsTab'),
         component: <MultichainAddressLogs addressData={ addressQuery.data } isLoading={ isLoading }/>,
       },
     ].filter(Boolean);
-  }, [ addressQuery.data, isLoading, isContractSomewhere, checkSummedHash ]);
+  }, [ addressQuery.data, isLoading, isContractSomewhere, checkSummedHash, t ]);
 
   const titleSecondRow = (
     <Flex alignItems="center" w="100%" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
@@ -145,7 +147,7 @@ const MultichainAddress = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title={ `${ isContract ? 'Contract' : 'Address' } details` }
+        title={ isContract ? t('multichain.contractDetails') : t('multichain.addressDetails') }
         isLoading={ isLoading }
         secondRow={ titleSecondRow }
       />

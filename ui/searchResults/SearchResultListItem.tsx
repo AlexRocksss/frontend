@@ -1,4 +1,5 @@
 import { chakra, Flex, Grid, Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import xss from 'xss';
 
@@ -46,6 +47,7 @@ interface Props {
 }
 
 const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Props) => {
+  const { t } = useTranslation();
 
   const handleLinkClick = React.useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     saveToRecentKeywords(searchTerm);
@@ -193,8 +195,8 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                 isLoading={ isLoading }
               />
             </BlockEntity.Link>
-            { data.block_type === 'reorg' && !isLoading && <Tag ml={ 2 }>Reorg</Tag> }
-            { data.block_type === 'uncle' && !isLoading && <Tag ml={ 2 }>Uncle</Tag> }
+            { data.block_type === 'reorg' && !isLoading && <Tag ml={ 2 }>{ t('searchResults.reorg') }</Tag> }
+            { data.block_type === 'uncle' && !isLoading && <Tag ml={ 2 }>{ t('searchResults.uncle') }</Tag> }
           </BlockEntity.Container>
         );
       }
@@ -347,7 +349,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             </Skeleton>
             <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontWeight={ 700 }>
               { data.token_type === 'ERC-20' && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
-              { data.token_type !== 'ERC-20' && data.total_supply && `Items ${ Number(data.total_supply).toLocaleString() }` }
+              { data.token_type !== 'ERC-20' && data.total_supply && `${ t('searchResults.items') } ${ Number(data.total_supply).toLocaleString() }` }
             </Skeleton>
           </Grid>
         );
@@ -357,7 +359,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
         const isFutureBlock = data.timestamp === undefined;
 
         if (isFutureBlock) {
-          return <Skeleton loading={ isLoading }>Learn estimated time for this block to be created.</Skeleton>;
+          return <Skeleton loading={ isLoading }>{ t('searchResults.futureBlock') }</Skeleton>;
         }
 
         return (

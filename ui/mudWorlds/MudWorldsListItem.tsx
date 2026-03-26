@@ -1,4 +1,5 @@
 import { HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { MudWorldItem } from 'types/api/mudWorlds';
@@ -18,6 +19,7 @@ const MudWorldsListItem = ({
   item,
   isLoading,
 }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <ListItemMobile rowGap={ 3 }>
@@ -29,7 +31,7 @@ const MudWorldsListItem = ({
         truncation="constant_long"
       />
       <HStack gap={ 3 } maxW="100%" alignItems="flex-start" textStyle="sm">
-        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }><span>{ `Balance ${ currencyUnits.ether }` }</span></Skeleton>
+        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }><span>{ t('addresses.balance', { ether: currencyUnits.ether }) }</span></Skeleton>
         <NativeCoinValue
           amount={ item.coin_balance }
           noSymbol
@@ -38,7 +40,7 @@ const MudWorldsListItem = ({
         />
       </HStack>
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Txn count</Skeleton>
+        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>{ t('addresses.txnCount') }</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
           <span>{ Number(item.transactions_count).toLocaleString() }</span>
         </Skeleton>

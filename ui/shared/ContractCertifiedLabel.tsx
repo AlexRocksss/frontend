@@ -1,4 +1,5 @@
 import { Flex, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -11,8 +12,10 @@ type Props = {
 };
 
 const ContractCertifiedLabel = ({ iconSize, className }: Props) => {
+  const { t } = useTranslation();
+
   return (
-    <Tooltip content="This contract has been certified by the chain developers">
+    <Tooltip content={ t('contractLabel.certifiedTooltip') }>
       <Flex className={ className }>
         <IconSvg name="certified" color="green.500" boxSize={ iconSize } cursor="pointer"/>
       </Flex>

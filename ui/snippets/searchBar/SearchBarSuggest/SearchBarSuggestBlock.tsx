@@ -1,4 +1,5 @@
 import { Text, Flex, Grid, Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -12,6 +13,7 @@ import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
 import Time from 'ui/shared/time/Time';
 
 const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsProps<SearchResultBlock | multichain.QuickSearchResultBlock>) => {
+  const { t } = useTranslation();
   const icon = <BlockEntity.Icon chain={ chainInfo }/>;
   const shouldHighlightHash = data.block_hash?.toLowerCase() === searchTerm.toLowerCase();
   const isFutureBlock = 'timestamp' in data && data.timestamp === undefined;
@@ -58,7 +60,7 @@ const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsP
     </Text>
   ) : null;
   const date = 'timestamp' in data && data.timestamp && !isFutureBlock ? <Time timestamp={ data.timestamp } color="text.secondary" format="lll_s"/> : undefined;
-  const futureBlockText = <Text color="text.secondary">Learn estimated time for this block to be created.</Text>;
+  const futureBlockText = <Text color="text.secondary">{ t('searchBar.futureBlock') }</Text>;
   const blockType = 'block_type' in data ? data.block_type : undefined;
 
   if (isMobile) {
@@ -67,8 +69,8 @@ const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsP
         <Flex alignItems="center">
           { icon }
           { blockNumber }
-          { blockType === 'reorg' && <Tag ml="auto">Reorg</Tag> }
-          { blockType === 'uncle' && <Tag ml="auto">Uncle</Tag> }
+          { blockType === 'reorg' && <Tag ml="auto">{ t('searchBar.reorg') }</Tag> }
+          { blockType === 'uncle' && <Tag ml="auto">{ t('searchBar.uncle') }</Tag> }
         </Flex>
         { hash }
         { isFutureBlock ? futureBlockText : date }
@@ -83,8 +85,8 @@ const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsP
         { blockNumber }
       </Flex>
       <Flex columnGap={ 3 } minW={ 0 } alignItems="center">
-        { blockType === 'reorg' && <Tag flexShrink={ 0 }>Reorg</Tag> }
-        { blockType === 'uncle' && <Tag flexShrink={ 0 }>Uncle</Tag> }
+        { blockType === 'reorg' && <Tag flexShrink={ 0 }>{ t('searchBar.reorg') }</Tag> }
+        { blockType === 'uncle' && <Tag flexShrink={ 0 }>{ t('searchBar.uncle') }</Tag> }
         { isFutureBlock ? futureBlockText : hash }
       </Flex>
       { date && <Text color="text.secondary" textAlign="end">{ date }</Text> }

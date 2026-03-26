@@ -1,4 +1,5 @@
 import { Box, chakra, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -15,6 +16,7 @@ import ArbitrumL2TxnWithdrawalsList from 'ui/txnWithdrawals/arbitrumL2/ArbitrumL
 import ArbitrumL2TxnWithdrawalsTable from 'ui/txnWithdrawals/arbitrumL2/ArbitrumL2TxnWithdrawalsTable';
 
 const ArbitrumL2TxnWithdrawals = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [ searchTerm, setSearchTerm ] = React.useState(getQueryParamString(router.query.q) || undefined);
@@ -75,7 +77,7 @@ const ArbitrumL2TxnWithdrawals = () => {
 
   return (
     <>
-      <PageTitle title="Transaction withdrawals" withTextAd/>
+      <PageTitle title={ t('pages.txnWithdrawals') } withTextAd/>
       <Text>
         { layerLabels.current } to { layerLabels.parent } message relayer: search for your { layerLabels.current } transaction to execute a manual withdrawal.
       </Text>
@@ -85,7 +87,7 @@ const ArbitrumL2TxnWithdrawals = () => {
           w={{ base: '100%', lg: '700px' }}
           mt={ 6 }
           size="sm"
-          placeholder="Search by transaction hash"
+          placeholder={ t('pages.searchByTxHash') }
           initialValue={ searchTerm }
           onChange={ handleSearchTermChange }
           onFocus={ handleSearchInputFocus }

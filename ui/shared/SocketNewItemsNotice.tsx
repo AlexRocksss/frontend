@@ -1,4 +1,5 @@
 import { Text, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -25,13 +26,14 @@ interface Props {
 }
 
 const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorAlert, type = 'transaction', isLoading, onLinkClick }: Props) => {
+  const { t } = useTranslation();
   const handleLinkClick = React.useCallback(() => {
     onLinkClick ? onLinkClick() : window.location.reload();
   }, [ onLinkClick ]);
 
   const alertContent = (() => {
     if (showErrorAlert) {
-      return 'Live updates temporarily delayed';
+      return t('alert.liveUpdatesDelayed');
     }
 
     let name;
@@ -61,12 +63,12 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
     }
 
     if (!num) {
-      return `scanning new ${ name }s...`;
+      return t('alert.scanningNew', { name });
     }
 
     if (type === 'cross_chain_transaction') {
       return (
-        <Link href={ url } onClick={ !url ? handleLinkClick : undefined }>More { name }s available</Link>
+        <Link href={ url } onClick={ !url ? handleLinkClick : undefined }>{ t('alert.moreAvailable', { name }) }</Link>
       );
     }
 

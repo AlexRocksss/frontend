@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Fields } from '../types';
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const TokenInfoFieldSupport = (props: Props) => {
+  const { t } = useTranslation();
   const validate = React.useCallback((newValue: string | undefined) => {
     if (typeof newValue !== 'string') {
       return true;
@@ -31,7 +33,7 @@ const TokenInfoFieldSupport = (props: Props) => {
   return (
     <FormFieldText<Fields, 'support'>
       name="support"
-      placeholder="Support URL or email"
+      placeholder={ t('tokenInfo.support') }
       rules={{ validate }}
       { ...props }
     />

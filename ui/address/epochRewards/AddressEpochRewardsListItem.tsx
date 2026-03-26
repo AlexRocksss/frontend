@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressEpochRewardsItem } from 'types/api/address';
@@ -15,15 +16,16 @@ type Props = {
 };
 
 const AddressEpochRewardsListItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Epoch #</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('address.epochHashLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <EpochEntity number={ String(item.epoch_number) } noIcon isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('address.ageLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.block_timestamp }
@@ -33,12 +35,12 @@ const AddressEpochRewardsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Reward type</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('address.rewardTypeHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <EpochRewardTypeTag type={ item.type } isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Associated address</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('address.associatedAddressHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <AddressEntity
           address={ item.associated_account }
@@ -46,7 +48,7 @@ const AddressEpochRewardsListItem = ({ item, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Value</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('address.valueHeader') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TokenValue
           amount={ item.amount }

@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { NetworkExplorer as TNetworkExplorer } from 'types/networks';
@@ -17,6 +18,8 @@ interface Props {
 }
 
 const NetworkExplorers = ({ className, type, pathParam }: Props) => {
+  const { t } = useTranslation();
+
   const explorersLinks = React.useMemo(() => {
     return config.UI.explorers.items
       .filter((explorer) => typeof explorer.paths[type] === 'string')
@@ -51,8 +54,8 @@ const NetworkExplorers = ({ className, type, pathParam }: Props) => {
     <VerifyWith
       className={ className }
       links={ explorersLinks }
-      label="Verify with other explorers"
-      longText={ `${ explorersLinks.length } Explorer${ explorersLinks.length > 1 ? 's' : '' }` }
+      label={ t('network.verifyWithExplorers') }
+      longText={ t('network.explorerCount', { count: explorersLinks.length }) }
       shortText={ explorersLinks.length.toString() }
     />
   );

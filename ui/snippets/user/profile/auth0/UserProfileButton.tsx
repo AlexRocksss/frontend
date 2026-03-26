@@ -1,6 +1,7 @@
 import type { ButtonProps } from '@chakra-ui/react';
 import { Box, HStack } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { UserInfo } from 'types/api/account';
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ...rest }: Props, ref: React.ForwardedRef<HTMLButtonElement>) => {
+  const { t } = useTranslation();
   const [ isFetched, setIsFetched ] = useState(false);
   const isMobile = useIsMobile();
 
@@ -58,20 +60,20 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
     }
 
     if (!data || isButtonLoading) {
-      return 'Log in';
+      return t('userProfile.logIn');
     }
 
     return (
       <HStack gap={ 2 }>
         <IconSvg name="profile" boxSize={ 5 }/>
-        <Box display={{ base: 'none', md: 'block' }}>{ data.email ? getUserHandle(data.email) : 'My profile' }</Box>
+        <Box display={{ base: 'none', md: 'block' }}>{ data.email ? getUserHandle(data.email) : t('userProfile.myProfile') }</Box>
       </HStack>
     );
   })();
 
   return (
     <Tooltip
-      content={ <span>Sign in to My Account to add tags,<br/>create watchlists, access API keys and more</span> }
+      content={ t('userProfile.signInTooltip') }
       disabled={ isMobile || isLoading || Boolean(data) }
       openDelay={ 500 }
       disableOnMobile

@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { MethodType } from './types';
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const ContractMethodsFilters = ({ defaultMethodType, defaultSearchTerm, onChange, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   const handleTypeChange = React.useCallback((value: string) => {
     onChange({ type: 'method_type', value: value as MethodType });
@@ -43,7 +45,7 @@ const ContractMethodsFilters = ({ defaultMethodType, defaultSearchTerm, onChange
       <FilterInput
         initialValue={ defaultSearchTerm }
         onChange={ handleSearchTermChange }
-        placeholder="Search by method name"
+        placeholder={ t('address.searchByMethodName') }
         w={{ base: '100%', lg: '450px' }}
         size="sm"
         loading={ isLoading }

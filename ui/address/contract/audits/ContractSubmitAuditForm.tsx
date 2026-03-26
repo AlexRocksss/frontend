@@ -1,4 +1,5 @@
 import { VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -37,6 +38,7 @@ type AuditSubmissionErrors = {
 };
 
 const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
+  const { t } = useTranslation();
   const containerRef = React.useRef<HTMLFormElement>(null);
 
   const apiFetch = useApiFetch();
@@ -85,25 +87,25 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ handleSubmit(onFormSubmit) } autoComplete="off" ref={ containerRef }>
         <VStack gap={ 5 } alignItems="flex-start">
-          <FormFieldText<Inputs> name="submitter_name" required placeholder="Submitter name"/>
-          <FormFieldEmail<Inputs> name="submitter_email" required placeholder="Submitter email"/>
+          <FormFieldText<Inputs> name="submitter_name" required placeholder={ t('address.submitterName') }/>
+          <FormFieldEmail<Inputs> name="submitter_email" required placeholder={ t('address.submitterEmail') }/>
           <FormFieldCheckbox<Inputs, 'is_project_owner'>
             name="is_project_owner"
-            label="I'm the contract owner"
+            label={ t('address.isProjectOwner') }
           />
-          <FormFieldText<Inputs> name="project_name" required placeholder="Project name"/>
-          <FormFieldUrl<Inputs> name="project_url" required placeholder="Project URL"/>
-          <FormFieldText<Inputs> name="audit_company_name" required placeholder="Audit company name"/>
-          <FormFieldUrl<Inputs> name="audit_report_url" required placeholder="Audit report URL"/>
+          <FormFieldText<Inputs> name="project_name" required placeholder={ t('address.projectName') }/>
+          <FormFieldUrl<Inputs> name="project_url" required placeholder={ t('address.projectUrl') }/>
+          <FormFieldText<Inputs> name="audit_company_name" required placeholder={ t('address.auditCompanyName') }/>
+          <FormFieldUrl<Inputs> name="audit_report_url" required placeholder={ t('address.auditReportUrl') }/>
           <FormFieldText<Inputs>
             name="audit_publish_date"
             inputProps={{ type: 'date', max: dayjs().format('YYYY-MM-DD') }}
             required
-            placeholder="Audit publish date"
+            placeholder={ t('address.auditPublishDate') }
           />
           <FormFieldText<Inputs>
             name="comment"
-            placeholder="Comment"
+            placeholder={ t('address.auditComment') }
             maxH="160px"
             rules={{ maxLength: 300 }}
             asComponent="Textarea"
@@ -113,10 +115,10 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
           type="submit"
           mt={ 8 }
           loading={ formState.isSubmitting }
-          loadingText="Send request"
+          loadingText={ t('address.sendRequest') }
           disabled={ !formState.isDirty }
         >
-          Send request
+          { t('address.sendRequest') }
         </Button>
       </form>
     </FormProvider>

@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type { ApiKey } from 'types/api/account';
@@ -27,6 +28,7 @@ const apiKeysAlertHtml = config.UI.apiKeysAlert.message;
 const feature = config.features.account;
 
 const ApiKeysPage: React.FC = () => {
+  const { t } = useTranslation();
   const apiKeyModalProps = useDisclosure();
   const deleteModalProps = useDisclosure();
   useRedirectForInvalidAuthToken();
@@ -153,7 +155,7 @@ const ApiKeysPage: React.FC = () => {
 
   return (
     <>
-      <PageTitle title="API keys"/>
+      <PageTitle title={ t('pages.apiKeys') }/>
       { content }
     </>
   );

@@ -1,13 +1,15 @@
 import { Box, Flex, VStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import FallbackBox from 'ui/shared/fallbacks/FallbackBox';
 import IconSvg from 'ui/shared/IconSvg';
 
 const LatestBlocksFallback = () => {
+  const { t } = useTranslation();
   return (
     <Box>
-      <Box color="text.secondary" textStyle="sm">Failed to load data. Please try again later.</Box>
+      <Box color="text.secondary" textStyle="sm">{ t('home.failedToLoad') }</Box>
       <VStack rowGap={ 3 } mt={ 3 }>
         { Array.from({ length: 2 }).map((_, index) => (
           <Box key={ index } width="100%" p={ 3 } borderRadius="md" border="1px solid" borderColor="border.divider">

@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { debounce } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ListCctxsResponse } from '@blockscout/zetachain-cctx-types';
@@ -37,6 +38,7 @@ interface Props {
 }
 
 const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searchTerm, onItemClick }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
@@ -159,11 +161,11 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
 
   const content = (() => {
     if (query.isPending || marketplaceApps.isPlaceholderData || (config.features.zetachain.isEnabled && zetaChainCCTXQuery.isPending)) {
-      return <ContentLoader text="We are searching, please wait... " fontSize="sm" maxW="250px"/>;
+      return <ContentLoader text={ t('searchBar.searching') } fontSize="sm" maxW="250px"/>;
     }
 
     if (query.isError) {
-      return <Text>Something went wrong. Try refreshing the page or come back later.</Text>;
+      return <Text>{ t('searchBar.error') }</Text>;
     }
 
     const resultCategories = searchCategories.filter(cat => itemsGroups[cat.id]);
@@ -173,7 +175,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
         return <SearchBarSuggestBlockCountdown blockHeight={ searchTerm } isMultichain={ Boolean(multichainConfig()) } onClick={ onItemClick }/>;
       }
 
-      return <Text>No results found.</Text>;
+      return <Text>{ t('searchBar.noResults') }</Text>;
     }
 
     return (

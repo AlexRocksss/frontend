@@ -1,20 +1,12 @@
 import { createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ValidatorsStabilityFilters } from 'types/api/validators';
 
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 
-const OPTIONS = [
-  { value: 'all', label: 'All' },
-  { value: 'active', label: 'Active' },
-  { value: 'probation', label: 'Probation' },
-  { value: 'inactive', label: 'Inactive' },
-];
-
-const collection = createListCollection({
-  items: OPTIONS,
-});
+const DEFAULT_VALUE = 'all';
 
 interface Props {
   hasActiveFilter: boolean;
@@ -23,13 +15,24 @@ interface Props {
 }
 
 const ValidatorsFilter = ({ onChange, defaultValue, hasActiveFilter }: Props) => {
+  const { t } = useTranslation();
+
+  const collection = React.useMemo(() => createListCollection({
+    items: [
+      { value: 'all', label: t('validators.filterAll') },
+      { value: 'active', label: t('validators.filterActive') },
+      { value: 'probation', label: t('validators.filterProbation') },
+      { value: 'inactive', label: t('validators.filterInactive') },
+    ],
+  }), [ t ]);
+
   return (
     <PopoverFilterRadio
       name="validators_filter"
       collection={ collection }
       onChange={ onChange }
       hasActiveFilter={ hasActiveFilter }
-      initialValue={ defaultValue || OPTIONS[0].value }
+      initialValue={ defaultValue || DEFAULT_VALUE }
     />
   );
 };

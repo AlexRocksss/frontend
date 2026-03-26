@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressWithdrawalsItem } from 'types/api/address';
@@ -26,6 +27,7 @@ type Props = ({
 }) & { isLoading?: boolean };
 
 const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
+  const { t } = useTranslation();
   if (!feature.isEnabled) {
     return null;
   }
@@ -33,19 +35,19 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
   return (
     <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.indexLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">{ item.index }</Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Validator index</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.validatorIndexLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading } display="inline-block">{ item.validator_index }</Skeleton>
       </ListItemMobileGrid.Value>
 
       { view !== 'block' && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Block</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.blockLabel') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <BlockEntity
               number={ item.block_number }
@@ -58,7 +60,7 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
 
       { view !== 'address' && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>To</ListItemMobileGrid.Label><ListItemMobileGrid.Value>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.toLabel') }</ListItemMobileGrid.Label><ListItemMobileGrid.Value>
             <AddressEntity
               address={ item.receiver }
               isLoading={ isLoading }
@@ -70,7 +72,7 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
 
       { view !== 'block' && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.ageLabel') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <TimeWithTooltip
               timestamp={ item.timestamp }
@@ -79,7 +81,7 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
             />
           </ListItemMobileGrid.Value>
 
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Value</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('withdrawals.valueLabel') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <NativeCoinValue amount={ item.amount } loading={ isLoading }/>
           </ListItemMobileGrid.Value>

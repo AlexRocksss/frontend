@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -9,6 +10,7 @@ interface Props extends TagProps {
 }
 
 const NativeTokenTag = ({ chainConfig: chainConfigProp, ...rest }: Props) => {
+  const { t } = useTranslation();
   const chainConfig = chainConfigProp || config;
   if (!chainConfig.UI.views.address.nativeTokenAddress) {
     return null;
@@ -16,9 +18,9 @@ const NativeTokenTag = ({ chainConfig: chainConfigProp, ...rest }: Props) => {
 
   return (
     <Tooltip
-      content={ `This ERC-20 token represents the native ${ chainConfig.chain.currency.symbol } balance for this address and isn’t counted twice` }
+      content={ t('celo.nativeTokenTooltip', { symbol: chainConfig.chain.currency.symbol }) }
     >
-      <Tag { ...rest }>Native token</Tag>
+      <Tag { ...rest }>{ t('celo.nativeToken') }</Tag>
     </Tooltip>
   );
 };

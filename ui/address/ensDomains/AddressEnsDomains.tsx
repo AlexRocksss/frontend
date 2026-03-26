@@ -1,6 +1,7 @@
 import { Box, Flex, Grid, chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { clamp } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as bens from '@blockscout/bens-types';
@@ -38,6 +39,7 @@ const DomainsGrid = ({ data }: { data: Array<bens.Domain> }) => {
 };
 
 const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
+  const { t } = useTranslation();
   const { data, isPending, isError } = query;
   const popover = useDisclosure();
 
@@ -85,13 +87,13 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
 
   return (
     <PopoverRoot open={ popover.open } onOpenChange={ popover.onOpenChange }>
-      <Tooltip content="List of names resolved or owned by this address" disabled={ popover.open } disableOnMobile closeOnClick>
+      <Tooltip content={ t('address.ensDomainsTooltip') } disabled={ popover.open } disableOnMobile closeOnClick>
         <div>
           <PopoverTrigger>
             <Button
               size="sm"
               variant="dropdown"
-              aria-label="Address domains"
+              aria-label={ t('multichain.addressDomainsAriaLabel') }
               fontWeight={ 500 }
               flexShrink={ 0 }
               columnGap={ 1 }
@@ -117,13 +119,13 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
           ) }
           { ownedDomains.length > 0 && (
             <div>
-              <chakra.span color="text.secondary" textStyle="xs">Owned by this address</chakra.span>
+              { t('address.ensDomainsOwned') }
               <DomainsGrid data={ ownedDomains }/>
             </div>
           ) }
           { resolvedDomains.length > 0 && (
             <div>
-              <chakra.span color="text.secondary" textStyle="xs">Resolved to this address</chakra.span>
+              { t('address.ensDomainsResolved') }
               <DomainsGrid data={ resolvedDomains }/>
             </div>
           ) }
@@ -131,7 +133,7 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
             <Link
               href={ route({ pathname: '/name-services', query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: addressHash } }) }
             >
-              <span> More results</span>
+              <span>{ t('address.ensDomainsMoreResults') }</span>
               <chakra.span color="text.secondary"> ({ totalRecords })</chakra.span>
             </Link>
           ) }

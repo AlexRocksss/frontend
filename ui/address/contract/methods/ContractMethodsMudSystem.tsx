@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const ContractMethodsMudSystem = ({ items }: Props) => {
-
+  const { t } = useTranslation();
   const router = useRouter();
 
   const addressHash = getQueryParamString(router.query.hash);
@@ -53,7 +54,7 @@ const ContractMethodsMudSystem = ({ items }: Props) => {
           items={ items }
           selectedItem={ selectedItem }
           onItemSelect={ handleItemSelect }
-          label="System address"
+          label={ t('address.contractMudSystemAddress') }
           mb={ 3 }
         />
         <ContractMethodsFilters

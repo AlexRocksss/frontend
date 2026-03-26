@@ -1,4 +1,5 @@
 import { Box, chakra, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -37,6 +38,7 @@ interface Props extends AddressVerificationFormFirstStepFields, AddressCheckStat
 }
 
 const AddressVerificationStepSignature = ({ address, signingMessage, contractCreator, contractOwner, onContinue, noWeb3Provider }: Props) => {
+  const { t } = useTranslation();
   const [ signMethod, setSignMethod ] = React.useState<SignMethod>(noWeb3Provider ? 'manual' : 'wallet');
 
   const { isConnected } = useAccount();
@@ -227,7 +229,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
             <CopyToClipboard text={ signingMessage } ml="auto"/>
             <FormFieldText<Fields>
               name="message"
-              placeholder="Message to sign"
+              placeholder={ t('addressVerification.messageToSignPlaceholder') }
               required
               asComponent="Textarea"
               readOnly
@@ -252,7 +254,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
           { signMethod === 'manual' && (
             <FormFieldText<Fields>
               name="signature"
-              placeholder="Signature hash"
+              placeholder={ t('addressVerification.signatureHashPlaceholder') }
               required
               rules={{ pattern: SIGNATURE_REGEXP }}
               bgColor="dialog.bg"

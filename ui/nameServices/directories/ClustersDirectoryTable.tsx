@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ClustersDirectoryObject } from 'types/api/clusters';
@@ -16,18 +17,20 @@ interface Props {
 }
 
 const ClustersDirectoryTable = ({ data, isLoading, top, isClusterDetailsLoading }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <AddressHighlightProvider>
       <TableRoot>
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader width="40%">Cluster name</TableColumnHeader>
-            <TableColumnHeader width="40%">Address</TableColumnHeader>
+            <TableColumnHeader width="40%">{ t('nameServices.clusterNameHeader') }</TableColumnHeader>
+            <TableColumnHeader width="40%">{ t('nameServices.addressHeader') }</TableColumnHeader>
             <TableColumnHeader width="180px">
-              Joined
+              { t('nameServices.joinedHeader') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader width="20%">Active chains</TableColumnHeader>
+            <TableColumnHeader width="20%">{ t('nameServices.activeChainsHeader') }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

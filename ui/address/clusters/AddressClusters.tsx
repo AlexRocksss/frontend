@@ -1,5 +1,6 @@
 import { Grid, chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ClustersByAddressResponse } from 'types/api/clusters';
@@ -47,6 +48,7 @@ const ClustersGrid = ({ data }: ClustersGridProps) => {
 };
 
 const AddressClusters = ({ query, addressHash }: Props) => {
+  const { t } = useTranslation();
   const { data, isPending, isError } = query;
 
   const popover = useDisclosure();
@@ -75,13 +77,13 @@ const AddressClusters = ({ query, addressHash }: Props) => {
 
   return (
     <PopoverRoot open={ popover.open } onOpenChange={ popover.onOpenChange }>
-      <Tooltip content="List of clusters registered to this address" disabled={ popover.open } disableOnMobile closeOnClick>
+      <Tooltip content={ t('address.clustersTooltip') } disabled={ popover.open } disableOnMobile closeOnClick>
         <div>
           <PopoverTrigger>
             <Button
               size="sm"
               variant="dropdown"
-              aria-label="Address clusters"
+              aria-label={ t('address.addressClustersAriaLabel') }
               fontWeight={ 500 }
               flexShrink={ 0 }
               columnGap={ 1 }
@@ -97,14 +99,14 @@ const AddressClusters = ({ query, addressHash }: Props) => {
       <PopoverContent w={{ lg: '500px' }}>
         <PopoverBody textStyle="sm" display="flex" flexDir="column" rowGap={ 5 } alignItems="flex-start">
           <div>
-            <chakra.span color="text.secondary" textStyle="xs">Attached to this address</chakra.span>
+            <chakra.span color="text.secondary" textStyle="xs">{ t('address.clustersAttachedToAddress') }</chakra.span>
             <ClustersGrid data={ ownedClusters }/>
           </div>
           { showMoreLink && (
             <Link
               href={ route({ pathname: '/name-services', query: { q: addressHash, tab: 'directories' } }) }
             >
-              <span>More results</span>
+              <span>{ t('address.moreResults') }</span>
               <chakra.span color="text.secondary"> ({ totalRecords })</chakra.span>
             </Link>
           ) }

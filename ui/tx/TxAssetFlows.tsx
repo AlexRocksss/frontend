@@ -1,5 +1,6 @@
 import { Box, Text } from '@chakra-ui/react';
 import { chunk } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React, { useMemo, useState } from 'react';
 
 import type { PaginationParams } from 'ui/shared/pagination/types';
@@ -22,6 +23,7 @@ interface FlowViewProps {
 }
 
 export default function TxAssetFlows(props: FlowViewProps) {
+  const { t } = useTranslation();
 
   const { data: queryData, isPlaceholderData, isError } = useApiQuery('general:noves_transaction', {
     pathParams: { hash: props.hash },
@@ -112,7 +114,7 @@ export default function TxAssetFlows(props: FlowViewProps) {
     <DataListDisplay
       isError={ isError }
       itemsNum={ data?.length }
-      emptyText="There are no transfers."
+      emptyText={ t('tx.noAssetTransfers') }
       actionBar={ actionBar }
     >
       { content }

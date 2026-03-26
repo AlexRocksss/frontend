@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ButtonGroupRadioProps } from 'toolkit/chakra/button';
@@ -12,6 +13,7 @@ interface Props extends Omit<ButtonGroupRadioProps, 'children'> {
 }
 
 const AddressNftDisplayTypeRadio = ({ value, onChange, ...rest }: Props) => {
+  const { t } = useTranslation();
   return (
     <ButtonGroupRadio
       defaultValue={ value }
@@ -21,11 +23,11 @@ const AddressNftDisplayTypeRadio = ({ value, onChange, ...rest }: Props) => {
     >
       <Button value="collection" size="sm" px={ 3 }>
         <IconSvg name="collection" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg">By collection</chakra.span>
+        <chakra.span hideBelow="lg">{ t('address.byCollection') }</chakra.span>
       </Button>
       <Button value="list" size="sm" px={ 3 }>
         <IconSvg name="apps" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg">List</chakra.span>
+        <chakra.span hideBelow="lg">{ t('address.list') }</chakra.span>
       </Button>
     </ButtonGroupRadio>
   );

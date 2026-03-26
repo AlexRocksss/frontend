@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressParam } from 'types/api/addressParams';
@@ -35,7 +36,7 @@ interface Props {
 }
 
 const OptimisticL2ClaimButton = ({ data, from, onSuccess, source }: Props) => {
-
+  const { t } = useTranslation();
   const modal = useDisclosure();
 
   if (canClaimDirectlyGuard(data)) {
@@ -49,14 +50,14 @@ const OptimisticL2ClaimButton = ({ data, from, onSuccess, source }: Props) => {
             onSuccess={ onSuccess }
           />
         ) }
-        <Button variant="outline" size="sm" onClick={ modal.onOpen }>Claim</Button>
+        <Button variant="outline" size="sm" onClick={ modal.onOpen }>{ t('withdrawals.claimButton') }</Button>
       </>
     );
   }
 
   if (!rollupFeature.isEnabled || !rollupFeature.L2WithdrawalUrl) {
     if (source === 'list') {
-      return 'Ready for relay';
+      return t('withdrawals.readyForRelay');
     }
     return null;
   }
@@ -67,7 +68,7 @@ const OptimisticL2ClaimButton = ({ data, from, onSuccess, source }: Props) => {
         href={ rollupFeature.L2WithdrawalUrl }
         external
       >
-        Ready for relay
+        { t('withdrawals.readyForRelay') }
       </Link>
     );
   }
@@ -78,7 +79,7 @@ const OptimisticL2ClaimButton = ({ data, from, onSuccess, source }: Props) => {
       external
       noIcon
     >
-      <Button variant="outline" size="sm">Claim</Button>
+      <Button variant="outline" size="sm">{ t('withdrawals.claimButton') }</Button>
     </Link>
   );
 };

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { OptimisticL2TxnBatchesItem } from 'types/api/optimisticL2';
@@ -15,19 +16,20 @@ type Props = {
 };
 
 const OptimisticL2TxnBatchesTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot tableLayout="auto" minW="850px">
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader>Batch ID</TableColumnHeader>
-          <TableColumnHeader>Storage</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.batchIdLabel') }</TableColumnHeader>
+          <TableColumnHeader>{ t('txnBatches.storageHeader') }</TableColumnHeader>
           <TableColumnHeader>
-            Timestamp
+            { t('txnBatches.timestampLabel') }
             <TimeFormatToggle/>
           </TableColumnHeader>
-          <TableColumnHeader isNumeric>{ layerLabels.parent } txn count</TableColumnHeader>
-          <TableColumnHeader isNumeric>{ layerLabels.current } blocks</TableColumnHeader>
-          <TableColumnHeader isNumeric>Txn</TableColumnHeader>
+          <TableColumnHeader isNumeric>{ t('txnBatches.parentTxnCountHeader', { parent: layerLabels.parent }) }</TableColumnHeader>
+          <TableColumnHeader isNumeric>{ t('txnBatches.currentBlocksHeader', { current: layerLabels.current }) }</TableColumnHeader>
+          <TableColumnHeader isNumeric>{ t('txnBatches.txnHeader') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

@@ -1,5 +1,6 @@
 import { Grid } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import type { Channel } from 'phoenix';
 import React from 'react';
@@ -33,12 +34,13 @@ type Props = {
 };
 
 const ContractDetails = ({ addressData, channel, mainContractQuery }: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const sourceAddress = getQueryParamString(router.query.source_address);
   const multichainContext = useMultichainContext();
 
   const sourceItems: Array<AddressImplementation> = React.useMemo(() => {
-    const currentAddressDefaultName = addressData?.proxy_type === 'eip7702' ? 'Current address' : 'Current contract';
+    const currentAddressDefaultName = addressData?.proxy_type === 'eip7702' ? t('address.currentAddress') : t('address.currentContract');
     const currentAddressItem = { address_hash: addressData.hash, name: addressData?.name || currentAddressDefaultName };
     if (!addressData || !addressData.implementations || addressData.implementations.length === 0) {
       return [ currentAddressItem ];
@@ -48,7 +50,7 @@ const ContractDetails = ({ addressData, channel, mainContractQuery }: Props) => 
       currentAddressItem,
       ...(addressData?.implementations.filter((item) => item.address_hash !== addressData.hash && item.name) || []),
     ];
-  }, [ addressData ]);
+  }, [ addressData, t ]);
 
   const [ selectedItem, setSelectedItem ] = React.useState<AddressImplementation | undefined>(undefined);
 
@@ -77,7 +79,7 @@ const ContractDetails = ({ addressData, channel, mainContractQuery }: Props) => 
   const addressSelector = sourceItems.length > 1 && selectedItem ? (
     <ContractSourceAddressSelector
       isLoading={ mainContractQuery.isPlaceholderData }
-      label="Source code"
+      label={ t('address.contractSourceCodeLabel') }
       items={ sourceItems }
       selectedItem={ selectedItem }
       onItemSelect={ setSelectedItem }

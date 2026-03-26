@@ -1,5 +1,7 @@
 import { Flex, chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
+import type { TFunction } from 'i18next';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TxAction, TxActionGeneral } from 'types/api/txAction';
@@ -14,16 +16,17 @@ interface Props {
   action: TxAction;
 }
 
-function getActionText(actionType: TxActionGeneral['type']) {
+function getActionText(actionType: TxActionGeneral['type'], t: TFunction) {
   switch (actionType) {
-    case 'mint': return [ 'Added', 'liquidity to' ];
-    case 'burn': return [ 'Removed', 'liquidity from' ];
-    case 'collect': return [ 'Collected', 'from' ];
-    case 'swap': return [ 'Swapped', 'on' ];
+    case 'mint': return [ t('txAction.added'), t('txAction.liquidityTo') ];
+    case 'burn': return [ t('txAction.removed'), t('txAction.liquidityFrom') ];
+    case 'collect': return [ t('txAction.collected'), t('txAction.from') ];
+    case 'swap': return [ t('txAction.swapped'), t('txAction.on') ];
   }
 }
 
 const TxDetailsAction = ({ action }: Props) => {
+  const { t } = useTranslation();
   const { protocol, type, data } = action;
 
   if (protocol !== 'uniswap_v3') {
@@ -37,7 +40,7 @@ const TxDetailsAction = ({ action }: Props) => {
     case 'swap': {
       const amount0 = BigNumber(data.amount0).toFormat();
       const amount1 = BigNumber(data.amount1).toFormat();
-      const [ text0, text1 ] = getActionText(type);
+      const [ text0, text1 ] = getActionText(type, t);
       const token0 = {
         address_hash: data.symbol0 === 'Ether' ? '' : data.address0,
         name: data.symbol0 === 'Ether' ? config.chain.currency.symbol || null : data.symbol0,
@@ -72,7 +75,7 @@ const TxDetailsAction = ({ action }: Props) => {
             flexShrink={ 0 }
           />
 
-          <chakra.span color="text.secondary">{ type === 'swap' ? 'for' : 'and' }</chakra.span>
+          <chakra.span color="text.secondary">{ type === 'swap' ? t('txAction.for') : t('txAction.and') }</chakra.span>
 
           <span>{ amount1 }</span>
 
@@ -110,7 +113,7 @@ const TxDetailsAction = ({ action }: Props) => {
       return (
         <div>
           <Flex rowGap={ 2 } columnGap={ 2 } flexWrap="wrap" alignItems="center" whiteSpace="pre-wrap" fontWeight={ 500 }>
-            <chakra.span color="text.secondary">Minted</chakra.span>
+            <chakra.span color="text.secondary">{ t('txAction.minted') }</chakra.span>
 
             <TokenEntity
               token={ token }
@@ -119,7 +122,7 @@ const TxDetailsAction = ({ action }: Props) => {
               rowGap={ 2 }
             />
 
-            <chakra.span color="text.secondary">to</chakra.span>
+            <chakra.span color="text.secondary">{ t('txAction.to') }</chakra.span>
 
             <AddressEntity
               address={{ hash: data.to }}
@@ -135,7 +138,7 @@ const TxDetailsAction = ({ action }: Props) => {
                 return (
                   <Flex key={ data.address + id } whiteSpace="pre-wrap" columnGap={ 2 }>
                     <chakra.span flexShrink={ 0 }>1</chakra.span>
-                    <chakra.span color="text.secondary" flexShrink={ 0 }>of token ID</chakra.span>
+                    <chakra.span color="text.secondary" flexShrink={ 0 }>{ t('txAction.ofTokenId') }</chakra.span>
                     <NftEntity hash={ data.address } id={ id } w="min-content" variant="content"/>
                   </Flex>
                 );

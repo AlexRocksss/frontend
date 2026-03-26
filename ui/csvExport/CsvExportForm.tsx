@@ -1,4 +1,5 @@
 import { chakra, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -31,6 +32,7 @@ interface Props {
 }
 
 const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTemplate, exportType }: Props) => {
+  const { t } = useTranslation();
   const formApi = useForm<FormFields>({
     mode: 'onBlur',
     defaultValues: {
@@ -88,18 +90,15 @@ const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTempla
     } catch (error) {
       toaster.error({
         title: 'Error',
-        description: (error as Error)?.message || 'Something went wrong. Try again later.',
+        description: (error as Error)?.message || t('csvExport.exportError'),
       });
     }
 
-  }, [ recaptcha, apiFetchFactory, multichainContext?.chain, exportType, fileNameTemplate, hash, filterType, filterValue ]);
+  }, [ recaptcha, apiFetchFactory, multichainContext?.chain, exportType, fileNameTemplate, hash, filterType, filterValue, t ]);
 
   if (!chainConfig.services.reCaptchaV2.siteKey) {
     return (
-      <Alert status="error">
-        CSV export is not available at the moment since reCaptcha is not configured for this application.
-        Please contact the service maintainer to make necessary changes in the service configuration.
-      </Alert>
+      <Alert status="error">{ t('csvExport.recaptchaNotConfigured') }</Alert>
     );
   }
 
@@ -119,10 +118,10 @@ const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTempla
           type="submit"
           mt={ 8 }
           loading={ formState.isSubmitting }
-          loadingText="Download"
+          loadingText={ t('csvExport.download') }
           disabled={ Boolean(formState.errors.from || formState.errors.to || recaptcha.isInitError) }
         >
-          Download
+          { t('csvExport.download') }
         </Button>
       </chakra.form>
     </FormProvider>

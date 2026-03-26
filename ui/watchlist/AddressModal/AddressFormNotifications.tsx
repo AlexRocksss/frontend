@@ -1,4 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { Path } from 'react-hook-form';
 
@@ -25,6 +26,7 @@ export const NOTIFICATION_OPTIONS: ReadonlyArray<NotificationOption> = [
 export const NOTIFICATIONS = NOTIFICATION_OPTIONS.map(({ id }) => id);
 
 export default function AddressFormNotifications() {
+  const { t } = useTranslation();
   return (
     <Grid templateColumns={{ base: 'repeat(2, max-content)', lg: 'repeat(3, max-content)' }} gap={{ base: '10px 24px', lg: '20px 24px' }}>
       { NOTIFICATION_OPTIONS.map((notification) => {
@@ -44,13 +46,13 @@ export default function AddressFormNotifications() {
             <GridItem>
               <FormFieldCheckbox<FormFields, typeof incomingFieldName>
                 name={ incomingFieldName }
-                label="Incoming"
+                label={ t('watchlist.incoming') }
               />
             </GridItem>
             <GridItem>
               <FormFieldCheckbox<FormFields, typeof outgoingFieldName>
                 name={ outgoingFieldName }
-                label="Outgoing"
+                label={ t('watchlist.outgoing') }
               />
             </GridItem>
           </React.Fragment>

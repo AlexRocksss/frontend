@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const TxDetailsCrossChainMessages = ({ hash, isLoading: isLoadingProp }: Props) => {
+  const { t } = useTranslation();
 
   const { data, isPlaceholderData } = useApiQuery('interchainIndexer:tx_messages', {
     pathParams: { hash },
@@ -39,17 +41,17 @@ const TxDetailsCrossChainMessages = ({ hash, isLoading: isLoadingProp }: Props) 
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Cross-chain messages in this transaction"
+        hint={ t('tx.hintCrossChainMessages') }
         isLoading={ isLoading }
       >
-        Cross-chain message{ (data?.items ?? []).length > 1 ? 's' : '' }
+        { t('tx.crossChainMessage', { count: (data?.items ?? []).length }) }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <CollapsibleList
           items={ data?.items ?? [] }
           renderItem={ renderItem }
           cutLength={ 5 }
-          text={ [ 'View all messages', 'Hide all messages' ] }
+          text={ [ t('tx.viewAllMessages'), t('tx.hideAllMessages') ] }
           py={ 1 }
           rowGap="14px"
         />

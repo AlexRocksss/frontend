@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 
@@ -28,6 +29,7 @@ import ClustersLeaderboardListItem from './ClustersLeaderboardListItem';
 import ClustersLeaderboardTable from './ClustersLeaderboardTable';
 
 const Clusters = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { updateQuery } = useQueryParams();
 
@@ -139,7 +141,7 @@ const Clusters = () => {
     <>
       <Text mb={ 6 } textStyle={{ base: 'sm', lg: 'md' }}>
         <Link href="https://clusters.xyz/?utm_source=blockscout" external noIcon>Clusters</Link>{ ' ' }
-        is a cross-chain name service for managing addresses on multiple blockchains using a universal naming directory.
+        { t('nameServices.clustersIntro') }
       </Text>
       <DataListDisplay
         isError={ isError }

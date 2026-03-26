@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type * as tac from '@blockscout/tac-operation-lifecycle-types';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const TacOperationDetails = ({ isLoading, data }: Props) => {
+  const { t } = useTranslation();
 
   const statusHistory = data.status_history.filter((item) => item.is_exist).sort(sortStatusHistory);
 
@@ -26,10 +28,10 @@ const TacOperationDetails = ({ isLoading, data }: Props) => {
       { data?.sender && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The address on the source chain that starts a cross‑chain operation"
+            hint={ t('operation.senderHint') }
             isLoading={ isLoading }
           >
-            Sender
+            { t('operation.sender') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <AddressEntityTacTon
@@ -42,10 +44,10 @@ const TacOperationDetails = ({ isLoading, data }: Props) => {
       ) }
 
       <DetailedInfo.ItemLabel
-        hint="The status of the operation"
+        hint={ t('operation.statusHint') }
         isLoading={ isLoading }
       >
-        Status
+        { t('operation.status') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <TacOperationStatus status={ data.type } isLoading={ isLoading }/>
@@ -54,10 +56,10 @@ const TacOperationDetails = ({ isLoading, data }: Props) => {
       { data.timestamp && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Block time on the source chain when a cross‑chain operation is formed and sent"
+            hint={ t('operation.timestampHint') }
             isLoading={ isLoading }
           >
-            Timestamp
+            { t('operation.timestamp') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/>
@@ -68,10 +70,10 @@ const TacOperationDetails = ({ isLoading, data }: Props) => {
       { statusHistory.length > 0 && (
         <>
           <DetailedInfo.ItemLabel
-            hint="Stages of a cross‑chain operation"
+            hint={ t('operation.lifecycleHint') }
             isLoading={ isLoading }
           >
-            Lifecycle
+            { t('operation.lifecycle') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue mt={ 1 }>
             <TacOperationLifecycleAccordion data={ statusHistory } isLoading={ isLoading } type={ data.type }/>

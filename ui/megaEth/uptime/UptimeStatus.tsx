@@ -1,4 +1,5 @@
 import { chakra, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -13,16 +14,17 @@ interface Props {
 }
 
 const UptimeStatus = ({ status, onReconnect }: Props) => {
+  const { t } = useTranslation();
 
   const statusTag = (() => {
     switch (status) {
       case 'connected':
-        return <StatusTag type="ok" text="Connected"/>;
+        return <StatusTag type="ok" text={ t('megaEth.connected') }/>;
       case 'disconnected':
       case 'error':
-        return <StatusTag type="error" text="Disconnected"/>;
+        return <StatusTag type="error" text={ t('megaEth.disconnected') }/>;
       case 'initial':
-        return <StatusTag type="pending" text="Initializing"/>;
+        return <StatusTag type="pending" text={ t('megaEth.initializing') }/>;
     }
 
     return null;
@@ -33,7 +35,7 @@ const UptimeStatus = ({ status, onReconnect }: Props) => {
       { statusTag }
       <Button variant="link" gap={ 1 } onClick={ onReconnect } disabled={ status === 'connected' }>
         <IconSvg name="refresh" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg" fontSize="sm">Refresh</chakra.span>
+        <chakra.span hideBelow="lg" fontSize="sm">{ t('megaEth.refresh') }</chakra.span>
       </Button>
     </HStack>
   );

@@ -1,4 +1,5 @@
 import { chakra, Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import QRCode from 'qrcode';
 import React from 'react';
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const AddressQrCode = ({ hash, className, isLoading }: Props) => {
+  const { t } = useTranslation();
   const { open, onOpen, onOpenChange } = useDisclosure();
 
   const router = useRouter();
@@ -40,7 +42,7 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
     if (open) {
       QRCode.toString(hash, SVG_OPTIONS, (error: Error | null | undefined, svg: string) => {
         if (error) {
-          setError('We were unable to generate QR code.');
+          setError(t('address.qrCodeError'));
           rollbar?.warn('QR code generation failed');
           return;
         }
@@ -50,7 +52,7 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
         mixpanel.logEvent(mixpanel.EventTypes.QR_CODE, { 'Page type': pageType });
       });
     }
-  }, [ hash, open, pageType, rollbar ]);
+  }, [ hash, open, pageType, rollbar, t ]);
 
   if (isLoading) {
     return <Skeleton loading className={ className } w="36px" h="32px" borderRadius="base"/>;
@@ -58,10 +60,10 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
 
   return (
     <>
-      <Tooltip content="Click to view QR code" disableOnMobile>
+      <Tooltip content={ t('address.qrCodeTooltip') } disableOnMobile>
         <IconButton
           className={ className }
-          aria-label="Show QR code"
+          aria-label={ t('address.showQrCodeAriaLabel') }
           variant="icon_background"
           size="md"
           onClick={ onOpen }
@@ -82,7 +84,7 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
       { !error && (
         <DialogRoot open={ open } onOpenChange={ onOpenChange } size={{ lgDown: 'full', lg: 'sm' }}>
           <DialogContent className="light">
-            <DialogHeader>Address QR code</DialogHeader>
+            <DialogHeader>{ t('address.qrCodeTitle') }</DialogHeader>
             <DialogBody>
               <AddressEntity
                 mb={ 3 }

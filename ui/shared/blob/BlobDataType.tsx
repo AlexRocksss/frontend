@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import * as blobUtils from 'lib/blob';
@@ -10,13 +11,14 @@ interface Props {
   isLoading?: boolean;
 }
 
-const TYPES: Record<string, { iconName: IconName; label: string }> = {
-  image: { iconName: 'blobs/image', label: 'Image' },
-  text: { iconName: 'blobs/text', label: 'Text' },
-  raw: { iconName: 'blobs/raw', label: 'Raw' },
-};
-
 const BlobDataType = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
+
+  const TYPES: Record<string, { iconName: IconName; label: string }> = {
+    image: { iconName: 'blobs/image', label: t('blobDataType.image') },
+    text: { iconName: 'blobs/text', label: t('blobDataType.text') },
+    raw: { iconName: 'blobs/raw', label: t('blobDataType.raw') },
+  };
   const guessedType = React.useMemo(() => {
     if (isLoading) {
       return;

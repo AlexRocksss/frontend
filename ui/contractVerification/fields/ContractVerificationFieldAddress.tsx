@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -12,18 +13,19 @@ interface Props {
 }
 
 const ContractVerificationFieldAddress = ({ readOnly }: Props) => {
+  const { t } = useTranslation();
   return (
     <>
       <ContractVerificationFormRow>
         <Heading level="2">
-          Contract address to verify
+          { t('contractVerification.addressHeading') }
         </Heading>
       </ContractVerificationFormRow>
       <ContractVerificationFormRow>
         <FormFieldAddress<FormFields>
           name="address"
           required
-          placeholder="Smart contract / Address (0x...)"
+          placeholder={ t('contractVerification.addressPlaceholder') }
           readOnly={ readOnly }
         />
       </ContractVerificationFormRow>

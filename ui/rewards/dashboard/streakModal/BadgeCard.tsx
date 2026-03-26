@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 
 import type { GetAvailableBadgesResponse } from '@blockscout/points-types';
 
@@ -27,6 +28,7 @@ type Props = {
 };
 
 export default function BadgeCard({ badge, currentStreak, index }: Props) {
+  const { t } = useTranslation();
   const target = Number(badge.requirements?.streak || 0);
   const isUnlocked = badge.is_whitelisted || badge.is_minted;
   const progress = Math.min(currentStreak, target);
@@ -44,12 +46,12 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
       >
         <Image
           src={ isUnlocked ? BADGES[index] : GHOST_BADGES[index] }
-          alt="Streak badge"
+          alt={ t('rewards.streakBadgeAlt') }
           h={{ base: '54px', lg: '82px' }}
         />
       </Flex>
       <Flex direction="column" gap={ 3 } w="full" alignItems={{ base: 'flex-start', lg: 'center' }}>
-        <Text textStyle="sm">{ target } Day streak</Text>
+        <Text textStyle="sm">{ t('rewards.badgeDayStreak', { target }) }</Text>
         <Flex
           w="full"
           alignItems="center"
@@ -62,7 +64,7 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
             if (badge.is_minted) {
               return (
                 <Text textStyle="xs" color="green.500">
-                  Minted
+                  { t('rewards.badgeMinted') }
                 </Text>
               );
             }
@@ -73,7 +75,7 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
                   external
                   textStyle="sm"
                 >
-                  Mint a badge
+                  { t('rewards.badgeMint') }
                 </Link>
               );
             }

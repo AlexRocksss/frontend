@@ -1,4 +1,5 @@
 import type BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressesItem } from 'types/api/addresses';
@@ -18,16 +19,17 @@ interface Props {
 }
 
 const AddressesTable = ({ items, totalSupply, pageStartIndex, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   const hasPercentage = !totalSupply.eq(ZERO);
   return (
     <TableRoot>
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader width="64px">Rank</TableColumnHeader>
-          <TableColumnHeader width={ hasPercentage ? '50%' : '60%' }>Address</TableColumnHeader>
-          <TableColumnHeader width={ hasPercentage ? '20%' : '25%' } isNumeric>{ `Balance ${ currencyUnits.ether }` }</TableColumnHeader>
-          { hasPercentage && <TableColumnHeader width="15%" isNumeric>Percentage</TableColumnHeader> }
-          <TableColumnHeader width="15%" isNumeric>Txn count</TableColumnHeader>
+          <TableColumnHeader width="64px">{ t('addresses.rank') }</TableColumnHeader>
+          <TableColumnHeader width={ hasPercentage ? '50%' : '60%' }>{ t('addresses.address') }</TableColumnHeader>
+          <TableColumnHeader width={ hasPercentage ? '20%' : '25%' } isNumeric>{ t('addresses.balance', { ether: currencyUnits.ether }) }</TableColumnHeader>
+          { hasPercentage && <TableColumnHeader width="15%" isNumeric>{ t('addresses.percentage') }</TableColumnHeader> }
+          <TableColumnHeader width="15%" isNumeric>{ t('addresses.txnCount') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

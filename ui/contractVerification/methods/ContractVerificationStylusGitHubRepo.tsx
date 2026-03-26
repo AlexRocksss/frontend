@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -12,10 +13,11 @@ import ContractVerificationFieldCompiler from '../fields/ContractVerificationFie
 import ContractVerificationFieldGitHubRepo from '../fields/ContractVerificationFieldGitHubRepo';
 
 const ContractVerificationStylusGitHubRepo = ({ config }: { config: SmartContractVerificationConfig }) => {
+  const { t } = useTranslation();
   const [ latestCommitHash, setLatestCommitHash ] = React.useState<string | undefined>(undefined);
 
   return (
-    <ContractVerificationMethod title="Contract verification via Stylus (GitHub repository) ">
+    <ContractVerificationMethod title={ t('contractVerification.methodStylusTitle') }>
       <ContractVerificationFieldCompiler config={ config } isStylus/>
       <ContractVerificationFieldGitHubRepo onCommitHashChange={ setLatestCommitHash }/>
       <ContractVerificationFieldCommit latestCommitHash={ latestCommitHash }/>
@@ -23,11 +25,10 @@ const ContractVerificationStylusGitHubRepo = ({ config }: { config: SmartContrac
       <ContractVerificationFormRow>
         <FormFieldText<FormFields>
           name="path_prefix"
-          placeholder="Path prefix"
+          placeholder={ t('contractVerification.methodStylusPathPlaceholder') }
         />
         <span>
-          The crate should be located in the root directory. If it is not the case, please specify the relative path from
-          the root to the crate directory.
+          { t('contractVerification.methodStylusPathHint') }
         </span>
       </ContractVerificationFormRow>
     </ContractVerificationMethod>

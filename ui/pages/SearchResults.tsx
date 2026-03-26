@@ -1,4 +1,5 @@
 import { Box, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import React from 'react';
@@ -35,6 +36,7 @@ import useSearchQuery from 'ui/snippets/searchBar/useSearchQuery';
 const nameServicesFeature = config.features.nameServices;
 
 const SearchResultsPageContent = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const withRedirectCheck = getQueryParamString(router.query.redirect) === 'true';
   const {
@@ -246,7 +248,7 @@ const SearchResultsPageContent = () => {
               { resultsCount }
             </chakra.span>
             <span> matching result{ (((displayedItems.length || 0) + marketplaceApps.displayedApps.length) > 1) || pagination.page > 1 ? 's' : '' } for </span>
-            “<chakra.span fontWeight={ 700 }>{ debouncedSearchTerm }</chakra.span>”
+            "<chakra.span fontWeight={ 700 }>{ debouncedSearchTerm }</chakra.span>"
           </Box>
           { resultsCount === 0 && regexp.BLOCK_HEIGHT.test(debouncedSearchTerm) &&
             <SearchBarSuggestBlockCountdown blockHeight={ debouncedSearchTerm } mt={ -4 }/> }
@@ -281,7 +283,7 @@ const SearchResultsPageContent = () => {
 
   const pageContent = !showContent ? <ContentLoader/> : (
     <>
-      <PageTitle title="Search results"/>
+      <PageTitle title={ t('pages.searchResults') }/>
       { bar }
       { content }
     </>

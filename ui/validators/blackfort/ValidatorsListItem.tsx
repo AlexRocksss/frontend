@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ValidatorBlackfort } from 'types/api/validators';
@@ -15,11 +16,12 @@ interface Props {
 }
 
 const ValidatorsListItem = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   return (
     <ListItemMobileGrid.Container gridTemplateColumns="130px auto">
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.addressLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <AddressEntity
           isLoading={ isLoading }
@@ -30,21 +32,21 @@ const ValidatorsListItem = ({ data, isLoading }: Props) => {
 
       { data.name && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Name</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.nameLabel') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <Flex><TruncatedText text={ data.name } loading={ isLoading }/></Flex>
           </ListItemMobileGrid.Value>
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Commission</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.commissionLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <Skeleton loading={ isLoading }>
           { `${ data.commission / 100 }%` }
         </Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Self bonded</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.selfBondedLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <NativeCoinValue
           amount={ data.self_bonded_amount }
@@ -52,7 +54,7 @@ const ValidatorsListItem = ({ data, isLoading }: Props) => {
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Delegated amount</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('validators.delegatedAmountLabel') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <NativeCoinValue
           amount={ data.delegated_amount }

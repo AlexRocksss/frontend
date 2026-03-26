@@ -1,4 +1,5 @@
 import { chakra, Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import type { Channel } from 'phoenix';
 import React from 'react';
 
@@ -24,6 +25,7 @@ export interface Props {
 }
 
 const ContractDetailsAlerts = ({ data, isLoading, addressData, channel }: Props) => {
+  const { t } = useTranslation();
   const [ isChangedBytecodeSocket, setIsChangedBytecodeSocket ] = React.useState<boolean>();
 
   const handleChangedBytecodeMessage: SocketMessage.AddressChangedBytecode['handler'] = React.useCallback(() => {
@@ -40,7 +42,7 @@ const ContractDetailsAlerts = ({ data, isLoading, addressData, channel }: Props)
     <Flex flexDir="column" rowGap={ 1 } mb={ 6 } _empty={{ display: 'none' }}>
       { data?.is_blueprint && (
         <Box>
-          <span>This is an </span>
+          <span>{ t('address.isABlueprint') }</span>
           <Link external href="https://eips.ethereum.org/EIPS/eip-5202">
             ERC-5202 Blueprint contract
           </Link>
@@ -56,19 +58,19 @@ const ContractDetailsAlerts = ({ data, isLoading, addressData, channel }: Props)
       ) }
       { (data?.is_changed_bytecode || isChangedBytecodeSocket) && (
         <Alert status="warning">
-          Warning! Contract bytecode has been changed and does not match the verified one. Therefore, interaction with this smart contract may be risky.
+          { t('address.bytecodeChangedWarning') }
         </Alert>
       ) }
       { !data?.is_verified && data?.verified_twin_address_hash && (!addressData.proxy_type || addressData.proxy_type === 'unknown') && (
         <Alert status="warning" whiteSpace="pre-wrap">
-          <span>Contract is not verified. However, we found a verified contract with the same bytecode in Blockscout DB </span>
+          <span>{ t('address.notVerifiedButSameBytecode') }</span>
           <AddressEntity
             address={{ hash: data.verified_twin_address_hash, filecoin: { robust: data.verified_twin_filecoin_robust_address }, is_contract: true }}
             truncation="constant"
             fontSize="sm"
             fontWeight="500"
           />
-          <chakra.span mt={ 1 }>All functions displayed below are from ABI of that contract. In order to verify current contract, proceed with </chakra.span>
+          <chakra.span mt={ 1 }>{ t('address.abiFromSameBytecode') }</chakra.span>
           <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: addressData.hash } }) }>
             Verify & Publish
           </Link>

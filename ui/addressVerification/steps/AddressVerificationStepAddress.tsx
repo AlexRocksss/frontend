@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -30,6 +31,7 @@ interface Props {
 }
 
 const AddressVerificationStepAddress = ({ defaultAddress, onContinue }: Props) => {
+  const { t } = useTranslation();
   const formApi = useForm<Fields>({
     mode: 'onBlur',
     defaultValues: {
@@ -113,7 +115,7 @@ const AddressVerificationStepAddress = ({ defaultAddress, onContinue }: Props) =
           name="address"
           required
           bgColor="dialog.bg"
-          placeholder="Smart contract address (0x...)"
+          placeholder={ t('addressVerification.contractAddressPlaceholder') }
           mt={ 8 }
         />
         <Flex alignItems={{ base: 'flex-start', lg: 'center' }} mt={ 8 } columnGap={ 5 } rowGap={ 2 } flexDir={{ base: 'column', lg: 'row' }}>

@@ -1,4 +1,5 @@
 import { Box, Flex, chakra, createListCollection } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -13,14 +14,7 @@ import RawDataSnippet from 'ui/shared/RawDataSnippet';
 import { useMetadataUpdateContext } from './contexts/metadataUpdate';
 import MetadataAccordion from './metadata/MetadataAccordion';
 
-const OPTIONS = [
-  { label: 'Table', value: 'Table' as const },
-  { label: 'JSON', value: 'JSON' as const },
-];
-
-const collection = createListCollection<SelectOption>({ items: OPTIONS });
-
-type Format = (typeof OPTIONS)[number]['value'];
+type Format = 'Table' | 'JSON';
 
 interface Props {
   data: TokenInstance['metadata'] | undefined;
@@ -28,7 +22,14 @@ interface Props {
 }
 
 const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
+  const { t } = useTranslation();
   const [ format, setFormat ] = React.useState<Array<Format>>([ 'Table' ]);
+  const collection = createListCollection<SelectOption>({
+    items: [
+      { label: t('token.metadataFormatTable'), value: 'Table' as const },
+      { label: t('token.metadataFormatJSON'), value: 'JSON' as const },
+    ],
+  });
 
   const { status: refetchStatus } = useMetadataUpdateContext() || {};
 
@@ -41,7 +42,7 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
   }
 
   if (!data) {
-    return <Box>There is no metadata for this NFT</Box>;
+    return <Box>{ t('token.noMetadata') }</Box>;
   }
 
   const content = format[0] === 'Table' ?
@@ -51,15 +52,15 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
   return (
     <Box>
       { refetchStatus === 'ERROR' && (
-        <Alert status="warning" mb={ 6 } title="Oops!" display={{ base: 'block', lg: 'flex' }}>
-          <span>We { `couldn't` } refresh metadata. Please try again now or later.</span>
+        <Alert status="warning" mb={ 6 } title={ t('token.metadataErrorTitle') } display={{ base: 'block', lg: 'flex' }}>
+          <span>{ t('token.metadataErrorDesc') }</span>
         </Alert>
       ) }
       <Flex alignItems="center" mb={ 6 }>
-        <chakra.span fontWeight={ 500 }>Metadata</chakra.span>
+        <chakra.span fontWeight={ 500 }>{ t('token.metadata') }</chakra.span>
         <Select
           collection={ collection }
-          placeholder="Select type"
+          placeholder={ t('token.metadataSelectType') }
           value={ format }
           onValueChange={ handleValueChange }
           ml={ 5 }

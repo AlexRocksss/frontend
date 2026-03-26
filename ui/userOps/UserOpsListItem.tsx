@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { UserOpsItem } from 'types/api/userOps';
@@ -23,18 +24,19 @@ type Props = {
 };
 
 const UserOpsListItem = ({ item, isLoading, showTx, showSender, chainData }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const chainConfig = (multichainContext?.chain.app_config || config);
 
   return (
     <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>User op hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('userOps.userOpHash') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <UserOpEntity hash={ item.hash } isLoading={ isLoading } fontWeight="700" noIcon={ !chainData } truncation="constant_long" chain={ chainData } noCopy/>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('userOps.age') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TimeWithTooltip
           timestamp={ item.timestamp }
@@ -44,14 +46,14 @@ const UserOpsListItem = ({ item, isLoading, showTx, showSender, chainData }: Pro
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('userOps.status') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <UserOpStatus status={ item.status } isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
       { showSender && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Sender</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('userOps.sender') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <AddressStringOrParam
               address={ item.address }
@@ -64,7 +66,7 @@ const UserOpsListItem = ({ item, isLoading, showTx, showSender, chainData }: Pro
 
       { showTx && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Tx hash</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('userOps.txHash') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <TxEntity
               hash={ item.transaction_hash }
@@ -76,7 +78,7 @@ const UserOpsListItem = ({ item, isLoading, showTx, showSender, chainData }: Pro
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>Block</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('userOps.block') }</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BlockEntity
           number={ Number(item.block_number) }
@@ -88,7 +90,7 @@ const UserOpsListItem = ({ item, isLoading, showTx, showSender, chainData }: Pro
 
       { !chainConfig.UI.views.tx.hiddenFields?.tx_fee && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Fee</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>{ t('userOp.fee') }</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             <NativeCoinValue
               amount={ item.fee }

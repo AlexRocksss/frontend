@@ -1,4 +1,5 @@
 import { Box, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -15,6 +16,7 @@ import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 const EpochPageContent = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const router = useRouter();
   const number = getQueryParamString(router.query.number);
@@ -36,13 +38,13 @@ const EpochPageContent = () => {
     switch (epochQuery.data?.type) {
       case 'L1':
         return (
-          <Tooltip content="Epoch finalized while Celo was still an L1 network">
+          <Tooltip content={ t('pages.epochL1Tooltip') }>
             <Tag loading={ isLoading }>{ epochQuery.data.type }</Tag>
           </Tooltip>
         );
       case 'L2':
         return (
-          <Tooltip content="Epoch finalized after Celo migrated to the OP‐stack, when it became an L2 rollup">
+          <Tooltip content={ t('pages.epochL2Tooltip') }>
             <Tag loading={ isLoading }>{ epochQuery.data.type }</Tag>
           </Tooltip>
         );

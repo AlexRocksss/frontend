@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import * as bens from '@blockscout/bens-types';
@@ -27,6 +28,7 @@ interface Props {
 }
 
 const NameDomainDetails = ({ query }: Props) => {
+  const { t } = useTranslation();
   const isLoading = query.isPlaceholderData;
 
   const otherAddresses = Object.entries(query.data?.other_addresses ?? {});
@@ -38,10 +40,10 @@ const NameDomainDetails = ({ query }: Props) => {
         { query.data?.registration_date && (
           <>
             <DetailedInfo.ItemLabel
-              hint="The date the name was registered"
+              hint={ t('nameDomain.registrationDateHint') }
               isLoading={ isLoading }
             >
-              Registration date
+              { t('nameDomain.registrationDate') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
               <DetailedInfoTimestamp timestamp={ query.data.registration_date } isLoading={ isLoading }/>
@@ -52,11 +54,10 @@ const NameDomainDetails = ({ query }: Props) => {
         { query.data?.expiry_date && (
           <>
             <DetailedInfo.ItemLabel
-            // eslint-disable-next-line max-len
-              hint="The date the name expires, upon which there is a grace period for the owner to renew. After grace period ends, the name is released to the market"
+              hint={ t('nameDomain.expirationDateHint') }
               isLoading={ isLoading }
             >
-              Expiration date
+              { t('nameDomain.expirationDate') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
               <DetailedInfoTimestamp timestamp={ query.data?.expiry_date } isLoading={ isLoading } noRelativeTime/>
@@ -71,10 +72,10 @@ const NameDomainDetails = ({ query }: Props) => {
         { query.data?.resolver_address && (
           <>
             <DetailedInfo.ItemLabel
-              hint="The resolver contract provides information about a domain name"
+              hint={ t('nameDomain.resolverHint') }
               isLoading={ isLoading }
             >
-              Resolver
+              { t('nameDomain.resolver') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
             >
@@ -89,10 +90,10 @@ const NameDomainDetails = ({ query }: Props) => {
         { query.data?.registrant && (
           <>
             <DetailedInfo.ItemLabel
-              hint="The account that owns the domain name and has the rights to edit its ownership and records"
+              hint={ t('nameDomain.registrantHint') }
               isLoading={ isLoading }
             >
-              Registrant
+              { t('nameDomain.registrant') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
               columnGap={ 2 }
@@ -102,7 +103,7 @@ const NameDomainDetails = ({ query }: Props) => {
                 address={ query.data.registrant }
                 isLoading={ isLoading }
               />
-              <Tooltip content="Lookup for related domain names">
+              <Tooltip content={ t('pages.lookupRelatedDomains') }>
                 <Link
                   flexShrink={ 0 }
                   display="inline-flex"
@@ -121,10 +122,10 @@ const NameDomainDetails = ({ query }: Props) => {
         { query.data?.owner && (
           <>
             <DetailedInfo.ItemLabel
-              hint="The account that owns the rights to edit the records of this domain name"
+              hint={ t('nameDomain.ownerHint') }
               isLoading={ isLoading }
             >
-              Owner
+              { t('nameDomain.owner') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
               columnGap={ 2 }
@@ -134,7 +135,7 @@ const NameDomainDetails = ({ query }: Props) => {
                 address={ query.data.owner }
                 isLoading={ isLoading }
               />
-              <Tooltip content="Lookup for related domain names">
+              <Tooltip content={ t('pages.lookupRelatedDomains') }>
                 <Link
                   flexShrink={ 0 }
                   display="inline-flex"
@@ -153,10 +154,10 @@ const NameDomainDetails = ({ query }: Props) => {
         { query.data?.wrapped_owner && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Owner of this NFT domain in NameWrapper contract"
+              hint={ t('nameDomain.managerHint') }
               isLoading={ isLoading }
             >
-              Manager
+              { t('nameDomain.manager') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
               columnGap={ 2 }
@@ -166,7 +167,7 @@ const NameDomainDetails = ({ query }: Props) => {
                 address={ query.data.wrapped_owner }
                 isLoading={ isLoading }
               />
-              <Tooltip content="Lookup for related domain names">
+              <Tooltip content={ t('pages.lookupRelatedDomains') }>
                 <Link
                   flexShrink={ 0 }
                   display="inline-flex"
@@ -195,10 +196,10 @@ const NameDomainDetails = ({ query }: Props) => {
           return (
             <React.Fragment key={ token.type }>
               <DetailedInfo.ItemLabel
-                hint={ `The ${ token.type === bens.TokenType.WRAPPED_DOMAIN_TOKEN ? 'wrapped ' : '' }token ID of this domain name NFT` }
+                hint={ token.type === bens.TokenType.WRAPPED_DOMAIN_TOKEN ? t('nameDomain.wrappedTokenIdHint') : t('nameDomain.tokenIdHint') }
                 isLoading={ isLoading }
               >
-                { token.type === bens.TokenType.WRAPPED_DOMAIN_TOKEN ? 'Wrapped token ID' : 'Token ID' }
+                { token.type === bens.TokenType.WRAPPED_DOMAIN_TOKEN ? t('nameDomain.wrappedTokenId') : t('nameDomain.tokenId') }
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue
                 wordBreak="break-all"
@@ -213,10 +214,10 @@ const NameDomainDetails = ({ query }: Props) => {
         { otherAddresses.length > 0 && (
           <>
             <DetailedInfo.ItemLabel
-              hint="Other cryptocurrency addresses added to this domain name"
+              hint={ t('nameDomain.otherAddressesHint') }
               isLoading={ isLoading }
             >
-              Other addresses
+              { t('nameDomain.otherAddresses') }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
               flexDir="column"

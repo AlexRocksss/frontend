@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -9,6 +10,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Sol2UmlDiagram from 'ui/sol2uml/Sol2UmlDiagram';
 
 const Sol2Uml = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const multichainContext = useMultichainContext();
 
@@ -24,7 +26,7 @@ const Sol2Uml = () => {
 
   return (
     <>
-      <PageTitle title="Solidity UML diagram"/>
+      <PageTitle title={ t('pages.sol2uml') }/>
       <Flex mb={ 10 } flexWrap="wrap" columnGap={ 1 }>
         <span>For contract</span>
         <AddressEntity

@@ -1,4 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -14,6 +15,7 @@ import LatestTxsItem from './LatestTxsItem';
 import LatestTxsItemMobile from './LatestTxsItemMobile';
 
 const LatestWatchlistTxs = () => {
+  const { t } = useTranslation();
   useRedirectForInvalidAuthToken();
   const isMobile = useIsMobile();
   const txsCount = isMobile ? 2 : 5;
@@ -28,7 +30,7 @@ const LatestWatchlistTxs = () => {
   }
 
   if (!data?.length) {
-    return <Text>No latest transactions found.</Text>;
+    return <Text>{ t('home.noLatestTransactions') }</Text>;
   }
 
   if (data) {
@@ -54,7 +56,7 @@ const LatestWatchlistTxs = () => {
           ))) }
         </Box>
         <Flex justifyContent="center">
-          <Link textStyle="sm" href={ txsUrl }>View all watch list transactions</Link>
+          <Link textStyle="sm" href={ txsUrl }>{ t('home.viewAllWatchlistTxs') }</Link>
         </Flex>
       </>
     );

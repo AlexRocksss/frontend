@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { VerifiedContract } from 'types/api/contracts';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const VerifiedContractsTable = ({ data, sort, setSorting, isLoading }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const chainData = multichainContext?.chain;
 
@@ -34,7 +36,7 @@ const VerifiedContractsTable = ({ data, sort, setSorting, isLoading }: Props) =>
       <TableHeaderSticky top={ ACTION_BAR_HEIGHT_DESKTOP }>
         <TableRow>
           { chainData && <TableColumnHeader width="38px"/> }
-          <TableColumnHeader width="50%">Contract</TableColumnHeader>
+          <TableColumnHeader width="50%">{ t('verifiedContracts.contractHeader') }</TableColumnHeader>
           <TableColumnHeaderSortable
             width="130px"
             isNumeric
@@ -43,7 +45,7 @@ const VerifiedContractsTable = ({ data, sort, setSorting, isLoading }: Props) =>
             onSortToggle={ onSortToggle }
             disabled={ isLoading }
           >
-            Balance { currencyUnits.ether }
+            { t('verifiedContracts.balanceHeader', { ether: currencyUnits.ether }) }
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable
             width="130px"
@@ -53,15 +55,15 @@ const VerifiedContractsTable = ({ data, sort, setSorting, isLoading }: Props) =>
             onSortToggle={ onSortToggle }
             disabled={ isLoading }
           >
-            Txs
+            { t('verifiedContracts.txsHeader') }
           </TableColumnHeaderSortable>
-          <TableColumnHeader width="50%">Language / Compiler version</TableColumnHeader>
-          <TableColumnHeader width="80px">Settings</TableColumnHeader>
+          <TableColumnHeader width="50%">{ t('verifiedContracts.languageHeader') }</TableColumnHeader>
+          <TableColumnHeader width="80px">{ t('verifiedContracts.settingsHeader') }</TableColumnHeader>
           <TableColumnHeader width="200px">
-            Verified
+            { t('verifiedContracts.verifiedHeader') }
             <TimeFormatToggle/>
           </TableColumnHeader>
-          <TableColumnHeader width="130px">License</TableColumnHeader>
+          <TableColumnHeader width="130px">{ t('verifiedContracts.licenseHeader') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

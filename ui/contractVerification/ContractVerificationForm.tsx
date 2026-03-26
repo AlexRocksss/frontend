@@ -1,4 +1,5 @@
 import { Grid, Text, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -44,6 +45,7 @@ interface Props {
 }
 
 const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Props) => {
+  const { t } = useTranslation();
   const formApi = useForm<FormFields>({
     mode: 'onBlur',
     defaultValues: getDefaultValues(methodFromQuery, config, hash, []),
@@ -65,12 +67,12 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
 
         const isVerifiedContract = 'is_verified' in response && response?.is_verified && !response.is_partially_verified;
         if (isVerifiedContract) {
-          setError('address', { message: 'Contract has already been verified' });
+          setError('address', { message: t('contractVerification.contractAlreadyVerified') });
           return Promise.resolve();
         }
       } catch (error) {
         const statusCode = getErrorObjStatusCode(error);
-        const message = statusCode === 404 ? 'Address is not a smart contract' : 'Something went wrong';
+        const message = statusCode === 404 ? t('contractVerification.addressNotAContract') : t('contractVerification.somethingWentWrong');
         setError('address', { message });
         return Promise.resolve();
       }
@@ -92,7 +94,7 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
     return new Promise((resolve) => {
       submitPromiseResolver.current = resolve;
     });
-  }, [ apiFetch, hash, setError, trackContract ]);
+  }, [ apiFetch, hash, setError, trackContract, t ]);
 
   const handleFormChange = React.useCallback(() => {
     clearErrors('root');
@@ -120,8 +122,8 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
     }
 
     toaster.success({
-      title: 'Success',
-      description: 'Contract is successfully verified.',
+      title: t('contractVerification.successTitle'),
+      description: t('contractVerification.successDescription'),
     });
 
     mixpanel.logEvent(
@@ -131,7 +133,7 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
     );
 
     window.location.assign(route({ pathname: '/address/[hash]', query: { hash: address, tab: 'contract' } }));
-  }, [ setError, address, getValues ]);
+  }, [ setError, address, getValues, t ]);
 
   const handleSocketError = React.useCallback(() => {
     if (!formState.isSubmitting) {
@@ -141,8 +143,8 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
     submitPromiseResolver.current?.(null);
 
     toaster.error({
-      title: 'Error',
-      description: 'There was an error with socket connection. Try again later.',
+      title: t('error.title'),
+      description: t('contractVerification.socketError'),
     });
   // callback should not change when form is submitted
   // otherwise it will resubscribe to channel, but we don't want that since in that case we might miss verification result message
@@ -211,9 +213,9 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
             type="submit"
             mt={ 12 }
             loading={ formState.isSubmitting }
-            loadingText="Verify & publish"
+            loadingText={ t('contractVerification.verifyAndPublish') }
           >
-            Verify & publish
+            { t('contractVerification.verifyAndPublish') }
           </Button>
         ) }
       </chakra.form>

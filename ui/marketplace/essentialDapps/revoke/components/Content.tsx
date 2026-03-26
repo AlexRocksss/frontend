@@ -1,4 +1,5 @@
 import { Flex, Text, Separator } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useState, useCallback, useMemo } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -35,6 +36,7 @@ const Content = ({
   coinBalanceQuery,
   approvalsQuery,
 }: Props) => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const [ hiddenApprovals, setHiddenApprovals ] = useState<Array<AllowanceType>>([]);
 
@@ -108,9 +110,9 @@ const Content = ({
                 icon={{ size: isMobile ? undefined : 30 }}
                 noLink
               />
-              <Tooltip content="Connect a wallet to revoke approvals" disabled={ isAddressMatch } disableOnMobile>
+              <Tooltip content={ t('marketplace.revokeConnectWalletTooltip') } disabled={ isAddressMatch } disableOnMobile>
                 <Badge colorPalette={ isAddressMatch ? 'green' : 'gray' }>
-                  { isAddressMatch ? 'Connected' : 'Not connected' }
+                  { isAddressMatch ? t('marketplace.revokeConnectedBadge') : t('marketplace.revokeNotConnectedBadge') }
                 </Badge>
               </Tooltip>
             </Flex>
@@ -149,7 +151,7 @@ const Content = ({
               fontWeight="500"
               noIcon
             >
-              View details
+              { t('marketplace.revokeViewDetails') }
             </Link>
           </Flex>
         </Flex>
@@ -167,7 +169,7 @@ const Content = ({
             gap={ 2 }
           >
             <Text textStyle="sm" fontWeight="500" color="text.secondary">
-              Total approvals
+              { t('marketplace.revokeTotalApprovals') }
             </Text>
             <Skeleton
               loading={ approvalsQuery.isPlaceholderData }
@@ -191,7 +193,7 @@ const Content = ({
             gap={ 2 }
           >
             <Text textStyle="sm" fontWeight="500" color="text.secondary">
-              Total value at risk
+              { t('marketplace.revokeTotalValueAtRisk') }
             </Text>
             <Skeleton
               loading={ approvalsQuery.isPlaceholderData }

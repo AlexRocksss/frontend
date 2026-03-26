@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const TxDetailsBurntFees = ({ data, isLoading }: Props) => {
+  const { t } = useTranslation();
 
   if (config.UI.views.tx.hiddenFields?.burnt_fees || (rollupFeature.isEnabled && rollupFeature.type === 'optimistic')) {
     return null;
@@ -32,13 +34,11 @@ const TxDetailsBurntFees = ({ data, isLoading }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint={ `
-            Amount of ${ currencyUnits.ether } burned for this transaction. Equals Block Base Fee per Gas * Gas Used
-            ${ data.blob_gas_price && data.blob_gas_used ? ' + Blob Gas Price * Blob Gas Used' : '' }
-          ` }
+        hint={ `${ t('tx.hintBurntFees', { ether: currencyUnits.ether }) }` +
+          `${ data.blob_gas_price && data.blob_gas_used ? t('tx.hintBurntFeesBlobSuffix') : '' }` }
         isLoading={ isLoading }
       >
-        Burnt fees
+        { t('tx.burntFees') }
       </DetailedInfo.ItemLabel>
       <DetailedInfoNativeCoinValue
         amount={ value.toString() }

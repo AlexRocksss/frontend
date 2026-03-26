@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { CctxStatusReduced } from '@blockscout/zetachain-cctx-types';
@@ -11,6 +12,8 @@ type Props = {
 };
 
 const ZetaChainCCTXReducedStatus = ({ status, isLoading, type = 'reduced' }: Props) => {
+  const { t } = useTranslation();
+
   let statusTagType: StatusTagType;
   switch (status) {
     case CctxStatusReduced.SUCCESS:
@@ -31,16 +34,16 @@ const ZetaChainCCTXReducedStatus = ({ status, isLoading, type = 'reduced' }: Pro
     let text: string;
     switch (status) {
       case CctxStatusReduced.SUCCESS:
-        text = 'Success';
+        text = t('status.success');
         break;
       case CctxStatusReduced.PENDING:
-        text = 'Pending';
+        text = t('status.pending');
         break;
       case CctxStatusReduced.FAILED:
-        text = 'Failed';
+        text = t('status.failed');
         break;
       case CctxStatusReduced.UNRECOGNIZED:
-        text = 'Unrecognized';
+        text = t('status.unrecognized');
         break;
     }
     return <StatusTag type={ statusTagType } text={ text } size="md" loading={ isLoading }/>;

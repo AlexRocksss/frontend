@@ -1,4 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressParam } from 'types/api/addressParams';
@@ -19,11 +20,12 @@ type ItemProps = BlockBaseFeeCelo['breakdown'][number] & {
 };
 
 const BreakDownItem = ({ amount, percentage, address, addressFrom, token }: ItemProps) => {
+  const { t } = useTranslation();
   const isBurning = address.hash === ZERO_ADDRESS;
 
   return (
     <Flex alignItems="center" columnGap={ 2 } flexWrap="wrap">
-      <Box color="text.secondary">{ percentage }% of amount</Box>
+      <Box color="text.secondary">{ percentage }% { t('blockDetails.breakdownOfAmount') }</Box>
       <TokenValue
         amount={ amount }
         token={ token }
@@ -32,7 +34,7 @@ const BreakDownItem = ({ amount, percentage, address, addressFrom, token }: Item
         <>
           <AddressEntity address={ addressFrom } truncation="constant"/>
           <IconSvg name="flame" boxSize={ 5 } color="icon.primary"/>
-          <Box color="text.secondary">burnt</Box>
+          <Box color="text.secondary">{ t('blockDetails.burnt') }</Box>
         </>
       ) : <AddressFromTo from={ addressFrom } to={ address }/> }
     </Flex>
@@ -44,26 +46,27 @@ interface Props {
 }
 
 const BlockDetailsBaseFeeCelo = ({ data }: Props) => {
+  const { t } = useTranslation();
   const totalFeeLabel = (
     <Box whiteSpace="pre-wrap">
-      <span>The FeeHandler regularly burns 80% of its tokens. Non-CELO tokens are swapped to CELO beforehand. The remaining 20% are sent to the </span>
+      <span>{ t('blockDetails.baseFeeHandlerHintPre') }</span>
       <Link external href="https://www.ultragreen.money">Green Fund</Link>
-      <span>.</span>
+      <span>{ t('blockDetails.baseFeeHandlerHintPost') }</span>
     </Box>
   );
 
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="The contract receiving the base fee, responsible for handling fee usage. This contract is controlled by governance process."
+        hint={ t('blockDetails.hintBaseFeeHandler') }
       >
-        Base fee handler
+        { t('blockDetails.baseFeeHandler') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <AddressEntity address={ data.recipient }/>
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemLabel hint={ totalFeeLabel }>
-        Base fee total
+        { t('blockDetails.baseFeeTotal') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow flexDirection="column" alignItems="flex-start">
         <TokenValue

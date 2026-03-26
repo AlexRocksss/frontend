@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const TxDetailsFeePerGas = ({ txFee, gasUsed, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!config.UI.views.tx.additionalFields?.fee_per_gas || !gasUsed || txFee === null) {
     return null;
   }
@@ -19,10 +21,10 @@ const TxDetailsFeePerGas = ({ txFee, gasUsed, isLoading }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Fee per gas"
+        hint={ t('tx.hintFeePerGas') }
         isLoading={ isLoading }
       >
-        Fee per gas
+        { t('tx.feePerGas') }
       </DetailedInfo.ItemLabel>
       <DetailedInfoNativeCoinValue
         amount={ BigNumber(txFee).dividedBy(gasUsed).toFixed() }

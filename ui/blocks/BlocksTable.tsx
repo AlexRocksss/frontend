@@ -1,4 +1,5 @@
 import { capitalize } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -33,6 +34,7 @@ const FEES_COL_WEIGHT = 22;
 const isRollup = config.features.rollup.isEnabled;
 
 const BlocksTable = ({ data, isLoading, top, page, showSocketInfo, socketInfoNum, showSocketErrorAlert, chainData }: Props) => {
+  const { t } = useTranslation();
   const initialList = useInitialList({
     data: data ?? [],
     idFn: (item) => item.height,
@@ -52,23 +54,26 @@ const BlocksTable = ({ data, isLoading, top, page, showSocketInfo, socketInfoNum
           <TableRow>
             { chainData && <TableColumnHeader width="38px"/> }
             <TableColumnHeader width="180px">
-              Block
+              { t('blocks.block') }
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader width="120px">Size, bytes</TableColumnHeader>
+            <TableColumnHeader width="120px">{ t('blocks.sizeBytes') }</TableColumnHeader>
             { !config.UI.views.block.hiddenFields?.miner && (
               <TableColumnHeader width={ `${ VALIDATOR_COL_WEIGHT / widthBase * 100 }%` } minW="160px">
                 { capitalize(getNetworkValidatorTitle()) }
               </TableColumnHeader>
             ) }
-            <TableColumnHeader width="64px" isNumeric>Txn</TableColumnHeader>
-            <TableColumnHeader width={ `${ GAS_COL_WEIGHT / widthBase * 100 }%` }>Gas used</TableColumnHeader>
-            { !isRollup && !config.UI.views.block.hiddenFields?.total_reward &&
-              <TableColumnHeader width={ `${ REWARD_COL_WEIGHT / widthBase * 100 }%` }>Reward { currencyUnits.ether }</TableColumnHeader> }
+            <TableColumnHeader width="64px" isNumeric>{ t('blocks.txn') }</TableColumnHeader>
+            <TableColumnHeader width={ `${ GAS_COL_WEIGHT / widthBase * 100 }%` }>{ t('blocks.gasUsed') }</TableColumnHeader>
+            { !isRollup && !config.UI.views.block.hiddenFields?.total_reward && (
+              <TableColumnHeader width={ `${ REWARD_COL_WEIGHT / widthBase * 100 }%` }>
+                { t('blocks.reward', { ether: currencyUnits.ether }) }
+              </TableColumnHeader>
+            ) }
             { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees &&
-              <TableColumnHeader width={ `${ FEES_COL_WEIGHT / widthBase * 100 }%` }>Burnt fees { currencyUnits.ether }</TableColumnHeader> }
+              <TableColumnHeader width={ `${ FEES_COL_WEIGHT / widthBase * 100 }%` }>{ t('blocks.burntFees') } { currencyUnits.ether }</TableColumnHeader> }
             { !isRollup && !config.UI.views.block.hiddenFields?.base_fee &&
-              <TableColumnHeader width="150px" isNumeric>Base fee</TableColumnHeader> }
+              <TableColumnHeader width="150px" isNumeric>{ t('blocks.baseFee') }</TableColumnHeader> }
           </TableRow>
         </TableHeaderSticky>
         <TableBody>

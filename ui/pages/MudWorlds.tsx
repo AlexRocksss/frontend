@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { MUD_WORLD } from 'stubs/mud';
@@ -12,6 +13,7 @@ import Pagination from 'ui/shared/pagination/Pagination';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 
 const MudWorlds = () => {
+  const { t } = useTranslation();
   const { data, isError, isPlaceholderData, pagination } = useQueryWithPages({
     resourceName: 'general:mud_worlds',
     options: {
@@ -53,11 +55,11 @@ const MudWorlds = () => {
 
   return (
     <>
-      <PageTitle title="MUD worlds" withTextAd/>
+      <PageTitle title={ t('pages.mudWorlds') } withTextAd/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no MUD worlds."
+        emptyText={ t('pages.noMudWorlds') }
         actionBar={ actionBar }
       >
         { content }

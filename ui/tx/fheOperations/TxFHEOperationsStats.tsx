@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import StatsWidget from 'ui/shared/stats/StatsWidget';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const TxFHEOperationsStats = ({ totalHcu, maxDepthHcu, operationCount, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <Box
       display="grid"
@@ -19,20 +21,20 @@ const TxFHEOperationsStats = ({ totalHcu, maxDepthHcu, operationCount, isLoading
       mb={ 6 }
     >
       <StatsWidget
-        label="Total HCU"
-        hint="Sum of all Homomorphic Computation Units consumed by FHE operations in this transaction"
+        label={ t('fheOperations.totalHcuLabel') }
+        hint={ t('fheOperations.totalHcuHint') }
         value={ (totalHcu || 0).toLocaleString() }
         isLoading={ isLoading }
       />
       <StatsWidget
-        label="Max Depth HCU"
-        hint="Maximum HCU consumed at any single depth level in the FHE operation tree"
+        label={ t('fheOperations.maxDepthHcuLabel') }
+        hint={ t('fheOperations.maxDepthHcuHint') }
         value={ (maxDepthHcu || 0).toLocaleString() }
         isLoading={ isLoading }
       />
       <StatsWidget
-        label="Operations"
-        hint="Total number of FHE operations executed in this transaction"
+        label={ t('fheOperations.operationsLabel') }
+        hint={ t('fheOperations.operationsHint') }
         value={ operationCount.toLocaleString() }
         isLoading={ isLoading }
       />

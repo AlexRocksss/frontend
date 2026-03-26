@@ -1,4 +1,5 @@
 import { Box, Center, Flex, Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -31,6 +32,7 @@ type Props = {
 };
 
 const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
   const router = useRouter();
   const height = getQueryParamString(router.query.height);
@@ -92,7 +94,7 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
                 display="inline-flex"
                 href={ createGoogleCalendarLink({ blockHeight: height, timeFromNow: Number(data.result.EstimateTimeInSec), multichainContext }) }
               >
-                <Image src="/static/google_calendar.svg" alt="Google calendar logo" boxSize={ 5 } mr={ 2 }/>
+                <Image src="/static/google_calendar.svg" alt={ t('pages.googleCalendarAlt') } boxSize={ 5 } mr={ 2 }/>
                 <span>Google</span>
               </Link>
               <Button
@@ -106,7 +108,7 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
                 display="inline-flex"
                 onClick={ handleAddToAppleCalClick }
               >
-                <Image src="/static/apple_calendar.svg" alt="Apple calendar logo" boxSize={ 5 }/>
+                <Image src="/static/apple_calendar.svg" alt={ t('pages.appleCalendarAlt') } boxSize={ 5 }/>
                 <span>Apple</span>
               </Button>
             </Flex>
@@ -139,8 +141,8 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
           />
         ) }
         <Grid gridTemplateColumns="repeat(2, calc(50% - 4px))" columnGap={ 2 } mt={ 2 }>
-          <StatsWidget label="Remaining blocks" value={ data.result.RemainingBlock } icon="apps"/>
-          <StatsWidget label="Current block" value={ data.result.CurrentBlock } icon="block"/>
+          <StatsWidget label={ t('pages.remainingBlocks') } value={ data.result.RemainingBlock } icon="apps"/>
+          <StatsWidget label={ t('pages.currentBlock') } value={ data.result.CurrentBlock } icon="block"/>
         </Grid>
         { !hideCapybaraRunner && <CapybaraRunner/> }
       </Flex>

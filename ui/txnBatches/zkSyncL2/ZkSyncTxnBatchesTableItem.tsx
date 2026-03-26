@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZkSyncBatchesItem } from 'types/api/zkSyncL2';
@@ -18,6 +19,7 @@ const rollupFeature = config.features.rollup;
 type Props = { item: ZkSyncBatchesItem; isLoading?: boolean };
 
 const ZkSyncTxnBatchesTableItem = ({ item, isLoading }: Props) => {
+  const { t } = useTranslation();
   if (!rollupFeature.isEnabled || rollupFeature.type !== 'zkSync') {
     return null;
   }
@@ -39,7 +41,7 @@ const ZkSyncTxnBatchesTableItem = ({ item, isLoading }: Props) => {
       <TableCell verticalAlign="middle">
         <TimeWithTooltip
           timestamp={ item.timestamp }
-          fallbackText="Undefined"
+          fallbackText={ t('txnBatches.undefined') }
           isLoading={ isLoading }
           color="text.secondary"
         />
@@ -64,7 +66,7 @@ const ZkSyncTxnBatchesTableItem = ({ item, isLoading }: Props) => {
             noIcon
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <Text>{ t('txnBatches.pending') }</Text> }
       </TableCell>
       <TableCell verticalAlign="middle">
         { item.prove_transaction_hash ? (
@@ -76,7 +78,7 @@ const ZkSyncTxnBatchesTableItem = ({ item, isLoading }: Props) => {
             noIcon
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <Text>{ t('txnBatches.pending') }</Text> }
       </TableCell>
     </TableRow>
   );

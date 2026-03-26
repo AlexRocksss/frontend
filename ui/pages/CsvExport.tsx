@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -70,6 +71,7 @@ const EXPORT_TYPES: Record<CsvExportParams['type'], ExportTypeEntity> = {
 const isCorrectExportType = (type: string): type is CsvExportParams['type'] => Object.keys(EXPORT_TYPES).includes(type);
 
 const CsvExport = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMobile = useIsMobile();
   const multichainContext = useMultichainContext();
@@ -198,7 +200,7 @@ const CsvExport = () => {
 
   return (
     <>
-      <PageTitle title="Export data to CSV file"/>
+      <PageTitle title={ t('pages.exportCsvData') }/>
       { description }
       { content }
     </>

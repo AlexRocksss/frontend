@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -28,6 +29,7 @@ type Props = {
 };
 
 const TokensTable = ({ items, page, isLoading, sorting, setSorting, top }: Props) => {
+  const { t } = useTranslation();
 
   const hasSorting = setSorting && sorting;
 
@@ -43,7 +45,7 @@ const TokensTable = ({ items, page, isLoading, sorting, setSorting, top }: Props
     <TableRoot>
       <TableHeaderSticky top={ top ?? ACTION_BAR_HEIGHT_DESKTOP }>
         <TableRow>
-          <TableColumnHeader w="50%">Token</TableColumnHeader>
+          <TableColumnHeader w="50%">{ t('tokens.token') }</TableColumnHeader>
           { hasSorting ? (
             <TableColumnHeaderSortable
               isNumeric

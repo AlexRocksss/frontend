@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { UserOp } from 'types/api/userOps';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const UserOpDecodedCallData = ({ data }: Props) => {
+  const { t } = useTranslation();
 
   const [ callData, setCallData ] = React.useState<string | null>(data.execute_call_data || data.call_data);
 
@@ -32,12 +34,12 @@ const UserOpDecodedCallData = ({ data }: Props) => {
     />
   ) : null;
 
-  const labelText = data.call_data && !data.execute_call_data ? 'External call data' : 'Call data';
+  const labelText = data.call_data && !data.execute_call_data ? t('userOp.externalCallData') : t('userOp.callData');
 
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint="Data that’s passed to the sender for execution"
+        hint={ t('userOp.callDataHint') }
         mb={{ base: 1, lg: 0 }}
       >
         { labelText }

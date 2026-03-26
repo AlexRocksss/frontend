@@ -1,4 +1,5 @@
 import { Flex, Text, chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';
 
 import { getFeaturePayload } from 'configs/app/features/types';
@@ -17,7 +18,6 @@ import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
-import { mdash } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 
@@ -44,6 +44,7 @@ function getMaxAmount(rewards: Record<string, string> | undefined) {
 }
 
 export default function ActivityTab() {
+  const { t } = useTranslation();
   const { isAuth, rewardsConfigQuery } = useRewardsContext();
   const explorersModal = useDisclosure();
   const taskDetailsModal = useDisclosure();
@@ -111,10 +112,10 @@ export default function ActivityTab() {
   const tasks = useMemo(() => (
     [
       {
-        title: 'Blockscout activity',
+        title: t('rewards.task1Title'),
         description: (
           <>
-            Use Blockscout tools like{ ' ' }
+            { t('rewards.task1DescBefore') }{ ' ' }
             <Link
               external={ !marketplaceFeature?.essentialDapps }
               href={ marketplaceFeature?.essentialDapps ?
@@ -122,12 +123,12 @@ export default function ActivityTab() {
                 'https://eth.blockscout.com/apps?utm_source=blockscout&utm_medium=transactions-task'
               }
             >
-              Essential dapps
-            </Link>, or{ ' ' }
+              { t('rewards.task1DescEssentialDapps') }
+            </Link>{ t('rewards.task1DescMiddle') }{ ' ' }
             <Link href={ route({ pathname: '/verified-contracts' }) }>
-              interact with smart contracts
+              { t('rewards.task1DescContractLink') }
             </Link>{ ' ' }
-            to start earning Merits.
+            { t('rewards.task1DescAfter') }
           </>
         ),
         percentile: activities.transactions?.percentile,
@@ -137,14 +138,14 @@ export default function ActivityTab() {
         maxAmount: getMaxAmount(rewardsConfigQuery.data?.rewards?.sent_transactions_activity_rewards),
       },
       {
-        title: 'Contracts verification',
+        title: t('rewards.task2Title'),
         description: (
           <>
-            Log in and{ ' ' }
+            { t('rewards.task2DescBefore') }{ ' ' }
             <Link href={ route({ pathname: '/contract-verification' }) }>
-              verify a smart contract
+              { t('rewards.task2DescVerifyLink') }
             </Link>{ ' ' }
-            on the Blockscout explorer to earn Merits.
+            { t('rewards.task2DescAfter') }
           </>
         ),
         percentile: activities.contracts?.percentile,
@@ -154,11 +155,10 @@ export default function ActivityTab() {
         maxAmount: getMaxAmount(rewardsConfigQuery.data?.rewards?.verified_contracts_activity_rewards),
       },
       {
-        title: 'Blockscout usage',
+        title: t('rewards.task3Title'),
         description: (
           <>
-            Use Blockscout explorers in your daily routine { mdash } check transactions, explore addresses,
-            or add tokens/networks to MetaMask via Blockscout.
+            { t('rewards.task3Desc') }
           </>
         ),
         percentile: activities.usage?.percentile,
@@ -168,12 +168,12 @@ export default function ActivityTab() {
         maxAmount: getMaxAmount(rewardsConfigQuery.data?.rewards?.blockscout_usage_activity_rewards),
       },
     ]
-  ), [ rewardsConfigQuery, activities ]);
+  ), [ rewardsConfigQuery, activities, t ]);
 
   const labels = {
-    period: { text: `Period: ${ period }`, hint: 'Current Merits period. All metrics reset weekly' },
-    performanceRank: { text: 'Performance rank', hint: 'Your rank within a task group compared to other users in the same period. Higher rank = more Merits.' },
-    meritsEarned: { text: 'Merits earned', hint: 'Estimated Merits based on your current rank. Final amount may change' },
+    period: { text: t('rewards.periodText', { period }), hint: t('rewards.periodHint') },
+    performanceRank: { text: t('rewards.performanceRankLabel'), hint: t('rewards.performanceRankHint') },
+    meritsEarned: { text: t('rewards.meritsEarnedLabel'), hint: t('rewards.meritsEarnedHint') },
   };
 
   const labelComponents = Object.fromEntries(Object.entries(labels).map(([ key, value ], index) => [ key, (
@@ -218,16 +218,16 @@ export default function ActivityTab() {
           pr={ 0 }
         >
           <Flex flexDirection="column" p={{ base: 1.5, md: 0 }} pb={ 0 }>
-            <Heading level="3" mb={ 2 }>Your activity</Heading>
+            <Heading level="3" mb={ 2 }>{ t('rewards.yourActivity') }</Heading>
             <Text textStyle="sm" mb={{ base: 2, md: 4 }}>
-              Use Blockscout and related products daily to earn Merits. Check each task for details and how to get started.
+              { t('rewards.yourActivityDescription') }
             </Text>
             <Flex alignItems="center" gap={ 3 } mb={{ base: 0, md: 4 }}>
               <Button
                 loadingSkeleton={ instancesQuery.isLoading }
                 onClick={ explorersModal.onOpen }
               >
-                Earn
+                { t('rewards.earn') }
               </Button>
               <Link
                 external
@@ -236,7 +236,7 @@ export default function ActivityTab() {
                 fontWeight="500"
                 textAlign="center"
               >
-                Learn more
+                { t('rewards.activityPassLearnMore') }
               </Link>
             </Flex>
           </Flex>
@@ -249,15 +249,15 @@ export default function ActivityTab() {
           >
             <IconSvg name="status/warning" boxSize={ 6 } color="icon.primary"/>
             <Text textStyle="sm">
-              <chakra.span fontWeight="600">Your current Merit count is not final!</chakra.span><br/>
-              Merits are calculated based on the activity of all users and may increase or decrease by the end of the weekly period.
+              <chakra.span fontWeight="600">{ t('rewards.meritCountNotFinal') }</chakra.span><br/>
+              { t('rewards.meritCountNotFinalDesc') }
             </Text>
           </Flex>
         </Flex>
         <Flex display={{ base: 'flex', md: 'none' }} justifyContent="space-between" px={ 3 }>
           <Flex alignItems="center" gap={ 1 }>
             <Text textStyle="sm" fontWeight="500">
-              Period
+              { t('rewards.periodLabel') }
             </Text>
             <Hint label={ labels.period.hint }/>
           </Flex>
@@ -301,7 +301,7 @@ export default function ActivityTab() {
                     fontWeight={{ base: '400', md: '500' }}
                     onClick={ openTaskDetails(index) }
                   >
-                    Task details
+                    { t('rewards.taskDetails') }
                   </Link>
                 </Flex>
                 <Flex display={{ base: 'flex', md: 'contents' }} gap={ 8 }>
@@ -316,7 +316,7 @@ export default function ActivityTab() {
                     </Skeleton>
                     <Skeleton loading={ isActivityDataLoading }>
                       <Text textStyle={{ base: 'sm', md: 'xs' }} color="text.secondary" fontWeight="500">
-                        { item.percentileDiff } vs { isMobile ? 'prev.' : 'previous' } week
+                        { item.percentileDiff } { isMobile ? t('rewards.vsPrevWeek') : t('rewards.vsPreviousWeek') }
                       </Text>
                     </Skeleton>
                   </Flex>
@@ -342,7 +342,7 @@ export default function ActivityTab() {
                     </Skeleton>
                     <Skeleton loading={ isActivityDataLoading }>
                       <Text textStyle={{ base: 'sm', md: 'xs' }} color="text.secondary" fontWeight="500">
-                        { item.amountDiff } vs { isMobile ? 'prev.' : 'previous' } week
+                        { item.amountDiff } { isMobile ? t('rewards.vsPrevWeek') : t('rewards.vsPreviousWeek') }
                       </Text>
                     </Skeleton>
                   </Flex>
@@ -355,8 +355,7 @@ export default function ActivityTab() {
             order={{ base: 4, md: 'auto' }}
           >
             <Text textStyle="xs" color="text.secondary" fontWeight="500">
-              Metrics are not updated in real time. Please allow up to one hour for your Performance Rank and earned Merits to reflect recent activity.
-              If you experience any issues, feel free to reach out on{ ' ' }
+              { t('rewards.metricsNoteBefore') }{ ' ' }
               <Link external href="https://discord.gg/blockscout">
                 Discord
               </Link>

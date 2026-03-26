@@ -1,5 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { clamp } from 'es-toolkit';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const LatestTxsDegraded = ({ maxNum }: Props) => {
+  const { t } = useTranslation();
   const { txs, totalTxs, isError, isLoading, enable } = useHomeRpcDataContext();
 
   React.useEffect(() => {
@@ -39,7 +41,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
   const items = isLoading ? Array(maxNum).fill(TX) : txs.slice(0, maxNum);
 
   if (items.length === 0) {
-    return <Box textStyle="sm">No latest transactions found.</Box>;
+    return <Box textStyle="sm">{ t('home.noLatestTransactions') }</Box>;
   }
 
   const txsUrl = route({ pathname: `/txs`, query: zetachainFeature.isEnabled ? { tab: 'evm' } : undefined });
@@ -69,7 +71,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
         </Box>
       </AddressHighlightProvider>
       <Flex justifyContent="center">
-        <Link textStyle="sm" loading={ isLoading } href={ txsUrl }>View all transactions</Link>
+        <Link textStyle="sm" loading={ isLoading } href={ txsUrl }>{ t('home.viewAllTransactions') }</Link>
       </Flex>
     </>
   );

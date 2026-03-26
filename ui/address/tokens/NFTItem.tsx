@@ -1,4 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AddressNFT } from 'types/api/address';
@@ -20,6 +21,7 @@ import NFTItemContainer from './NFTItemContainer';
 type Props = AddressNFT & { isLoading: boolean; withTokenLink?: boolean; chain?: ClusterChainConfig };
 
 const NFTItem = ({ value, isLoading, withTokenLink, chain, ...tokenInstance }: Props) => {
+  const { t } = useTranslation();
   const { token } = tokenInstance;
   const valueResult = token.decimals && value ? calculateUsdValue({ amount: value, decimals: token.decimals, accuracy: 2 }).valueStr : value;
   const tokenInstanceLink = tokenInstance.id ?
@@ -48,7 +50,7 @@ const NFTItem = ({ value, isLoading, withTokenLink, chain, ...tokenInstance }: P
         <Skeleton loading={ isLoading } overflow="hidden" ml={ 1 }>
           { valueResult && (
             <Flex>
-              <Text color="text.secondary" whiteSpace="pre">Qty </Text>
+              <Text color="text.secondary" whiteSpace="pre">{ t('address.nftQty') }</Text>
               <Text overflow="hidden" wordBreak="break-all">{ valueResult }</Text>
             </Flex>
           ) }

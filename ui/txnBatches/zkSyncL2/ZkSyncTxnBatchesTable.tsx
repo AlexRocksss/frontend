@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { ZkSyncBatchesItem } from 'types/api/zkSyncL2';
@@ -14,19 +15,20 @@ type Props = {
 };
 
 const ZkSyncTxnBatchesTable = ({ items, top, isLoading }: Props) => {
+  const { t } = useTranslation();
   return (
     <TableRoot minW="1000px">
       <TableHeaderSticky top={ top }>
         <TableRow>
-          <TableColumnHeader width="40%">Batch #</TableColumnHeader>
-          <TableColumnHeader width="60%">Status</TableColumnHeader>
+          <TableColumnHeader width="40%">{ t('txnBatches.batchNoHeader') }</TableColumnHeader>
+          <TableColumnHeader width="60%">{ t('txnBatches.statusHeader') }</TableColumnHeader>
           <TableColumnHeader width="180px">
-            Timestamp
+            { t('txnBatches.timestampLabel') }
             <TimeFormatToggle/>
           </TableColumnHeader>
-          <TableColumnHeader width="120px">Txn count</TableColumnHeader>
-          <TableColumnHeader width="210px">Commit tx</TableColumnHeader>
-          <TableColumnHeader width="210px">Prove tx</TableColumnHeader>
+          <TableColumnHeader width="120px">{ t('txnBatches.txnCountHeader') }</TableColumnHeader>
+          <TableColumnHeader width="210px">{ t('txnBatches.commitTxHeader') }</TableColumnHeader>
+          <TableColumnHeader width="210px">{ t('txnBatches.proveTxHeader') }</TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>
       <TableBody>

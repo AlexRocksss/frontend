@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -37,6 +38,7 @@ const rollupFeature = config.features.rollup;
 const tacFeature = config.features.tac;
 
 const TransactionPageContent = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = getQueryParamString(router.query.hash);
@@ -134,7 +136,7 @@ const TransactionPageContent = () => {
     <AddressHighlightProvider>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title="Transaction details"
+        title={ t('pages.transactionDetails') }
         contentAfter={ tags }
         secondRow={ titleSecondRow }
       />
