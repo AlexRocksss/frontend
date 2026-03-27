@@ -3,31 +3,67 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
+import { Tooltip } from 'toolkit/chakra/tooltip';
 
 const LANGUAGES = [
-  { locale: 'en', label: 'English', shortLabel: 'EN' },
-  { locale: 'zh-TW', label: '繁體中文', shortLabel: '繁中' },
+  { locale: 'en', label: 'English', flag: '🇺🇸' },
+  { locale: 'zh-TW', label: '繁體中文', flag: '🇨🇳' },
 ] as const;
 
-type LangButtonProps = {
-  lang: typeof LANGUAGES[number];
-  isActive: boolean;
-  onSelect: (locale: string) => void;
-};
+type Lang = typeof LANGUAGES[number];
 
-const LangButton = ({ lang, isActive, onSelect }: LangButtonProps) => {
-  const handleClick = React.useCallback(() => onSelect(lang.locale), [ lang.locale, onSelect ]);
+interface LangSampleProps {
+  lang: Lang;
+  isActive: boolean;
+  onClick: (locale: string) => void;
+}
+
+const LangSample = ({ lang, isActive, onClick }: LangSampleProps) => {
+  const bgColor = { base: 'white', _dark: 'gray.900' };
+  const activeBgColor = { base: 'blue.50', _dark: 'whiteAlpha.100' };
+  const activeBorderColor = { base: 'blackAlpha.800', _dark: 'gray.50' };
+  const handleClick = React.useCallback(() => onClick(lang.locale), [ lang.locale, onClick ]);
+
   return (
-    <Button
-      size="xs"
-      variant={ isActive ? 'solid' : 'outline' }
-      onClick={ handleClick }
-      aria-label={ lang.label }
-      title={ lang.label }
-    >
-      { lang.shortLabel }
-    </Button>
+    <Box p="9px" bgColor={ isActive ? activeBgColor : 'transparent' } borderRadius="base">
+      <Tooltip content={ lang.label }>
+        <Box
+          boxSize="22px"
+          borderRadius="full"
+          borderWidth="1px"
+          borderColor={ isActive ? activeBgColor : bgColor }
+          position="relative"
+          cursor="pointer"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="12px"
+          lineHeight="1"
+          onClick={ handleClick }
+          _before={{
+            position: 'absolute',
+            display: 'block',
+            boxSizing: 'content-box',
+            content: '""',
+            top: '-3px',
+            left: '-3px',
+            width: 'calc(100% + 2px)',
+            height: 'calc(100% + 2px)',
+            borderStyle: 'solid',
+            borderRadius: 'full',
+            borderWidth: '2px',
+            borderColor: isActive ? activeBorderColor : 'transparent',
+          }}
+          _hover={{
+            _before: {
+              borderColor: isActive ? activeBorderColor : 'hover',
+            },
+          }}
+        >
+          { lang.flag }
+        </Box>
+      </Tooltip>
+    </Box>
   );
 };
 
@@ -35,6 +71,7 @@ const SettingsLanguage = () => {
   const router = useRouter();
   const { t } = useTranslation();
   const currentLocale = router.locale ?? 'en';
+  const activeLang = LANGUAGES.find((l) => l.locale === currentLocale) ?? LANGUAGES[0];
 
   const handleSelect = React.useCallback((locale: string) => {
     // nextjs-routes overrides TransitionOptions and strips the locale field;
@@ -44,14 +81,20 @@ const SettingsLanguage = () => {
   }, [ router ]);
 
   return (
-    <Box>
+    <div>
       <Box fontWeight={ 600 }>{ t('settings.language') }</Box>
-      <Flex mt={ 2 } gap={ 2 }>
+      <Box color="text.secondary" mt={ 1 } mb={ 2 }>{ activeLang.label }</Box>
+      <Flex>
         { LANGUAGES.map((lang) => (
-          <LangButton key={ lang.locale } lang={ lang } isActive={ currentLocale === lang.locale } onSelect={ handleSelect }/>
+          <LangSample
+            key={ lang.locale }
+            lang={ lang }
+            isActive={ currentLocale === lang.locale }
+            onClick={ handleSelect }
+          />
         )) }
       </Flex>
-    </Box>
+    </div>
   );
 };
 

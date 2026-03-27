@@ -61,13 +61,13 @@ const Settings = () => {
           <SettingsIdentIcon/>
           <SettingsAddressFormat/>
           <Separator my={ 3 }/>
+          <SettingsLanguage/>
+          <Separator my={ 3 }/>
           <VStack gap={ 1 }>
             <SettingsScamTokens/>
             <SettingsPoorReputationTokens/>
             <SettingsLocalTime/>
           </VStack>
-          <Separator my={ 3 }/>
-          <SettingsLanguage/>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
