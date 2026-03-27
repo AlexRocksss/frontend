@@ -475,7 +475,9 @@
     "statGasTracker": "Gas tracker",
     "statBtcLocked": "BTC Locked in 2WP",
     "statCurrentEpoch": "Current epoch",
-    "statLatestL1StateBatch": "Latest {{parent}} state batch"
+    "statLatestL1StateBatch": "Latest {{parent}} state batch",
+    "blockchainExplorer": "{{chain}} blockchain explorer",
+    "explorer": "{{chain}} explorer"
   },
   "blocks": {
     "block": "Block",
@@ -1741,10 +1743,6 @@
   },
   "gasButton": {
     "name": "Need gas?"
-  },
-  "home": {
-    "blockchainExplorer": "{{chain}} blockchain explorer",
-    "explorer": "{{chain}} explorer"
   },
   "stats": {
     "allStats": "All stats",

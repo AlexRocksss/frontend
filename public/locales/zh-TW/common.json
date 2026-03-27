@@ -475,7 +475,9 @@
     "statGasTracker": "Gas 追蹤器",
     "statBtcLocked": "2WP 鎖定的 BTC",
     "statCurrentEpoch": "當前週期",
-    "statLatestL1StateBatch": "最新 {{parent}} 狀態批次"
+    "statLatestL1StateBatch": "最新 {{parent}} 狀態批次",
+    "blockchainExplorer": "{{chain}} 區塊鏈瀏覽器",
+    "explorer": "{{chain}} 瀏覽器"
   },
   "blocks": {
     "block": "區塊",
@@ -1741,10 +1743,6 @@
   },
   "gasButton": {
     "name": "需要 Gas？"
-  },
-  "home": {
-    "blockchainExplorer": "{{chain}} 區塊鏈瀏覽器",
-    "explorer": "{{chain}} 瀏覽器"
   },
   "stats": {
     "allStats": "所有統計",
