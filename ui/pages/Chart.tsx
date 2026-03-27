@@ -179,11 +179,11 @@ const Chart = () => {
     </Button>
   );
 
-  const resolutionTitles = React.useMemo(() => ({
-    DAY: t('stats.resolutionDay'),
-    WEEK: t('stats.resolutionWeek'),
-    MONTH: t('stats.resolutionMonth'),
-    YEAR: t('stats.resolutionYear'),
+  const resolutionTitles = React.useMemo((): Partial<Record<Resolution, string>> => ({
+    [Resolution.DAY]: t('stats.resolutionDay'),
+    [Resolution.WEEK]: t('stats.resolutionWeek'),
+    [Resolution.MONTH]: t('stats.resolutionMonth'),
+    [Resolution.YEAR]: t('stats.resolutionYear'),
   }), [ t ]);
 
   const resolutionCollection = React.useMemo(() => {
