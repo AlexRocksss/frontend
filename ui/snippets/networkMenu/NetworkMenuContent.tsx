@@ -17,12 +17,6 @@ interface Props {
   items?: Array<FeaturedNetwork>;
 }
 
-const NETWORK_GROUP_LABELS: Record<string, string | undefined> = {
-  Mainnets: 'navigation.networkGroupMainnets',
-  Testnets: 'navigation.networkGroupTestnets',
-  Other: 'navigation.networkGroupOther',
-};
-
 const NetworkMenuContent = ({ items, tabs }: Props) => {
   const { t } = useTranslation();
   const selectedNetwork = items?.find(({ isActive }) => isActive);
@@ -34,9 +28,13 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
     setValue(value as NetworkGroup);
   }, []);
 
-  const getTabLabel = React.useCallback((tab: NetworkGroup) => {
-    const key = NETWORK_GROUP_LABELS[tab];
-    return key ? t(key as Parameters<typeof t>[0]) : tab;
+  const getTabLabel = React.useCallback((tab: NetworkGroup): string => {
+    switch (tab) {
+      case 'Mainnets': return t('navigation.networkGroupMainnets');
+      case 'Testnets': return t('navigation.networkGroupTestnets');
+      case 'Other': return t('navigation.networkGroupOther');
+      default: return tab;
+    }
   }, [ t ]);
 
   const content = (() => {
