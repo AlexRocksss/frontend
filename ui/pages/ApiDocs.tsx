@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TabItemRegular } from 'toolkit/components/AdaptiveTabs/types';
@@ -15,6 +16,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 const feature = config.features.apiDocs;
 
 const ApiDocs = () => {
+  const { t } = useTranslation();
 
   const tabs: Array<TabItemRegular> = [
     { id: 'rest_api', title: 'REST API', component: <RestApi/> },
@@ -26,10 +28,10 @@ const ApiDocs = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } API documentation` : 'API documentation' }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ t('pages.apiDocumentation') }` : t('pages.apiDocumentation') }
       />
       { feature.isEnabled && feature.alertMessage ? <AlertWithExternalHtml html={ feature.alertMessage } status="info" showIcon mb={ 6 }/> : null }
-      { tabs.length > 0 ? <RoutedTabs tabs={ tabs }/> : <Text>No API documentation available</Text> }
+      { tabs.length > 0 ? <RoutedTabs tabs={ tabs }/> : <Text>{ t('apiDocs.noAvailable') }</Text> }
     </>
   );
 };

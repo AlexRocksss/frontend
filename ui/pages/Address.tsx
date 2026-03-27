@@ -1,4 +1,5 @@
 import { Box, Flex, HStack } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -75,6 +76,7 @@ const nameServicesFeature = config.features.nameServices;
 const beaconChainFeature = config.features.beaconChain;
 
 const AddressPageContent = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = getQueryParamString(router.query.hash);
@@ -179,13 +181,13 @@ const AddressPageContent = () => {
     return [
       {
         id: 'index',
-        title: 'Details',
+        title: t('address.tabDetails'),
         component: <AddressDetails addressQuery={ addressQuery } countersQuery={ countersQuery } isLoading={ isTabsLoading }/>,
       },
       addressQuery.data?.is_contract ? {
         id: 'contract',
         title: () => {
-          const tabName = addressQuery.data.proxy_type === 'eip7702' ? 'Code' : 'Contract';
+          const tabName = addressQuery.data.proxy_type === 'eip7702' ? t('address.tabCode') : t('address.tabContract');
 
           if (addressQuery.data.is_verified) {
             return (
@@ -209,13 +211,13 @@ const AddressPageContent = () => {
       } : undefined,
       config.features.mudFramework.isEnabled && mudTablesCountQuery.data && mudTablesCountQuery.data > 0 && {
         id: 'mud',
-        title: 'MUD',
+        title: t('address.tabMud'),
         count: mudTablesCountQuery.data,
         component: <AddressMud shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
       },
       {
         id: 'txs',
-        title: 'Transactions',
+        title: t('address.tabTransactions'),
         count: addressTabsCountersQuery.data?.transactions_count,
         component: <AddressTxs shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         subTabs: ADDRESS_TXS_TAB_IDS,
@@ -223,14 +225,14 @@ const AddressPageContent = () => {
       txInterpretation.isEnabled && txInterpretation.provider === 'noves' ?
         {
           id: 'account_history',
-          title: 'Account history',
+          title: t('address.tabAccountHistory'),
           component: <AddressAccountHistory shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         } :
         undefined,
       config.features.userOps.isEnabled && Boolean(userOpsAccountQuery.data?.total_ops) ?
         {
           id: 'user_ops',
-          title: 'User operations',
+          title: t('address.tabUserOperations'),
           count: userOpsAccountQuery.data?.total_ops,
           component: <AddressUserOps shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         } :
@@ -238,7 +240,7 @@ const AddressPageContent = () => {
       beaconChainFeature.isEnabled && !beaconChainFeature.withdrawalsOnly && addressTabsCountersQuery.data?.beacon_deposits_count ?
         {
           id: 'deposits',
-          title: 'Deposits',
+          title: t('address.tabDeposits'),
           count: addressTabsCountersQuery.data?.beacon_deposits_count,
           component: <AddressDeposits shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         } :
@@ -246,46 +248,46 @@ const AddressPageContent = () => {
       config.features.beaconChain.isEnabled && addressTabsCountersQuery.data?.withdrawals_count ?
         {
           id: 'withdrawals',
-          title: 'Withdrawals',
+          title: t('address.tabWithdrawals'),
           count: addressTabsCountersQuery.data?.withdrawals_count,
           component: <AddressWithdrawals shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         } :
         undefined,
       {
         id: 'token_transfers',
-        title: 'Token transfers',
+        title: t('address.tabTokenTransfers'),
         count: addressTabsCountersQuery.data?.token_transfers_count,
         component: <AddressTokenTransfers shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         subTabs: ADDRESS_TOKEN_TRANSFERS_TAB_IDS,
       },
       {
         id: 'tokens',
-        title: 'Tokens',
+        title: t('address.tabTokens'),
         count: addressTabsCountersQuery.data?.token_balances_count,
         component: <AddressTokens shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         subTabs: TOKEN_TABS,
       },
       {
         id: 'internal_txns',
-        title: 'Internal txns',
+        title: t('address.tabInternalTxns'),
         count: addressTabsCountersQuery.data?.internal_transactions_count,
         component: <AddressInternalTxs shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
       },
       addressTabsCountersQuery.data?.celo_election_rewards_count ? {
         id: 'epoch_rewards',
-        title: 'Epoch rewards',
+        title: t('address.tabEpochRewards'),
         count: addressTabsCountersQuery.data?.celo_election_rewards_count,
         component: <AddressEpochRewards shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
       } : undefined,
       {
         id: 'coin_balance_history',
-        title: 'Coin balance history',
+        title: t('address.tabCoinBalanceHistory'),
         component: <AddressCoinBalance shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
       },
       addressTabsCountersQuery.data?.validations_count ?
         {
           id: 'blocks_validated',
-          title: `Blocks ${ getNetworkValidationActionText() }`,
+          title: t('address.tabBlocksValidated', { action: getNetworkValidationActionText() }),
           count: addressTabsCountersQuery.data?.validations_count,
           component: <AddressBlocksValidated shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         } :
@@ -293,14 +295,14 @@ const AddressPageContent = () => {
       addressTabsCountersQuery.data?.logs_count ?
         {
           id: 'logs',
-          title: 'Logs',
+          title: t('address.tabLogs'),
           count: addressTabsCountersQuery.data?.logs_count,
           component: <AddressLogs shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         } :
         undefined,
       (address3rdPartyWidgets.isEnabled && address3rdPartyWidgets.items.length > 0) ? {
         id: 'widgets',
-        title: 'Widgets',
+        title: t('address.tabWidgets'),
         count: address3rdPartyWidgets.items.length,
         component: (
           <Address3rdPartyWidgets
@@ -323,6 +325,7 @@ const AddressPageContent = () => {
     mudTablesCountQuery.data,
     address3rdPartyWidgets,
     addressType,
+    t,
   ]);
 
   const usernameApiTag = userPropfileApiQuery.data?.user_profile?.username;
@@ -481,7 +484,7 @@ const AddressPageContent = () => {
     <>
       <TextAd mb={ 6 }/>
       <PageTitle
-        title={ `${ addressQuery.data?.is_contract && addressQuery.data?.proxy_type !== 'eip7702' ? 'Contract' : 'Address' } details` }
+        title={ addressQuery.data?.is_contract && addressQuery.data?.proxy_type !== 'eip7702' ? t('pages.contractDetails') : t('pages.addressDetails') }
         contentAfter={ titleContentAfter }
         secondRow={ titleSecondRow }
         isLoading={ isLoading }

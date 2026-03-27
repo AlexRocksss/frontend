@@ -1,4 +1,5 @@
 import { Flex, type FlexProps } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { scroller, Element } from 'react-scroll';
 
@@ -22,6 +23,7 @@ const SCROLL_CONFIG = {
 const CUT_ID = 'CollapsibleDetails';
 
 export const CollapsibleDetails = (props: CollapsibleDetailsProps) => {
+  const { t } = useTranslation();
 
   const { children, id = CUT_ID, onClick, isExpanded: isExpandedProp = false, text: textProp, loading, noScroll, ...rest } = props;
 
@@ -40,7 +42,7 @@ export const CollapsibleDetails = (props: CollapsibleDetailsProps) => {
     isExpandedProp && !noScroll && scroller.scrollTo(id, SCROLL_CONFIG);
   }, [ isExpandedProp, id, noScroll ]);
 
-  const text = isExpanded ? (textProp?.[1] ?? 'Hide details') : (textProp?.[0] ?? 'View details');
+  const text = isExpanded ? (textProp?.[1] ?? t('shared.hideDetails')) : (textProp?.[0] ?? t('shared.viewDetails'));
 
   return (
     <>

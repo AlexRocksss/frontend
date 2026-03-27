@@ -52,10 +52,10 @@ const BlockCountdownIndex = () => {
         level="1"
         mt={{ base: 3, lg: 6 }}
       >
-        Block countdown
+        { t('blockCountdown.title') }
       </Heading>
       <Box mt={ 2 }>
-        The estimated time for a block to be created and added to the blockchain.
+        { t('blockCountdown.description') }
       </Box>
       <chakra.form
         noValidate

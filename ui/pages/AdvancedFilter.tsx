@@ -48,6 +48,22 @@ TABLE_COLUMNS.forEach(c => COLUMNS_CHECKED[c.id] = true);
 const AdvancedFilter = () => {
   const { t } = useTranslation();
   const router = useRouter();
+
+  const colLabel = React.useCallback((id: ColumnsIds): string => {
+    const map: Partial<Record<ColumnsIds, string>> = {
+      tx_hash: t('advancedFilter.colTxHash'),
+      type: t('advancedFilter.colType'),
+      method: t('advancedFilter.colMethod'),
+      age: t('advancedFilter.timestamp'),
+      from: t('advancedFilter.colFrom'),
+      or_and: t('advancedFilter.colAndOr'),
+      to: t('advancedFilter.colTo'),
+      amount: t('advancedFilter.colAmount'),
+      asset: t('advancedFilter.colAsset'),
+      fee: t('advancedFilter.colFee'),
+    };
+    return map[id] ?? '';
+  }, [ t ]);
   const multichainContext = useMultichainContext();
 
   const [ filters, setFilters ] = React.useState<AdvancedFilterParams>(() => {
@@ -165,12 +181,12 @@ const AdvancedFilter = () => {
                   >
                     { Boolean(column.name) && (
                       <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
-                        { column.id === 'age' ? t('advancedFilter.timestamp') : column.name }
+                        { colLabel(column.id) }
                       </chakra.span>
                     ) }
                     <FilterByColumn
                       column={ column.id }
-                      columnName={ column.name }
+                      columnName={ colLabel(column.id) }
                       handleFilterChange={ handleFilterChange }
                       filters={ filters }
                       searchParams={ data?.search_params }

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -42,6 +43,7 @@ const TABS_RIGHT_SLOT_PROPS: SlotProps = {
 const bridgedTokensFeature = config.features.bridgedTokens;
 
 const Tokens = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const isMobile = useIsMobile();
 
@@ -148,7 +150,7 @@ const Tokens = () => {
   const tabs: Array<TabItemRegular> = [
     {
       id: 'all',
-      title: 'All',
+      title: t('tokens.tabAll'),
       component: (
         <TokensList
           query={ tokensQuery }
@@ -162,7 +164,7 @@ const Tokens = () => {
     },
     bridgedTokensFeature.isEnabled ? {
       id: 'bridged',
-      title: 'Bridged',
+      title: t('tokens.tabBridged'),
       component: (
         <TokensList
           query={ tokensQuery }
@@ -180,7 +182,7 @@ const Tokens = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `Tokens on ${ config.chain.name }` : 'Tokens' }
+        title={ config.meta.seo.enhancedDataEnabled ? t('pages.tokensOnChain', { chain: config.chain.name }) : t('pages.tokens') }
         withTextAd
       />
       { !hasMultipleTabs && !isMobile && actionBar }

@@ -327,7 +327,47 @@
   "navigation": {
     "chains": "鏈",
     "viewAllChains": "查看所有鏈",
-    "expandCollapseMenu": "展開/收起選單"
+    "expandCollapseMenu": "展開/收起選單",
+    "blockchain": "區塊鏈",
+    "tokens": "代幣",
+    "chartsStats": "圖表與統計",
+    "other": "其他",
+    "api": "API",
+    "topAccounts": "頂級帳戶",
+    "blocks": "區塊",
+    "transactions": "交易",
+    "crossChainTransactions": "跨鏈交易",
+    "operations": "操作",
+    "internalTransactions": "內部交易",
+    "userOperations": "用戶操作",
+    "verifiedContracts": "已驗證合約",
+    "nameServicesLookup": "名稱服務查詢",
+    "validators": "驗證者",
+    "deposits": "存款",
+    "withdrawals": "提款",
+    "txnBatches": "交易批次",
+    "outputRoots": "輸出根",
+    "disputeGames": "爭議遊戲",
+    "mudWorlds": "MUD 世界",
+    "epochs": "週期",
+    "interopMessages": "互操作訊息",
+    "tokenTransfers": "代幣轉移",
+    "dexTracker": "DEX 追蹤器",
+    "chainStats": "鏈統計",
+    "ecosystems": "生態系統",
+    "uptime": "運行時間",
+    "hotContracts": "熱門合約",
+    "gasTracker": "Gas 追蹤器",
+    "verifyContract": "驗證合約",
+    "submitPublicTag": "提交公開標籤",
+    "txnWithdrawals": "交易提款",
+    "watchList": "觀察清單",
+    "privateTags": "私人標籤",
+    "apiKeys": "API 金鑰",
+    "customAbi": "自訂 ABI",
+    "verifiedAddrs": "已驗證地址",
+    "depositsWithLayers": "存款 ({{parent}}→{{current}})",
+    "withdrawalsWithLayers": "提款 ({{current}}→{{parent}})"
   },
   "searchBar": {
     "placeholder": "搜索地址 / 交易雜湊 / 區塊 / 代幣 /...",
@@ -437,7 +477,16 @@
     "blockCountdown": "區塊倒計時",
     "networkUtilizationLast50": "網路使用率（最近 50 個區塊）：",
     "noBlocks": "目前沒有區塊。",
-    "reorgTooltip": "鏈重組"
+    "reorgTooltip": "鏈重組",
+    "tabAll": "全部",
+    "tabForked": "分叉",
+    "tabUncles": "叔塊",
+    "tabDetails": "詳情",
+    "tabTransactions": "交易",
+    "tabInternalTxns": "內部交易",
+    "tabBlobTxns": "Blob 交易",
+    "tabDeposits": "存款",
+    "tabWithdrawals": "提款"
   },
   "blockDetails": {
     "height": "{{blockType}} 高度",
@@ -761,7 +810,20 @@
     "blockProducerTooltip": "成功將區塊加入區塊鏈的區塊生產者",
     "mintBurnAddressTooltip": "用於代幣鑄造和銷毀的地址",
     "novesTip": "由 Noves.fi 提供的人類可讀交易",
-    "caller": "呼叫者"
+    "caller": "呼叫者",
+    "tabDetails": "詳情",
+    "tabConfidentialComputeTxDetails": "機密計算交易詳情",
+    "tabAssetFlows": "資產流向",
+    "tabRegularTxDetails": "一般交易詳情",
+    "tabTokenTransfers": "代幣轉移",
+    "tabUserOperations": "用戶操作",
+    "tabInternalTxns": "內部交易",
+    "tabBlobs": "Blobs",
+    "tabLogs": "日誌",
+    "tabState": "狀態",
+    "tabRawTrace": "原始追蹤",
+    "tabFheOperations": "FHE 操作",
+    "tabAuthorizations": "授權"
   },
   "txs": {
     "txnHash": "交易哈希",
@@ -871,7 +933,9 @@
     "sortHoldersAsc": "持有者升序",
     "sortHoldersDesc": "持有者降序",
     "sortMarketCapAsc": "鏈上市值升序",
-    "sortMarketCapDesc": "鏈上市值降序"
+    "sortMarketCapDesc": "鏈上市值降序",
+    "tabAll": "全部",
+    "tabBridged": "跨鏈橋接"
   },
   "tokenTransfers": {
     "txnHash": "交易雜湊",
@@ -1100,7 +1164,28 @@
     "externalLibraries": "外部函式庫（{{count}}）",
     "externalLibrariesWarning": "所連結的函式庫原始碼可能並非真實的原始碼。若您想確認，請查看函式庫地址的原始碼（如有）。",
     "addCustomAbiDescription": "為此合約新增自訂 ABI，登入帳號後即可使用。有助於除錯、功能測試及合約互動。",
-    "addCustomAbi": "新增自訂 ABI"
+    "addCustomAbi": "新增自訂 ABI",
+    "tabDetails": "詳情",
+    "tabContract": "合約",
+    "tabCode": "程式碼",
+    "tabMud": "MUD",
+    "tabTransactions": "交易",
+    "tabAccountHistory": "帳戶歷史",
+    "tabUserOperations": "用戶操作",
+    "tabDeposits": "存款",
+    "tabWithdrawals": "提款",
+    "tabTokenTransfers": "代幣轉移",
+    "tabTokens": "代幣",
+    "tabInternalTxns": "內部交易",
+    "tabEpochRewards": "週期獎勵",
+    "tabCoinBalanceHistory": "幣種餘額歷史",
+    "tabBlocksValidated": "已{{action}}區塊",
+    "tabLogs": "日誌",
+    "tabWidgets": "小工具",
+    "nativeBalance": "{{symbol}} 餘額",
+    "tokenCount_one": "{{count}} 個代幣",
+    "tokenCount_other": "{{count}} 個代幣",
+    "tokenCountOverflow": ">{{nbsp}}{{count}} 個代幣"
   },
   "apiKey": {
     "tokenPlaceholder": "自動生成的 API 金鑰令牌",
@@ -1633,7 +1718,10 @@
     "faqQ3": "{{ chain }} 交易的平均 Gas 費用是多少？",
     "faqA3": "{{ chain }} 交易的平均 Gas 費用取決於網路擁塞程度和交易複雜性。Blockscout 提供即時的 Gas 費用估算，幫助用戶做出明智決策。",
     "faqQ4": "Blockscout 如何計算 Gas 費用？",
-    "faqA4": "Blockscout 根據最近 200 個區塊的平均 Gas 費用計算 Gas 費用。"
+    "faqA4": "Blockscout 根據最近 200 個區塊的平均 Gas 費用計算 Gas 費用。",
+    "lastUpdated": "最後更新 ",
+    "trackGasFees": "追蹤 {{chain}} Gas 費用",
+    "noRecentData": "暫無最新資料"
   },
   "stats": {
     "allStats": "所有統計",
@@ -2123,7 +2211,9 @@
     "days": "天",
     "hours": "小時",
     "minutes": "分鐘",
-    "seconds": "秒"
+    "seconds": "秒",
+    "title": "區塊倒數",
+    "description": "區塊建立並加入區塊鏈的預估時間。"
   },
   "cluster": {
     "clusterName": "叢集名稱",
@@ -2390,9 +2480,14 @@
   },
   "apiDocs": {
     "viewExamples": "查看範例",
-    "viewModules": "查看模組"
+    "viewModules": "查看模組",
+    "noAvailable": "暫無 API 文件"
   },
   "pages": {
+    "transactions": "交易",
+    "blockTitle": "區塊 #{{height}}",
+    "reorgedBlockTitle": "重組區塊 #{{height}}",
+    "uncleBlockTitle": "叔塊 #{{height}}",
     "topAccounts": "頂級帳戶",
     "searchResult": "搜尋結果",
     "txnBatches": "交易批次",
@@ -2463,7 +2558,17 @@
     "tacOperationsSearchPlaceholder": "按操作、交易雜湊、發送者搜尋",
     "chartSelectResolution": "選擇解析度",
     "chartNoData": "所選解析度和時間間隔沒有資料。",
-    "sol2umlClickToZoom": "點擊圖片以縮放"
+    "sol2umlClickToZoom": "點擊圖片以縮放",
+    "addressDetails": "地址詳情",
+    "contractDetails": "合約詳情",
+    "verifiedContracts": "已驗證合約",
+    "verifiedContractsChain": "已驗證的 {{chain}} 合約",
+    "tokens": "代幣",
+    "tokensOnChain": "{{chain}} 上的代幣",
+    "gasTracker": "Gas 追蹤器",
+    "apiDocumentation": "API 文件",
+    "statsTitle": "{{chain}} 統計與數據",
+    "statsTitleShort": "{{chain}} 統計"
   },
   "txAction": {
     "added": "已新增",
@@ -2521,7 +2626,9 @@
   },
   "shared": {
     "fallbackRpcTooltip": "我們的索引器遇到問題，您直接從 RPC 看到資料",
-    "selectType": "選擇類型"
+    "selectType": "選擇類型",
+    "viewDetails": "查看詳情",
+    "hideDetails": "隱藏詳情"
   },
   "infoButton": {
     "ariaLabel": "顯示資訊",

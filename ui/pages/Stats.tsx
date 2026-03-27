@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -11,6 +12,7 @@ import StatsFilters from '../stats/StatsFilters';
 import useStats from '../stats/useStats';
 
 const Stats = () => {
+  const { t } = useTranslation();
   const {
     isPlaceholderData,
     isError,
@@ -29,7 +31,7 @@ const Stats = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } statistic & data` : `${ config.chain.name } stats` }
+        title={ t(config.meta.seo.enhancedDataEnabled ? 'pages.statsTitle' : 'pages.statsTitleShort', { chain: config.chain.name }) }
       />
 
       <Box mb={{ base: 6, sm: 8 }}>

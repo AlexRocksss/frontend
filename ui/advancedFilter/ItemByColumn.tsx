@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { AdvancedFilterResponseItem } from 'types/api/advancedFilter';
@@ -28,15 +29,23 @@ type Props = {
 };
 
 const ItemByColumn = ({ item, column, isLoading, chainConfig }: Props) => {
+  const { t } = useTranslation();
+
+  const typeNameOverrides: Partial<Record<string, string>> = {
+    coin_transfer: t('advancedFilter.filterTypeCoinTransfer'),
+    contract_creation: t('advancedFilter.filterTypeContractCreation'),
+    contract_interaction: t('advancedFilter.filterTypeContractInteraction'),
+  };
+
   switch (column) {
     case 'tx_hash':
       return <TxEntity truncation="constant" hash={ item.hash } isLoading={ isLoading } noIcon fontWeight={ 700 }/>;
     case 'type': {
-      const type = getAdvancedFilterTypes(chainConfig).find(t => t.id === item.type);
+      const type = getAdvancedFilterTypes(chainConfig).find(typ => typ.id === item.type);
       if (!type) {
         return null;
       }
-      return <Badge loading={ isLoading }>{ type.name }</Badge>;
+      return <Badge loading={ isLoading }>{ typeNameOverrides[type.id] ?? type.name }</Badge>;
     }
     case 'method':
       return item.method ? <Badge loading={ isLoading } truncated>{ item.method }</Badge> : null;

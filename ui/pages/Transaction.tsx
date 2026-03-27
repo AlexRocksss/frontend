@@ -66,36 +66,36 @@ const TransactionPageContent = () => {
     return [
       {
         id: 'index',
-        title: config.features.suave.isEnabled && data?.wrapped ? 'Confidential compute tx details' : 'Details',
+        title: config.features.suave.isEnabled && data?.wrapped ? t('tx.tabConfidentialComputeTxDetails') : t('tx.tabDetails'),
         component: detailsComponent,
       },
       txInterpretation.isEnabled && txInterpretation.provider === 'noves' ?
-        { id: 'asset_flows', title: 'Asset Flows', component: <TxAssetFlows hash={ hash }/> } :
+        { id: 'asset_flows', title: t('tx.tabAssetFlows'), component: <TxAssetFlows hash={ hash }/> } :
         undefined,
       config.features.suave.isEnabled && data?.wrapped ?
-        { id: 'wrapped', title: 'Regular tx details', component: <TxDetailsWrapped data={ data.wrapped }/> } :
+        { id: 'wrapped', title: t('tx.tabRegularTxDetails'), component: <TxDetailsWrapped data={ data.wrapped }/> } :
         undefined,
       {
         id: 'token_transfers',
-        title: 'Token transfers',
+        title: t('tx.tabTokenTransfers'),
         component: <TxTokenTransfer txQuery={ txQuery }/>,
         subTabs: [ 'token_transfers', 'token_transfers_cross_chain' ],
       },
       config.features.userOps.isEnabled ?
-        { id: 'user_ops', title: 'User operations', component: <TxUserOps txQuery={ txQuery }/> } :
+        { id: 'user_ops', title: t('tx.tabUserOperations'), component: <TxUserOps txQuery={ txQuery }/> } :
         undefined,
-      { id: 'internal', title: 'Internal txns', component: <TxInternals txQuery={ txQuery }/> },
+      { id: 'internal', title: t('tx.tabInternalTxns'), component: <TxInternals txQuery={ txQuery }/> },
       config.features.dataAvailability.isEnabled && txQuery.data?.blob_versioned_hashes?.length ?
-        { id: 'blobs', title: 'Blobs', component: <TxBlobs txQuery={ txQuery }/> } :
+        { id: 'blobs', title: t('tx.tabBlobs'), component: <TxBlobs txQuery={ txQuery }/> } :
         undefined,
-      { id: 'logs', title: 'Logs', component: <TxLogs txQuery={ txQuery }/> },
-      { id: 'state', title: 'State', component: <TxState txQuery={ txQuery }/> },
-      { id: 'raw_trace', title: 'Raw trace', component: <TxRawTrace txQuery={ txQuery }/> },
+      { id: 'logs', title: t('tx.tabLogs'), component: <TxLogs txQuery={ txQuery }/> },
+      { id: 'state', title: t('tx.tabState'), component: <TxState txQuery={ txQuery }/> },
+      { id: 'raw_trace', title: t('tx.tabRawTrace'), component: <TxRawTrace txQuery={ txQuery }/> },
       txQuery.data?.fhe_operations_count && txQuery.data.fhe_operations_count > 0 ?
-        { id: 'fhe_operations', title: 'FHE operations', component: <TxFHEOperations txQuery={ txQuery }/> } :
+        { id: 'fhe_operations', title: t('tx.tabFheOperations'), component: <TxFHEOperations txQuery={ txQuery }/> } :
         undefined,
       txQuery.data?.authorization_list?.length ?
-        { id: 'authorizations', title: 'Authorizations', component: <TxAuthorizations txQuery={ txQuery }/> } :
+        { id: 'authorizations', title: t('tx.tabAuthorizations'), component: <TxAuthorizations txQuery={ txQuery }/> } :
         undefined,
     ].filter(Boolean);
   })();

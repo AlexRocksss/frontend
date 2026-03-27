@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -17,6 +18,7 @@ import useFetchTokens from '../utils/useFetchTokens';
 import TokenBalancesItem from './TokenBalancesItem';
 
 const TokenBalances = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const hash = router.query.hash?.toString();
@@ -40,31 +42,33 @@ const TokenBalances = () => {
   });
 
   const tokensInfo = getTokensTotalInfo(tokenQuery.data);
-  const prefix = tokensInfo.isOverflow ? `>${ thinsp }` : '';
   const totalUsd = nativeUsd.plus(tokensInfo.usd);
-  const tokensNumText = tokensInfo.num > 0 ?
-    `${ prefix }${ tokensInfo.num } ${ tokensInfo.num > 1 ? 'tokens' : 'token' }` :
-    '0';
+  let tokensNumText = '0';
+  if (tokensInfo.num > 0) {
+    tokensNumText = tokensInfo.isOverflow ?
+      t('address.tokenCountOverflow', { nbsp: thinsp, count: tokensInfo.num }) :
+      t('address.tokenCount', { count: tokensInfo.num });
+  }
 
   return (
     <Flex columnGap={ 3 } rowGap={ 3 } mt={{ base: '6px', lg: 0 }} flexDirection={{ base: 'column', lg: 'row' }}>
       <TokenBalancesItem
-        name="Net Worth"
-        value={ addressData?.exchange_rate ? `${ prefix }$${ totalUsd.toFormat(2) }` : 'N/A' }
+        name={ t('address.netWorthLabel') }
+        value={ addressData?.exchange_rate ? `${ tokensInfo.isOverflow ? `>${ thinsp }` : '' }$${ totalUsd.toFormat(2) }` : 'N/A' }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
         icon={ <IconSvg name="wallet" boxSize="20px" flexShrink={ 0 } color="icon.primary"/> }
       />
       <TokenBalancesItem
-        name={ `${ currencyUnits.ether } Balance` }
+        name={ t('address.nativeBalance', { symbol: currencyUnits.ether }) }
         value={ `${ nativeValue } ${ currencyUnits.ether }` }
         valueSecondary={ !nativeUsd.eq(ZERO) ? `$${ nativeUsd.toFormat(2) }` : '' }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
         icon={ <NativeTokenIcon boxSize="20px"/> }
       />
       <TokenBalancesItem
-        name="Tokens"
+        name={ t('address.tabTokens') }
         value={ tokensNumText }
-        valueSecondary={ `${ prefix }$${ tokensInfo.usd.toFormat(2) }` }
+        valueSecondary={ `${ tokensInfo.isOverflow ? `>${ thinsp }` : '' }$${ tokensInfo.usd.toFormat(2) }` }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
         icon={ <IconSvg name="tokens" boxSize="20px" flexShrink={ 0 } color="icon.primary"/> }
       />

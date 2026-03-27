@@ -3,6 +3,7 @@ import {
   Flex,
   chakra,
 } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -21,6 +22,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Time from 'ui/shared/time/Time';
 
 const GasTracker = () => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError, error, dataUpdatedAt } = useApiQuery('general:stats', {
     queryOptions: {
       placeholderData: HOMEPAGE_STATS,
@@ -49,7 +51,7 @@ const GasTracker = () => {
         <GasTrackerNetworkUtilization percentage={ data.network_utilization_percentage } isLoading={ isLoading }/> }
       { data?.gas_price_updated_at && (
         <Skeleton loading={ isLoading } whiteSpace="pre" display="flex" alignItems="center">
-          <span>Last updated </span>
+          <span>{ t('gasTracker.lastUpdated') }</span>
           <Time timestamp={ data.gas_price_updated_at } format="DD MMM, HH:mm:ss" color="text.secondary"/>
           { data.gas_prices_update_in !== 0 && (
             <GasInfoUpdateTimer
@@ -73,7 +75,7 @@ const GasTracker = () => {
 
   const snippets = (() => {
     if (!isPlaceholderData && data?.gas_prices?.slow === null && data?.gas_prices.average === null && data.gas_prices.fast === null) {
-      return <Alert status="warning">No recent data available</Alert>;
+      return <Alert status="warning">{ t('gasTracker.noRecentData') }</Alert>;
     }
 
     return data?.gas_prices ? <GasTrackerPrices prices={ data.gas_prices } isLoading={ isLoading }/> : null;
@@ -84,11 +86,11 @@ const GasTracker = () => {
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } gas tracker` : 'Gas tracker' }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ t('pages.gasTracker').toLowerCase() }` : t('pages.gasTracker') }
         secondRow={ titleSecondRow }
         withTextAd
       />
-      <Heading level="2" mt={ 8 } mb={ 4 }>{ `Track ${ config.chain.name } gas fees` }</Heading>
+      <Heading level="2" mt={ 8 } mb={ 4 }>{ t('gasTracker.trackGasFees', { chain: config.chain.name }) }</Heading>
       { snippets }
       { config.features.stats.isEnabled && (
         <Box mt={ 12 } _empty={{ display: 'none' }}>

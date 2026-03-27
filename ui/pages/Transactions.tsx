@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -15,12 +16,13 @@ const TAB_LIST_PROPS = {
 const TABS_HEIGHT = 88;
 
 const Transactions = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   return (
     <>
       <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } transactions` : 'Transactions' }
+        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } ${ t('pages.transactions').toLowerCase() }` : t('pages.transactions') }
         withTextAd
       />
       <TxsStats/>

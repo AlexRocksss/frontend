@@ -83,10 +83,10 @@ const BlocksPageContent = () => {
   })();
 
   const tabs: Array<TabItemRegular> = [
-    { id: 'blocks', title: 'All', component: <BlocksContent type="block" query={ blocksQuery }/> },
+    { id: 'blocks', title: t('blocks.tabAll'), component: <BlocksContent type="block" query={ blocksQuery }/> },
     flashblocksFeature.isEnabled && flashblocksTabId && { id: flashblocksTabId, title: upperFirst(flashblocksFeature.name) + 's', component: <Flashblocks/> },
-    { id: 'reorgs', title: 'Forked', component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
-    { id: 'uncles', title: 'Uncles', component: <BlocksContent type="uncle" query={ unclesQuery }/> },
+    { id: 'reorgs', title: t('blocks.tabForked'), component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
+    { id: 'uncles', title: t('blocks.tabUncles'), component: <BlocksContent type="uncle" query={ unclesQuery }/> },
   ].filter(Boolean);
 
   return (

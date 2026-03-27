@@ -54,11 +54,11 @@ const TokensTable = ({ items, page, isLoading, sorting, setSorting, top }: Props
               sortValue={ sorting }
               onSortToggle={ sort }
             >
-              Price
+              { t('tokens.price') }
             </TableColumnHeaderSortable>
           ) : (
             <TableColumnHeader isNumeric width="15%">
-              Price
+              { t('tokens.price') }
             </TableColumnHeader>
           ) }
           { hasSorting ? (
@@ -69,11 +69,11 @@ const TokensTable = ({ items, page, isLoading, sorting, setSorting, top }: Props
               sortValue={ sorting }
               onSortToggle={ sort }
             >
-              On-chain market cap
+              { t('tokens.onChainMarketCap') }
             </TableColumnHeaderSortable>
           ) : (
             <TableColumnHeader isNumeric width="20%">
-              On-chain market cap
+              { t('tokens.onChainMarketCap') }
             </TableColumnHeader>
           ) }
           { hasSorting ? (
@@ -84,11 +84,11 @@ const TokensTable = ({ items, page, isLoading, sorting, setSorting, top }: Props
               sortValue={ sorting }
               onSortToggle={ sort }
             >
-              Holders
+              { t('tokens.holders') }
             </TableColumnHeaderSortable>
           ) : (
             <TableColumnHeader isNumeric width="15%">
-              Holders
+              { t('tokens.holders') }
             </TableColumnHeader>
           ) }
         </TableRow>
