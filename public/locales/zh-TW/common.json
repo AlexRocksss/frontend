@@ -82,6 +82,15 @@
     "moreAvailable": "更多{{name}}可用",
     "newItemsComeIn_singular": "{{num}} 筆新{{name}}進入",
     "newItemsComeIn_plural": "{{num}} 筆新{{name}}進入",
+    "newItemsLinkText_one": "{{count}} 筆新{{name}}",
+    "newItemsLinkText_other": "{{count}} 筆新{{name}}",
+    "newItemsAfterText_one": "已到達",
+    "newItemsAfterText_other": "已到達",
+    "typeNameTransaction": "交易",
+    "typeNameTokenTransfer": "代幣轉帳",
+    "typeNameDeposit": "存款",
+    "typeNameBlock": "區塊",
+    "typeNameCrossChainTransaction": "跨鏈交易",
     "verifyContractPrompt": "要查看準確的解碼輸入數據，合約必須經過驗證。 ",
     "verifyContractLink": "在此驗證合約"
   },
@@ -271,7 +280,8 @@
     "language": "語言",
     "colorTheme": "顏色主題",
     "addressSettings": "地址設定",
-    "websiteSettings": "網站設定"
+    "websiteSettings": "網站設定",
+    "localTimeFormat": "本地時間格式"
   },
   "auth": {
     "selectMethodTitle": "選擇登入方式",
@@ -327,6 +337,9 @@
   "navigation": {
     "chains": "鏈",
     "viewAllChains": "查看所有鏈",
+    "networkGroupMainnets": "主網",
+    "networkGroupTestnets": "測試網",
+    "networkGroupOther": "其他",
     "expandCollapseMenu": "展開/收起選單",
     "blockchain": "區塊鏈",
     "tokens": "代幣",
@@ -610,6 +623,9 @@
     "block": "區塊",
     "hintBlock": "包含交易的區塊號碼",
     "blockConfirmations": "區塊確認數",
+    "confirmedWithin": "已於 {{lower}} 秒內確認",
+    "confirmedWithinMax": "已於 <= {{upper}} 秒內確認",
+    "confirmedWithinRange": "已於 {{lower}} - {{upper}} 秒內確認",
     "pending": "待處理",
     "txnBatch": "交易批次",
     "hintTxnBatch": "此交易的批次索引",
@@ -1722,6 +1738,13 @@
     "lastUpdated": "最後更新 ",
     "trackGasFees": "追蹤 {{chain}} Gas 費用",
     "noRecentData": "暫無最新資料"
+  },
+  "gasButton": {
+    "name": "需要 Gas？"
+  },
+  "home": {
+    "blockchainExplorer": "{{chain}} 區塊鏈瀏覽器",
+    "explorer": "{{chain}} 瀏覽器"
   },
   "stats": {
     "allStats": "所有統計",

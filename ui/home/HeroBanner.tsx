@@ -1,6 +1,7 @@
 // we use custom heading size for hero banner
 // eslint-disable-next-line no-restricted-imports
 import { Box, Flex, Heading } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import config from 'configs/app';
@@ -17,7 +18,7 @@ const TEXT_COLOR_DEFAULT = 'white';
 const BORDER_DEFAULT = 'none';
 
 const HeroBanner = () => {
-
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const background = {
@@ -70,8 +71,8 @@ const HeroBanner = () => {
           >
             {
               config.meta.seo.enhancedDataEnabled ?
-                `${ config.chain.name } blockchain explorer` :
-                `${ config.chain.name } explorer`
+                t('home.blockchainExplorer', { chain: config.chain.name }) :
+                t('home.explorer', { chain: config.chain.name })
             }
           </Heading>
           { config.UI.navigation.layout === 'vertical' && (

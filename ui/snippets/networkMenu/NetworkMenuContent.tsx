@@ -17,6 +17,12 @@ interface Props {
   items?: Array<FeaturedNetwork>;
 }
 
+const NETWORK_GROUP_LABELS: Record<string, string | undefined> = {
+  Mainnets: 'navigation.networkGroupMainnets',
+  Testnets: 'navigation.networkGroupTestnets',
+  Other: 'navigation.networkGroupOther',
+};
+
 const NetworkMenuContent = ({ items, tabs }: Props) => {
   const { t } = useTranslation();
   const selectedNetwork = items?.find(({ isActive }) => isActive);
@@ -27,6 +33,11 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
   const handleTabChange = React.useCallback(({ value }: { value: string }) => {
     setValue(value as NetworkGroup);
   }, []);
+
+  const getTabLabel = React.useCallback((tab: NetworkGroup) => {
+    const key = NETWORK_GROUP_LABELS[tab];
+    return key ? t(key as Parameters<typeof t>[0]) : tab;
+  }, [ t ]);
 
   const content = (() => {
     if (!items || items.length === 0) {
@@ -93,7 +104,7 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
           { tabs.map((tab, index) => {
             return (
               <Box key={ tab }>
-                <Text fontSize="sm" fontWeight={ 600 } mb={ 2 }>{ tab }</Text>
+                <Text fontSize="sm" fontWeight={ 600 } mb={ 2 }>{ getTabLabel(tab) }</Text>
                 <VStack key={ tab } as="ul" gap={ 1 } alignItems="stretch">
                   { items
                     .filter((network) => network.group === tab)
@@ -130,7 +141,7 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
                 textTransform="capitalize"
                 value={ tab }
               >
-                { tab }
+                { getTabLabel(tab) }
               </TabsTrigger>
             )) }
           </TabsList>

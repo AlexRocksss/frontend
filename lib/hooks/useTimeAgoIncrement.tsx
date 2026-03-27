@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import dayjs from 'lib/date/dayjs';
@@ -42,7 +43,9 @@ function getUpdateParams(ts: string | number) {
 }
 
 export default function useTimeAgoIncrement(ts: string | number | null, isEnabled?: boolean) {
-  const [ value, setValue ] = React.useState(ts ? dayjs(ts).fromNow() : null);
+  const { i18n } = useTranslation();
+  const language = i18n.language;
+  const [ value, setValue ] = React.useState(() => ts ? dayjs(ts).locale(language).fromNow() : null);
 
   React.useEffect(() => {
     if (ts !== null) {
@@ -58,10 +61,10 @@ export default function useTimeAgoIncrement(ts: string | number | null, isEnable
         let intervalId: number;
 
         const startTimeoutId = window.setTimeout(() => {
-          setValue(dayjs(ts).fromNow());
+          setValue(dayjs(ts).locale(language).fromNow());
 
           intervalId = window.setInterval(() => {
-            setValue(dayjs(ts).fromNow());
+            setValue(dayjs(ts).locale(language).fromNow());
           }, interval);
 
           intervals.push(intervalId);
@@ -76,18 +79,18 @@ export default function useTimeAgoIncrement(ts: string | number | null, isEnable
         timeouts.push(endTimeoutId);
       };
 
-      setValue(dayjs(ts).fromNow());
+      setValue(dayjs(ts).locale(language).fromNow());
 
       isEnabled && startIncrement();
 
-      !isEnabled && setValue(dayjs(ts).fromNow());
+      !isEnabled && setValue(dayjs(ts).locale(language).fromNow());
 
       return () => {
         timeouts.forEach(window.clearTimeout);
         intervals.forEach(window.clearInterval);
       };
     }
-  }, [ isEnabled, ts ]);
+  }, [ isEnabled, ts, language ]);
 
   return value;
 }

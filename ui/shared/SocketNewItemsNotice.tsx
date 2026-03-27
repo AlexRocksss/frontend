@@ -40,13 +40,13 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
 
     switch (type) {
       case 'token_transfer':
-        name = 'token transfer';
+        name = t('alert.typeNameTokenTransfer');
         break;
       case 'deposit':
-        name = 'deposit';
+        name = t('alert.typeNameDeposit');
         break;
       case 'block':
-        name = 'block';
+        name = t('alert.typeNameBlock');
         break;
       case 'flashblock': {
         if (flashblocksFeature.isEnabled) {
@@ -55,10 +55,10 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
         break;
       }
       case 'cross_chain_transaction':
-        name = 'cross chain transaction';
+        name = t('alert.typeNameCrossChainTransaction');
         break;
       default:
-        name = 'transaction';
+        name = t('alert.typeNameTransaction');
         break;
     }
 
@@ -74,8 +74,8 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
 
     return (
       <>
-        <Link href={ url } onClick={ !url ? handleLinkClick : undefined }>{ num.toLocaleString() } more { name }{ num > 1 ? 's' : '' }</Link>
-        <Text whiteSpace="pre"> ha{ num > 1 ? 've' : 's' } come in</Text>
+        <Link href={ url } onClick={ !url ? handleLinkClick : undefined }>{ t('alert.newItemsLinkText', { count: num, name }) }</Link>
+        <Text whiteSpace="pre">{ t('alert.newItemsAfterText', { count: num }) }</Text>
       </>
     );
   })();

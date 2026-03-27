@@ -414,7 +414,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
               <Flex alignItems="center">
                 <TextSeparator hideBelow="lg"/>
                 <Skeleton loading={ isLoading } color="text.secondary">
-                  <span>{ getConfirmationDuration(data.confirmation_duration) }</span>
+                  <span>{ getConfirmationDuration(t, data.confirmation_duration) }</span>
                 </Skeleton>
               </Flex>
             ) }

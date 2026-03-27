@@ -82,6 +82,15 @@
     "moreAvailable": "More {{name}}s available",
     "newItemsComeIn_singular": "{{num}} more {{name}} has come in",
     "newItemsComeIn_plural": "{{num}} more {{name}}s have come in",
+    "newItemsLinkText_one": "{{count}} more {{name}}",
+    "newItemsLinkText_other": "{{count}} more {{name}}s",
+    "newItemsAfterText_one": " has come in",
+    "newItemsAfterText_other": " have come in",
+    "typeNameTransaction": "transaction",
+    "typeNameTokenTransfer": "token transfer",
+    "typeNameDeposit": "deposit",
+    "typeNameBlock": "block",
+    "typeNameCrossChainTransaction": "cross chain transaction",
     "verifyContractPrompt": "To see accurate decoded input data, the contract must be verified. ",
     "verifyContractLink": "Verify the contract here"
   },
@@ -271,7 +280,8 @@
     "language": "Languages",
     "colorTheme": "Color theme",
     "addressSettings": "Address settings",
-    "websiteSettings": "Website settings"
+    "websiteSettings": "Website settings",
+    "localTimeFormat": "Local time format"
   },
   "auth": {
     "selectMethodTitle": "Select a way to login",
@@ -327,6 +337,9 @@
   "navigation": {
     "chains": "Chains",
     "viewAllChains": "View all chains",
+    "networkGroupMainnets": "Mainnets",
+    "networkGroupTestnets": "Testnets",
+    "networkGroupOther": "Other",
     "expandCollapseMenu": "Expand/Collapse menu",
     "blockchain": "Blockchain",
     "tokens": "Tokens",
@@ -610,6 +623,9 @@
     "block": "Block",
     "hintBlock": "Block number containing the transaction",
     "blockConfirmations": "Block confirmations",
+    "confirmedWithin": "Confirmed within {{lower}} secs",
+    "confirmedWithinMax": "Confirmed within <= {{upper}} secs",
+    "confirmedWithinRange": "Confirmed within {{lower}} - {{upper}} secs",
     "pending": "Pending",
     "txnBatch": "Txn batch",
     "hintTxnBatch": "Batch index for this transaction",
@@ -1722,6 +1738,13 @@
     "lastUpdated": "Last updated ",
     "trackGasFees": "Track {{chain}} gas fees",
     "noRecentData": "No recent data available"
+  },
+  "gasButton": {
+    "name": "Need gas?"
+  },
+  "home": {
+    "blockchainExplorer": "{{chain}} blockchain explorer",
+    "explorer": "{{chain}} explorer"
   },
   "stats": {
     "allStats": "All stats",

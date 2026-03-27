@@ -1,4 +1,6 @@
-export default function getConfirmationString(durations: Array<number>) {
+import type { TFunction } from 'next-i18next';
+
+export default function getConfirmationString(t: TFunction, durations: Array<number>) {
   if (durations.length === 0) {
     return '';
   }
@@ -6,12 +8,12 @@ export default function getConfirmationString(durations: Array<number>) {
   const [ lower, upper ] = durations.map((time) => time / 1_000);
 
   if (!upper) {
-    return `Confirmed within ${ lower.toLocaleString() } secs`;
+    return t('tx.confirmedWithin', { lower: lower.toLocaleString() });
   }
 
   if (lower === 0) {
-    return `Confirmed within <= ${ upper.toLocaleString() } secs`;
+    return t('tx.confirmedWithinMax', { upper: upper.toLocaleString() });
   }
 
-  return `Confirmed within ${ lower.toLocaleString() } - ${ upper.toLocaleString() } secs`;
+  return t('tx.confirmedWithinRange', { lower: lower.toLocaleString(), upper: upper.toLocaleString() });
 }

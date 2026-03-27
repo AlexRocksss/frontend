@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -11,6 +12,7 @@ import { Link } from 'toolkit/chakra/link';
 const getGasFeature = config.features.getGasButton;
 
 const GetGasButton = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
 
   const onGetGasClick = React.useCallback(() => {
@@ -47,7 +49,7 @@ const GetGasButton = () => {
                 mr={ 1 }
               />
             ) }
-            { getGasFeature.name }
+            { t('gasButton.name') }
           </Link>
         </>
       );

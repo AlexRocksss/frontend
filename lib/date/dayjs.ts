@@ -7,6 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
 import utc from 'dayjs/plugin/utc';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
+import 'dayjs/locale/zh-tw';
 
 import { nbsp } from 'toolkit/utils/htmlEntities';
 
@@ -59,6 +60,31 @@ dayjs.updateLocale('en', {
     MM: '%dmo',
     y: '1y',
     yy: '%dy',
+  },
+});
+
+dayjs.updateLocale('zh-tw', {
+  formats: {
+    llll: `YYYY年MM月DD日 HH:mm:ss (Z${ nbsp }UTC)`,
+    lll: 'YYYY年M月D日 H:mm',
+  },
+  relativeTime: {
+    s: '1秒',
+    ss: '%d秒',
+    future: '%s後',
+    past: '%s前',
+    m: '1分',
+    mm: '%d分',
+    h: '1小時',
+    hh: '%d小時',
+    d: '1天',
+    dd: '%d天',
+    w: '1週',
+    ww: '%d週',
+    M: '1個月',
+    MM: '%d個月',
+    y: '1年',
+    yy: '%d年',
   },
 });
 
