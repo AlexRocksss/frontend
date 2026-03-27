@@ -46,8 +46,8 @@ const GasTrackerChart = () => {
     return (
       <ChartWidgetContainer
         id={ GAS_PRICE_CHART_ID }
-        title={ chart.title }
-        description={ chart.description }
+        title={ t('stats.chartAverageGasPrice') }
+        description={ t('stats.chartDescAverageGasPrice') }
         interval="oneMonth"
         isPlaceholderData={ isPlaceholderData }
         onLoadingError={ handleLoadingError }

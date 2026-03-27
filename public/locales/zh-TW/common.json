@@ -878,9 +878,9 @@
     "hintMarketCap": "流通供應量 × 價格",
     "maxTotalSupply": "最大總供應量",
     "hintMaxTotalSupply": "已發行的代幣總量",
-    "holders": "持有者",
+    "holders": "持有人數",
     "hintHolders": "持有該代幣的帳戶數量",
-    "transfers": "轉帳",
+    "transfers": "轉帳次數",
     "hintTransfers": "代幣的轉帳次數",
     "hintInstanceTransfers": "代幣實例的轉帳次數",
     "decimals": "小數位數",
@@ -1203,7 +1203,14 @@
     "nativeBalance": "{{symbol}} 餘額",
     "tokenCount_one": "{{count}} 個代幣",
     "tokenCount_other": "{{count}} 個代幣",
-    "tokenCountOverflow": ">{{nbsp}}{{count}} 個代幣"
+    "tokenCountOverflow": ">{{nbsp}}{{count}} 個代幣",
+    "contractTabCode": "程式碼",
+    "contractTabReadWrite": "讀取/寫入合約",
+    "contractTabReadWriteProxy": "讀取/寫入代理",
+    "contractTabCustomAbi": "自訂 ABI",
+    "contractTabMudSystem": "MUD 系統",
+    "contractAbiExpandAll": "全部展開",
+    "contractAbiCollapseAll": "全部收合"
   },
   "apiKey": {
     "tokenPlaceholder": "自動生成的 API 金鑰令牌",
@@ -2580,7 +2587,9 @@
   "apiDocs": {
     "viewExamples": "查看範例",
     "viewModules": "查看模組",
-    "noAvailable": "暫無 API 文件"
+    "noAvailable": "暫無 API 文件",
+    "ethRpcDescription": "除了此處記載的自訂 RPC 端點之外，Blockscout ETH RPC API 還支援 3 種符合以太坊節點規格的方法，詳情請參閱以太坊 JSON-RPC 規範。",
+    "rpcDescription": "此 API 專為協助開發者將應用程式從 Etherscan 遷移至 BlockScout，以及需要一般 API 與資料支援的應用程式所提供。支援 GET 與 POST 請求。"
   },
   "pages": {
     "transactions": "交易",
@@ -2741,5 +2750,8 @@
   },
   "ensEntity": {
     "documentation": "文檔"
+  },
+  "common": {
+    "loadingData": "資料載入中，請稍候..."
   }
 }

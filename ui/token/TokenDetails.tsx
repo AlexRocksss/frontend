@@ -153,7 +153,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             hint={ t('token.hintMaxTotalSupply') }
             isLoading={ tokenQuery.isPlaceholderData }
           >
-            Max total supply
+            { t('token.maxTotalSupply') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
             alignSelf="center"
@@ -176,7 +176,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
         hint={ t('token.hintHolders') }
         isLoading={ tokenQuery.isPlaceholderData }
       >
-        Holders
+        { t('token.holders') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ tokenCountersQuery.isPlaceholderData }>
@@ -188,7 +188,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
         hint={ t('token.hintTransfers') }
         isLoading={ tokenQuery.isPlaceholderData }
       >
-        Transfers
+        { t('token.transfers') }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Skeleton loading={ tokenCountersQuery.isPlaceholderData }>
@@ -202,7 +202,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             hint={ t('token.hintDecimals') }
             isLoading={ tokenQuery.isPlaceholderData }
           >
-            Decimals
+            { t('token.decimals') }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Skeleton loading={ tokenQuery.isPlaceholderData } minW={ 6 }>

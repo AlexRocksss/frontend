@@ -8,10 +8,7 @@ const RpcApi = () => {
   const { t } = useTranslation();
   return (
     <Box>
-      <Text>
-        This API is provided for developers transitioning applications from Etherscan to BlockScout and applications requiring general API and data support.
-        It supports GET and POST requests.
-      </Text>
+      <Text>{ t('apiDocs.rpcDescription') }</Text>
       <Link href="https://docs.blockscout.com/devs/apis/rpc" external mt={ 6 }>{ t('apiDocs.viewModules') }</Link>
     </Box>
   );

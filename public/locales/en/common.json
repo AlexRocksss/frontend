@@ -1203,7 +1203,14 @@
     "nativeBalance": "{{symbol}} Balance",
     "tokenCount_one": "{{count}} token",
     "tokenCount_other": "{{count}} tokens",
-    "tokenCountOverflow": ">{{nbsp}}{{count}} tokens"
+    "tokenCountOverflow": ">{{nbsp}}{{count}} tokens",
+    "contractTabCode": "Code",
+    "contractTabReadWrite": "Read/Write contract",
+    "contractTabReadWriteProxy": "Read/Write proxy",
+    "contractTabCustomAbi": "Custom ABI",
+    "contractTabMudSystem": "MUD System",
+    "contractAbiExpandAll": "Expand all",
+    "contractAbiCollapseAll": "Collapse all"
   },
   "apiKey": {
     "tokenPlaceholder": "Auto-generated API key token",
@@ -2580,7 +2587,9 @@
   "apiDocs": {
     "viewExamples": "View examples",
     "viewModules": "View modules",
-    "noAvailable": "No API documentation available"
+    "noAvailable": "No API documentation available",
+    "ethRpcDescription": "In addition to the custom RPC endpoints documented here, the Blockscout ETH RPC API supports 3 methods in the exact format specified for Ethereum nodes, see the Ethereum JSON-RPC Specification for more details.",
+    "rpcDescription": "This API is provided for developers transitioning applications from Etherscan to BlockScout and applications requiring general API and data support. It supports GET and POST requests."
   },
   "pages": {
     "transactions": "Transactions",
@@ -2741,5 +2750,8 @@
   },
   "ensEntity": {
     "documentation": "Documentation"
+  },
+  "common": {
+    "loadingData": "Loading data, please wait..."
   }
 }

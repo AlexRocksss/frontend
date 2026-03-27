@@ -60,7 +60,7 @@ const ContractAbi = ({ abi, addressHash, sourceAddress, tab, visibleItems }: Pro
         <Box fontWeight={ 500 } mr="auto">{ t('address.contractAbiInfo') }</Box>
         { abi.length > 1 && (
           <Link onClick={ handleExpandAll } variant="secondary">
-            { expandedSections.length === abi.length ? 'Collapse' : 'Expand' } all
+            { expandedSections.length === abi.length ? t('address.contractAbiCollapseAll') : t('address.contractAbiExpandAll') }
           </Link>
         ) }
         <Link onClick={ handleReset } ml={ 3 } variant="secondary">{ t('address.contractAbiReset') }</Link>

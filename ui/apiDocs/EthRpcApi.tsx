@@ -8,11 +8,7 @@ const EthRpcApi = () => {
   const { t } = useTranslation();
   return (
     <Box>
-      <Text>
-        In addition to the custom RPC endpoints documented here,
-        the Blockscout ETH RPC API supports 3 methods in the exact format specified for Ethereum nodes,
-        ee the Ethereum JSON-RPC Specification for more details.
-      </Text>
+      <Text>{ t('apiDocs.ethRpcDescription') }</Text>
       <Link href="https://docs.blockscout.com/devs/apis/rpc/eth-rpc" external mt={ 6 }>{ t('apiDocs.viewExamples') }</Link>
     </Box>
   );

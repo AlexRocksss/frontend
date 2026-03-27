@@ -71,7 +71,7 @@ export default function useContractTabs({ addressData, isEnabled, hasMudTab, cha
         tabs: [
           {
             id: 'contract_code' as const,
-            title: 'Code',
+            title: t('address.contractTabCode'),
             component: <p>{ t('address.notAContract') }</p>,
           },
         ],
@@ -84,18 +84,18 @@ export default function useContractTabs({ addressData, isEnabled, hasMudTab, cha
       tabs: [
         addressData && {
           id: 'contract_code' as const,
-          title: 'Code',
+          title: t('address.contractTabCode'),
           component: <ContractDetails mainContractQuery={ contractQuery } channel={ channel } addressData={ addressData }/>,
           subTabs: CONTRACT_DETAILS_TAB_IDS as unknown as Array<string>,
         },
         contractQuery.data?.abi && {
           id: [ 'read_write_contract' as const, 'read_contract' as const, 'write_contract' as const ],
-          title: 'Read/Write contract',
+          title: t('address.contractTabReadWrite'),
           component: <ContractMethodsRegular abi={ contractQuery.data.abi } isLoading={ contractQuery.isPlaceholderData }/>,
         },
         verifiedImplementations.length > 0 && {
           id: [ 'read_write_proxy' as const, 'read_proxy' as const, 'write_proxy' as const ],
-          title: 'Read/Write proxy',
+          title: t('address.contractTabReadWriteProxy'),
           component: (
             <ContractMethodsProxy
               implementations={ verifiedImplementations }
@@ -107,12 +107,12 @@ export default function useContractTabs({ addressData, isEnabled, hasMudTab, cha
         },
         config.features.account.isEnabled && {
           id: [ 'read_write_custom_methods' as const, 'read_custom_methods' as const, 'write_custom_methods' as const ],
-          title: 'Custom ABI',
+          title: t('address.contractTabCustomAbi'),
           component: <ContractMethodsCustom isLoading={ contractQuery.isPlaceholderData }/>,
         },
         hasMudTab && {
           id: 'mud_system' as const,
-          title: 'MUD System',
+          title: t('address.contractTabMudSystem'),
           component: mudSystemsQuery.isPlaceholderData ?
             <ContentLoader/> :
             <ContractMethodsMudSystem items={ mudSystemsQuery.data?.items ?? [] }/>,

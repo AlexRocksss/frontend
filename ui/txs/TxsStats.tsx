@@ -6,7 +6,6 @@ import React from 'react';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
-import getStatsLabelFromTitle from 'lib/stats/getStatsLabelFromTitle';
 import { HOMEPAGE_STATS } from 'stubs/stats';
 import { TXS_STATS, TXS_STATS_MICROSERVICE } from 'stubs/tx';
 import { thinsp } from 'toolkit/utils/htmlEntities';
@@ -18,6 +17,13 @@ interface Props extends BoxProps {}
 const TxsStats = (props: Props) => {
   const { t } = useTranslation();
   const multichainContext = useMultichainContext();
+
+  const statsTitles: Record<string, string> = {
+    newTxns24h: t('txs.transactions'),
+    pendingTxns30m: t('txs.pendingTransactions'),
+    txnsFee24h: t('txs.transactionsFees'),
+    averageTxnFee24h: t('txs.avgTransactionFee'),
+  };
 
   const chainConfig = multichainContext?.chain.app_config || config;
   const isStatsFeatureEnabled = chainConfig.features.stats.isEnabled;
@@ -91,9 +97,7 @@ const TxsStats = (props: Props) => {
     >
       { txCount24h && (
         <StatsWidget
-          label={ txsStatsQuery.data?.transactions_24h?.title ?
-            getStatsLabelFromTitle(txsStatsQuery.data?.transactions_24h?.title) :
-            t('txs.transactions') }
+          label={ statsTitles[txsStatsQuery.data?.transactions_24h?.id ?? ''] ?? t('txs.transactions') }
           value={ Number(txCount24h).toLocaleString() }
           period="24h"
           isLoading={ isLoading }
@@ -106,9 +110,7 @@ const TxsStats = (props: Props) => {
       ) }
       { operationalTxns24hArbitrum && (
         <StatsWidget
-          label={ txsStatsQuery.data?.operational_transactions_24h?.title ?
-            getStatsLabelFromTitle(txsStatsQuery.data?.operational_transactions_24h?.title) :
-            t('txs.dailyOpTxns') }
+          label={ statsTitles[txsStatsQuery.data?.operational_transactions_24h?.id ?? ''] ?? t('txs.dailyOpTxns') }
           value={ Number(operationalTxns24hArbitrum).toLocaleString() }
           period="24h"
           isLoading={ isLoading }
@@ -116,9 +118,7 @@ const TxsStats = (props: Props) => {
       ) }
       { operationalTxns24hOptimistic && (
         <StatsWidget
-          label={ txsStatsQuery.data?.op_stack_operational_transactions_24h?.title ?
-            getStatsLabelFromTitle(txsStatsQuery.data?.op_stack_operational_transactions_24h?.title) :
-            t('txs.dailyOpTxns') }
+          label={ statsTitles[txsStatsQuery.data?.op_stack_operational_transactions_24h?.id ?? ''] ?? t('txs.dailyOpTxns') }
           value={ Number(operationalTxns24hOptimistic).toLocaleString() }
           period="24h"
           isLoading={ isLoading }
@@ -126,9 +126,7 @@ const TxsStats = (props: Props) => {
       ) }
       { pendingTxns && (
         <StatsWidget
-          label={ txsStatsQuery.data?.pending_transactions_30m?.title ?
-            getStatsLabelFromTitle(txsStatsQuery.data?.pending_transactions_30m?.title) :
-            t('txs.pendingTransactions') }
+          label={ statsTitles[txsStatsQuery.data?.pending_transactions_30m?.id ?? ''] ?? t('txs.pendingTransactions') }
           value={ Number(pendingTxns).toLocaleString() }
           period={ isStatsFeatureEnabled ? '30min' : '1h' }
           isLoading={ isLoading }
@@ -136,9 +134,7 @@ const TxsStats = (props: Props) => {
       ) }
       { txFeeSum24h != null && (
         <StatsWidget
-          label={ txsStatsQuery.data?.transactions_fee_24h?.title ?
-            getStatsLabelFromTitle(txsStatsQuery.data?.transactions_fee_24h?.title) :
-            t('txs.transactionsFees') }
+          label={ statsTitles[txsStatsQuery.data?.transactions_fee_24h?.id ?? ''] ?? t('txs.transactionsFees') }
           value={ txFeeSum24h.toLocaleString(undefined, { maximumFractionDigits: 2 }) }
           valuePostfix={ thinsp + chainConfig.chain.currency.symbol }
           period="24h"
@@ -152,9 +148,7 @@ const TxsStats = (props: Props) => {
       ) }
       { txFeeAvg && (
         <StatsWidget
-          label={ txsStatsQuery.data?.average_transactions_fee_24h?.title ?
-            getStatsLabelFromTitle(txsStatsQuery.data?.average_transactions_fee_24h?.title) :
-            t('txs.avgTransactionFee') }
+          label={ statsTitles[txsStatsQuery.data?.average_transactions_fee_24h?.id ?? ''] ?? t('txs.avgTransactionFee') }
           value={ txFeeAvg.usdStr ? txFeeAvg.usdStr : txFeeAvg.valueStr }
           valuePrefix={ txFeeAvg.usdStr ? '$' : undefined }
           valuePostfix={ txFeeAvg.usdStr ? undefined : thinsp + chainConfig.chain.currency.symbol }

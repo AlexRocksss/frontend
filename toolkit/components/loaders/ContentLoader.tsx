@@ -1,5 +1,6 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { Box, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 interface Props extends BoxProps {
@@ -7,6 +8,7 @@ interface Props extends BoxProps {
 }
 
 export const ContentLoader = React.memo(({ text, ...props }: Props) => {
+  const { t } = useTranslation();
   return (
     <Box display="inline-block" { ...props }>
       <Box
@@ -26,7 +28,7 @@ export const ContentLoader = React.memo(({ text, ...props }: Props) => {
         }}
       />
       <Text mt={ 6 } color="text.secondary">
-        { text || 'Loading data, please wait...' }
+        { text || t('common.loadingData') }
       </Text>
     </Box>
   );

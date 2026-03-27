@@ -26,6 +26,13 @@ const Stats = () => {
   const { t } = useTranslation();
   const [ hasGasTracker, setHasGasTracker ] = React.useState(config.features.gasTracker.isEnabled);
 
+  const statsTitles: Record<string, string> = {
+    totalBlocks: t('home.statTotalBlocks'),
+    averageBlockTime: t('home.statAverageBlockTime'),
+    totalTxns: t('home.statTotalTransactions'),
+    totalAddresses: t('home.statWalletAddresses'),
+  };
+
   // data from stats microservice is prioritized over data from stats api
   const statsQuery = useApiQuery('stats:pages_main', {
     queryOptions: {
@@ -128,7 +135,7 @@ const Stats = () => {
       (statsData?.total_blocks?.value || apiData?.total_blocks) && {
         id: 'total_blocks' as const,
         icon: 'block' as const,
-        label: statsData?.total_blocks?.title || t('home.statTotalBlocks'),
+        label: statsTitles[statsData?.total_blocks?.id ?? ''] ?? t('home.statTotalBlocks'),
         value: Number(statsData?.total_blocks?.value || apiData?.total_blocks).toLocaleString(),
         href: { pathname: '/blocks' as const },
         isLoading,
@@ -136,7 +143,7 @@ const Stats = () => {
       (statsData?.average_block_time?.value || apiData?.average_block_time) && {
         id: 'average_block_time' as const,
         icon: 'clock-light' as const,
-        label: statsData?.average_block_time?.title || t('home.statAverageBlockTime'),
+        label: statsTitles[statsData?.average_block_time?.id ?? ''] ?? t('home.statAverageBlockTime'),
         value: `${
           statsData?.average_block_time?.value ?
             Number(statsData.average_block_time.value).toFixed(1) :
@@ -147,7 +154,7 @@ const Stats = () => {
       (statsData?.total_transactions?.value || apiData?.total_transactions) && {
         id: 'total_txs' as const,
         icon: 'transactions' as const,
-        label: statsData?.total_transactions?.title || t('home.statTotalTransactions'),
+        label: statsTitles[statsData?.total_transactions?.id ?? ''] ?? t('home.statTotalTransactions'),
         value: Number(statsData?.total_transactions?.value || apiData?.total_transactions).toLocaleString(),
         href: { pathname: '/txs' as const },
         isLoading,
@@ -155,7 +162,7 @@ const Stats = () => {
       (isArbitrumRollup && statsData?.total_operational_transactions?.value) && {
         id: 'total_operational_txs' as const,
         icon: 'transactions' as const,
-        label: statsData?.total_operational_transactions?.title || t('home.statTotalOperationalTxs'),
+        label: statsTitles[statsData?.total_operational_transactions?.id ?? ''] ?? t('home.statTotalOperationalTxs'),
         value: Number(statsData?.total_operational_transactions?.value).toLocaleString(),
         href: { pathname: '/txs' as const },
         isLoading,
@@ -163,7 +170,7 @@ const Stats = () => {
       (isOptimisticRollup && statsData?.op_stack_total_operational_transactions?.value) && {
         id: 'total_operational_txs' as const,
         icon: 'transactions' as const,
-        label: statsData?.op_stack_total_operational_transactions?.title || t('home.statTotalOperationalTxs'),
+        label: statsTitles[statsData?.op_stack_total_operational_transactions?.id ?? ''] ?? t('home.statTotalOperationalTxs'),
         value: Number(statsData?.op_stack_total_operational_transactions?.value).toLocaleString(),
         href: { pathname: '/txs' as const },
         isLoading,
@@ -179,7 +186,7 @@ const Stats = () => {
       (statsData?.total_addresses?.value || apiData?.total_addresses) && {
         id: 'wallet_addresses' as const,
         icon: 'wallet' as const,
-        label: statsData?.total_addresses?.title || t('home.statWalletAddresses'),
+        label: statsTitles[statsData?.total_addresses?.id ?? ''] ?? t('home.statWalletAddresses'),
         value: Number(statsData?.total_addresses?.value || apiData?.total_addresses).toLocaleString(),
         isLoading,
       },
