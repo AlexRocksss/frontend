@@ -56,8 +56,32 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
     averageGasLimit: t('stats.chartAverageGasLimit'),
     averageGasPrice: t('stats.chartAverageGasPrice'),
     gasUsedGrowth: t('stats.chartGasUsedGrowth'),
+    networkUtilization: t('stats.chartNetworkUtilization'),
+    averageGasUsed: t('stats.chartAverageGasUsed'),
     newVerifiedContracts: t('stats.chartNewVerifiedContracts'),
     verifiedContractsGrowth: t('stats.chartVerifiedContractsGrowth'),
+  };
+
+  const chartDescriptions: Record<string, string> = {
+    accountsGrowth: t('stats.chartDescAccountsGrowth'),
+    activeAccounts: t('stats.chartDescActiveAccounts'),
+    newAccounts: t('stats.chartDescNewAccounts'),
+    averageTxnFee: t('stats.chartDescAverageTxnFee'),
+    newTxns: t('stats.chartDescNewTxns'),
+    txnsFee: t('stats.chartDescTxnsFee'),
+    txnsGrowth: t('stats.chartDescTxnsGrowth'),
+    txnsSuccessRate: t('stats.chartDescTxnsSuccessRate'),
+    averageBlockRewards: t('stats.chartDescAverageBlockRewards'),
+    averageBlockSize: t('stats.chartDescAverageBlockSize'),
+    newBlocks: t('stats.chartDescNewBlocks'),
+    newNativeCoinTransfers: t('stats.chartDescNewNativeCoinTransfers'),
+    averageGasLimit: t('stats.chartDescAverageGasLimit'),
+    averageGasPrice: t('stats.chartDescAverageGasPrice'),
+    gasUsedGrowth: t('stats.chartDescGasUsedGrowth'),
+    networkUtilization: t('stats.chartDescNetworkUtilization'),
+    averageGasUsed: t('stats.chartDescAverageGasUsed'),
+    newVerifiedContracts: t('stats.chartDescNewVerifiedContracts'),
+    verifiedContractsGrowth: t('stats.chartDescVerifiedContractsGrowth'),
   };
   const hasCharts = sections?.some((section) => section.charts.length > 0);
   const hasDisplayedCharts = charts?.some((section) => section.charts.length > 0);
@@ -135,7 +159,7 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
                     key={ chart.id }
                     id={ chart.id }
                     title={ chartTitles[chart.id] || chart.title }
-                    description={ chart.description }
+                    description={ chartDescriptions[chart.id] || chart.description }
                     interval={ interval }
                     isPlaceholderData={ isPlaceholderData }
                     onLoadingError={ handleChartLoadingError }
