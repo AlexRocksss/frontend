@@ -118,7 +118,9 @@ declare module "nextjs-routes" {
     { pathname: P }
   >["query"];
 
-  export type Locale = undefined;
+  export type Locale = 
+    | "en"
+    | "zh-TW";
 
   /**
    * A typesafe utility function for generating paths in your application.
@@ -147,7 +149,7 @@ declare module "next/link" {
     extends Omit<NextLinkProps, "href" | "locale">,
       AnchorHTMLAttributes<HTMLAnchorElement> {
     href: Route | StaticRoute | Query;
-    locale?: false;
+    locale?: Locale | false;
   }
 
   type LinkReactElement = DetailedReactHTMLElement<
@@ -177,7 +179,7 @@ declare module "next/router" {
   type Query = { query?: { [key: string]: string | string[] | undefined } };
 
   interface TransitionOptions extends Omit<NextTransitionOptions, "locale"> {
-    locale?: false;
+    locale?: Locale | false;
   }
 
   export type NextRouter<P extends Route["pathname"] = Route["pathname"]> =
@@ -191,10 +193,13 @@ declare module "next/router" {
         | "defaultLocale"
         | "domainLocales"
       > & {
-        defaultLocale?: undefined;
+        defaultLocale: "en";
         domainLocales?: undefined;
-        locale?: Locale;
-        locales?: undefined;
+        locale: Locale;
+        locales: [
+          "en",
+          "zh-TW"
+        ];
         push(
           url: Route | StaticRoute | Query,
           as?: string,

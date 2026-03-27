@@ -17,7 +17,8 @@ export async function middleware(req: NextRequest) {
     return accountResponse;
   }
 
-  const res = NextResponse.next();
+  const localeResponse = middlewares.locale(req);
+  const res = localeResponse ?? NextResponse.next();
 
   middlewares.appProfile(req, res);
   middlewares.colorTheme(req, res);

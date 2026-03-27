@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import * as cookiesLib from 'lib/cookies';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 
 const LANGUAGES = [
@@ -74,11 +75,11 @@ const SettingsLanguage = () => {
   const activeLang = LANGUAGES.find((l) => l.locale === currentLocale) ?? LANGUAGES[0];
 
   const handleSelect = React.useCallback((locale: string) => {
-    // nextjs-routes overrides TransitionOptions and strips the locale field;
-    // cast to any to use Next.js built-in locale-switching support
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (router.push as any)(router.asPath, router.asPath, { locale, scroll: false });
-  }, [ router ]);
+    cookiesLib.set(cookiesLib.NAMES.LOCALE, locale, { expires: 365 });
+    // Navigate to asPath (locale-prefix-free) so the middleware can rewrite
+    // based on the new cookie value without a URL change.
+    window.location.href = router.asPath;
+  }, [ router.asPath ]);
 
   return (
     <div>
