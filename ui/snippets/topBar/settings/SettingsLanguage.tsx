@@ -6,8 +6,8 @@ import React from 'react';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 
 const LANGUAGES = [
-  { locale: 'en', label: 'English', flag: '🇺🇸' },
-  { locale: 'zh-TW', label: '繁體中文', flag: '🇨🇳' },
+  { locale: 'en', label: 'English', icon: '/assets/icons/lang/lang-en.png' },
+  { locale: 'zh-TW', label: '繁體中文', icon: '/assets/icons/lang/lang-zh.png' },
 ] as const;
 
 type Lang = typeof LANGUAGES[number];
@@ -37,8 +37,7 @@ const LangSample = ({ lang, isActive, onClick }: LangSampleProps) => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          fontSize="12px"
-          lineHeight="1"
+          overflow="hidden"
           onClick={ handleClick }
           _before={{
             position: 'absolute',
@@ -60,7 +59,8 @@ const LangSample = ({ lang, isActive, onClick }: LangSampleProps) => {
             },
           }}
         >
-          { lang.flag }
+          { /* eslint-disable-next-line @next/next/no-img-element */ }
+          <img src={ lang.icon } alt={ lang.label } width="22" height="22" style={{ objectFit: 'cover', borderRadius: '50%' }}/>
         </Box>
       </Tooltip>
     </Box>
