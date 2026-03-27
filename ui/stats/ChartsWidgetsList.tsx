@@ -1,4 +1,5 @@
 import { Box, Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useCallback, useState } from 'react';
 
 import type * as stats from '@blockscout/stats-types';
@@ -27,7 +28,37 @@ type Props = {
 };
 
 const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initialFilterQuery, sections, selectedSectionId }: Props) => {
+  const { t } = useTranslation();
   const [ isSomeChartLoadingError, setIsSomeChartLoadingError ] = useState(false);
+
+  const sectionTitles: Record<string, string> = {
+    accounts: t('stats.sectionAccounts'),
+    transactions: t('stats.sectionTransactions'),
+    blocks: t('stats.sectionBlocks'),
+    tokens: t('stats.sectionTokens'),
+    gas: t('stats.sectionGas'),
+    contracts: t('stats.sectionContracts'),
+  };
+
+  const chartTitles: Record<string, string> = {
+    accountsGrowth: t('stats.chartAccountsGrowth'),
+    activeAccounts: t('stats.chartActiveAccounts'),
+    newAccounts: t('stats.chartNewAccounts'),
+    averageTxnFee: t('stats.chartAverageTxnFee'),
+    newTxns: t('stats.chartNewTxns'),
+    txnsFee: t('stats.chartTxnsFee'),
+    txnsGrowth: t('stats.chartTxnsGrowth'),
+    txnsSuccessRate: t('stats.chartTxnsSuccessRate'),
+    averageBlockRewards: t('stats.chartAverageBlockRewards'),
+    averageBlockSize: t('stats.chartAverageBlockSize'),
+    newBlocks: t('stats.chartNewBlocks'),
+    newNativeCoinTransfers: t('stats.chartNewNativeCoinTransfers'),
+    averageGasLimit: t('stats.chartAverageGasLimit'),
+    averageGasPrice: t('stats.chartAverageGasPrice'),
+    gasUsedGrowth: t('stats.chartGasUsedGrowth'),
+    newVerifiedContracts: t('stats.chartNewVerifiedContracts'),
+    verifiedContractsGrowth: t('stats.chartVerifiedContractsGrowth'),
+  };
   const hasCharts = sections?.some((section) => section.charts.length > 0);
   const hasDisplayedCharts = charts?.some((section) => section.charts.length > 0);
   const sectionRef = React.useRef<HTMLUListElement | null>(null);
@@ -86,7 +117,7 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
             >
               <Skeleton loading={ isPlaceholderData } mb={{ base: 3, lg: 4 }} display="inline-flex" alignItems="center" columnGap={ 2 } id={ section.id }>
                 <Heading level="2" id={ section.id }>
-                  { section.title }
+                  { sectionTitles[section.id] || section.title }
                 </Heading>
                 { isGasTrackerEnabled && section.id === 'gas' && homeStatsQuery.data && homeStatsQuery.data.gas_prices && (
                   <GasInfoTooltip data={ homeStatsQuery.data } dataUpdatedAt={ homeStatsQuery.dataUpdatedAt }>
@@ -103,7 +134,7 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
                   <ChartWidgetContainer
                     key={ chart.id }
                     id={ chart.id }
-                    title={ chart.title }
+                    title={ chartTitles[chart.id] || chart.title }
                     description={ chart.description }
                     interval={ interval }
                     isPlaceholderData={ isPlaceholderData }

@@ -1,4 +1,5 @@
 import { chakra } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
 
 import { Resolution } from '@blockscout/stats-types';
@@ -32,6 +33,7 @@ const ChartWidgetContainer = ({
   className,
   href,
 }: Props) => {
+  const { t } = useTranslation();
   const { items, lineQuery } = useChartQuery(id, Resolution.DAY, interval, !isPlaceholderData);
   const chartsConfig = useChartsConfig();
 
@@ -49,13 +51,13 @@ const ChartWidgetContainer = ({
     return [
       {
         id: lineQuery.data?.info?.id,
-        name: 'Value',
+        name: t('stats.chartValue'),
         items,
         charts: chartsConfig,
         units: lineQuery.data.info.units,
       },
     ];
-  }, [ lineQuery.data?.info, items, chartsConfig ]);
+  }, [ lineQuery.data?.info, items, chartsConfig, t ]);
 
   return (
     <ChartWidget

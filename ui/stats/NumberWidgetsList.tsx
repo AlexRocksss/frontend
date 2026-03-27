@@ -1,4 +1,5 @@
 import { Grid } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -10,11 +11,24 @@ import DataFetchAlert from '../shared/DataFetchAlert';
 const UNITS_WITHOUT_SPACE = [ 's' ];
 
 const NumberWidgetsList = () => {
+  const { t } = useTranslation();
   const { data, isPlaceholderData, isError } = useApiQuery('stats:counters', {
     queryOptions: {
       placeholderData: { counters: Array(10).fill(STATS_COUNTER) },
     },
   });
+
+  const counterTitles: Record<string, string> = {
+    averageBlockTime: t('stats.counterAverageBlockTime'),
+    totalAddresses: t('stats.counterTotalAddresses'),
+    totalBlocks: t('stats.counterTotalBlocks'),
+    totalTxns: t('stats.counterTotalTxns'),
+    yesterdayTxns: t('stats.counterYesterdayTxns'),
+    totalOperationalTxns: t('stats.counterTotalOperationalTxns'),
+    yesterdayOperationalTxns: t('stats.counterYesterdayOperationalTxns'),
+    newTxnsWindow: t('stats.counterNewTxnsWindow'),
+    newOperationalTxnsWindow: t('stats.counterNewOperationalTxnsWindow'),
+  };
 
   if (isError) {
     return <DataFetchAlert/>;
@@ -41,7 +55,7 @@ const NumberWidgetsList = () => {
           return (
             <StatsWidget
               key={ id + (isPlaceholderData ? index : '') }
-              label={ title }
+              label={ counterTitles[id] || title }
               value={ Number(value).toLocaleString(undefined, { maximumFractionDigits, notation: 'compact' }) }
               valuePostfix={ unitsStr }
               isLoading={ isPlaceholderData }

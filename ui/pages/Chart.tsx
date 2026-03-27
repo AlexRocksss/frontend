@@ -179,14 +179,21 @@ const Chart = () => {
     </Button>
   );
 
+  const resolutionTitles = React.useMemo(() => ({
+    DAY: t('stats.resolutionDay'),
+    WEEK: t('stats.resolutionWeek'),
+    MONTH: t('stats.resolutionMonth'),
+    YEAR: t('stats.resolutionYear'),
+  }), [ t ]);
+
   const resolutionCollection = React.useMemo(() => {
     const resolutions = lineQuery.data?.info?.resolutions || [];
     const items = STATS_RESOLUTIONS
       .filter((resolution) => resolutions.includes(resolution.id))
-      .map((resolution) => ({ value: resolution.id, label: resolution.title }));
+      .map((resolution) => ({ value: resolution.id, label: resolutionTitles[resolution.id] ?? resolution.title }));
 
     return createListCollection<SelectOption>({ items });
-  }, [ lineQuery.data?.info?.resolutions ]);
+  }, [ lineQuery.data?.info?.resolutions, resolutionTitles ]);
 
   return (
     <>

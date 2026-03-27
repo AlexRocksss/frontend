@@ -10,18 +10,6 @@ import type { TagProps } from 'toolkit/chakra/tag';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';
 import { STATS_INTERVALS } from 'ui/stats/constants';
 
-const intervalCollection = createListCollection({
-  items: Object.keys(STATS_INTERVALS).map((id: string) => ({
-    value: id,
-    label: STATS_INTERVALS[id as StatsIntervalIds].title,
-  })),
-});
-
-const intervalListShort = Object.keys(STATS_INTERVALS).map((id: string) => ({
-  id: id,
-  title: STATS_INTERVALS[id as StatsIntervalIds].shortTitle,
-})) as Array<StatsInterval>;
-
 type Props = {
   interval: StatsIntervalIds;
   onIntervalChange: (newInterval: StatsIntervalIds) => void;
@@ -31,6 +19,26 @@ type Props = {
 
 const ChartIntervalSelect = ({ interval, onIntervalChange, isLoading, selectTagSize }: Props) => {
   const { t } = useTranslation();
+
+  const intervalTitles = React.useMemo((): Record<StatsIntervalIds, { title: string; shortTitle: string }> => ({
+    all: { title: t('stats.intervalAllTime'), shortTitle: t('stats.intervalAllTime') },
+    oneMonth: { title: t('stats.interval1Month'), shortTitle: t('stats.interval1MonthShort') },
+    threeMonths: { title: t('stats.interval3Months'), shortTitle: t('stats.interval3MonthsShort') },
+    sixMonths: { title: t('stats.interval6Months'), shortTitle: t('stats.interval6MonthsShort') },
+    oneYear: { title: t('stats.interval1Year'), shortTitle: t('stats.interval1YearShort') },
+  }), [ t ]);
+
+  const intervalCollection = React.useMemo(() => createListCollection({
+    items: (Object.keys(STATS_INTERVALS) as Array<StatsIntervalIds>).map((id) => ({
+      value: id,
+      label: intervalTitles[id].title,
+    })),
+  }), [ intervalTitles ]);
+
+  const intervalListShort = React.useMemo(() => (Object.keys(STATS_INTERVALS) as Array<StatsIntervalIds>).map((id) => ({
+    id,
+    title: intervalTitles[id].shortTitle,
+  })) as Array<StatsInterval>, [ intervalTitles ]);
 
   const handleItemSelect = React.useCallback(({ value }: { value: Array<string> }) => {
     onIntervalChange(value[0] as StatsIntervalIds);
