@@ -4,6 +4,7 @@ import React from 'react';
 
 import type { StatsInterval, StatsIntervalIds } from 'types/client/stats';
 
+import type { SelectOption } from 'toolkit/chakra/select';
 import { Select } from 'toolkit/chakra/select';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import type { TagProps } from 'toolkit/chakra/tag';
@@ -28,7 +29,7 @@ const ChartIntervalSelect = ({ interval, onIntervalChange, isLoading, selectTagS
     oneYear: { title: t('stats.interval1Year'), shortTitle: t('stats.interval1YearShort') },
   }), [ t ]);
 
-  const intervalCollection = React.useMemo(() => createListCollection({
+  const intervalCollection = React.useMemo(() => createListCollection<SelectOption>({
     items: (Object.keys(STATS_INTERVALS) as Array<StatsIntervalIds>).map((id) => ({
       value: id,
       label: intervalTitles[id].title,
