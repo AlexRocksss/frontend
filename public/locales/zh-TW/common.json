@@ -477,7 +477,17 @@
     "statCurrentEpoch": "當前週期",
     "statLatestL1StateBatch": "最新 {{parent}} 狀態批次",
     "blockchainExplorer": "{{chain}} 區塊鏈瀏覽器",
-    "explorer": "{{chain}} 瀏覽器"
+    "explorer": "{{chain}} 瀏覽器",
+    "indicatorDailyTransactions": "每日交易數",
+    "indicatorDailyTransactionsHint": "昨日交易數（UTC 00:00 - 23:59）。圖表顯示過去 30 天的每日交易數。",
+    "indicatorDailyOpTxns": "每日操作交易數",
+    "indicatorDailyOpTxnsHint": "昨日操作交易數（UTC 00:00 - 23:59）。圖表顯示過去 30 天的每日操作交易數。",
+    "indicatorCoinPrice": "{{symbol}} 價格",
+    "indicatorCoinPriceHint": "{{symbol}} 代幣每日美元價格。",
+    "indicatorMarketCap": "市值",
+    "indicatorMarketCapHint": "加密貨幣流通供應量的總市場價值，類比於股市的自由流通市值。市值 = 當前價格 × 流通供應量。",
+    "indicatorTotalValueLocked": "總鎖倉價值",
+    "indicatorTotalValueLockedHint": "鏈上鎖定或質押的數位資產總價值"
   },
   "blocks": {
     "block": "區塊",

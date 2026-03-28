@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 
 import type { ChartMarketResponse } from 'types/api/charts';
 
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function useChartDataQuery({ indicatorId }: Props) {
+  const { t } = useTranslation();
 
   const multichainStatsQuery = useApiQuery('multichainStats:pages_main', {
     queryOptions: {
@@ -76,7 +78,7 @@ export default function useChartDataQuery({ indicatorId }: Props) {
           id: indicatorId,
           charts: [],
           items: [],
-          name: 'Daily transactions',
+          name: t('home.indicatorDailyTransactions'),
         } ],
         isError: false,
         isPending: false,

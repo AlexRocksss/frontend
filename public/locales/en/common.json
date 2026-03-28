@@ -477,7 +477,17 @@
     "statCurrentEpoch": "Current epoch",
     "statLatestL1StateBatch": "Latest {{parent}} state batch",
     "blockchainExplorer": "{{chain}} blockchain explorer",
-    "explorer": "{{chain}} explorer"
+    "explorer": "{{chain}} explorer",
+    "indicatorDailyTransactions": "Daily transactions",
+    "indicatorDailyTransactionsHint": "Number of transactions yesterday (0:00 - 23:59 UTC). The chart displays daily transactions for the past 30 days.",
+    "indicatorDailyOpTxns": "Daily op txns",
+    "indicatorDailyOpTxnsHint": "Number of operational transactions yesterday (0:00 - 23:59 UTC). The chart displays daily operational transactions for the past 30 days.",
+    "indicatorCoinPrice": "{{symbol}} price",
+    "indicatorCoinPriceHint": "{{symbol}} token daily price in USD.",
+    "indicatorMarketCap": "Market cap",
+    "indicatorMarketCapHint": "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.",
+    "indicatorTotalValueLocked": "Total value locked",
+    "indicatorTotalValueLockedHint": "Total value of digital assets locked or staked in a chain"
   },
   "blocks": {
     "block": "Block",

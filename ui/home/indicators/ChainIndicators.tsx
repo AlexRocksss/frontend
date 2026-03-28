@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import type { TChainIndicator } from './types';
@@ -20,6 +21,7 @@ const isOptimisticRollup = rollupFeature.isEnabled && rollupFeature.type === 'op
 const isArbitrumRollup = rollupFeature.isEnabled && rollupFeature.type === 'arbitrum';
 
 const ChainIndicators = () => {
+  const { t } = useTranslation();
   const statsMicroserviceQueryResult = useApiQuery('stats:pages_main', {
     queryOptions: {
       refetchOnMount: false,
@@ -39,12 +41,7 @@ const ChainIndicators = () => {
     return [
       {
         id: 'daily_txs' as const,
-        title: (() => {
-          if (isStatsFeatureEnabled && statsMicroserviceQueryResult?.data?.daily_new_transactions?.info?.title) {
-            return statsMicroserviceQueryResult.data.daily_new_transactions.info.title;
-          }
-          return 'Daily transactions';
-        })(),
+        title: t('home.indicatorDailyTransactions'),
         value: (() => {
           const STRING_FORMAT = { maximumFractionDigits: 2, notation: 'compact' as const };
           if (isStatsFeatureEnabled) {
@@ -58,29 +55,14 @@ const ChainIndicators = () => {
           }
           return 'N/A';
         })(),
-        hint: (() => {
-          if (isStatsFeatureEnabled && statsMicroserviceQueryResult?.data?.daily_new_transactions?.info?.description) {
-            return statsMicroserviceQueryResult.data.daily_new_transactions.info.description;
-          }
-          return `Number of transactions yesterday (0:00 - 23:59 UTC). The chart displays daily transactions for the past 30 days.`;
-        })(),
+        hint: t('home.indicatorDailyTransactionsHint'),
         // FIXME use non-navigation icon
         icon: <IconSvg name="navigation/transactions" boxSize={ 6 } bgColor="#56ACD1" borderRadius="base" color="white"/>,
       },
       {
         id: 'daily_operational_txs' as const,
-        title: (() => {
-          if (isStatsFeatureEnabled) {
-            if (isArbitrumRollup && statsMicroserviceQueryResult?.data?.daily_new_operational_transactions?.info?.title) {
-              return statsMicroserviceQueryResult.data.daily_new_operational_transactions.info.title;
-            }
-            if (isOptimisticRollup && statsMicroserviceQueryResult?.data?.op_stack_daily_new_operational_transactions?.info?.title) {
-              return statsMicroserviceQueryResult.data.op_stack_daily_new_operational_transactions.info.title;
-            }
-          }
-          return 'Daily op txns';
-        })(),
-        titleShort: 'Daily op txns',
+        title: t('home.indicatorDailyOpTxns'),
+        titleShort: t('home.indicatorDailyOpTxns'),
         value: (() => {
           const STRING_FORMAT = { maximumFractionDigits: 2, notation: 'compact' as const };
           if (isStatsFeatureEnabled) {
@@ -93,64 +75,53 @@ const ChainIndicators = () => {
           }
           return 'N/A';
         })(),
-        hint: (() => {
-          if (isStatsFeatureEnabled) {
-            if (isArbitrumRollup && statsMicroserviceQueryResult?.data?.daily_new_operational_transactions?.info?.description) {
-              return statsMicroserviceQueryResult.data.daily_new_operational_transactions.info.description;
-            }
-            if (isOptimisticRollup && statsMicroserviceQueryResult?.data?.op_stack_daily_new_operational_transactions?.info?.description) {
-              return statsMicroserviceQueryResult.data.op_stack_daily_new_operational_transactions.info.description;
-            }
-          }
-          return `Number of operational transactions yesterday (0:00 - 23:59 UTC). The chart displays daily operational transactions for the past 30 days.`;
-        })(),
+        hint: t('home.indicatorDailyOpTxnsHint'),
         // FIXME use non-navigation icon
         icon: <IconSvg name="navigation/transactions" boxSize={ 6 } bgColor="#56ACD1" borderRadius="base" color="white"/>,
       },
       {
         id: 'coin_price' as const,
-        title: `${ config.chain.currency.symbol } price`,
+        title: t('home.indicatorCoinPrice', { symbol: config.chain.currency.symbol }),
         value: typeof statsApiQueryResult.data?.coin_price !== 'string' ?
           '$N/A' :
           '$' + Number(statsApiQueryResult.data?.coin_price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }),
         valueDiff: typeof statsApiQueryResult.data?.coin_price_change_percentage === 'number' ?
           statsApiQueryResult.data.coin_price_change_percentage :
           undefined,
-        hint: `${ config.chain.currency.symbol } token daily price in USD.`,
+        hint: t('home.indicatorCoinPriceHint', { symbol: config.chain.currency.symbol }),
         icon: <NativeTokenIcon boxSize={ 6 }/>,
       },
       {
         id: 'secondary_coin_price' as const,
-        title: `${ config.chain.secondaryCoin.symbol } price`,
+        title: t('home.indicatorCoinPrice', { symbol: config.chain.secondaryCoin.symbol }),
         value: typeof statsApiQueryResult.data?.secondary_coin_price !== 'string' ?
           '$N/A' :
           '$' + Number(statsApiQueryResult.data?.secondary_coin_price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }),
-        hint: `${ config.chain.secondaryCoin.symbol } token daily price in USD.`,
+        hint: t('home.indicatorCoinPriceHint', { symbol: config.chain.secondaryCoin.symbol }),
         icon: <NativeTokenIcon boxSize={ 6 } type="secondary"/>,
       },
       {
         id: 'market_cap' as const,
-        title: 'Market cap',
+        title: t('home.indicatorMarketCap'),
         value: typeof statsApiQueryResult.data?.market_cap !== 'string' ?
           '$N/A' :
           '$' + Number(statsApiQueryResult.data.market_cap).toLocaleString(undefined, { maximumFractionDigits: 2, notation: 'compact' }),
-        // eslint-disable-next-line max-len
-        hint: 'The total market value of a cryptocurrency\'s circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.',
+        hint: t('home.indicatorMarketCapHint'),
         icon: <IconSvg name="globe" boxSize={ 6 } bgColor="#6A5DCC" borderRadius="base" color="white"/>,
       },
       {
         id: 'tvl' as const,
-        title: 'Total value locked',
+        title: t('home.indicatorTotalValueLocked'),
         value: typeof statsApiQueryResult.data?.tvl !== 'string' ?
           '$N/A' :
           '$' + Number(statsApiQueryResult.data.tvl).toLocaleString(undefined, { maximumFractionDigits: 2, notation: 'compact' }),
-        hint: 'Total value of digital assets locked or staked in a chain',
+        hint: t('home.indicatorTotalValueLockedHint'),
         icon: <IconSvg name="lock" boxSize={ 6 } bgColor="#517FDB" borderRadius="base" color="white"/>,
       },
     ]
       .filter(isIndicatorEnabled)
       .sort(sortIndicators);
-  }, [ statsApiQueryResult?.data, statsMicroserviceQueryResult?.data ]);
+  }, [ statsApiQueryResult?.data, statsMicroserviceQueryResult?.data, t ]);
 
   const [ selectedIndicatorId, selectIndicatorId ] = React.useState(indicators[0]?.id);
   const selectedIndicator = indicators.find(({ id }) => id === selectedIndicatorId);
