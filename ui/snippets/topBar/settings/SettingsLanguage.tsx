@@ -6,10 +6,19 @@ import React from 'react';
 import * as cookiesLib from 'lib/cookies';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 
+// cspell:disable
 const LANGUAGES = [
   { locale: 'en', label: 'English', icon: '/assets/icons/lang/lang-en.png' },
   { locale: 'zh-TW', label: '繁體中文', icon: '/assets/icons/lang/lang-zh.png' },
+  { locale: 'ja', label: '日本語', icon: '/assets/icons/lang/lang-jp.png' },
+  { locale: 'ko', label: '한국어', icon: '/assets/icons/lang/lang-kr.png' },
+  { locale: 'ru', label: 'Русский', icon: '/assets/icons/lang/lang-ru.png' },
+  { locale: 'th', label: 'ภาษาไทย', icon: '/assets/icons/lang/lang-th.png' },
+  { locale: 'id', label: 'Bahasa Indonesia', icon: '/assets/icons/lang/lang-id.png' },
+  { locale: 'ms', label: 'Bahasa Melayu', icon: '/assets/icons/lang/lang-my.png' },
+  { locale: 'vi', label: 'Tiếng Việt', icon: '/assets/icons/lang/lang-vn.png' },
 ] as const;
+// cspell:enable
 
 type Lang = typeof LANGUAGES[number];
 
