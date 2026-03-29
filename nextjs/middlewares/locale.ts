@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 import * as cookiesLib from 'lib/cookies';
 
-const SUPPORTED_LOCALES = [ 'en', 'zh-TW' ];
+const SUPPORTED_LOCALES = [ 'en', 'zh-TW', 'ja', 'ko', 'ru', 'th', 'id', 'ms', 'vi' ];
 const DEFAULT_LOCALE = 'en';
 
 export default function localeMiddleware(req: NextRequest): NextResponse | undefined {
