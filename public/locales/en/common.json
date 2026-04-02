@@ -332,7 +332,20 @@
     "recaptcha_terms": "Terms of Service",
     "recaptcha_post": "apply.",
     "indexingProgress": "{{percent}}% Blocks With Internal Transactions Indexed –",
-    "indexingInProgress": "We’re indexing this chain right now. Some of the counts may be inaccurate."
+    "indexingInProgress": "We’re indexing this chain right now. Some of the counts may be inaccurate.",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "About",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "Testnet Faucet",
+    "customLinkDocumentation": "Documentation",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "Chains",
@@ -380,7 +393,10 @@
     "customAbi": "Custom ABI",
     "verifiedAddrs": "Verified addrs",
     "depositsWithLayers": "Deposits ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "Withdrawals ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "Withdrawals ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "Testnet Faucet"
   },
   "searchBar": {
     "placeholder": "Search by address / txn hash / block / token /...",
@@ -1220,7 +1236,10 @@
     "contractTabCustomAbi": "Custom ABI",
     "contractTabMudSystem": "MUD System",
     "contractAbiExpandAll": "Expand all",
-    "contractAbiCollapseAll": "Collapse all"
+    "contractAbiCollapseAll": "Collapse all",
+    "methodTypeAll": "All",
+    "methodTypeRead": "Read",
+    "methodTypeWrite": "Write"
   },
   "apiKey": {
     "tokenPlaceholder": "Auto-generated API key token",
@@ -1844,7 +1863,11 @@
     "chartDescNetworkUtilization": "Percentage of gas used compared to the gas limit",
     "chartDescAverageGasUsed": "Average amount of gas used per block",
     "chartDescNewVerifiedContracts": "Number of newly verified contracts",
-    "chartDescVerifiedContractsGrowth": "Cumulative verified contract growth over time"
+    "chartDescVerifiedContractsGrowth": "Cumulative verified contract growth over time",
+    "chartNewContracts": "New contracts",
+    "chartContractsGrowth": "Number of contracts",
+    "chartDescNewContracts": "Number of new contracts in the network",
+    "chartDescContractsGrowth": "Cumulative contract growth over time"
   },
   "hotContracts": {
     "contractHeader": "Contract",

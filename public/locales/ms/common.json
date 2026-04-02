@@ -332,7 +332,20 @@
     "recaptcha_terms": "Terma Perkhidmatan",
     "recaptcha_post": "Google terpakai.",
     "indexingProgress": "{{percent}}% Blok Dengan Transaksi Dalaman Diindeks –",
-    "indexingInProgress": "Kami sedang mengindeks rantaian ini sekarang. Sebahagian kiraan mungkin tidak tepat."
+    "indexingInProgress": "Kami sedang mengindeks rantaian ini sekarang. Sebahagian kiraan mungkin tidak tepat.",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "Tentang",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "Paip Testnet",
+    "customLinkDocumentation": "Dokumentasi",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "Rantaian",
@@ -380,7 +393,10 @@
     "customAbi": "ABI tersuai",
     "verifiedAddrs": "Alamat disahkan",
     "depositsWithLayers": "Deposit ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "Pengeluaran ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "Pengeluaran ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "Paip Testnet"
   },
   "searchBar": {
     "placeholder": "Cari mengikut alamat / hash txn / blok / token /...",
@@ -1223,7 +1239,10 @@
     "contractTabCustomAbi": "ABI Tersuai",
     "contractTabMudSystem": "Sistem MUD",
     "contractAbiExpandAll": "Kembangkan semua",
-    "contractAbiCollapseAll": "Runtuhkan semua"
+    "contractAbiCollapseAll": "Runtuhkan semua",
+    "methodTypeAll": "Semua",
+    "methodTypeRead": "Baca",
+    "methodTypeWrite": "Tulis"
   },
   "apiKey": {
     "tokenPlaceholder": "Token kunci API yang dijana secara automatik",
@@ -1847,7 +1866,11 @@
     "chartDescNetworkUtilization": "Peratusan gas yang digunakan berbanding had gas",
     "chartDescAverageGasUsed": "Jumlah gas purata yang digunakan per blok",
     "chartDescNewVerifiedContracts": "Bilangan kontrak yang baru disahkan",
-    "chartDescVerifiedContractsGrowth": "Pertumbuhan kontrak disahkan kumulatif dari masa ke masa"
+    "chartDescVerifiedContractsGrowth": "Pertumbuhan kontrak disahkan kumulatif dari masa ke masa",
+    "chartNewContracts": "Kontrak baharu",
+    "chartContractsGrowth": "Bilangan kontrak",
+    "chartDescNewContracts": "Bilangan kontrak baharu dalam rangkaian",
+    "chartDescContractsGrowth": "Pertumbuhan kontrak kumulatif dari masa ke masa"
   },
   "hotContracts": {
     "contractHeader": "Kontrak",

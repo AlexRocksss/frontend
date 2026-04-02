@@ -79,7 +79,7 @@ export const formatAbi = (abi: Abi) => {
 };
 
 export const TYPE_FILTER_OPTIONS: Array<{ value: MethodType; title: string }> = [
-  { value: 'all', title: 'All' },
-  { value: 'read', title: 'Read' },
-  { value: 'write', title: 'Write' },
+  { value: 'all', title: 'address.methodTypeAll' },
+  { value: 'read', title: 'address.methodTypeRead' },
+  { value: 'write', title: 'address.methodTypeWrite' },
 ];

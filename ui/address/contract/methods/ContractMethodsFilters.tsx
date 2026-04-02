@@ -38,7 +38,7 @@ const ContractMethodsFilters = ({ defaultMethodType, defaultSearchTerm, onChange
       >
         { TYPE_FILTER_OPTIONS.map((option) => (
           <Button key={ option.value } value={ option.value } size="sm" px={ 3 }>
-            { option.title }
+            { t(option.title) }
           </Button>
         )) }
       </ButtonGroupRadio>

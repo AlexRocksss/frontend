@@ -332,7 +332,20 @@
     "recaptcha_terms": "利用規約",
     "recaptcha_post": "によって保護されています。",
     "indexingProgress": "{{percent}}% 内部トランザクションを含むブロックがインデックス済み –",
-    "indexingInProgress": "現在このチェーンをインデックス中です。一部のカウントが不正確な場合があります。"
+    "indexingInProgress": "現在このチェーンをインデックス中です。一部のカウントが不正確な場合があります。",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "概要",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "テストネットフォーセット",
+    "customLinkDocumentation": "ドキュメント",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "チェーン",
@@ -380,7 +393,10 @@
     "customAbi": "カスタム ABI",
     "verifiedAddrs": "検証済みアドレス",
     "depositsWithLayers": "デポジット ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "引き出し ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "引き出し ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "テストネットフォーセット"
   },
   "searchBar": {
     "placeholder": "アドレス / txn ハッシュ / ブロック / トークン /... で検索",
@@ -1223,7 +1239,10 @@
     "contractTabCustomAbi": "カスタムABI",
     "contractTabMudSystem": "MUDシステム",
     "contractAbiExpandAll": "すべて展開",
-    "contractAbiCollapseAll": "すべて折りたたむ"
+    "contractAbiCollapseAll": "すべて折りたたむ",
+    "methodTypeAll": "すべて",
+    "methodTypeRead": "読み取り",
+    "methodTypeWrite": "書き込み"
   },
   "apiKey": {
     "tokenPlaceholder": "自動生成されたAPIキートークン",
@@ -1847,7 +1866,11 @@
     "chartDescNetworkUtilization": "ガスリミットに対するガス使用量の割合",
     "chartDescAverageGasUsed": "ブロックあたりの平均ガス使用量",
     "chartDescNewVerifiedContracts": "新たに検証されたコントラクト数",
-    "chartDescVerifiedContractsGrowth": "時間経過に伴う累積検証済みコントラクト成長"
+    "chartDescVerifiedContractsGrowth": "時間経過に伴う累積検証済みコントラクト成長",
+    "chartNewContracts": "新規コントラクト",
+    "chartContractsGrowth": "コントラクト数",
+    "chartDescNewContracts": "ネットワーク内の新規コントラクト数",
+    "chartDescContractsGrowth": "時間経過によるコントラクトの累積成長"
   },
   "hotContracts": {
     "contractHeader": "コントラクト",

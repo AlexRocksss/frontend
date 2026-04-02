@@ -332,7 +332,20 @@
     "recaptcha_terms": "服務條款",
     "recaptcha_post": "保護。",
     "indexingProgress": "{{percent}}% 包含內部交易的區塊已索引 –",
-    "indexingInProgress": "我們正在索引此鏈。部分計數可能不準確。"
+    "indexingInProgress": "我們正在索引此鏈。部分計數可能不準確。",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "關於",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "測試網水龍頭",
+    "customLinkDocumentation": "文件",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "鏈",
@@ -380,7 +393,10 @@
     "customAbi": "自訂 ABI",
     "verifiedAddrs": "已驗證地址",
     "depositsWithLayers": "存款 ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "提款 ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "提款 ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "測試網水龍頭"
   },
   "searchBar": {
     "placeholder": "搜索地址 / 交易雜湊 / 區塊 / 代幣 /...",
@@ -1220,7 +1236,10 @@
     "contractTabCustomAbi": "自訂 ABI",
     "contractTabMudSystem": "MUD 系統",
     "contractAbiExpandAll": "全部展開",
-    "contractAbiCollapseAll": "全部收合"
+    "contractAbiCollapseAll": "全部收合",
+    "methodTypeAll": "全部",
+    "methodTypeRead": "讀取",
+    "methodTypeWrite": "寫入"
   },
   "apiKey": {
     "tokenPlaceholder": "自動生成的 API 金鑰令牌",
@@ -1844,7 +1863,11 @@
     "chartDescNetworkUtilization": "Gas 使用量相對 Gas 上限的百分比",
     "chartDescAverageGasUsed": "每個區塊的平均 Gas 使用量",
     "chartDescNewVerifiedContracts": "新驗證合約數量",
-    "chartDescVerifiedContractsGrowth": "隨時間累計的已驗證合約成長"
+    "chartDescVerifiedContractsGrowth": "隨時間累計的已驗證合約成長",
+    "chartNewContracts": "新合約",
+    "chartContractsGrowth": "合約數量",
+    "chartDescNewContracts": "網路中新合約的數量",
+    "chartDescContractsGrowth": "隨時間累積的合約成長"
   },
   "hotContracts": {
     "contractHeader": "合約",

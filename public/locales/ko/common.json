@@ -332,7 +332,20 @@
     "recaptcha_terms": "서비스 약관",
     "recaptcha_post": "이 적용됩니다.",
     "indexingProgress": "{{percent}}% 내부 트랜잭션이 있는 블록 색인 완료 –",
-    "indexingInProgress": "현재 이 체인을 색인 중입니다. 일부 수치가 정확하지 않을 수 있습니다."
+    "indexingInProgress": "현재 이 체인을 색인 중입니다. 일부 수치가 정확하지 않을 수 있습니다.",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "소개",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "테스트넷 파우셋",
+    "customLinkDocumentation": "문서",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "체인",
@@ -380,7 +393,10 @@
     "customAbi": "커스텀 ABI",
     "verifiedAddrs": "검증된 주소",
     "depositsWithLayers": "입금 ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "출금 ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "출금 ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "테스트넷 파우셋"
   },
   "searchBar": {
     "placeholder": "주소 / 트랜잭션 해시 / 블록 / 토큰 / ...으로 검색",
@@ -1223,7 +1239,10 @@
     "contractTabCustomAbi": "커스텀 ABI",
     "contractTabMudSystem": "MUD 시스템",
     "contractAbiExpandAll": "모두 펼치기",
-    "contractAbiCollapseAll": "모두 접기"
+    "contractAbiCollapseAll": "모두 접기",
+    "methodTypeAll": "전체",
+    "methodTypeRead": "읽기",
+    "methodTypeWrite": "쓰기"
   },
   "apiKey": {
     "tokenPlaceholder": "자동 생성된 API 키 토큰",
@@ -1847,7 +1866,11 @@
     "chartDescNetworkUtilization": "가스 한도 대비 사용된 가스 비율",
     "chartDescAverageGasUsed": "블록당 평균 가스 사용량",
     "chartDescNewVerifiedContracts": "새로 검증된 컨트랙트 수",
-    "chartDescVerifiedContractsGrowth": "시간에 따른 누적 검증된 컨트랙트 증가"
+    "chartDescVerifiedContractsGrowth": "시간에 따른 누적 검증된 컨트랙트 증가",
+    "chartNewContracts": "새 컨트랙트",
+    "chartContractsGrowth": "컨트랙트 수",
+    "chartDescNewContracts": "네트워크의 새 컨트랙트 수",
+    "chartDescContractsGrowth": "시간 경과에 따른 컨트랙트 누적 성장"
   },
   "hotContracts": {
     "contractHeader": "컨트랙트",

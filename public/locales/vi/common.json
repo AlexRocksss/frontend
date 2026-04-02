@@ -332,7 +332,20 @@
     "recaptcha_terms": "Điều khoản dịch vụ",
     "recaptcha_post": "của Google.",
     "indexingProgress": "{{percent}}% khối đã lập chỉ mục với giao dịch nội bộ –",
-    "indexingInProgress": "Hiện đang lập chỉ mục chuỗi này. Một số số liệu có thể chưa chính xác."
+    "indexingInProgress": "Hiện đang lập chỉ mục chuỗi này. Một số số liệu có thể chưa chính xác.",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "Giới thiệu",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "Vòi Testnet",
+    "customLinkDocumentation": "Tài liệu",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "Chuỗi",
@@ -380,7 +393,10 @@
     "customAbi": "ABI tùy chỉnh",
     "verifiedAddrs": "Địa chỉ đã xác minh",
     "depositsWithLayers": "Nạp tiền ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "Rút tiền ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "Rút tiền ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "Vòi Testnet"
   },
   "searchBar": {
     "placeholder": "Tìm kiếm theo địa chỉ / hash txn / khối / token /...",
@@ -1223,7 +1239,10 @@
     "contractTabCustomAbi": "ABI tùy chỉnh",
     "contractTabMudSystem": "Hệ thống MUD",
     "contractAbiExpandAll": "Mở rộng tất cả",
-    "contractAbiCollapseAll": "Thu gọn tất cả"
+    "contractAbiCollapseAll": "Thu gọn tất cả",
+    "methodTypeAll": "Tất cả",
+    "methodTypeRead": "Đọc",
+    "methodTypeWrite": "Ghi"
   },
   "apiKey": {
     "tokenPlaceholder": "Token API key được tạo tự động",
@@ -1847,7 +1866,11 @@
     "chartDescNetworkUtilization": "Tỷ lệ phần trăm gas đã dùng so với giới hạn gas",
     "chartDescAverageGasUsed": "Lượng gas trung bình được sử dụng mỗi khối",
     "chartDescNewVerifiedContracts": "Số hợp đồng đã xác minh mới",
-    "chartDescVerifiedContractsGrowth": "Tăng trưởng hợp đồng đã xác minh tích lũy theo thời gian"
+    "chartDescVerifiedContractsGrowth": "Tăng trưởng hợp đồng đã xác minh tích lũy theo thời gian",
+    "chartNewContracts": "Hợp đồng mới",
+    "chartContractsGrowth": "Số lượng hợp đồng",
+    "chartDescNewContracts": "Số lượng hợp đồng mới trong mạng",
+    "chartDescContractsGrowth": "Tăng trưởng hợp đồng tích lũy theo thời gian"
   },
   "hotContracts": {
     "contractHeader": "Hợp đồng",

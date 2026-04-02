@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -14,7 +15,7 @@ interface Props extends LinkProps {
 }
 
 const ContractDetailsVerificationButton = ({ isLoading, addressHash, ...rest }: Props) => {
-
+  const { t } = useTranslation();
   const multichainContext = useMultichainContext();
 
   const href = (() => {
@@ -38,7 +39,7 @@ const ContractDetailsVerificationButton = ({ isLoading, addressHash, ...rest }: 
         size="sm"
         loadingSkeleton={ isLoading }
       >
-        Verify & publish
+        { t('contractVerification.verifyAndPublish') }
       </Button>
     </Link>
   );

@@ -332,7 +332,20 @@
     "recaptcha_terms": "ข้อกำหนดการให้บริการ",
     "recaptcha_post": "มีผลบังคับใช้",
     "indexingProgress": "{{percent}}% บล็อกที่มีธุรกรรมภายในได้รับการจัดทำดัชนีแล้ว –",
-    "indexingInProgress": "เรากำลังจัดทำดัชนีเชนนี้อยู่ ตัวเลขบางส่วนอาจไม่แม่นยำ"
+    "indexingInProgress": "เรากำลังจัดทำดัชนีเชนนี้อยู่ ตัวเลขบางส่วนอาจไม่แม่นยำ",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "เกี่ยวกับ",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "ก๊อกน้ำ Testnet",
+    "customLinkDocumentation": "เอกสาร",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "เชน",
@@ -380,7 +393,10 @@
     "customAbi": "ABI แบบกำหนดเอง",
     "verifiedAddrs": "ที่อยู่ที่ยืนยันแล้ว",
     "depositsWithLayers": "การฝาก ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "การถอน ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "การถอน ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "ก๊อกน้ำ Testnet"
   },
   "searchBar": {
     "placeholder": "ค้นหาด้วยที่อยู่ / hash txn / บล็อก / token /...",
@@ -1223,7 +1239,10 @@
     "contractTabCustomAbi": "ABI แบบกำหนดเอง",
     "contractTabMudSystem": "MUD System",
     "contractAbiExpandAll": "ขยายทั้งหมด",
-    "contractAbiCollapseAll": "ยุบทั้งหมด"
+    "contractAbiCollapseAll": "ยุบทั้งหมด",
+    "methodTypeAll": "ทั้งหมด",
+    "methodTypeRead": "อ่าน",
+    "methodTypeWrite": "เขียน"
   },
   "apiKey": {
     "tokenPlaceholder": "API key token ที่สร้างอัตโนมัติ",
@@ -1847,7 +1866,11 @@
     "chartDescNetworkUtilization": "เปอร์เซ็นต์ gas ที่ใช้เทียบกับขีดจำกัด gas",
     "chartDescAverageGasUsed": "จำนวน gas เฉลี่ยที่ใช้ต่อบล็อก",
     "chartDescNewVerifiedContracts": "จำนวน contracts ที่ยืนยันใหม่",
-    "chartDescVerifiedContractsGrowth": "การเติบโตสะสมของ contracts ที่ยืนยันตามเวลา"
+    "chartDescVerifiedContractsGrowth": "การเติบโตสะสมของ contracts ที่ยืนยันตามเวลา",
+    "chartNewContracts": "สัญญาใหม่",
+    "chartContractsGrowth": "จำนวนสัญญา",
+    "chartDescNewContracts": "จำนวนสัญญาใหม่ในเครือข่าย",
+    "chartDescContractsGrowth": "การเติบโตสะสมของสัญญาตามเวลา"
   },
   "hotContracts": {
     "contractHeader": "สัญญา",

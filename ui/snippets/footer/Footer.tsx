@@ -104,6 +104,25 @@ const Footer = () => {
     placeholderData: [],
   });
 
+  const footerGroupTitles: Record<string, string> = {
+    'ENI Network': t('footer.customGroupENINetwork'),
+    'ENI Developers': t('footer.customGroupENIDevelopers'),
+    'ENI Community': t('footer.customGroupENICommunity'),
+  };
+
+  const footerLinkTexts: Record<string, string> = {
+    About: t('footer.customLinkAbout'),
+    'Chainlist (ENI Mainnet)': t('footer.customLinkChainlistMainnet'),
+    'Chainlist (ENI Testnet)': t('footer.customLinkChainlistTestnet'),
+    'Testnet Faucet': t('footer.customLinkTestnetFaucet'),
+    Documentation: t('footer.customLinkDocumentation'),
+    'Github (eni-chain)': t('footer.customLinkGithubEniChain'),
+    X: t('footer.customLinkX'),
+    Telegram: t('footer.customLinkTelegram'),
+    Discord: t('footer.customLinkDiscord'),
+    LinkedIn: t('footer.customLinkLinkedIn'),
+  };
+
   const colNum = isPlaceholderData ? 1 : Math.min(linksData?.length || Infinity, MAX_LINKS_COLUMNS) + 1;
 
   const renderNetworkInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
@@ -220,9 +239,18 @@ const Footer = () => {
                 .slice(0, colNum)
                 .map(linkGroup => (
                   <Box key={ linkGroup.title }>
-                    <Skeleton fontWeight={ 500 } mb={ 3 } display="inline-block" loading={ isPlaceholderData }>{ linkGroup.title }</Skeleton>
+                    <Skeleton fontWeight={ 500 } mb={ 3 } display="inline-block" loading={ isPlaceholderData }>
+                      { footerGroupTitles[linkGroup.title] || linkGroup.title }
+                    </Skeleton>
                     <VStack gap={ 1 } alignItems="start">
-                      { linkGroup.links.map(link => <FooterLinkItem { ...link } key={ link.text } isLoading={ isPlaceholderData }/>) }
+                      { linkGroup.links.map(link => (
+                        <FooterLinkItem
+                          { ...link }
+                          text={ footerLinkTexts[link.text] || link.text }
+                          key={ link.text }
+                          isLoading={ isPlaceholderData }
+                        />
+                      )) }
                     </VStack>
                   </Box>
                 ))

@@ -332,7 +332,20 @@
     "recaptcha_terms": "Условиями использования",
     "recaptcha_post": "Google.",
     "indexingProgress": "{{percent}}% блоков с внутренними транзакциями проиндексировано –",
-    "indexingInProgress": "Мы сейчас индексируем эту сеть. Некоторые значения могут быть неточными."
+    "indexingInProgress": "Мы сейчас индексируем эту сеть. Некоторые значения могут быть неточными.",
+    "customGroupENINetwork": "ENI Network",
+    "customGroupENIDevelopers": "ENI Developers",
+    "customGroupENICommunity": "ENI Community",
+    "customLinkAbout": "О нас",
+    "customLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "customLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "customLinkTestnetFaucet": "Кран тестовой сети",
+    "customLinkDocumentation": "Документация",
+    "customLinkGithubEniChain": "Github (eni-chain)",
+    "customLinkX": "X",
+    "customLinkTelegram": "Telegram",
+    "customLinkDiscord": "Discord",
+    "customLinkLinkedIn": "LinkedIn"
   },
   "navigation": {
     "chains": "Сети",
@@ -380,7 +393,10 @@
     "customAbi": "Пользовательский ABI",
     "verifiedAddrs": "Верифицированные адреса",
     "depositsWithLayers": "Депозиты ({{parent}}→{{current}})",
-    "withdrawalsWithLayers": "Выводы ({{current}}→{{parent}})"
+    "withdrawalsWithLayers": "Выводы ({{current}}→{{parent}})",
+    "otherLinkChainlistMainnet": "Chainlist (ENI Mainnet)",
+    "otherLinkChainlistTestnet": "Chainlist (ENI Testnet)",
+    "otherLinkTestnetFaucet": "Кран тестовой сети"
   },
   "searchBar": {
     "placeholder": "Поиск по адресу / хешу транзакции / блоку / токену /...",
@@ -1223,7 +1239,10 @@
     "contractTabCustomAbi": "Пользовательский ABI",
     "contractTabMudSystem": "MUD система",
     "contractAbiExpandAll": "Развернуть всё",
-    "contractAbiCollapseAll": "Свернуть всё"
+    "contractAbiCollapseAll": "Свернуть всё",
+    "methodTypeAll": "Все",
+    "methodTypeRead": "Чтение",
+    "methodTypeWrite": "Запись"
   },
   "apiKey": {
     "tokenPlaceholder": "Автоматически сгенерированный токен API ключа",
@@ -1847,7 +1866,11 @@
     "chartDescNetworkUtilization": "Процент использованного газа относительно лимита газа",
     "chartDescAverageGasUsed": "Среднее количество газа, использованного за блок",
     "chartDescNewVerifiedContracts": "Количество вновь верифицированных контрактов",
-    "chartDescVerifiedContractsGrowth": "Накопленный рост верифицированных контрактов с течением времени"
+    "chartDescVerifiedContractsGrowth": "Накопленный рост верифицированных контрактов с течением времени",
+    "chartNewContracts": "Новые контракты",
+    "chartContractsGrowth": "Количество контрактов",
+    "chartDescNewContracts": "Количество новых контрактов в сети",
+    "chartDescContractsGrowth": "Накопительный рост контрактов с течением времени"
   },
   "hotContracts": {
     "contractHeader": "Контракт",

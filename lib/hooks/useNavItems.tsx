@@ -319,6 +319,12 @@ export default function useNavItems(): ReturnType {
       isActive: pathname.startsWith('/api-docs'),
     } : null;
 
+    const otherLinkTexts: Record<string, string> = {
+      'Chainlist (ENI Mainnet)': t('navigation.otherLinkChainlistMainnet'),
+      'Chainlist (ENI Testnet)': t('navigation.otherLinkChainlistTestnet'),
+      'Testnet Faucet': t('navigation.otherLinkTestnetFaucet'),
+    };
+
     const otherNavItems: Array<NavItem> | Array<Array<NavItem>> = [
       config.features.multichain.isEnabled ? {
         text: t('navigation.verifyContract'),
@@ -338,7 +344,7 @@ export default function useNavItems(): ReturnType {
         nextRoute: { pathname: '/txn-withdrawals' as const },
         isActive: pathname.startsWith('/txn-withdrawals'),
       },
-      ...config.UI.navigation.otherLinks,
+      ...config.UI.navigation.otherLinks.map(link => ({ ...link, text: otherLinkTexts[link.text] || link.text })),
     ].filter(Boolean);
 
     const mainNavItems: ReturnType['mainNavItems'] = [

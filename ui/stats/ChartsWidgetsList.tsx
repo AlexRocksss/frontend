@@ -60,6 +60,8 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
     averageGasUsed: t('stats.chartAverageGasUsed'),
     newVerifiedContracts: t('stats.chartNewVerifiedContracts'),
     verifiedContractsGrowth: t('stats.chartVerifiedContractsGrowth'),
+    newContracts: t('stats.chartNewContracts'),
+    contractsGrowth: t('stats.chartContractsGrowth'),
   };
 
   const chartDescriptions: Record<string, string> = {
@@ -82,6 +84,8 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
     averageGasUsed: t('stats.chartDescAverageGasUsed'),
     newVerifiedContracts: t('stats.chartDescNewVerifiedContracts'),
     verifiedContractsGrowth: t('stats.chartDescVerifiedContractsGrowth'),
+    newContracts: t('stats.chartDescNewContracts'),
+    contractsGrowth: t('stats.chartDescContractsGrowth'),
   };
   const hasCharts = sections?.some((section) => section.charts.length > 0);
   const hasDisplayedCharts = charts?.some((section) => section.charts.length > 0);
