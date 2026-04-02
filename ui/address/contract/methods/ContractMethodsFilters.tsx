@@ -20,6 +20,12 @@ interface Props {
 const ContractMethodsFilters = ({ defaultMethodType, defaultSearchTerm, onChange, isLoading }: Props) => {
   const { t } = useTranslation();
 
+  const methodTypeTitles: Record<string, string> = {
+    all: t('address.methodTypeAll'),
+    read: t('address.methodTypeRead'),
+    write: t('address.methodTypeWrite'),
+  };
+
   const handleTypeChange = React.useCallback((value: string) => {
     onChange({ type: 'method_type', value: value as MethodType });
   }, [ onChange ]);
@@ -38,7 +44,7 @@ const ContractMethodsFilters = ({ defaultMethodType, defaultSearchTerm, onChange
       >
         { TYPE_FILTER_OPTIONS.map((option) => (
           <Button key={ option.value } value={ option.value } size="sm" px={ 3 }>
-            { t(option.title) }
+            { methodTypeTitles[option.value] || option.title }
           </Button>
         )) }
       </ButtonGroupRadio>
