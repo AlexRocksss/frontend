@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Box, Text, Flex } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import Script from 'next/script';
 import React from 'react';
 
@@ -11,6 +12,7 @@ import { Link } from 'toolkit/chakra/link';
 const easterEggBadgeFeature = config.features.easterEggBadge;
 
 const CapybaraRunner = () => {
+  const { t } = useTranslation();
   const [ hasReachedHighScore, setHasReachedHighScore ] = React.useState(false);
 
   const isMobile = useIsMobile();
@@ -37,8 +39,10 @@ const CapybaraRunner = () => {
 
   return (
     <>
-      <Heading level="2" mt={ 12 } mb={ 2 }>Score 1000 to win a special prize!</Heading>
-      <Box mb={ 4 }>{ isMobile ? 'Tap below to start' : 'Press space to start' }</Box>
+      { t('capybaraRunner.scoreToWin') && (
+        <Heading level="2" mt={ 12 } mb={ 2 }>{ t('capybaraRunner.scoreToWin') }</Heading>
+      ) }
+      <Box mb={ 4 }>{ isMobile ? t('capybaraRunner.tapToStart') : t('capybaraRunner.pressSpaceToStart') }</Box>
       <Script strategy="lazyOnload" src="/static/capybara/index.js"/>
       <Box width={{ base: '100%', lg: '600px' }} height="300px" p="50px 0">
         <div id="main-frame-error" className="interstitial-wrapper" style={{ marginTop: '20px' }}>
@@ -51,13 +55,13 @@ const CapybaraRunner = () => {
       </Box>
       { easterEggBadgeFeature.isEnabled && hasReachedHighScore && (
         <Flex flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
-          <Text fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</Text>
-          <Text fontSize="lg" textAlign="center">Congratulations! You're eligible to claim an epic hidden badge!</Text>
+          <Text fontSize="2xl" fontWeight="bold">{ t('capybaraRunner.unlockedBadge') }</Text>
+          <Text fontSize="lg" textAlign="center">{ t('capybaraRunner.congratsBadge') }</Text>
           <Link
             href={ easterEggBadgeFeature.badgeClaimLink }
             external noIcon
           >
-            <Button>Claim</Button>
+            <Button>{ t('capybaraRunner.claim') }</Button>
           </Link>
         </Flex>
       ) }

@@ -2721,7 +2721,8 @@
     "accounts": "Аккаунты",
     "contractVerification": "Верификация контракта",
     "watchlist": "Список наблюдения",
-    "publicTags": "Запросы публичных тегов"
+    "publicTags": "Запросы публичных тегов",
+    "estimatedTargetDate": "Ожидаемая целевая дата"
   },
   "txAction": {
     "added": "Добавлена",
@@ -2798,5 +2799,13 @@
   },
   "common": {
     "loadingData": "Загрузка данных, пожалуйста подождите..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "Нажмите ниже для начала",
+    "pressSpaceToStart": "Нажмите пробел для начала",
+    "unlockedBadge": "Вы разблокировали скрытый значок!",
+    "congratsBadge": "Поздравляем! Вы можете получить эпический скрытый значок!",
+    "claim": "Получить"
   }
 }

@@ -2721,7 +2721,8 @@
     "accounts": "Akun",
     "contractVerification": "Verifikasi Kontrak",
     "watchlist": "Daftar pantau",
-    "publicTags": "Permintaan tag publik"
+    "publicTags": "Permintaan tag publik",
+    "estimatedTargetDate": "Perkiraan tanggal target"
   },
   "txAction": {
     "added": "Ditambahkan",
@@ -2798,5 +2799,13 @@
   },
   "common": {
     "loadingData": "Memuat data, harap tunggu..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "Ketuk di bawah untuk memulai",
+    "pressSpaceToStart": "Tekan spasi untuk memulai",
+    "unlockedBadge": "Anda membuka lencana tersembunyi!",
+    "congratsBadge": "Selamat! Anda berhak mengklaim lencana tersembunyi yang epik!",
+    "claim": "Klaim"
   }
 }

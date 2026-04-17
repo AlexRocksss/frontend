@@ -2709,7 +2709,8 @@
     "gasTracker": "Gas tracker",
     "apiDocumentation": "API documentation",
     "statsTitle": "{{chain}} statistic & data",
-    "statsTitleShort": "{{chain}} stats"
+    "statsTitleShort": "{{chain}} stats",
+    "estimatedTargetDate": "Estimated target date"
   },
   "txAction": {
     "added": "Added",
@@ -2786,5 +2787,13 @@
   },
   "common": {
     "loadingData": "Loading data, please wait..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "Tap below to start",
+    "pressSpaceToStart": "Press space to start",
+    "unlockedBadge": "You unlocked a hidden badge!",
+    "congratsBadge": "Congratulations! You're eligible to claim an epic hidden badge!",
+    "claim": "Claim"
   }
 }

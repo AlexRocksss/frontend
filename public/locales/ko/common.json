@@ -2721,7 +2721,8 @@
     "accounts": "계정",
     "contractVerification": "컨트랙트 검증",
     "watchlist": "관심 목록",
-    "publicTags": "공개 태그 요청"
+    "publicTags": "공개 태그 요청",
+    "estimatedTargetDate": "예상 목표 날짜"
   },
   "txAction": {
     "added": "추가됨",
@@ -2798,5 +2799,13 @@
   },
   "common": {
     "loadingData": "데이터를 불러오는 중입니다, 잠시 기다려 주세요..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "아래를 탭하여 시작",
+    "pressSpaceToStart": "스페이스바를 눌러 시작",
+    "unlockedBadge": "숨겨진 배지를 잠금 해제했습니다!",
+    "congratsBadge": "축하합니다! 에픽 숨겨진 배지를 청구할 자격이 있습니다!",
+    "claim": "청구"
   }
 }

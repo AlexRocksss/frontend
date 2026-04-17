@@ -2721,7 +2721,8 @@
     "accounts": "Akaun",
     "contractVerification": "Pengesahan Kontrak",
     "watchlist": "Senarai pantau",
-    "publicTags": "Permintaan tag awam"
+    "publicTags": "Permintaan tag awam",
+    "estimatedTargetDate": "Tarikh sasaran anggaran"
   },
   "txAction": {
     "added": "Ditambah",
@@ -2798,5 +2799,13 @@
   },
   "common": {
     "loadingData": "Memuatkan data, sila tunggu..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "Ketik di bawah untuk mula",
+    "pressSpaceToStart": "Tekan ruang untuk mula",
+    "unlockedBadge": "Anda membuka lencana tersembunyi!",
+    "congratsBadge": "Tahniah! Anda layak menuntut lencana tersembunyi yang epik!",
+    "claim": "Tuntut"
   }
 }

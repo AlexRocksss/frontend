@@ -2721,7 +2721,8 @@
     "accounts": "Tài khoản",
     "contractVerification": "Xác minh hợp đồng",
     "watchlist": "Danh sách theo dõi",
-    "publicTags": "Yêu cầu thẻ công khai"
+    "publicTags": "Yêu cầu thẻ công khai",
+    "estimatedTargetDate": "Ngày mục tiêu ước tính"
   },
   "txAction": {
     "added": "Đã thêm",
@@ -2798,5 +2799,13 @@
   },
   "common": {
     "loadingData": "Đang tải dữ liệu, vui lòng đợi..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "Nhấn bên dưới để bắt đầu",
+    "pressSpaceToStart": "Nhấn phím cách để bắt đầu",
+    "unlockedBadge": "Bạn đã mở khóa huy hiệu ẩn!",
+    "congratsBadge": "Chúc mừng! Bạn đủ điều kiện nhận huy hiệu ẩn sử thi!",
+    "claim": "Nhận"
   }
 }

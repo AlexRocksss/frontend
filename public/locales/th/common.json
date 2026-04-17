@@ -2721,7 +2721,8 @@
     "accounts": "บัญชี",
     "contractVerification": "การยืนยันสัญญา",
     "watchlist": "รายการเฝ้าดู",
-    "publicTags": "คำขอแท็กสาธารณะ"
+    "publicTags": "คำขอแท็กสาธารณะ",
+    "estimatedTargetDate": "วันที่เป้าหมายโดยประมาณ"
   },
   "txAction": {
     "added": "เพิ่ม",
@@ -2798,5 +2799,13 @@
   },
   "common": {
     "loadingData": "กำลังโหลดข้อมูล โปรดรอสักครู่..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "แตะด้านล่างเพื่อเริ่ม",
+    "pressSpaceToStart": "กดสเปซบาร์เพื่อเริ่ม",
+    "unlockedBadge": "คุณได้ปลดล็อกตราสัญลักษณ์ซ่อนเร้น!",
+    "congratsBadge": "ขอแสดงความยินดี! คุณมีสิทธิ์รับตราสัญลักษณ์ซ่อนเร้นสุดพิเศษ!",
+    "claim": "รับ"
   }
 }

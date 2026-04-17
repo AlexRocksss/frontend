@@ -2709,7 +2709,8 @@
     "gasTracker": "Gas 追蹤器",
     "apiDocumentation": "API 文件",
     "statsTitle": "{{chain}} 統計與數據",
-    "statsTitleShort": "{{chain}} 統計"
+    "statsTitleShort": "{{chain}} 統計",
+    "estimatedTargetDate": "預計目標日期"
   },
   "txAction": {
     "added": "已新增",
@@ -2786,5 +2787,13 @@
   },
   "common": {
     "loadingData": "資料載入中，請稍候..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "點擊下方開始",
+    "pressSpaceToStart": "按空白鍵開始",
+    "unlockedBadge": "您解鎖了隱藏徽章！",
+    "congratsBadge": "恭喜！您有資格領取一個史詩隱藏徽章！",
+    "claim": "領取"
   }
 }

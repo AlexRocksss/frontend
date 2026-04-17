@@ -2721,7 +2721,8 @@
     "accounts": "アカウント",
     "contractVerification": "コントラクト検証",
     "watchlist": "ウォッチリスト",
-    "publicTags": "パブリックタグリクエスト"
+    "publicTags": "パブリックタグリクエスト",
+    "estimatedTargetDate": "推定目標日時"
   },
   "txAction": {
     "added": "追加",
@@ -2798,5 +2799,13 @@
   },
   "common": {
     "loadingData": "データを読み込んでいます、お待ちください..."
+  },
+  "capybaraRunner": {
+    "scoreToWin": "",
+    "tapToStart": "下をタップして開始",
+    "pressSpaceToStart": "スペースキーで開始",
+    "unlockedBadge": "隠しバッジを解除しました！",
+    "congratsBadge": "おめでとうございます！レアな隠しバッジを獲得する資格があります！",
+    "claim": "受け取る"
   }
 }
