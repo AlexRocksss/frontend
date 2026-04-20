@@ -322,7 +322,7 @@
   },
   "footer": {
     "madeWith": "作成",
-    "description": "BlockscoutはEVMベースのブロックチェーンを検査・分析するためのツールです。EthereumネットワークのBlockchain Explorer。",
+    "description": "ENI は、大規模な商業採用を目指したエンタープライズグレードの超高性能モジュラー L1 です。ENI Matrix アーキテクチャは、メインネット、Hub、AppChain を独自のハイパーオーダー並列エンジンと組み合わせ、スケーラブルなデプロイメント、並列実行、リアルタイム決済を実現します。",
     "backend": "バックエンド:",
     "frontend": "フロントエンド:",
     "copyright": "Copyright © Blockscout Limited 2023-{{year}}",
@@ -345,7 +345,8 @@
     "customLinkX": "X",
     "customLinkTelegram": "Telegram",
     "customLinkDiscord": "Discord",
-    "customLinkLinkedIn": "LinkedIn"
+    "customLinkLinkedIn": "LinkedIn",
+    "version": "バージョン：2.0"
   },
   "navigation": {
     "chains": "チェーン",

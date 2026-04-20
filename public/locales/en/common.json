@@ -322,7 +322,7 @@
   },
   "footer": {
     "madeWith": "Made with",
-    "description": "Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.",
+    "description": "ENI is an enterprise-grade, ultra-high performance modular L1 built for mass commercial adoption. Its ENI Matrix architecture combines Mainnet, Hub, and AppChains with a proprietary Hyper-ordered Parallel Engine to deliver scalable deployment, parallel execution, and real-time settlement.",
     "backend": "Backend:",
     "frontend": "Frontend:",
     "copyright": "Copyright © Blockscout Limited 2023-{{year}}",
@@ -345,7 +345,8 @@
     "customLinkX": "X",
     "customLinkTelegram": "Telegram",
     "customLinkDiscord": "Discord",
-    "customLinkLinkedIn": "LinkedIn"
+    "customLinkLinkedIn": "LinkedIn",
+    "version": "Version: 2.0"
   },
   "navigation": {
     "chains": "Chains",

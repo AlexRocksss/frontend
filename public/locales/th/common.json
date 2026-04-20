@@ -322,7 +322,7 @@
   },
   "footer": {
     "madeWith": "สร้างด้วย",
-    "description": "Blockscout เป็นเครื่องมือสำหรับตรวจสอบและวิเคราะห์ blockchain ที่ใช้ EVM เป็นตัว blockchain explorer สำหรับ Ethereum Networks",
+    "description": "ENI คือ L1 แบบโมดูลาร์ประสิทธิภาพสูงระดับองค์กรที่สร้างขึ้นสำหรับการนำมาใช้ในเชิงพาณิชย์ขนาดใหญ่ สถาปัตยกรรม ENI Matrix ผสมผสาน Mainnet, Hub และ AppChain เข้ากับ Hyper-ordered Parallel Engine ที่เป็นกรรมสิทธิ์ เพื่อมอบการปรับใช้ที่ปรับขนาดได้ การดำเนินการแบบขนาน และการชำระบัญชีแบบเรียลไทม์",
     "backend": "แบ็กเอนด์:",
     "frontend": "ฟรอนต์เอนด์:",
     "copyright": "Copyright © Blockscout Limited 2023-{{year}}",
@@ -345,7 +345,8 @@
     "customLinkX": "X",
     "customLinkTelegram": "Telegram",
     "customLinkDiscord": "Discord",
-    "customLinkLinkedIn": "LinkedIn"
+    "customLinkLinkedIn": "LinkedIn",
+    "version": "เวอร์ชัน: 2.0"
   },
   "navigation": {
     "chains": "เชน",

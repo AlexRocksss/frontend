@@ -10,9 +10,10 @@ import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';
 import useApiQuery from 'lib/api/useApiQuery';
 import useFetch from 'lib/hooks/useFetch';
+import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { Image } from 'toolkit/chakra/image';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
-import IconSvg from 'ui/shared/IconSvg';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import NetworkAddToWallet from 'ui/shared/NetworkAddToWallet';
 
@@ -22,8 +23,8 @@ import getApiVersionUrl from './utils/getApiVersionUrl';
 
 const MAX_LINKS_COLUMNS = 4;
 
-const FRONT_VERSION_URL = `https://github.com/blockscout/frontend/tree/${ config.UI.footer.frontendVersion }`;
-const FRONT_COMMIT_URL = `https://github.com/blockscout/frontend/commit/${ config.UI.footer.frontendCommit }`;
+const LOGO_LIGHT = 'https://raw.githubusercontent.com/AlexRocksss/frontend/eni-v2.7.0/public/static/logo.png';
+const LOGO_DARK = 'https://raw.githubusercontent.com/AlexRocksss/frontend/eni-v2.7.0/public/static/logo-dark.png';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -37,62 +38,7 @@ const Footer = () => {
   });
   const apiVersionUrl = getApiVersionUrl(backendVersionData?.backend_version);
 
-  const BLOCKSCOUT_LINKS = [
-    {
-      icon: 'social/git' as const,
-      iconSize: '20px',
-      text: 'Contribute',
-      url: 'https://github.com/blockscout/blockscout',
-    },
-    {
-      icon: 'brands/pro_api' as const,
-      iconSize: '20px',
-      text: 'PRO API',
-      url: 'https://dev.blockscout.com',
-    },
-    {
-      icon: 'brands/autoscout' as const,
-      iconSize: '20px',
-      text: 'Autoscout',
-      url: 'https://autoscout.blockscout.com',
-    },
-    {
-      icon: 'docs' as const,
-      iconSize: '20px',
-      text: 'Docs',
-      url: 'https://docs.blockscout.com',
-    },
-    {
-      icon: 'social/twitter' as const,
-      iconSize: '24px',
-      text: 'X',
-      url: 'https://x.com/blockscout',
-    },
-    {
-      icon: 'social/discord' as const,
-      iconSize: '24px',
-      text: 'Discord',
-      url: 'https://discord.gg/blockscout',
-    },
-    {
-      icon: 'brands/blockscout' as const,
-      iconSize: '20px',
-      text: 'All chains',
-      url: 'https://chains.blockscout.com',
-    },
-  ].filter(Boolean);
-
-  const frontendLink = (() => {
-    if (config.UI.footer.frontendVersion) {
-      return <Link href={ FRONT_VERSION_URL } external noIcon>{ config.UI.footer.frontendVersion }</Link>;
-    }
-
-    if (config.UI.footer.frontendCommit) {
-      return <Link href={ FRONT_COMMIT_URL } external noIcon>{ config.UI.footer.frontendCommit }</Link>;
-    }
-
-    return null;
-  })();
+  const logoSrc = useColorModeValue(LOGO_LIGHT, LOGO_DARK);
 
   const fetch = useFetch();
 
@@ -123,7 +69,7 @@ const Footer = () => {
     LinkedIn: t('footer.customLinkLinkedIn'),
   };
 
-  const colNum = isPlaceholderData ? 1 : Math.min(linksData?.length || Infinity, MAX_LINKS_COLUMNS) + 1;
+  const colNum = isPlaceholderData ? 1 : Math.min(linksData?.length || Infinity, MAX_LINKS_COLUMNS);
 
   const renderNetworkInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
     return (
@@ -144,20 +90,9 @@ const Footer = () => {
   }, []);
 
   const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
-    const logoColor = { base: 'blue.600', _dark: 'white' };
-
     return (
       <Box gridArea={ gridArea }>
-        <Flex columnGap={ 2 } textStyle="xs" alignItems="center">
-          <span>{ t('footer.madeWith') }</span>
-          <Link href="https://www.blockscout.com" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
-            <IconSvg
-              name="networks/logo-placeholder"
-              width="80px"
-              height={ 4 }
-            />
-          </Link>
-        </Flex>
+        <Image src={ logoSrc } alt="ENI" h="32px"/>
         <Text mt={ 3 } fontSize="xs">
           { t('footer.description') }
         </Text>
@@ -167,18 +102,11 @@ const Footer = () => {
               { t('footer.backend') } <Link href={ apiVersionUrl } external noIcon>{ backendVersionData?.backend_version }</Link>
             </Text>
           ) }
-          { frontendLink && (
-            <Text>
-              { t('footer.frontend') } { frontendLink }
-            </Text>
-          ) }
-          <Text>
-            { t('footer.copyright', { year: (new Date()).getFullYear() }) }
-          </Text>
+          <Text>{ t('footer.version') }</Text>
         </Box>
       </Box>
     );
-  }, [ apiVersionUrl, backendVersionData?.backend_version, frontendLink, t ]);
+  }, [ apiVersionUrl, backendVersionData?.backend_version, logoSrc, t ]);
 
   const containerProps: HTMLChakraProps<'div'> = {
     as: 'footer',
@@ -222,7 +150,7 @@ const Footer = () => {
           </div>
 
           <Grid
-            gap={{ base: 6, lg: colNum === MAX_LINKS_COLUMNS + 1 ? 2 : 8, xl: 12 }}
+            gap={{ base: 6, lg: colNum === MAX_LINKS_COLUMNS ? 2 : 8, xl: 12 }}
             gridTemplateColumns={{
               base: 'repeat(auto-fill, 160px)',
               lg: `repeat(${ colNum }, 135px)`,
@@ -232,10 +160,7 @@ const Footer = () => {
             mt={{ base: 8, lg: 0 }}
           >
             {
-              ([
-                { title: 'Blockscout', links: BLOCKSCOUT_LINKS },
-                ...(linksData || []),
-              ])
+              (linksData || [])
                 .slice(0, colNum)
                 .map(linkGroup => (
                   <Box key={ linkGroup.title }>
@@ -267,9 +192,9 @@ const Footer = () => {
         { ...contentProps }
         gridTemplateAreas={{
           lg: `
-          "network links-top"
-          "info links-bottom"
-          "recaptcha links-bottom"
+          "network ."
+          "info ."
+          "recaptcha ."
         `,
         }}
       >
@@ -278,26 +203,6 @@ const Footer = () => {
         { renderProjectInfo({ lg: 'info' }) }
         { renderRecaptcha({ lg: 'recaptcha' }) }
 
-        <Grid
-          gridArea={{ lg: 'links-bottom' }}
-          gap={ 1 }
-          gridTemplateColumns={{
-            base: 'repeat(auto-fill, 160px)',
-            lg: 'repeat(2, 160px)',
-            xl: 'repeat(3, 160px)',
-          }}
-          gridTemplateRows={{
-            base: 'auto',
-            lg: 'repeat(3, auto)',
-            xl: 'repeat(2, auto)',
-          }}
-          gridAutoFlow={{ base: 'row', lg: 'column' }}
-          alignContent="start"
-          justifyContent={{ lg: 'flex-end' }}
-          mt={{ base: 8, lg: 0 }}
-        >
-          { BLOCKSCOUT_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
-        </Grid>
       </Grid>
     </Box>
   );

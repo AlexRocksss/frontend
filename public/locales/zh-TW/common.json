@@ -322,7 +322,7 @@
   },
   "footer": {
     "madeWith": "製作者",
-    "description": "Blockscout 是一個用於檢查和分析基於 EVM 的區塊鏈的工具。以太坊網路的區塊鏈瀏覽器。",
+    "description": "ENI 是一個企業級、超高性能的模塊化 L1，專為大規模商業採用而構建。其 ENI Matrix 架構結合了主網、Hub 和 AppChain，配備專有的超序列並行引擎，提供可擴展的部署、並行執行和實時結算。",
     "backend": "後端：",
     "frontend": "前端：",
     "copyright": "版權 © Blockscout Limited 2023-{{year}}",
@@ -345,7 +345,8 @@
     "customLinkX": "X",
     "customLinkTelegram": "Telegram",
     "customLinkDiscord": "Discord",
-    "customLinkLinkedIn": "LinkedIn"
+    "customLinkLinkedIn": "LinkedIn",
+    "version": "版本：2.0"
   },
   "navigation": {
     "chains": "鏈",

@@ -322,7 +322,7 @@
   },
   "footer": {
     "madeWith": "Dibuat dengan",
-    "description": "Blockscout ialah alat untuk memeriksa dan menganalisis blokchain berasaskan EVM. Penjelajah blokchain untuk Rangkaian Ethereum.",
+    "description": "ENI ialah L1 modular berprestasi tinggi peringkat enterprise yang dibina untuk penggunaan komersial berskala besar. Seni bina ENI Matrix menggabungkan Mainnet, Hub, dan AppChain dengan Hyper-ordered Parallel Engine proprietari untuk menyediakan penggunaan yang berskala, pelaksanaan selari, dan penyelesaian masa nyata.",
     "backend": "Backend:",
     "frontend": "Frontend:",
     "copyright": "Hak cipta © Blockscout Limited 2023-{{year}}",
@@ -345,7 +345,8 @@
     "customLinkX": "X",
     "customLinkTelegram": "Telegram",
     "customLinkDiscord": "Discord",
-    "customLinkLinkedIn": "LinkedIn"
+    "customLinkLinkedIn": "LinkedIn",
+    "version": "Versi: 2.0"
   },
   "navigation": {
     "chains": "Rantaian",
