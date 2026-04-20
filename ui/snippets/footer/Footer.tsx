@@ -92,7 +92,7 @@ const Footer = () => {
   const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
     return (
       <Box gridArea={ gridArea }>
-        <Image src={ logoSrc } alt="ENI" h="32px"/>
+        <Image src={ logoSrc } alt="ENI" h="18px"/>
         <Text mt={ 3 } fontSize="xs">
           { t('footer.description') }
         </Text>
