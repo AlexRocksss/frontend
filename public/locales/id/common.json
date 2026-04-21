@@ -1837,6 +1837,7 @@
     "chartNewVerifiedContracts": "Kontrak terverifikasi baru",
     "chartVerifiedContractsGrowth": "Pertumbuhan kontrak terverifikasi",
     "counterCompletedTxns": "Txn selesai",
+    "counterLastNewContracts": "Jumlah kontrak hari ini",
     "counterLastNewVerifiedContracts": "Jumlah kontrak terverifikasi hari ini",
     "counterTotalAccounts": "Total akun",
     "counterTotalContracts": "Total kontrak",

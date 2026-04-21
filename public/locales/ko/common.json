@@ -1837,6 +1837,7 @@
     "chartNewVerifiedContracts": "신규 검증된 컨트랙트",
     "chartVerifiedContractsGrowth": "검증된 컨트랙트 증가",
     "counterCompletedTxns": "완료된 트랜잭션",
+    "counterLastNewContracts": "오늘 컨트랙트 수",
     "counterLastNewVerifiedContracts": "오늘 검증된 컨트랙트 수",
     "counterTotalAccounts": "총 계정 수",
     "counterTotalContracts": "총 컨트랙트 수",

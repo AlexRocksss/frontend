@@ -1837,6 +1837,7 @@
     "chartNewVerifiedContracts": "Contracts ที่ยืนยันใหม่",
     "chartVerifiedContractsGrowth": "การเติบโตของ contracts ที่ยืนยัน",
     "counterCompletedTxns": "Txns ที่เสร็จสิ้น",
+    "counterLastNewContracts": "จำนวน contracts วันนี้",
     "counterLastNewVerifiedContracts": "จำนวน contracts ที่ยืนยันวันนี้",
     "counterTotalAccounts": "บัญชีทั้งหมด",
     "counterTotalContracts": "Contracts ทั้งหมด",

@@ -1837,6 +1837,7 @@
     "chartNewVerifiedContracts": "新規検証済みコントラクト",
     "chartVerifiedContractsGrowth": "検証済みコントラクトの成長",
     "counterCompletedTxns": "完了した txns",
+    "counterLastNewContracts": "本日のコントラクト数",
     "counterLastNewVerifiedContracts": "本日の検証済みコントラクト数",
     "counterTotalAccounts": "総アカウント数",
     "counterTotalContracts": "総コントラクト数",

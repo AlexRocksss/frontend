@@ -1834,6 +1834,7 @@
     "chartNewVerifiedContracts": "新驗證合約數",
     "chartVerifiedContractsGrowth": "驗證合約成長",
     "counterCompletedTxns": "已完成交易數",
+    "counterLastNewContracts": "今日合約數",
     "counterLastNewVerifiedContracts": "今日已驗證合約數",
     "counterTotalAccounts": "總帳戶數",
     "counterTotalContracts": "總合約數",

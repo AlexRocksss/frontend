@@ -21,6 +21,7 @@ const NumberWidgetsList = () => {
   const counterTitles: Record<string, string> = {
     averageBlockTime: t('stats.counterAverageBlockTime'),
     completedTxns: t('stats.counterCompletedTxns'),
+    lastNewContracts: t('stats.counterLastNewContracts'),
     lastNewVerifiedContracts: t('stats.counterLastNewVerifiedContracts'),
     totalAccounts: t('stats.counterTotalAccounts'),
     totalAddresses: t('stats.counterTotalAddresses'),

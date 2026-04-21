@@ -1837,6 +1837,7 @@
     "chartNewVerifiedContracts": "Hợp đồng đã xác minh mới",
     "chartVerifiedContractsGrowth": "Tăng trưởng hợp đồng đã xác minh",
     "counterCompletedTxns": "Txns đã hoàn thành",
+    "counterLastNewContracts": "Số hợp đồng hôm nay",
     "counterLastNewVerifiedContracts": "Số hợp đồng đã xác minh hôm nay",
     "counterTotalAccounts": "Tổng số tài khoản",
     "counterTotalContracts": "Tổng số hợp đồng",

@@ -1837,6 +1837,7 @@
     "chartNewVerifiedContracts": "Новые верифицированные контракты",
     "chartVerifiedContractsGrowth": "Рост верифицированных контрактов",
     "counterCompletedTxns": "Завершённых транзакций",
+    "counterLastNewContracts": "Количество контрактов сегодня",
     "counterLastNewVerifiedContracts": "Количество верифицированных контрактов сегодня",
     "counterTotalAccounts": "Всего аккаунтов",
     "counterTotalContracts": "Всего контрактов",

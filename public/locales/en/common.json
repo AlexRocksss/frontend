@@ -1834,6 +1834,7 @@
     "chartNewVerifiedContracts": "New verified contracts",
     "chartVerifiedContractsGrowth": "Verified contracts growth",
     "counterCompletedTxns": "Completed txns",
+    "counterLastNewContracts": "Number of contracts today",
     "counterLastNewVerifiedContracts": "Number of verified contracts today",
     "counterTotalAccounts": "Total accounts",
     "counterTotalContracts": "Total contracts",
