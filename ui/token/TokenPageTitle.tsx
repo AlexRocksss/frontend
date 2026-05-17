@@ -8,6 +8,7 @@ import type { TokenInfo, TokenVerifiedInfo as TTokenVerifiedInfo } from 'types/a
 import type { EntityTag } from 'ui/shared/EntityTags/types';
 
 import config from 'configs/app';
+import { getEnvValue } from 'configs/app/utils';
 import useAddressMetadataInfoQuery from 'lib/address/useAddressMetadataInfoQuery';
 import type { ResourceError } from 'lib/api/resources';
 import { useMultichainContext } from 'lib/contexts/multichain';
@@ -29,6 +30,13 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import TokenVerifiedInfo from './TokenVerifiedInfo';
 
 const PREDEFINED_TAG_PRIORITY = 100;
+
+const VERIFIED_TOKEN_ADDRESSES = new Set(
+  (getEnvValue('NEXT_PUBLIC_VERIFIED_TOKEN_ADDRESSES') ?? '')
+    .split(',')
+    .map((addr) => addr.trim().toLowerCase())
+    .filter(Boolean),
+);
 
 interface Props {
   tokenQuery: UseQueryResult<TokenInfo, ResourceError<unknown>>;
@@ -92,7 +100,7 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: P
   const contentAfter = (
     <>
       { tokenQuery.data && <TokenEntity.Reputation value={ tokenQuery.data.reputation } ml={ 0 }/> }
-      { verifiedInfoQuery.data?.tokenAddress && (
+      { (verifiedInfoQuery.data?.tokenAddress || VERIFIED_TOKEN_ADDRESSES.has(hash.toLowerCase())) && (
         <Tooltip content={ t('token.verifiedBy', { chainName: config.chain.name }) }>
           <IconSvg name="certified" color="green.500" boxSize={ 6 } cursor="pointer"/>
         </Tooltip>
