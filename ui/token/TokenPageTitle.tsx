@@ -67,6 +67,15 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, hash }: Props) => {
   const bridgedTokenTagTextColor = useToken('colors', 'white');
 
   const tags: Array<EntityTag> = React.useMemo(() => {
+    const publicTags: Array<EntityTag> = (addressQuery.data?.public_tags || [])
+      .filter(tag => tag.address_hash.toLowerCase() === hash.toLowerCase())
+      .map(tag => ({
+        slug: tag.label.toLowerCase().replace(/\s+/g, '_'),
+        name: tag.display_name,
+        tagType: 'name' as const,
+        ordinal: -20,
+      }));
+
     return [
       tokenQuery.data ? { slug: tokenQuery.data?.type, name: getTokenTypeName(tokenQuery.data.type), tagType: 'custom' as const, ordinal: -20 } : undefined,
       config.features.bridgedTokens.isEnabled && tokenQuery.data?.is_bridged ?
@@ -83,6 +92,7 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, hash }: Props) => {
         { slug: verifiedInfoQuery.data.projectSector, name: verifiedInfoQuery.data.projectSector, tagType: 'custom' as const, ordinal: -30 } :
         undefined,
       ...(addressMetadataQuery.data?.addresses?.[hash.toLowerCase()]?.tags || []),
+      ...publicTags,
     ].filter(Boolean).sort(sortEntityTags);
   }, [
     addressMetadataQuery.data?.addresses,
