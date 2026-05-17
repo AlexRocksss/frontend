@@ -327,6 +327,7 @@ export const viewsSchema = yup.object({
       .json()
       .of(nftMarketplaceSchema),
     NEXT_PUBLIC_VIEWS_TOKEN_SCAM_TOGGLE_ENABLED: yup.boolean(),
+    NEXT_PUBLIC_VERIFIED_TOKEN_ADDRESSES: yup.string(),
     NEXT_PUBLIC_HELIA_VERIFIED_FETCH_ENABLED: yup.boolean(),
 
     NEXT_PUBLIC_NETWORK_EXPLORERS: yup
