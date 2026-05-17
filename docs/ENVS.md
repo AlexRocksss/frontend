@@ -346,6 +346,7 @@ Settings for meta tags, OG tags and SEO
 | Variable | Type | Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_VIEWS_TOKEN_SCAM_TOGGLE_ENABLED | `boolean` | Show the "Hide scam tokens" toggle in the site settings dropdown. This option controls the visibility of tokens with a poor reputation in the search results. | - | `false` | `true` | v1.38.0+ |
+| NEXT_PUBLIC_VERIFIED_TOKEN_ADDRESSES | `string` | Comma-separated list of token contract addresses to display the verified badge on. Case-insensitive. | - | - | `0xAbC123...,0xDef456...` | - |
 
 &nbsp;
 
