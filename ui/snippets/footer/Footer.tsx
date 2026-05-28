@@ -1,8 +1,8 @@
 import type { GridProps } from '@chakra-ui/react';
 import { Box, Grid, Flex, Text, Link, VStack, Skeleton, Icon, useColorMode } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import footerLogo from 'public/assets/footer-logo.svg';
-import footerLogoDark from 'public/assets/footer-logo-dark.svg';
+import footerLogo from 'public/assets/footer-logo.png';
+import footerLogoDark from 'public/assets/footer-logo-dark.png';
 import React from 'react';
 
 import type { CustomLinksGroup } from 'types/footerLinks';
