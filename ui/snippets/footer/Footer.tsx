@@ -88,7 +88,7 @@ const Footer = () => {
     const selectedLogo = colorMode === "dark" ? footerLogoDark : footerLogo;
     return (
       <Box gridArea={ gridArea }>
-        <Icon as={ selectedLogo } mr={ 1 } w="50px" h="20px" display="inline-block" verticalAlign="middle"/>
+        <Box as="img" src={ selectedLogo.src } alt="Logo" mr={ 1 } w="50px" h="20px" display="inline-block" verticalAlign="middle"/>
         <Text mt={ 3 } fontSize="xs">
           { t("footer-text-1") }
         </Text>
