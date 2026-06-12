@@ -2,9 +2,30 @@ import Base64 from 'crypto-js/enc-base64';
 import sha256 from 'crypto-js/sha256';
 import type CspDev from 'csp-dev';
 
+import config from 'configs/app';
 import { connectAdbutler, placeAd } from 'ui/shared/ad/adbutlerScript';
 
+const bannerFeature = config.features.adsBanner;
+
+function getCustomAdImageHosts(): Array<string> {
+  if (!bannerFeature.isEnabled || bannerFeature.provider !== 'custom') {
+    return [];
+  }
+  const urls = bannerFeature.customAdConfig.ads.flatMap((ad) => [ ad.image_url, ad.image_url_dark ]);
+  const origins = new Set<string>();
+  urls.forEach((url) => {
+    if (!url) {
+      return;
+    }
+    try {
+      origins.add(new URL(url).origin);
+    } catch { /* ignore malformed urls */ }
+  });
+  return Array.from(origins);
+}
+
 export function ad(): CspDev.DirectiveDescriptor {
+  const customAdImgHosts = getCustomAdImageHosts();
   return {
     'connect-src': [
       // coinzilla
@@ -53,6 +74,9 @@ export function ad(): CspDev.DirectiveDescriptor {
 
       // sevio
       '*.adx.ws',
+
+      // custom self-served ad images
+      ...customAdImgHosts,
     ],
     'font-src': [
       // coinzilla
