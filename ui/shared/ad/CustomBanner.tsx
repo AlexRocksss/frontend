@@ -71,8 +71,11 @@ const CustomBanner = ({ className, format = 'responsive', pageKey }: Props) => {
 
   const ad = index !== null ? pool[index] : null;
 
-  const lightSrc = ad?.image_url ?? '';
-  const darkSrc = ad?.image_url_dark ?? ad?.image_url ?? '';
+  const lightSrc = (isMobile ? ad?.image_url_mobile : undefined) ?? ad?.image_url ?? '';
+  const darkSrc =
+    (isMobile ? ad?.image_url_mobile_dark ?? ad?.image_url_mobile : undefined) ??
+    ad?.image_url_dark ??
+    ad?.image_url ?? '';
   const src = useColorModeValue(lightSrc, darkSrc);
 
   if (!ad) {

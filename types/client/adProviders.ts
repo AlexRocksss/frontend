@@ -21,6 +21,8 @@ export interface CustomAdItem {
   id: string;
   image_url: string;
   image_url_dark?: string;
+  image_url_mobile?: string;
+  image_url_mobile_dark?: string;
   link_url: string;
   alt?: string;
 }

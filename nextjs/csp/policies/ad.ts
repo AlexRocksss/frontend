@@ -11,7 +11,12 @@ function getCustomAdImageHosts(): Array<string> {
   if (!bannerFeature.isEnabled || bannerFeature.provider !== 'custom') {
     return [];
   }
-  const urls = bannerFeature.customAdConfig.ads.flatMap((ad) => [ ad.image_url, ad.image_url_dark ]);
+  const urls = bannerFeature.customAdConfig.ads.flatMap((ad) => [
+    ad.image_url,
+    ad.image_url_dark,
+    ad.image_url_mobile,
+    ad.image_url_mobile_dark,
+  ]);
   const origins = new Set<string>();
   urls.forEach((url) => {
     if (!url) {

@@ -49,6 +49,8 @@ const customAdConfigSchema = yup
               id: yup.string().required(),
               image_url: yup.string().required(),
               image_url_dark: yup.string(),
+              image_url_mobile: yup.string(),
+              image_url_mobile_dark: yup.string(),
               link_url: yup.string().required(),
               alt: yup.string(),
             }),

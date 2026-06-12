@@ -443,7 +443,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         <TxAllowedPeekers items={ data.allowed_peekers }/>
       ) }
 
-      <DetailedInfoSponsoredItem isLoading={ isLoading }/>
+      <DetailedInfoSponsoredItem isLoading={ isLoading } pageKey="tx"/>
 
       <DetailedInfo.ItemDivider/>
 

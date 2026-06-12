@@ -308,7 +308,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
           </>
         ) }
 
-        <DetailedInfoSponsoredItem isLoading={ isLoading }/>
+        <DetailedInfoSponsoredItem isLoading={ isLoading } pageKey="address"/>
 
         { (address3rdPartyWidgets.isEnabled && address3rdPartyWidgets.items.length > 0) && (
           <>

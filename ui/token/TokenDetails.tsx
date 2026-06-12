@@ -236,7 +236,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
         </>
       ) }
 
-      <DetailedInfoSponsoredItem isLoading={ tokenQuery.isPlaceholderData }/>
+      <DetailedInfoSponsoredItem isLoading={ tokenQuery.isPlaceholderData } pageKey="token"/>
     </DetailedInfo.Container>
   );
 };

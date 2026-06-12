@@ -482,7 +482,7 @@ const AddressPageContent = () => {
 
   return (
     <>
-      <TextAd mb={ 6 } pageKey="address"/>
+      <TextAd mb={ 6 }/>
       <PageTitle
         title={ addressQuery.data?.is_contract && addressQuery.data?.proxy_type !== 'eip7702' ? t('pages.contractDetails') : t('pages.addressDetails') }
         contentAfter={ titleContentAfter }
