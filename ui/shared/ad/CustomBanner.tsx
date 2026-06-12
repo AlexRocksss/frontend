@@ -7,8 +7,9 @@ import type { CustomAdConfig, CustomAdItem, CustomAdPageKey } from 'types/client
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
 import { Link } from 'toolkit/chakra/link';
+
+const AdImage = chakra('img');
 
 import {
   DESKTOP_BANNER_HEIGHT,
@@ -76,13 +77,12 @@ const CustomBanner = ({ className, format = 'responsive', pageKey }: Props) => {
         w="100%"
         h="100%"
       >
-        <Image
+        <AdImage
           src={ src }
           alt={ ad.alt ?? '' }
           w="100%"
           h="100%"
           objectFit="contain"
-          loading="lazy"
         />
       </Link>
     </Flex>
