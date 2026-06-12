@@ -39,6 +39,7 @@ type AdsBannerFeatureProviderPayload = {
 } | {
   provider: 'custom';
   customAdConfig: CustomAdConfig;
+  customAdRotationSeconds: number;
 };
 
 type AdsBannerFeaturePayload = AdsBannerFeatureProviderPayload & {
@@ -55,6 +56,8 @@ const config: Feature<AdsBannerFeaturePayload> = (() => {
 
   if (provider === 'custom') {
     const customAdConfig = parseEnvJson<CustomAdConfig>(getEnvValue('NEXT_PUBLIC_CUSTOM_AD_CONFIG'));
+    const rawRotation = Number(getEnvValue('NEXT_PUBLIC_CUSTOM_AD_ROTATION_SECONDS') ?? '0');
+    const customAdRotationSeconds = Number.isFinite(rawRotation) && rawRotation > 0 ? rawRotation : 0;
 
     if (customAdConfig && Array.isArray(customAdConfig.ads) && customAdConfig.pages) {
       return Object.freeze({
@@ -62,6 +65,7 @@ const config: Feature<AdsBannerFeaturePayload> = (() => {
         isEnabled: true,
         provider,
         customAdConfig,
+        customAdRotationSeconds,
         isSpecifyEnabled: false,
       });
     }

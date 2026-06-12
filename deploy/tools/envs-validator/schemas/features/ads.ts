@@ -75,4 +75,5 @@ export const adsSchema = yup.object({
     NEXT_PUBLIC_AD_ADBUTLER_CONFIG_MOBILE: adButlerConfigSchema,
     NEXT_PUBLIC_AD_BANNER_ENABLE_SPECIFY: yup.boolean(),
     NEXT_PUBLIC_CUSTOM_AD_CONFIG: customAdConfigSchema,
+    NEXT_PUBLIC_CUSTOM_AD_ROTATION_SECONDS: yup.number().integer().min(0),
 });

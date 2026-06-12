@@ -24,36 +24,52 @@ interface Props extends BannerProps {
   pageKey: CustomAdPageKey;
 }
 
-function pickAd(adsConfig: CustomAdConfig, pageKey: CustomAdPageKey): CustomAdItem | null {
+function buildPool(adsConfig: CustomAdConfig, pageKey: CustomAdPageKey): Array<CustomAdItem> {
   const pageEntry = adsConfig.pages[pageKey];
   if (!pageEntry || !pageEntry.enabled) {
-    return null;
+    return [];
   }
 
   const allowedIds = pageEntry.ad_ids;
-  const pool = allowedIds && allowedIds.length > 0 ?
-    adsConfig.ads.filter((ad) => allowedIds.includes(ad.id)) :
-    adsConfig.ads;
-
-  if (pool.length === 0) {
-    return null;
+  if (allowedIds && allowedIds.length > 0) {
+    return adsConfig.ads.filter((ad) => allowedIds.includes(ad.id));
   }
-
-  return pool[Math.floor(Math.random() * pool.length)];
+  return adsConfig.ads;
 }
 
 const CustomBanner = ({ className, format = 'responsive', pageKey }: Props) => {
   const isMobileViewport = useIsMobile();
   const isMobile = format === 'mobile' || (format === 'responsive' && isMobileViewport);
 
-  const [ ad, setAd ] = React.useState<CustomAdItem | null>(null);
+  const pool = React.useMemo(() => {
+    if (!feature.isEnabled || feature.provider !== 'custom') {
+      return [];
+    }
+    return buildPool(feature.customAdConfig, pageKey);
+  }, [ pageKey ]);
+
+  const rotationSeconds = feature.isEnabled && feature.provider === 'custom' ? feature.customAdRotationSeconds : 0;
+
+  const [ index, setIndex ] = React.useState<number | null>(null);
 
   React.useEffect(() => {
-    if (!feature.isEnabled || feature.provider !== 'custom') {
+    if (pool.length === 0) {
       return;
     }
-    setAd(pickAd(feature.customAdConfig, pageKey));
-  }, [ pageKey ]);
+    setIndex(Math.floor(Math.random() * pool.length));
+  }, [ pool ]);
+
+  React.useEffect(() => {
+    if (pool.length <= 1 || rotationSeconds <= 0 || index === null) {
+      return;
+    }
+    const id = setInterval(() => {
+      setIndex((current) => ((current ?? 0) + 1) % pool.length);
+    }, rotationSeconds * 1000);
+    return () => clearInterval(id);
+  }, [ pool, rotationSeconds, index ]);
+
+  const ad = index !== null ? pool[index] : null;
 
   const lightSrc = ad?.image_url ?? '';
   const darkSrc = ad?.image_url_dark ?? ad?.image_url ?? '';
