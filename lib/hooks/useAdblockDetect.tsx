@@ -15,6 +15,7 @@ const TEST_URLS: Record<AdBannerProviders, string> = {
   slise: 'https://v1.slise.xyz/serve',
   coinzilla: 'https://request-global.czilladx.com',
   adbutler: 'https://servedbyadbutler.com/app.js',
+  custom: DEFAULT_URL,
   none: DEFAULT_URL,
 };
 

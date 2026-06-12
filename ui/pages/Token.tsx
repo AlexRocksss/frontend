@@ -278,7 +278,7 @@ const TokenPageContent = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd mb={ 6 } pageKey="token"/>
 
       <TokenPageTitle
         tokenQuery={ tokenQuery }

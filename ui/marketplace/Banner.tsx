@@ -62,6 +62,7 @@ const Banner = ({ apps = [], favoriteApps, isLoading, onInfoClick, onFavoriteCli
       { !isMobile && (
         <AdBanner
           format="mobile"
+          pageKey="marketplace"
           w="fit-content"
           flexShrink={ 0 }
           borderRadius="md"

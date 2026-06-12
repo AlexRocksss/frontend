@@ -2,6 +2,7 @@ import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { BannerFormat } from './types';
+import type { CustomAdPageKey } from 'types/client/adProviders';
 
 import config from 'configs/app';
 import { useAppContext } from 'lib/contexts/app';
@@ -15,9 +16,10 @@ interface Props {
   className?: string;
   isLoading?: boolean;
   format?: BannerFormat;
+  pageKey?: CustomAdPageKey;
 }
 
-const AdBanner = ({ className, isLoading, format }: Props) => {
+const AdBanner = ({ className, isLoading, format, pageKey }: Props) => {
   const provider = useAppContext().adBannerProvider;
 
   const hasAdblockCookie = cookies.get(cookies.NAMES.ADBLOCK_DETECTED, useAppContext().cookies);
@@ -32,6 +34,7 @@ const AdBanner = ({ className, isLoading, format }: Props) => {
       isLoading={ isLoading }
       provider={ provider }
       format={ format }
+      pageKey={ pageKey }
     />
   );
 };

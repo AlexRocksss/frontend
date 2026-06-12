@@ -1,7 +1,7 @@
 import type { Feature } from './types';
 import type { AdButlerConfig } from 'types/client/adButlerConfig';
 import { SUPPORTED_AD_BANNER_PROVIDERS } from 'types/client/adProviders';
-import type { AdBannerProviders, AdBannerAdditionalProviders } from 'types/client/adProviders';
+import type { AdBannerProviders, AdBannerAdditionalProviders, CustomAdConfig } from 'types/client/adProviders';
 
 import app from '../app';
 import { getEnvValue, parseEnvJson } from '../utils';
@@ -18,7 +18,7 @@ const isSpecifyEnabled = getEnvValue('NEXT_PUBLIC_AD_BANNER_ENABLE_SPECIFY') ===
 const title = 'Banner ads';
 
 type AdsBannerFeatureProviderPayload = {
-  provider: Exclude<AdBannerProviders, 'adbutler' | 'none'>;
+  provider: Exclude<AdBannerProviders, 'adbutler' | 'none' | 'custom'>;
 } | {
   provider: 'adbutler';
   adButler: {
@@ -28,7 +28,7 @@ type AdsBannerFeatureProviderPayload = {
     };
   };
 } | {
-  provider: Exclude<AdBannerProviders, 'adbutler' | 'none'>;
+  provider: Exclude<AdBannerProviders, 'adbutler' | 'none' | 'custom'>;
   additionalProvider: 'adbutler';
   adButler: {
     config: {
@@ -36,6 +36,9 @@ type AdsBannerFeatureProviderPayload = {
       mobile: AdButlerConfig;
     };
   };
+} | {
+  provider: 'custom';
+  customAdConfig: CustomAdConfig;
 };
 
 type AdsBannerFeaturePayload = AdsBannerFeatureProviderPayload & {
@@ -44,6 +47,25 @@ type AdsBannerFeaturePayload = AdsBannerFeatureProviderPayload & {
 
 const config: Feature<AdsBannerFeaturePayload> = (() => {
   if (app.isPrivateMode) {
+    return Object.freeze({
+      title,
+      isEnabled: false,
+    });
+  }
+
+  if (provider === 'custom') {
+    const customAdConfig = parseEnvJson<CustomAdConfig>(getEnvValue('NEXT_PUBLIC_CUSTOM_AD_CONFIG'));
+
+    if (customAdConfig && Array.isArray(customAdConfig.ads) && customAdConfig.pages) {
+      return Object.freeze({
+        title,
+        isEnabled: true,
+        provider,
+        customAdConfig,
+        isSpecifyEnabled: false,
+      });
+    }
+
     return Object.freeze({
       title,
       isEnabled: false,

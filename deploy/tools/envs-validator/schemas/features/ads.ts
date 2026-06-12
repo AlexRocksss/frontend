@@ -29,6 +29,44 @@ const adButlerConfigSchema = yup
       .required(),
   });
 
+const customAdPageSchema = yup.object({
+  enabled: yup.boolean().required(),
+  ad_ids: yup.array().of(yup.string().required()),
+});
+
+const customAdConfigSchema = yup
+  .object()
+  .transform(replaceQuotes)
+  .json()
+  .when('NEXT_PUBLIC_AD_BANNER_PROVIDER', {
+    is: (value: AdBannerProviders) => value === 'custom',
+    then: (schema) => schema
+      .shape({
+        ads: yup
+          .array()
+          .of(
+            yup.object({
+              id: yup.string().required(),
+              image_url: yup.string().required(),
+              image_url_dark: yup.string(),
+              link_url: yup.string().required(),
+              alt: yup.string(),
+            }),
+          )
+          .required(),
+        pages: yup
+          .object({
+            home: customAdPageSchema,
+            tx: customAdPageSchema,
+            address: customAdPageSchema,
+            token: customAdPageSchema,
+            marketplace: customAdPageSchema,
+          })
+          .required(),
+      })
+      .required(),
+  });
+
 export const adsSchema = yup.object({
     NEXT_PUBLIC_AD_TEXT_PROVIDER: yup.string<AdTextProviders>().oneOf(SUPPORTED_AD_TEXT_PROVIDERS),
     NEXT_PUBLIC_AD_BANNER_PROVIDER: yup.string<AdBannerProviders>().oneOf(SUPPORTED_AD_BANNER_PROVIDERS),
@@ -36,4 +74,5 @@ export const adsSchema = yup.object({
     NEXT_PUBLIC_AD_ADBUTLER_CONFIG_DESKTOP: adButlerConfigSchema,
     NEXT_PUBLIC_AD_ADBUTLER_CONFIG_MOBILE: adButlerConfigSchema,
     NEXT_PUBLIC_AD_BANNER_ENABLE_SPECIFY: yup.boolean(),
+    NEXT_PUBLIC_CUSTOM_AD_CONFIG: customAdConfigSchema,
 });

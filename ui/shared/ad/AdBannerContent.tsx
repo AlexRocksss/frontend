@@ -2,7 +2,7 @@ import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { BannerFormat } from './types';
-import type { AdBannerProviders } from 'types/client/adProviders';
+import type { AdBannerProviders, CustomAdPageKey } from 'types/client/adProviders';
 
 import config from 'configs/app';
 import useAccount from 'lib/web3/useAccount';
@@ -12,6 +12,7 @@ import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 import AdbutlerBanner from './AdbutlerBanner';
 import CoinzillaBanner from './CoinzillaBanner';
 import { DESKTOP_BANNER_WIDTH, MOBILE_BANNER_WIDTH } from './consts';
+import CustomBanner from './CustomBanner';
 import SliseBanner from './SliseBanner';
 import SpecifyBanner from './SpecifyBanner';
 
@@ -23,9 +24,10 @@ interface Props {
   isLoading?: boolean;
   format?: BannerFormat;
   provider: AdBannerProviders;
+  pageKey?: CustomAdPageKey;
 }
 
-const AdBannerContent = ({ className, isLoading, provider, format }: Props) => {
+const AdBannerContent = ({ className, isLoading, provider, format, pageKey }: Props) => {
   const { address: addressWC, isConnecting } = useAccount();
   const profileQuery = useProfileQuery();
   const [ showSpecify, setShowSpecify ] = React.useState(isSpecifyEnabled);
@@ -37,6 +39,12 @@ const AdBannerContent = ({ className, isLoading, provider, format }: Props) => {
   const address = addressWC || profileQuery.data?.address_hash as `0x${ string }` | undefined;
 
   const content = (() => {
+    if (provider === 'custom') {
+      if (!pageKey) {
+        return null;
+      }
+      return <CustomBanner format={ format } pageKey={ pageKey }/>;
+    }
     if (showSpecify) {
       const isLoading = address ? false : profileQuery.isLoading || isConnecting;
       return <SpecifyBanner format={ format } address={ address } onEmpty={ handleEmptySpecify } isLoading={ isLoading }/>;

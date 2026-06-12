@@ -134,7 +134,7 @@ const TransactionPageContent = () => {
 
   return (
     <AddressHighlightProvider>
-      <TextAd mb={ 6 }/>
+      <TextAd mb={ 6 } pageKey="tx"/>
       <PageTitle
         title={ t('pages.transactionDetails') }
         contentAfter={ tags }
