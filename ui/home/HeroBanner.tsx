@@ -51,46 +51,58 @@ const HeroBanner = () => {
   };
 
   return (
-    <Flex
-      w="100%"
-      background={ background }
-      border={ border }
-      borderRadius="md"
-      p={{ base: 4, lg: 8 }}
-      columnGap={ 8 }
-      alignItems="center"
-    >
-      <Box flexGrow={ 1 }>
-        <Flex mb={{ base: 2, lg: 3 }} justifyContent="space-between" alignItems="center" columnGap={ 2 }>
-          <Heading
-            as="h1"
-            fontSize={{ base: '18px', lg: '30px' }}
-            lineHeight={{ base: '24px', lg: '36px' }}
-            fontWeight={{ base: 500, lg: 700 }}
-            color={ textColor }
-          >
-            {
-              config.meta.seo.enhancedDataEnabled ?
-                t('home.blockchainExplorer', { chain: config.chain.name }) :
-                t('home.explorer', { chain: config.chain.name })
-            }
-          </Heading>
-          { config.UI.navigation.layout === 'vertical' && (
-            <Box display={{ base: 'none', lg: 'flex' }} gap={ 2 }>
-              { config.features.rewards.isEnabled && <RewardsButton variant="hero"/> }
-              <UserProfileDesktop buttonVariant="hero"/>
-            </Box>
-          ) }
-        </Flex>
-        <Box display={{ base: 'flex', lg: 'none' }}>
-          <SearchBarMobile isHeroBanner/>
+    <>
+      <Flex
+        w="100%"
+        background={ background }
+        border={ border }
+        borderRadius="md"
+        p={{ base: 4, lg: 8 }}
+        columnGap={ 8 }
+        alignItems="center"
+      >
+        <Box flexGrow={ 1 }>
+          <Flex mb={{ base: 2, lg: 3 }} justifyContent="space-between" alignItems="center" columnGap={ 2 }>
+            <Heading
+              as="h1"
+              fontSize={{ base: '18px', lg: '30px' }}
+              lineHeight={{ base: '24px', lg: '36px' }}
+              fontWeight={{ base: 500, lg: 700 }}
+              color={ textColor }
+            >
+              {
+                config.meta.seo.enhancedDataEnabled ?
+                  t('home.blockchainExplorer', { chain: config.chain.name }) :
+                  t('home.explorer', { chain: config.chain.name })
+              }
+            </Heading>
+            { config.UI.navigation.layout === 'vertical' && (
+              <Box display={{ base: 'none', lg: 'flex' }} gap={ 2 }>
+                { config.features.rewards.isEnabled && <RewardsButton variant="hero"/> }
+                <UserProfileDesktop buttonVariant="hero"/>
+              </Box>
+            ) }
+          </Flex>
+          <Box display={{ base: 'flex', lg: 'none' }}>
+            <SearchBarMobile isHeroBanner/>
+          </Box>
+          <Box display={{ base: 'none', lg: 'flex' }}>
+            <SearchBar isHeroBanner/>
+          </Box>
         </Box>
-        <Box display={{ base: 'none', lg: 'flex' }}>
-          <SearchBar isHeroBanner/>
-        </Box>
-      </Box>
-      { !isMobile && <AdBanner format="mobile" pageKey="home" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
-    </Flex>
+        { !isMobile && <AdBanner format="mobile" pageKey="home" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
+      </Flex>
+      { isMobile && (
+        <AdBanner
+          format="mobile"
+          pageKey="home"
+          mt={ 3 }
+          borderRadius="md"
+          overflow="hidden"
+          justifyContent="center"
+        />
+      ) }
+    </>
   );
 };
 
