@@ -39,7 +39,9 @@ function buildPool(adsConfig: CustomAdConfig, pageKey: CustomAdPageKey): Array<C
 
 const CustomBanner = ({ className, format = 'responsive', pageKey }: Props) => {
   const isMobileViewport = useIsMobile();
-  const isMobile = format === 'mobile' || (format === 'responsive' && isMobileViewport);
+  // dimensions follow the `format` prop (parent decides the slot size);
+  // image variant follows the actual viewport (image_url_mobile is for phones).
+  const isMobileFormat = format === 'mobile' || (format === 'responsive' && isMobileViewport);
 
   const pool = React.useMemo(() => {
     if (!feature.isEnabled || feature.provider !== 'custom') {
@@ -71,9 +73,9 @@ const CustomBanner = ({ className, format = 'responsive', pageKey }: Props) => {
 
   const ad = index !== null ? pool[index] : null;
 
-  const lightSrc = (isMobile ? ad?.image_url_mobile : undefined) ?? ad?.image_url ?? '';
+  const lightSrc = (isMobileViewport ? ad?.image_url_mobile : undefined) ?? ad?.image_url ?? '';
   const darkSrc =
-    (isMobile ? ad?.image_url_mobile_dark ?? ad?.image_url_mobile : undefined) ??
+    (isMobileViewport ? ad?.image_url_mobile_dark ?? ad?.image_url_mobile : undefined) ??
     ad?.image_url_dark ??
     ad?.image_url ?? '';
   const src = useColorModeValue(lightSrc, darkSrc);
@@ -82,7 +84,7 @@ const CustomBanner = ({ className, format = 'responsive', pageKey }: Props) => {
     return null;
   }
 
-  const { width, height } = isMobile ?
+  const { width, height } = isMobileFormat ?
     { width: MOBILE_BANNER_WIDTH, height: MOBILE_BANNER_HEIGHT } :
     { width: DESKTOP_BANNER_WIDTH, height: DESKTOP_BANNER_HEIGHT };
 
